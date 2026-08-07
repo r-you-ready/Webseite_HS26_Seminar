@@ -1,0 +1,274 @@
+---
+title: "hausuebung_2"
+editor: visual
+format:
+  html:
+    toc: TRUE
+    echo: false
+    eval: true
+    message: false
+    warning: false
+    fig-show: "hide"
+    embed-resources: true
+---
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(psych)
+library(knitr)
+library(apaTables)
+```
+
+# Hausübung 2
+
+## 📅 Formalitäten und Abgabe
+
+-   **Abgabe bis:** Freitag 28.11, 23:55 via ILIAS
+
+-   **Zip-Datei benennen:** `vorname_nachname.zip`
+
+    -   **Gerendertes Skript:** `vorname_nachname_hausuebung_2.html`
+
+    -   **Ungerendertes Quarto-Skript:** `vorname_nachname_hausuebung_2.qmd`
+
+-   **Peer Feedback:** Bis 3.12 direkt an die Person und im Forum als Zusammenfassung. Im Forum bitte auch Namen der Person, für die das Feedback bestimmt ist, nennen.
+
+## Aufgabe 1: Datensatz einlesen und Deskriptive Statistik
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+#| eval: true
+
+# Copy CSV into project root (optional)
+file.copy("raw/practice_dataset2.csv", "practice_dataset2.csv", overwrite = TRUE)
+
+# Copy CSV into _site/ folder where the HTML actually lives
+file.copy("raw/practice_dataset2.csv",
+          "_site/practice_dataset2.csv",
+          overwrite = TRUE)
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+#| eval: true
+
+# Download button
+cat('<a href="practice_dataset2.csv" download class="btn btn-primary">📥 Download practice_dataset2.csv</a>')
+
+
+```
+
+### 1.1 Vorbereitungen und Datensatz einlesen
+
+Stelle in deinem Quarto Header die folgenden Dinge ein. Achtung: Achte auf die Einrückung der Einstellungen. Wenn das nicht von Hand klappt kann man sich bei der Einrückung von einem LLM helfen lassen. 😉.
+
+-   **format: html**
+
+-   **embed-resources: true**
+
+-   **table of contents (toc) = true**
+
+Lies den folgenden Datensatz ein: **Practice_dataset2**
+
+```{r, eval = FALSE}
+practice_dataset2 <- read_delim("raw/practice_dataset2.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+### 1.2 Mittelwert und Standardabweichung (Self-Efficacy)
+
+Berechne den **Mittelwert** und die **Standardabweichung** der Variable `self_efficacy` für jede Gruppe (`condition`). Runde die Ergebnisse jeweils auf drei Nachkommastellen. Speichere diese deskriptive Statistik in einen neuen Dataframe ab.
+
+```{r, eval = FALSE}
+practice_dataset2 <- read_delim("raw/practice_dataset2.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+```{r, eval = FALSE}
+
+practice_dataset_sum <- practice_dataset2 %>% 
+  group_by(condition) %>% 
+  summarize(
+    mean_selfeff = round(mean(self_efficacy, na.rm = TRUE), 3),
+    sd_selfeff = round(sd(self_efficacy, na.rm = TRUE), 3) #mit einem "," getrennt, koennt ihr beliebig viele zusammenfassende Berechnungen hintereinander in einem Call durchfuehren
+  )
+```
+
+### 1.3 Tabelle formatieren mit `kable`
+
+Nutze `kable` um Formatierungen am unter 1.2 erstellten Dataframe durchzuführen (Überschrift ergänzen, Spalten benennen, Nachkommastellen anpassen).
+
+```{r, eval = FALSE}
+kable(practice_dataset_sum,   caption = "Zusammenfassung der Self-Efficacy nach Bedingung",   col.names = c("Bedingung", "Mittelwert Self-Efficacy", "SD Self-Efficacy"),   digits = 3 ) 
+```
+
+### 1.4 Schiefe und Kurtosis
+
+Berechne zusätzlich die **Schiefe** (`skew`) und **Kurtosis** (`kurtosi`) der Variable `self_efficacy` pro Gruppe (`condition`), mit Funktionen aus dem Paket `psych`.
+
+```{r, eval = FALSE}
+practice_dataset_dis <- practice_dataset2 %>%    
+  group_by(condition) %>%   
+  summarize(     
+    skew = round(psych::skew(self_efficacy), 3), 
+    kurtosis = round(psych::kurtosi(self_efficacy), 3))  
+
+print(practice_dataset_dis) 
+```
+
+## Aufgabe 2: Wide-to-Long Transformation
+
+### 2.1 Wide-to-Long Transformation
+
+Der Originaldatensatz enthält die Spalten `pre_mood`, `mid_mood`, `post_mood`. Verwandle diese mithilfe von `pivot_longer()` in einen **Long-Datensatz** namens `mood_long`. Die neue Spalte mit den Zeitpunkten soll `mood_time` heißen, die mit den Werten `mood_rating`.
+
+```{r, eval = FALSE}
+mood_long <- practice_dataset2 %>%
+  pivot_longer(
+    cols = starts_with("pre_mood"):post_mood, #hier waehlt ihr die Spalten aus, welche vom breiten Datensatz in einen laengeren Datensatz ueberfuehrt werden sollen
+    names_to = "mood_time", #hier benennt ihr die Spalte, in welcher die alten Spaltennamen abgelegt werden
+    values_to = "mood_rating" #hier benennt ihr die Spalte, in welcher die alten Spaltenwerte abgelegt werden
+  )
+
+#alternativen
+mood_long <- practice_dataset2 %>%
+  pivot_longer(
+    cols = c("pre_mood", "mid_mood", "post_mood"), #hier mit der expliziten Nennung aller entsprechenden Spalten
+    names_to = "mood_time",
+    values_to = "mood_rating"
+  )
+
+mood_long <- practice_dataset2 %>%
+  pivot_longer(
+    cols = ends_with("mood"), #hier anhand dessen, womit der Spaltenname endet
+    names_to = "mood_time",
+    values_to = "mood_rating"
+  )
+```
+
+## Aufgabe 3: Plot - Verlaufsdiagramm
+
+### 3.1 Vorbereitung
+
+Im nächsten Schritt verwenden wir den LONG-Datensatz (Siehe Aufgabe 2.1), um den Verlauf über die verschiedenen Zeitpunkte darzustellen. Das Ziel ist es, die Stimmung (mood) zu den unterschiedlichen Zeitpunkten, aggregiert nach den Konditionen, als Verlaufsdiagramm abzubilden.
+
+-   Dafür soll mood_time in einen Faktor mit geordneten Faktorstufen (pre, mid und post) umgewandelt werden.
+
+-   Erstelle einen Summary, welches die für den Plot benötigten Angaben zusammenfasst (Durschschnittlicher Mood gruppiert nach Condition und Zeitpunkt).
+
+```{r, echo=FALSE, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+
+mood_long$mood_time <- factor(
+  mood_long$mood_time,
+  levels = c("pre_mood", "mid_mood", "post_mood")
+)
+
+levels(mood_long$mood_time)
+
+
+data_plot <- mood_long |>
+  group_by(mood_time, condition) |> 
+  summarise(mean_mood = mean(mood_rating))
+
+```
+
+### 3.2 Initialier Lineplot
+
+Plotte die Elemente `mood_time` und `mean_mood`. Gruppiere die conditions nach Farbe.
+
+💡Tipp: Wenn du den Plot einem Objekt zuweist, kannst du ihn weiterverwenden, indem du das Objekt aufrufst und erweiterst. So musst du den Code nicht jedes Mal neu ausschreiben.
+
+```{r, eval= FALSE}
+plot <- data_plot |>
+  ggplot(aes(x = mood_time, y = mean_mood, color = condition)+
+  geom_line()
+
+plot
+```
+
+### 3.3 Farbpalette für Farbenblinde
+
+Passe nun den Plot aus 3.2 so an, dass er eine **Farbpalette** verwendet, die für farbenblinde Personen geeignet ist: Nutze die folgende Palette.
+
+Tipp: Verwende: `scale_color_manual`
+
+```{r, echo = TRUE}
+
+cb_palette <- c(   "#000000", "#E69F00", "#56B4E9", "#009E73",   "#F0E442", "#0072B2", "#D55E00", "#CC79A7" )  
+
+```
+
+```{r, eval = FALSE}
+plot_farbe <- plot +   
+  scale_color_manual(values = cb_palette)  
+
+plot_farbe
+```
+
+### 3.4 Datenpunkte hinzufügen
+
+Füge mit `geom_point()` die einzelnen Punkte auf der Linie ein. Stelle die grösse (`size()` auf 3)
+
+```{r, eval = FALSE}
+plot_2 <- plot_farbe +   
+ geom_point(alpha = 0.5, size = 3)
+plot_2
+```
+
+### 3.5 Finale Formatierung
+
+Füge dem Diagramm **Titel** sowie **Achsenbeschriftungen** zu deinem Plot und verwende ein Theme das du passend findest.
+
+![](../../images/EH_10/themes_ggplot.png){fig-align="center" width="518"}
+
+```{r, eval = FALSE}
+plot_3 <- plot_2 +    
+  labs(     
+    title = "Zeitlicher Verlauf Mood",
+    y = "Mood",    
+    x = "Messzeitpunkt",    
+    color = "Bedingung"   ) +  
+  theme_classic()  
+print(plot_3)
+```
+
+### 3.6 Plot speichern
+
+Speichere den Plot ab mit `ggsave` als **png** ab.
+
+```{r, eval = FALSE}
+#ggsave("mein_scatterplot.png",
+#plot = final_scatter)
+```
+
+## 4. Subsetting und *t*-Test
+
+Erstelle aus dem ursprünglichen Wide Originaldatensatz einen neuen Datensatz `subset_mood`, der nur Daten der Gruppe **experimental** beinhaltet.
+
+```{r, eval = FALSE}
+subset_mood <- practice_dataset2 %>%   filter(condition == "experimental") 
+```
+
+### 4.1 Gepaarter *t*-Test
+
+Prüfe nun (anhand des unter 4. erstellen Datensatzes) mittels eines gepaarten *t*-Test ob sich `pre_mood` und `post_mood` in der Gruppe *experimental* unterscheiden. Nutze dafür die Funktion `t.test()`. Lass dir das Ergebnis mit `print()` ausgeben.
+
+```{r, eval = FALSE}
+t_test_result <- t.test(subset_mood$pre_mood, subset_mood$post_mood, paired = TRUE) 
+
+print(t_test_result)
+# hier gilt paired = TRUE, da sich die beiden Messungen bedingen (sie sind beide von der selben Person, lediglich zu unterschiedlichen Zeitpunkten aufgenommen worden) 
+```
+
+## 5. Rendern und Hochladen
+
+-   Rendere dein Skript als HTML
+
+-   Lade deine Abgabe (Skript + HTML) als ZIP ordner in ILIAS hoch und schicke sie deinem/deiner Peepartner:in.

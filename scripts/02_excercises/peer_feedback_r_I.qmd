@@ -1,0 +1,97 @@
+---
+title: "Hausübung: Peer-Feedback R Übung I"
+format: html
+editor: visual
+---
+
+## Ziel des Peer-Feedbacks
+
+Ziel dieses Peer-Feedbacks ist es, die Qualität der Abgaben systematisch zu reflektieren und zu verbessern.\
+Die folgenden Kriterien orientieren sich an den Anforderungen der Abschlussabgabe und geben dir eine klare Struktur für dein Feedback.
+
+Bitte formuliere dein Feedback **konstruktiv**, **konkret** und **ausgewogen**:
+
+-   Nenne **Stärken** der Abgabe
+
+-   Identifiziere **Verbesserungspotenziale**
+
+-   Begründe deine Einschätzungen nachvollziehbar
+
+👉 **Wichtig:**\
+Das Feedback soll **direkt im `.qmd`-Skript** deiner Peer-Partner:in erfolgen und **kursiv formatiert** sein.
+
+## Abgabestruktur
+
+Bitte beachte folgende Vorgaben:
+
+-   Lade den ZIP-Ordner auf ILIAS hoch **und** sende ihn zusätzlich an deine Peer-Partner:in
+-   Behalte die originalen Dateinamen bei und ergänze das Suffix `_feedback`
+
+### Benennung
+
+-   **ZIP-Ordner:**\
+    `vorname_peer_nachname_peer_feedback.zip`
+
+-   **Quarto-Skript:**\
+    `vorname_nachname_hausuebung_2_feedback.qmd`
+
+-   **Gerenderte Datei:**\
+    `vorname_nachname_hausuebung_2_feedback.html`\
+    *(alternativ: .pdf oder .docx)*
+
+## Feedback-Kriterien
+
+Dein Feedback soll sich an den folgenden sechs Bereichen orientieren.\
+Gehe dabei **mindestens auf die aufgeführten Fragen ein**.
+
+### 1. Formale Anforderungen
+
+-   Liegt die Abgabe als ZIP-Ordner vor?
+-   Enthält der ZIP-Ordner:
+    -   das `.qmd`-Skript?
+    -   das gerenderte Dokument?
+-   Wurden alle Dateien korrekt benannt?
+
+### 2. Reproduzierbarkeit
+
+-   Werden **keine Pakete im Skript installiert** (`install.packages()`)?
+-   Werden alle benötigten Pakete **zu Beginn in einem separaten Chunk geladen**?
+-   Ist der Code zum **Einlesen der Daten vollständig enthalten**?
+-   Wird ein **relativer Pfad** verwendet?
+-   Gibt es **redundante oder unnötige Codeabschnitte**?
+-   Ist das Skript:
+    -   vollständig **ausführbar**?
+    -   **fehlerfrei renderbar**?
+
+### 3. Vollständigkeit
+
+-   Wurden **alle Aufgaben und Teilaufgaben** bearbeitet?
+-   Sind alle **notwendigen Outputs** vorhanden?
+-   Werden alle Fragen **beantwortet**?
+
+### 4. Inhaltliche Korrektheit
+
+-   Sind die Lösungen **fachlich korrekt**?
+-   Wurden **geeignete Funktionen und Lösungswege** gewählt?
+-   Werden die **gelernten Funktionen korrekt angewendet**?
+
+### 5. Nachvollziehbarkeit und Dokumentation
+
+-   Ist das Skript **klar strukturiert** (Aufgaben, Unteraufgaben)?
+-   Ist der Code sinnvoll:
+    -   **kommentiert**?
+    -   **gegliedert**?
+-   Werden Ergebnisse:
+    -   **erklärt** oder nur ausgegeben?
+-   Ist das Vorgehen für **Aussenstehende nachvollziehbar**?
+
+### 6. Qualität und Stil
+
+-   Ist der Code insgesamt **gut lesbar**?
+-   Ist die Formatierung **konsistent**?
+-   Werden **verständliche Variablennamen** verwendet?
+-   Wird durchgehend **snake_case** verwendet?
+
+## Hinweis
+
+Diese Kriterien entsprechen den Anforderungen, die auch bei der **Bewertung der Abschlussabgabe** berücksichtigt werden.

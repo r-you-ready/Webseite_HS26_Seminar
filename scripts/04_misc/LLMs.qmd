@@ -1,0 +1,109 @@
+---
+title: "LLMs in RStudio"
+format: html
+---
+
+# GitHub-Copilot
+
+GitHub-Copilot ist ein KI-gestütztes Tool, das von GitHub entwickelt wurde, um Entwicklern bei der Codeerstellung zu helfen. [GitHub](https://github.com/) ist eine Cloud-Plattform von Microsoft, welche darauf spezialisiert ist Code zu teilen. Um GitHub-Copilot nutzen zu können wird ein Pro-Account auf GitHub benötigt. Mit der Studi-Mail der UniBern kann man diesen kostenlos erhalten. Mehr Informationen dazu gibt es [hier](https://github.com/education/students).
+
+Ist der Pro-Account eingerichtet und bestätigt, kann der Copilot über *Tools --\> Global Options --\> Copilot* und das dortige Einloggen in den Account aktiviert und an entsprechender Stelle auch wieder abgestellt werden.
+
+Vorschlag von Copilot:
+
+# Chat-Interface
+
+Anstatt das Chat-Interface von Large Langauge Models (LLMs) im Browser zu verwenden ist es auch möglich sich dieses in RStudio einzubinden. Hier wird das am Beispiel von Metas Open-Source Modell *llama-3.3-70b-versatile* gezeigt:
+
+Grundlegend muss ein Account bei dem Anbieter des LLMs vorhanden sein. Im Fall von Groq kann dieser [hier](https://console.groq.com/home) erstellt werden.
+
+Um sich gegenüber dem Anbieter, indesem Fall bei Groq, zu authentifizieren muss ein sogenanter [API-Key](https://console.groq.com/keys) erstellt werden.
+
+::: {.callout-note collapse="false" title="API-Keys"}
+Die Nutzung von APIs ist in der Regel kostenpflichtig. Daher müsste vor dem Einsatz von API-Keys erst Geld auf den account geladen werden. Groq stellt Metas Open-source Modell *llama-3.3-70b-versatile* allerdings begrenzt kostenlos zur Verfügung.
+:::
+
+Grundlegend für die Einbindung von LLMs anhand des Chat-Interface sind die packages `shiny`, `httr2`, `jsonlite` und `ellmer`. Sie sorgen am Ende dafür, dass im Hintergrund der Input des Chats vom Anbieter richtig verarbeitet und die Antwort wiederum richtig angezeigt werden kann.
+
+```{r, eval = FALSE}
+install.packages("shiny")
+install.packages("httr2")
+install.packages("jsonlite")
+install.packages("ellmer")
+```
+
+Dann gilt es noch das für das Interface eigentlich relevante package `chattr` zu installieren.
+
+```{r, eval=FALSE}
+install.packages("chattr")
+```
+
+Als letztes benötigt es noch das package `usethis`. Dieses wird später benötigt, um den API-Key sicher abzurufen.
+
+```{r, eval = FALSE}
+install.packages("usethis")
+```
+
+::: {.callout-note collapse="false" title="Installation von packages"}
+**Reminder**: packages müssen nur bei erster Verwendung installiert werden. Danach können sie einfach mit `library(PAKETNAME)` geladen werden. Sprich, alles bisherige in diesem Skript kann bei wiederholter Anwendung einfach ignoriert werden!
+:::
+
+Nun gilt es den API-Key sicher in RStudio zu hinterlegen. Dies passiert nicht direkt im Skript, da der Key sonst von anderen Personen sichtbar sein könnte. Der Key wird stattdessen in einer externen Datei abgelegt und diese Datei wird mit dem Skript verbunden. Folgender Code öffnet die externe Datei:
+
+```{r, eval = FALSE}
+usethis::edit_r_environ()
+```
+
+In diesem kann nun der API-Key nach der Notation `XY_API_KEY=PLATZHALTER` gesetzt werden. Danach muss das Skript und das neue Fenster (die .Renviron-Datei) gespeichert und das Skript neu gestartet werden.
+
+Folgender Code zeigt, wie der API-Key dann in RStudio abgerufen und einer Variable zugewiesen werden kann.
+
+```{r, eval= FALSE, echo=TRUE}
+GROQ_API_KEY<- Sys.getenv("GROQ_API_KEY") #Der Name des Keys kann je nachdem wie er in der .Renviron benannt worden ist natürlich abweichen!
+```
+
+Nachdem nun auch der API-Key erfolgreich hinzugefügt wurde kann das Chat-Interface von `chattr` gestartet werden.
+
+```{r, eval=FALSE}
+# Definieren des Modells
+groq_chat <- ellmer::chat_groq(model = "llama-3.3-70b-versatile")
+
+# Wir sagen chattr, dass es diesen Chat nutzen soll
+chattr::chattr_use(groq_chat)
+```
+
+```{r, eval = FALSE}
+chattr::chattr_app()
+```
+
+# Chateingabe
+
+Die Chateingabe kann auch direkt über den Code erfolgen, ohne dass ein Chat-Interface geöffnet werden muss. Hier wird das erneut am Beispiel des Open-Source Modells *llama-3.3-70b-versatile* des Anbieters Groq gezeigt:
+
+```{r, eval=FALSE}
+library(httr2)
+
+api_key <- Sys.getenv("GROQ_API_KEY")
+
+resp <- request("https://api.groq.com/openai/v1/chat/completions") |> 
+  req_headers(Authorization = paste("Bearer", api_key)) |> 
+  req_body_json(list(
+    model = "llama-3.3-70b-versatile",
+    # Hier fügen wir den System Prompt VOR die User-Frage
+    messages = list(
+      list(role = "system", content = "Du bist eine Versuchsperson in einem psychologischen Experiment. Du beantwortest die Fragen so ehrlich wie möglich. Antworte auf einer Likert-Skala von 1-5."),
+      list(role = "user", content = "Wie gerne stehst du morgens früh auf?")
+    ),
+    # Zusätzliche Parameter
+    temperature = 2.0,   # Kreativität: 0.0 ist deterministisch, 2.0 ist kreativ
+    max_tokens = 10     # Maximale Länge der Antwort in Tokens ≈ Wörtern
+  )) |> 
+  req_perform()
+
+answer <- resp_body_json(resp)$choices[[1]]$message$content
+cat(answer)
+```
+
+# Disclaimer
+
+[**Rechtliche Informationen**](https://www.unibe.ch/universitaet/campus__und__infrastruktur/rund_um_computer/soft_und_hardware/software/generative_kis/index_ger.html) der Universität Bern zum Umgang mit generativer KI (unabhängig von ihrer Einbindung in RStudio).

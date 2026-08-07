@@ -1,0 +1,20 @@
+---
+title: "Versionskontrolle"
+date: today
+---
+
+# Grundlage
+
+Um die Reproduzierbarkeit einer Analyse weiter zu verbessern, ist es sinnvoll die Versionskontrolle zu nutzen. Hierunter versteht sich, jegliche Änderungen an den Skripten, den Daten oder den Outputs zu dokumentieren. So kann nachvollzogen werden, wann welche Änderungen vorgenommen von wem vorgenommen wurden. Es ist auch möglich, frühere Versionen der Skripte, Daten oder Outputs wiederherzustellen.
+
+# GitHub
+
+[GitHub](https://github.com/) ist einfach ausgedrückt ein Cloudanbieter wie auch GDrive, OneDrive oder ICloud, allerdings spezialisiert auf Code und Versionskontrolle. In GitHub lassen sich sogenannte Repositories, Projekte, anlegen. Diese sind dann praktisch der Projektordner inklusive aller Unterordner und Dateien, welcher im workflow eingeführt worden sind. Anhand der Anwendung [GitHub Desktop](https://desktop.github.com/download/) kann ein Ordnersystem auf dem eigenen Gerät mit einem Repository auf GitHub verbunden werden. Jegliche Änderungen an den Dateien werden durch sogenannte *commits* (!= abspeichern des Skripts) versioniert. Die alten Dateien werden nicht einfach überschrieben, sondern es wird festgehalten, welche Änderungen es gegenüber der alten Datei gibt. Nach einem commit kann die Änderung dann per *push* auf das repository übertragen werden. Ebenfalls möglich ist es, den aktuellen Stand des Repositories auf das eigene Gerät zu laden. Dies wird *pull* genannt.
+
+# Git
+
+Besonders mächtig ist die Verbindung von einem **skriptbasierten Workflow** mit der Versionskontrolle von GitHub über Git. [Git](https://git-scm.com/) ermöglicht nach einmaliger Einrichtung und Verbindung zum entsprechenden GitHub repository direkt aus der Projketdatei hinaus commits, pushs und pulls zu vollziehen. Somit fällt eine zusätzliche Installation von GitHub Desktop und eine weitere Benutzeroberfläche aus.
+
+::: callout-note
+Eine Anleitung zur einmaligen Einrichtung von Git, GitHub und der Verbindung zwischen beiden findest du [hier](https://happygitwithr.com/). Bei Fragen zur Einrichtung oder zur Nutzung von Git und GitHub kannst du dich auch gerne an uns wenden!
+:::

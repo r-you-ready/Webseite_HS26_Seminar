@@ -1,0 +1,57 @@
+---
+title: "Probleme beim Rendern"
+editor: visual
+draft: true
+---
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE, eval = FALSE}
+library(tidyverse)
+library(here)
+dat_full <- read_csv("data/raw/dat_full.csv")
+```
+
+## Problem
+
+Beim Rendern von Quarto-Files treten Probleme auf, die auf der Auswertung von Filepaths zurückzuführen sind.
+
+Während Code beim einfachen Ausführen in RStudio relativ zum Projektordner interpretiert wird, erfolgt die Pfadauswertung beim Rendern relativ zum Skript selbst. Dies kann zu Render-Fehlern wie dem folgenden führen.
+
+![](../../images/EH_14/Fehlermeldung_path.png){fig-align="center"}
+
+## Lösung mit `here`
+
+Um dieses Problem zu beheben, kann das **here**-Package verwendet werden.\
+**here** evaluiert Pfade konsistent relativ zum Projektordner und verhindert dadurch solche Render-Probleme.
+
+Durch die Verwendung von **here** ändern sich die Angaben des Filepfades beim Einlesen und Schreiben von Dateien leicht. Die einzige Veränderung ist dass wir den Filepfad in die `here` Funktion übergeben (in Klammern). Siehe dafür das Beispiel unten.
+
+Dazu muss das Package **here** zunächst installiert werden:
+
+```{r, echo = TRUE, eval=FALSE}
+install.packages("here")
+library(here)
+```
+
+Und aus diesem Code der zu Problemen führen kann
+
+```{r, echo = TRUE, eval = FALSE}
+data_cb <- read_csv("data/raw/data_cb.csv") #Kann zu Problemen beim Rendern führen. 
+```
+
+**wird**:
+
+```{r, echo = TRUE, eval = FALSE}
+data_cb <- read_csv(here("data/raw/data_cb.csv")) # Sichere Variante
+```
+
+Das gleiche gilt für das schreiben von daten mit `write.csv`
+
+```{r, echo = TRUE, eval = FALSE}
+# Kann zu Problemen führen
+write.csv(dat_full, "data/processed/dat_full.csv")
+
+# Sicherer: Pfad wird immer relativ zum Projekt-Root aufgelöst
+write.csv(dat_full, here("data/processed/dat_full.csv"))
+```
+
+**Das sollte die Probleme lösen!**

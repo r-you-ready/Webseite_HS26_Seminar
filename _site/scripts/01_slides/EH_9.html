@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sandra Grinschgl, Laura Hirt, Lars Schilling">
+
+<title>R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 9 – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_9.html">Einheit 9 - 22.04.2026</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 5 - 18.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 6 - 25.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 7 - 01.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 8 - 15.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_9.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Einheit 9 - 22.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 10 - 29.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 11 - 06.05.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 3 (Woche 5 - 6) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 4 (Woche 7 - 8) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 5 (Woche 9 - 10) - mit Musterlösungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../hausuebungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Datenanalyseplan (18.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Codebook (25.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Codebook (01.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung I (22.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung II (08.05.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" id="toc-r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="nav-link active" data-scroll-target="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</a></li>
+  <li><a href="#heute" id="toc-heute" class="nav-link" data-scroll-target="#heute">Heute:</a></li>
+  <li><a href="#fragen-zu-hands-on-block-4" id="toc-fragen-zu-hands-on-block-4" class="nav-link" data-scroll-target="#fragen-zu-hands-on-block-4">Fragen zu Hands On Block 4?</a></li>
+  <li><a href="#genzplyr" id="toc-genzplyr" class="nav-link" data-scroll-target="#genzplyr">Genzplyr 💅</a></li>
+  <li><a href="#info-masterarbeiten-zu-vergeben" id="toc-info-masterarbeiten-zu-vergeben" class="nav-link" data-scroll-target="#info-masterarbeiten-zu-vergeben">Info: Masterarbeiten zu vergeben!</a></li>
+  <li><a href="#inhalte-heute" id="toc-inhalte-heute" class="nav-link" data-scroll-target="#inhalte-heute">Inhalte heute</a></li>
+  <li><a href="#wie-können-daten-organisiert-sein" id="toc-wie-können-daten-organisiert-sein" class="nav-link" data-scroll-target="#wie-können-daten-organisiert-sein">Wie können Daten organisiert sein?</a></li>
+  <li><a href="#wide-vs.-long" id="toc-wide-vs.-long" class="nav-link" data-scroll-target="#wide-vs.-long">Wide vs.&nbsp;Long</a></li>
+  <li><a href="#warum-ist-das-datenformat-entscheidend" id="toc-warum-ist-das-datenformat-entscheidend" class="nav-link" data-scroll-target="#warum-ist-das-datenformat-entscheidend">Warum ist das Datenformat entscheidend?</a></li>
+  <li><a href="#wide-to-long-tranformation" id="toc-wide-to-long-tranformation" class="nav-link" data-scroll-target="#wide-to-long-tranformation">Wide to Long Tranformation:</a></li>
+  <li><a href="#transformation-wide-long" id="toc-transformation-wide-long" class="nav-link" data-scroll-target="#transformation-wide-long"><strong>Transformation: Wide</strong> → <strong>Long</strong></a></li>
+  <li><a href="#wide-long-mit-pivot_longer" id="toc-wide-long-mit-pivot_longer" class="nav-link" data-scroll-target="#wide-long-mit-pivot_longer"><strong>Wide</strong> → <strong>Long mit <code>pivot_longer()</code></strong></a></li>
+  <li><a href="#wide-long-mit-pivot_longer-1" id="toc-wide-long-mit-pivot_longer-1" class="nav-link" data-scroll-target="#wide-long-mit-pivot_longer-1"><strong>Wide</strong> → <strong>Long mit <code>pivot_longer()</code></strong></a></li>
+  <li><a href="#umgekehrter-fall-long-wide-mit-pivot_wider" id="toc-umgekehrter-fall-long-wide-mit-pivot_wider" class="nav-link" data-scroll-target="#umgekehrter-fall-long-wide-mit-pivot_wider">Umgekehrter Fall: Long → Wide mit <strong><code>pivot_wider()</code></strong></a></li>
+  <li><a href="#paket-tidyr" id="toc-paket-tidyr" class="nav-link" data-scroll-target="#paket-tidyr">Paket tidyr</a></li>
+  <li><a href="#wichtige-funktionen-für-die-datenaufbereitung" id="toc-wichtige-funktionen-für-die-datenaufbereitung" class="nav-link" data-scroll-target="#wichtige-funktionen-für-die-datenaufbereitung">Wichtige Funktionen für die Datenaufbereitung:</a></li>
+  <li><a href="#hands-on" id="toc-hands-on" class="nav-link" data-scroll-target="#hands-on">Hands On!</a></li>
+  <li><a href="#datenqualität" id="toc-datenqualität" class="nav-link" data-scroll-target="#datenqualität">Datenqualität:</a></li>
+  <li><a href="#schiefe-skewness" id="toc-schiefe-skewness" class="nav-link" data-scroll-target="#schiefe-skewness">1. Schiefe (Skewness)</a></li>
+  <li><a href="#wölbung-kurtosis" id="toc-wölbung-kurtosis" class="nav-link" data-scroll-target="#wölbung-kurtosis">2. Wölbung (Kurtosis)</a></li>
+  <li><a href="#normalverteilung-der-residuen" id="toc-normalverteilung-der-residuen" class="nav-link" data-scroll-target="#normalverteilung-der-residuen">3. Normalverteilung der Residuen</a></li>
+  <li><a href="#normalverteilung-der-residuen-1" id="toc-normalverteilung-der-residuen-1" class="nav-link" data-scroll-target="#normalverteilung-der-residuen-1">3. Normalverteilung der Residuen</a></li>
+  <li><a href="#visuelle-form-der-überprüfung-qq-plot" id="toc-visuelle-form-der-überprüfung-qq-plot" class="nav-link" data-scroll-target="#visuelle-form-der-überprüfung-qq-plot">3. Visuelle Form der Überprüfung: QQ-Plot</a></li>
+  <li><a href="#ausreisser" id="toc-ausreisser" class="nav-link" data-scroll-target="#ausreisser">4. Ausreisser</a></li>
+  <li><a href="#ausreisser-1" id="toc-ausreisser-1" class="nav-link" data-scroll-target="#ausreisser-1">4. Ausreisser</a></li>
+  <li><a href="#ausreisser-2" id="toc-ausreisser-2" class="nav-link" data-scroll-target="#ausreisser-2">4. Ausreisser</a></li>
+  <li><a href="#interpretation-von-ausreissern" id="toc-interpretation-von-ausreissern" class="nav-link" data-scroll-target="#interpretation-von-ausreissern">4. Interpretation von Ausreissern</a></li>
+  <li><a href="#skalenreliabilität" id="toc-skalenreliabilität" class="nav-link" data-scroll-target="#skalenreliabilität">5. Skalenreliabilität</a></li>
+  <li><a href="#skalenreliabilität-cronbachs-alpha" id="toc-skalenreliabilität-cronbachs-alpha" class="nav-link" data-scroll-target="#skalenreliabilität-cronbachs-alpha">5. Skalenreliabilität: Cronbach’s Alpha</a></li>
+  <li><a href="#skalenreliabilität-weitere-formen-der-reliabilität" id="toc-skalenreliabilität-weitere-formen-der-reliabilität" class="nav-link" data-scroll-target="#skalenreliabilität-weitere-formen-der-reliabilität">5. Skalenreliabilität: Weitere Formen der Reliabilität</a></li>
+  <li><a href="#heute-haben-wir" id="toc-heute-haben-wir" class="nav-link" data-scroll-target="#heute-haben-wir">Heute haben wir:</a></li>
+  <li><a href="#bis-nächste-woche" id="toc-bis-nächste-woche" class="nav-link" data-scroll-target="#bis-nächste-woche">Bis nächste Woche</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="EH_9.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_9.html">Einheit 9 - 22.04.2026</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 9</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sandra Grinschgl, Laura Hirt, Lars Schilling </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="level2">
+<h2 class="anchored" data-anchor-id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</h2>
+<p>FS 2026<br><br><br> <strong>LV-Leitung</strong>: Dr.&nbsp;Sandra Grinschgl / MSc. Laura Hirt<br> <strong>Tutor</strong>: BSc. Lars Schilling<br><br><br><strong>9. Einheit</strong>, 22.04.2026</p>
+<hr>
+</section>
+<section id="heute" class="level2">
+<h2 class="anchored" data-anchor-id="heute">Heute:</h2>
+<div style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; ">
+<embed src="../../PDFs/Syllabus.pdf#view=FitH&amp;navpanes=0&amp;toolbar=0" type="application/pdf" style="width:100%; height:220vh; border:0; display:block; background:white;">
+</div>
+<hr>
+</section>
+<section id="fragen-zu-hands-on-block-4" class="level2">
+<h2 class="anchored" data-anchor-id="fragen-zu-hands-on-block-4">Fragen zu Hands On Block 4?</h2>
+<p>Neue Variablen im Codebook ergänzen bzw. anpassen</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_7/Bild1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="411"></p>
+</figure>
+</div>
+<div class="notes">
+<p>mmq_mean &amp; Pre Ratings</p>
+</div>
+<hr>
+</section>
+<section id="genzplyr" class="level2">
+<h2 class="anchored" data-anchor-id="genzplyr">Genzplyr 💅</h2>
+<p>Falls euch die <code>dplyr()</code> Funktionen zu Öde sind 😄<a href="https://hadley.github.io/genzplyr/">genzplyr</a> - Hadley Wickham</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_9/Genzplyr.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="info-masterarbeiten-zu-vergeben" class="level2">
+<h2 class="anchored" data-anchor-id="info-masterarbeiten-zu-vergeben">Info: Masterarbeiten zu vergeben!</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><img src="../../images/EH_10/MA_1.png" class="img-fluid"></p>
+</div><div class="column" style="width:33%;">
+<p><img src="../../images/EH_10/MA_2.png" class="img-fluid"></p>
+</div><div class="column" style="width:33%;">
+<p><img src="../../images/EH_10/MA_3.png" class="img-fluid"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="inhalte-heute" class="level2">
+<h2 class="anchored" data-anchor-id="inhalte-heute">Inhalte heute</h2>
+<p><br></p>
+<p><strong>1. Daten strukturieren</strong></p>
+<ul>
+<li><p>Wide- vs.&nbsp;Long-Format verstehen</p></li>
+<li><p>Daten gezielt transformieren</p></li>
+</ul>
+<p><strong>2. Datenqualität prüfen</strong></p>
+<ul>
+<li><p>Verteilungen beurteilen (Schiefe, Kurtosis)</p></li>
+<li><p>Ausreisser erkennen</p></li>
+<li><p>Skalenreliabilität einschätzen</p></li>
+</ul>
+<hr>
+</section>
+<section id="wie-können-daten-organisiert-sein" class="level2">
+<h2 class="anchored" data-anchor-id="wie-können-daten-organisiert-sein">Wie können Daten organisiert sein?</h2>
+<p><strong>Zwei typische Formate:</strong></p>
+<ul>
+<li><p>Wide Format</p></li>
+<li><p>Long Format</p></li>
+</ul>
+<p>👉 <em>Beide enthalten die gleichen Informationen – <strong>aber unterschiedlich strukturiert.</strong></em></p>
+<hr>
+</section>
+<section id="wide-vs.-long" class="level2">
+<h2 class="anchored" data-anchor-id="wide-vs.-long">Wide vs.&nbsp;Long</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_10/Datenformat.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="411"></p>
+</figure>
+</div>
+<p><strong>Wide:</strong> eine Zeile = eine Person</p>
+<p><strong>Long:</strong> eine Zeile = eine Messung</p>
+<hr>
+</section>
+<section id="warum-ist-das-datenformat-entscheidend" class="level2">
+<h2 class="anchored" data-anchor-id="warum-ist-das-datenformat-entscheidend">Warum ist das Datenformat entscheidend?</h2>
+<p><br></p>
+<p><strong>Viele statistische Analysen erwarten Long Format</strong></p>
+<ul>
+<li><p>Jede Zeile = eine Beobachtung</p></li>
+<li><p>notwendig bei mehreren Messzeitpunkten pro Person</p></li>
+</ul>
+<p><strong>Beispiel: Veränderung über die Zeit</strong></p>
+<ul>
+<li><p>Person 1: T1 → T2 → T3</p></li>
+<li><p>Person 2: T1 → T2 → T3</p></li>
+</ul>
+<p>→ Jede Messung muss <strong>eine eigene Zeile</strong> sein</p>
+<hr>
+</section>
+<section id="wide-to-long-tranformation" class="level2">
+<h2 class="anchored" data-anchor-id="wide-to-long-tranformation">Wide to Long Tranformation:</h2>
+<ul>
+<li><p>Messzeitpunkte werden untereinander statt nebeneinander angeordnet</p></li>
+<li><p>Die ID wird für jede Messung wiederholt</p></li>
+<li><p><strong>Ergebnis:</strong> eine Zeile = eine Messung</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_9/variables.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="transformation-wide-long" class="level2">
+<h2 class="anchored" data-anchor-id="transformation-wide-long"><strong>Transformation: Wide</strong> → <strong>Long</strong></h2>
+<p><br></p>
+<p><strong>Wie müssen wir den folgenden Datensatz transformieren, um ihn ins Long Format zu bekommen?</strong></p>
+<p><br></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><em>id</em></th>
+<th><em>messzeitpunkt_t1</em></th>
+<th><em>messzeitpunkt_t2</em></th>
+<th><em>messzeitpunkt_t3</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+<td>14</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>12</td>
+<td>15</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>9</td>
+<td>13</td>
+<td>15</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>11</td>
+<td>12</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="wide-long-mit-pivot_longer" class="level2">
+<h2 class="anchored" data-anchor-id="wide-long-mit-pivot_longer"><strong>Wide</strong> → <strong>Long mit <code>pivot_longer()</code></strong></h2>
+<p><strong>Zentrale Argumente:</strong></p>
+<ul>
+<li><p><strong><code>cols</code></strong>: Welche Spalten werden gestapelt?</p></li>
+<li><p><strong><code>names_to</code></strong>: Name der neuen Variable (z.B. Messzeitpunkt)</p></li>
+<li><p><strong><code>values_to</code></strong>: Neue Variable für die Werte</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">messzeitpunkt_t1 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">11</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">messzeitpunkt_t2 =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">12</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">messzeitpunkt_t3 =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">15</span>, <span class="dv">16</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_wide <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"messzeitpunkt_t"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"messzeitpunkt"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"score"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+      id messzeitpunkt    score
+   &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;
+ 1     1 messzeitpunkt_t1    10
+ 2     1 messzeitpunkt_t2    14
+ 3     1 messzeitpunkt_t3    18
+ 4     2 messzeitpunkt_t1    12
+ 5     2 messzeitpunkt_t2    15
+ 6     2 messzeitpunkt_t3    17
+ 7     3 messzeitpunkt_t1     9
+ 8     3 messzeitpunkt_t2    13
+ 9     3 messzeitpunkt_t3    15
+10     4 messzeitpunkt_t1    11
+11     4 messzeitpunkt_t2    12
+12     4 messzeitpunkt_t3    16</code></pre>
+</div>
+</div>
+<div class="notes">
+<p>notwendig für dat_full um 2x3 ANOVA zu berechnen</p>
+</div>
+<hr>
+</section>
+<section id="wide-long-mit-pivot_longer-1" class="level2">
+<h2 class="anchored" data-anchor-id="wide-long-mit-pivot_longer-1"><strong>Wide</strong> → <strong>Long mit <code>pivot_longer()</code></strong></h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_10/wide_datensatz.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_10/long_datensatz.png" class="img-fluid"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="umgekehrter-fall-long-wide-mit-pivot_wider" class="level2">
+<h2 class="anchored" data-anchor-id="umgekehrter-fall-long-wide-mit-pivot_wider">Umgekehrter Fall: Long → Wide mit <strong><code>pivot_wider()</code></strong></h2>
+<p>👉 Daten wieder in eine <strong>übersichtlichere Tabellenform</strong> bringen</p>
+<p><br></p>
+<p><strong>Zentrale Argumente:</strong></p>
+<ul>
+<li><p><strong><code>names_from</code></strong>: Werte aus dieser Spalte (<code>messzeitpunkt</code>) werden wieder zu Spaltennamen</p></li>
+<li><p><strong><code>values_from</code></strong>: Werte aus dieser Spalte (<code>score</code>) füllen die neu entstandenen Spalten</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_wide_again <span class="ot">&lt;-</span> df_long <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> messzeitpunkt,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df_wide_again</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+     id messzeitpunkt_t1 messzeitpunkt_t2 messzeitpunkt_t3
+  &lt;int&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1     1               10               14               18
+2     2               12               15               17
+3     3                9               13               15
+4     4               11               12               16</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="paket-tidyr" class="level2">
+<h2 class="anchored" data-anchor-id="paket-tidyr">Paket tidyr</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/clipboard-3012076459.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="148"></p>
+</figure>
+</div>
+<p><code>pivot_longer()</code> und <code>pivot_wider()</code> stammen aus dem Paket tidyr → Teil des tidyverse</p>
+<p><a href="https://rstudio.github.io/cheatsheets/tidyr.pdf">Cheatsheet tidyr</a></p>
+<p>Umgang mit fehlenden Werten: <code>drop_na()</code>, <code>replace_na()</code> stammen auch aus tidyr</p>
+<hr>
+</section>
+<section id="wichtige-funktionen-für-die-datenaufbereitung" class="level2">
+<h2 class="anchored" data-anchor-id="wichtige-funktionen-für-die-datenaufbereitung">Wichtige Funktionen für die Datenaufbereitung:</h2>
+<p>aus <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html">Einführung in R, Kapitel 4.1</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/Datenaufbereitung.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="hands-on" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on">Hands On!</h2>
+<ul>
+<li><p>Code korrigieren / verbessern</p></li>
+<li><p>Long Transformationen</p></li>
+</ul>
+<hr>
+</section>
+<section id="datenqualität" class="level2">
+<h2 class="anchored" data-anchor-id="datenqualität">Datenqualität:</h2>
+<ol type="1">
+<li>Schiefe (Skewness)</li>
+<li>Wölbung (Kurtosis)</li>
+<li>Normalverteilung der Residuen</li>
+<li>Ausreisseranalyse</li>
+<li>Skalenreliabilität</li>
+</ol>
+<p>👉 <strong>Datenqualität bestimmt die Qualität der Ergebnisse</strong></p>
+<p>Paket: <code>psych</code></p>
+<div class="notes">
+<p>psych sollte aus Diagnostik bekannt sein. Beinhaltet zb. Funktionen zu Schiefe, Kurtosis, Reliabilität</p>
+</div>
+<hr>
+</section>
+<section id="schiefe-skewness" class="level2">
+<h2 class="anchored" data-anchor-id="schiefe-skewness">1. Schiefe (Skewness)</h2>
+<p><strong>Funktion <code>skew()</code></strong></p>
+<ul>
+<li>beschreibt die Asymmetrie der Verteilung</li>
+</ul>
+<p>👉 <strong>rechtsschief (linkssteil):</strong> Die meisten Werte liegen links (klein), einige wenige hohe Werte ziehen die Verteilung nach rechts</p>
+<p>👉 <strong>linksschief (rechtssteil):</strong> Die meisten Werte liegen rechts (hoch), einige wenige niedrige Werte ziehen die Verteilung nach links</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://de.wikipedia.org/wiki/Schiefe_(Statistik)#/media/Datei:Rechtsschief.svg"><img src="../../images/EH_9/Schiefe.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="wölbung-kurtosis" class="level2">
+<h2 class="anchored" data-anchor-id="wölbung-kurtosis">2. Wölbung (Kurtosis)</h2>
+<p><strong>Funktion <code>kurtosi()</code></strong></p>
+<ul>
+<li>beschreibt die Form der Verteilung</li>
+</ul>
+<p>👉 <strong>steilgipflig:</strong> viele Werte nahe am Mittelwert</p>
+<p>👉 <strong>flachgipflig:</strong> breitere Verteilung</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/clipboard-2777451693.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Kurtosis: Je kleiner der Wert, desto flacher ist die Kurve, je höher, desto steiler. Negative Werte sind dabei nicht möglich. Eine Normalverteilung hat eine Kurtosis von 3.</p>
+</div>
+<div class="notes">
+<div class="notes">
+<p>Eine Schiefe nahe 0 und eine Kurtosis von etwa 3 sprechen für eine Normalverteilung. Statt der Kurtosis wird oft der Exzess betrachtet. Dabei wird von der Kurtosis der Wert 3 abgezogen, sodass eine Normalverteilung den Wert 0 hat. Werte &lt; 0 sprechen für einen im Vergleich zur Normalverteilung flacheren, Werte &gt; 0 für einen steileren Verlauf</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="normalverteilung-der-residuen" class="level2">
+<h2 class="anchored" data-anchor-id="normalverteilung-der-residuen">3. Normalverteilung der Residuen</h2>
+<ul>
+<li>Voraussetzung für viele statistische Tests</li>
+</ul>
+<p><br></p>
+<section id="formen-der-überprüfung" class="level4">
+<h4 class="anchored" data-anchor-id="formen-der-überprüfung">Formen der Überprüfung:</h4>
+<ul>
+<li><p><strong>Visuelle Verfahren</strong>: z.B. QQ-Plot</p></li>
+<li><p><strong>Formale Tests</strong>: z.B. Shapiro-Wilk –&gt; “veraltete” Methode, zu konservativ bei grossen Stichproben</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="normalverteilung-der-residuen-1" class="level2">
+<h2 class="anchored" data-anchor-id="normalverteilung-der-residuen-1">3. Normalverteilung der Residuen</h2>
+<p>👉 Ein Residuum ist die Differenz zwischen beobachtetem und vorhergesagtem Wert (Vorhersageabweichung)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm <span class="sc">+</span> sex, <span class="at">data =</span> penguins)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">rstandard</span>((model_1))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EH_9_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Ein Residuum beschreibt, wie stark sich ein tatsächlicher Wert von dem Wert unterscheidet, den unser mathematisches Modell vorhersagt.</p>
+<p>Wenn wir zum Beispiel einen Wert vorhersagen und die Beobachtung ist etwas höher oder tiefer, dann ist genau diese Differenz das Residuum.</p>
+<p>Gute Modelle haben tendenziell kleine Residuen – das heisst, ihre Vorhersagen liegen nahe an den tatsächlichen Werten.</p>
+<p>Für viele statistische Verfahren ist es wichtig, dass diese Residuen zufällig verteilt sind und ungefähr einer Normalverteilung folgen.&nbsp;</p>
+</div>
+<hr>
+</section>
+<section id="visuelle-form-der-überprüfung-qq-plot" class="level2">
+<h2 class="anchored" data-anchor-id="visuelle-form-der-überprüfung-qq-plot">3. Visuelle Form der Überprüfung: QQ-Plot</h2>
+<p><strong>Zweck:</strong> QQ-Plots prüfen, ob die Daten einer theoretischen Verteilung (z. B. Normalverteilung) folgen.</p>
+<ul>
+<li><p><strong>X-Achse:</strong> <strong>Theoretische Quantile</strong></p></li>
+<li><p><strong>Y-Achse:</strong> <strong>Beobachtete (empirische) Datenquantile</strong></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(residuals)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(residuals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EH_9_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Der QQ-Plot und das Histogramm zeigen, dass die Residuen insgesamt nahe an einer Normalverteilung liegen, jedoch im linken Extrembereich <strong>etwas mehr Werte</strong> (heavy tail) und im rechten Extrembereich <strong>etwas weniger Werte</strong> (light tail) aufweisen. Diese Abweichungen sind gering, sodass parametrische Analysen weiterhin angemessen sind.</p>
+</div>
+<hr>
+</section>
+<section id="ausreisser" class="level2">
+<h2 class="anchored" data-anchor-id="ausreisser">4. Ausreisser</h2>
+<p>👉 Ausreisser sollten vor der Analyse klar definiert werden (z.B. Präregistrierung / Datenanalyseplan)</p>
+<p><br></p>
+<section id="mögliche-kriterien" class="level4">
+<h4 class="anchored" data-anchor-id="mögliche-kriterien">Mögliche Kriterien:</h4>
+<ul>
+<li><p>Werte ausserhalb von ± SD vom Mittelwert</p></li>
+<li><p>Visuelle Ausreisser in Boxplots und/oder Scatterplots</p></li>
+</ul>
+<p><br></p>
+</section>
+<section id="wichtig" class="level4">
+<h4 class="anchored" data-anchor-id="wichtig">Wichtig:</h4>
+<p>👉 Extreme Werte nicht unüberlegt entfernen!</p>
+<p>Die Entscheidung hängt von Kontext und Fragestellung ab</p>
+<p><strong>Mehr dazu in <span class="citation" data-cites="leys2019">Leys et al. (<a href="#ref-leys2019" role="doc-biblioref">2019</a>)</span></strong></p>
+<hr>
+</section>
+</section>
+<section id="ausreisser-1" class="level2">
+<h2 class="anchored" data-anchor-id="ausreisser-1">4. Ausreisser</h2>
+<section id="streudiagrammescatterplots" class="level4">
+<h4 class="anchored" data-anchor-id="streudiagrammescatterplots"><strong>Streudiagramme/Scatterplots</strong></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_dropped, <span class="fu">aes</span>( <span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EH_9_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="ausreisser-2" class="level2">
+<h2 class="anchored" data-anchor-id="ausreisser-2">4. Ausreisser</h2>
+<section id="boxplot" class="level4">
+<h4 class="anchored" data-anchor-id="boxplot"><strong>boxplot</strong></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins_dropped, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EH_9_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>„Ein Ausreißer ist ein Wert, der stark von den übrigen Daten abweicht.<br>
+Wichtig ist: Ein solcher Wert kann verschiedene Ursachen haben.</p>
+<p>Manchmal handelt es sich um Fehler – zum Beispiel falsche Eingaben oder Messprobleme. In solchen Fällen kann es sinnvoll sein, den Wert zu entfernen.</p>
+<p>In anderen Fällen ist der Wert jedoch real und gehört zur Population – er ist einfach selten oder extrem. Dann sollte er&nbsp;<strong>nicht einfach gelöscht werden</strong>, da er wichtige Informationen enthalten kann.</p>
+<p>Deshalb gilt:<br>
+👉 Man muss immer prüfen, <em>warum</em> ein Wert auffällig ist – und nicht nur, <em>dass</em> er auffällig ist.“</p>
+<p>Beispiel:</p>
+<p>Ein Pinguin, der von Menschen gefüttert wurde und deshalb ungewöhnlich schwer ist, könnte tatsächlich nicht mehr gut zur Zielpopulation passen.</p>
+<p>ABER: Ein besonders großer oder schwerer Pinguin innerhalb der natürlichen Variation wäre hingegen <strong>kein Fehler</strong>, sondern ein echter Extremwert.</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="interpretation-von-ausreissern" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-von-ausreissern">4. Interpretation von Ausreissern</h2>
+<section id="ausreisser-können-unterschiedliche-ursachen-haben" class="level4">
+<h4 class="anchored" data-anchor-id="ausreisser-können-unterschiedliche-ursachen-haben"><strong>Ausreisser können unterschiedliche Ursachen haben:</strong></h4>
+<ul>
+<li><p>Messfehler oder falsche Daten → prüfen und ggf. entfernen</p></li>
+<li><p>Seltene, aber reale Beobachtungen → behalten</p></li>
+</ul>
+<p>👉 <strong>Nicht jeder extreme Wert ist ein Ausreisser!</strong></p>
+<hr>
+</section>
+</section>
+<section id="skalenreliabilität" class="level2">
+<h2 class="anchored" data-anchor-id="skalenreliabilität">5. Skalenreliabilität</h2>
+<section id="was-bedeutet-skalenreliabilität" class="level4">
+<h4 class="anchored" data-anchor-id="was-bedeutet-skalenreliabilität"><strong>Was bedeutet Skalenreliabilität?</strong></h4>
+<p>Mehrere Items einer Skala sollen dasselbe Konstrukt messen</p>
+<ul>
+<li>Beispiel: Skala zur <em>Extraversion</em><br>
+→ „Ich bin gesellig“<br>
+→ „Ich gehe gerne auf andere zu“<br>
+→ „Ich fühle mich in Gruppen wohl“</li>
+</ul>
+<p><strong>Zentrale Frage:</strong></p>
+<p>👉 Messen diese Items wirklich das Gleiche?</p>
+<p><strong>Idee:</strong></p>
+<ul>
+<li><p>Wenn Items gut zusammenpassen → hohe Reliabilität</p></li>
+<li><p>Wenn Items unterschiedlich sind → niedrige Reliabilität</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="skalenreliabilität-cronbachs-alpha" class="level2">
+<h2 class="anchored" data-anchor-id="skalenreliabilität-cronbachs-alpha">5. Skalenreliabilität: Cronbach’s Alpha</h2>
+<p>→ Wichtiger Wert: <strong>raw_alpha</strong> (hier: 0.76)</p>
+<p>⚠️ Hinweis: Cronbach’s Alpha wird typischerweise für Skalen mit mehreren Items berechnet (hier nur 2 Items → eingeschränkte Aussagekraft)</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bfi_10_extra <span class="ot">&lt;-</span> bfi_10_data <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bfi_extra_1_r, bfi_extra_2)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">alpha</span>(bfi_10_extra, <span class="at">check.keys =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = bfi_10_extra, check.keys = TRUE)
+
+  raw_alpha std.alpha G6(smc) average_r S/N   ase mean sd median_r
+      0.76      0.76    0.62      0.62 3.2 0.085    3  1     0.62
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt      0.5  0.76  0.89
+Duhachek   0.6  0.76  0.93
+
+ Reliability if an item is dropped:
+              raw_alpha std.alpha G6(smc) average_r S/N alpha se var.r med.r
+bfi_extra_1_r      0.54      0.62    0.38      0.62 1.6       NA     0  0.62
+bfi_extra_2        0.71      0.62    0.38      0.62 1.6       NA     0  0.62
+
+ Item statistics 
+               n raw.r std.r r.cor r.drop mean  sd
+bfi_extra_1_r 29  0.89   0.9  0.71   0.62    3 1.1
+bfi_extra_2   29  0.92   0.9  0.71   0.62    3 1.2
+
+Non missing response frequency for each item
+                 1    2    3    4    5 miss
+bfi_extra_1_r 0.07 0.24 0.41 0.17 0.10 0.03
+bfi_extra_2   0.10 0.28 0.28 0.21 0.14 0.03</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="skalenreliabilität-weitere-formen-der-reliabilität" class="level2">
+<h2 class="anchored" data-anchor-id="skalenreliabilität-weitere-formen-der-reliabilität">5. Skalenreliabilität: Weitere Formen der Reliabilität</h2>
+<p><br></p>
+<p><strong>Alternatives Mass der internen Konsistenz</strong></p>
+<ul>
+<li><a href="McDonald's Omega (ω) https://dorsch.hogrefe.com/stichwort/mcdonalds-omega-o">McDonalds Omega</a> (Alternative zu Cronbach’s Alpha)</li>
+</ul>
+<p><br></p>
+<p><strong>Weitere Reliabilitätsarten:</strong></p>
+<ul>
+<li><strong>Test-Retest Reliabilität:</strong> → Stabilität über die Zeit</li>
+<li><strong>Split-half Reliabilität:</strong> → Konsistenz zwischen Itemhälften</li>
+</ul>
+<p><br></p>
+<p>Mehr Infos dazu: <a href="https://bookdown.org/annabrown/psychometricsR/exercise5.html">Psychometrics in R</a> &amp; <a href="https://bjoernwalther.com/cronbachs-alpha-in-r-berechnen/">Björn Walther</a></p>
+<div class="notes">
+<p>In diesem Beispiel werden nur zwei Items verwendet - wir gehen davon aus dass bfi_extra_1_r schon rekodiert wurde. Anonsten könnte man das auch im alpha befehl weiter spezifizieren.</p>
+</div>
+<hr>
+</section>
+<section id="heute-haben-wir" class="level2">
+<h2 class="anchored" data-anchor-id="heute-haben-wir">Heute haben wir:</h2>
+<ul>
+<li><p>Wide to long Transformationen gemacht - <strong>You mastered the tidyr!</strong></p>
+<p><img src="../../images/tidyr.png" class="img-fluid" width="156"></p></li>
+<li><p>Datenqualitätsindikatoren kennengelernt</p></li>
+</ul>
+<hr>
+</section>
+<section id="bis-nächste-woche" class="level2">
+<h2 class="anchored" data-anchor-id="bis-nächste-woche">Bis nächste Woche</h2>
+<ul>
+<li>Muddiest Points Umfrage bis Sonntag 23:55</li>
+<li>Bei weiteren Fragen zu den bisherigen Inhalten: Forum nutzen &amp; Lars kontaktieren</li>
+</ul>
+<p><strong>Optional / Empfehlung</strong></p>
+<ul>
+<li>Keine HÜ → Nutzt die Zeit, um Inhalte zu vertiefen oder nachzuholen</li>
+</ul>
+<hr>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-leys2019" class="csl-entry" role="listitem">
+Leys, Christophe, Marie Delacre, Youri L. Mora, Daniël Lakens, and Christophe Ley. 2019. <span>“How to Classify, Detect, and Manage Univariate and Multivariate Outliers, with Emphasis on Pre-Registration.”</span> <em>International Review of Social Psychology</em> 32 (1). <a href="https://doi.org/10.5334/irsp.289">https://doi.org/10.5334/irsp.289</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

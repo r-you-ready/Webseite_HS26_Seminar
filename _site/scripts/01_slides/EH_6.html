@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sandra Grinschgl, Laura Hirt, Lars Schilling">
+
+<title>R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 6 – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_6.html">Einheit 6 - 25.03.2026</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 5 - 18.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_6.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Einheit 6 - 25.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 7 - 01.04.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 3 (Woche 5 - 6) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 4 (Woche 7- 8)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../hausuebungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Datenanalyseplan (18.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Codebook (25.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Codebook (01.04.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" id="toc-r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="nav-link active" data-scroll-target="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</a></li>
+  <li><a href="#heute" id="toc-heute" class="nav-link" data-scroll-target="#heute">Heute:</a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#verschiedene-datentypen" id="toc-verschiedene-datentypen" class="nav-link" data-scroll-target="#verschiedene-datentypen">Verschiedene Datentypen</a></li>
+  <li><a href="#datentypen-vektoren" id="toc-datentypen-vektoren" class="nav-link" data-scroll-target="#datentypen-vektoren">Datentypen: Vektoren</a></li>
+  <li><a href="#datentypen-vektoren-2" id="toc-datentypen-vektoren-2" class="nav-link" data-scroll-target="#datentypen-vektoren-2">Datentypen: Vektoren (2)</a></li>
+  <li><a href="#datentypen-vektoren-3" id="toc-datentypen-vektoren-3" class="nav-link" data-scroll-target="#datentypen-vektoren-3">Datentypen: Vektoren (3)</a></li>
+  <li><a href="#datentypen-faktoren" id="toc-datentypen-faktoren" class="nav-link" data-scroll-target="#datentypen-faktoren">Datentypen: Faktoren</a></li>
+  <li><a href="#datentypen-faktoren-2" id="toc-datentypen-faktoren-2" class="nav-link" data-scroll-target="#datentypen-faktoren-2">Datentypen: Faktoren (2)</a></li>
+  <li><a href="#datentypen-matrizen" id="toc-datentypen-matrizen" class="nav-link" data-scroll-target="#datentypen-matrizen">Datentypen: Matrizen</a></li>
+  <li><a href="#datentypen-matrizen-2" id="toc-datentypen-matrizen-2" class="nav-link" data-scroll-target="#datentypen-matrizen-2">Datentypen: Matrizen (2)</a></li>
+  <li><a href="#datentypen-listen" id="toc-datentypen-listen" class="nav-link" data-scroll-target="#datentypen-listen">Datentypen: Listen</a></li>
+  <li><a href="#datentypen-listen-2" id="toc-datentypen-listen-2" class="nav-link" data-scroll-target="#datentypen-listen-2">Datentypen: Listen (2)</a></li>
+  <li><a href="#datentypen-listen-3" id="toc-datentypen-listen-3" class="nav-link" data-scroll-target="#datentypen-listen-3">Datentypen: Listen (3)</a></li>
+  <li><a href="#datentypen-listen-4" id="toc-datentypen-listen-4" class="nav-link" data-scroll-target="#datentypen-listen-4">Datentypen: Listen (4)</a></li>
+  <li><a href="#datentypen-listen-5" id="toc-datentypen-listen-5" class="nav-link" data-scroll-target="#datentypen-listen-5">Datentypen: Listen (5)</a></li>
+  <li><a href="#datentypen-listen-6" id="toc-datentypen-listen-6" class="nav-link" data-scroll-target="#datentypen-listen-6">Datentypen: Listen (6)</a></li>
+  <li><a href="#datentypen-data-frames" id="toc-datentypen-data-frames" class="nav-link" data-scroll-target="#datentypen-data-frames">Datentypen: Data Frames</a></li>
+  <li><a href="#datentypen-data-frames-2" id="toc-datentypen-data-frames-2" class="nav-link" data-scroll-target="#datentypen-data-frames-2">Datentypen: Data Frames (2)</a></li>
+  <li><a href="#datentypen-data-frames-3" id="toc-datentypen-data-frames-3" class="nav-link" data-scroll-target="#datentypen-data-frames-3">Datentypen: Data Frames (3)</a></li>
+  <li><a href="#datentypen-data-frames-4" id="toc-datentypen-data-frames-4" class="nav-link" data-scroll-target="#datentypen-data-frames-4">Datentypen: Data Frames (4)</a></li>
+  <li><a href="#datentypen-überblick" id="toc-datentypen-überblick" class="nav-link" data-scroll-target="#datentypen-überblick">Datentypen: Überblick</a></li>
+  <li><a href="#heute-haben-wir" id="toc-heute-haben-wir" class="nav-link" data-scroll-target="#heute-haben-wir">Heute haben wir:</a></li>
+  <li><a href="#bis-nächstes-mal" id="toc-bis-nächstes-mal" class="nav-link" data-scroll-target="#bis-nächstes-mal">Bis nächstes Mal:</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="EH_6.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_6.html">Einheit 6 - 25.03.2026</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 6</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sandra Grinschgl, Laura Hirt, Lars Schilling </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="level2">
+<h2 class="anchored" data-anchor-id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</h2>
+<p>FS 2026<br><br><br> <strong>LV-Leitung</strong>: Dr.&nbsp;Sandra Grinschgl / MSc. Laura Hirt<br> <strong>Tutor</strong>: BSc. Lars Schilling<br><br><br><strong>6. Einheit</strong>, 25.03.2026</p>
+<hr>
+</section>
+<section id="heute" class="level2">
+<h2 class="anchored" data-anchor-id="heute">Heute:</h2>
+<div style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; ">
+<embed src="../../PDFs/Syllabus.pdf#view=FitH&amp;navpanes=0&amp;toolbar=0" type="application/pdf" style="width:100%; height:220vh; border:0; display:block; background:white;">
+</div>
+<hr>
+</section>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<ul>
+<li><p>Wir arbeiten ab jetzt immer in <strong>Quarto Dateien</strong> (und im Projektordner)</p></li>
+<li><p>Vorteil: Code, Ergebnisse und Beschreibung/Interpretation sind an einem Ort</p>
+<p>-&gt; <strong>Nachvollziehbar &amp; reproduzierbar</strong></p></li>
+<li><p>Falls das Rendern nicht klappt → meldet euch!</p></li>
+<li><p>Bei Problemen mit Word und PDF Datein: im Terminal <code>quarto install tinytex</code></p></li>
+</ul>
+<hr>
+</section>
+<section id="verschiedene-datentypen" class="level2">
+<h2 class="anchored" data-anchor-id="verschiedene-datentypen">Verschiedene Datentypen</h2>
+<ul>
+<li><p>In R gibt es verschiedene Datentypen mit unterschiedlichen Eigenschaften</p></li>
+<li><p>Der Datentyp bestimmt, wie Daten gespeichert und verarbeitet werden können</p></li>
+</ul>
+<p><strong>Wichtige Datentypen im Überblick:</strong></p>
+<ul>
+<li><p>Vektoren</p></li>
+<li><p>Faktoren</p></li>
+<li><p>Matrizen</p></li>
+<li><p>Listen</p></li>
+<li><p>Data Frames</p></li>
+</ul>
+<hr>
+</section>
+<section id="datentypen-vektoren" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-vektoren">Datentypen: Vektoren</h2>
+<ul>
+<li><p>Vektoren sind der grundlegende Datentyp in R</p></li>
+<li><p>Ein Vektor ist eine Sammlung von Elementen gleichen Typs</p></li>
+</ul>
+<p>👉 Wichtig: Alle Elemente müssen den gleichen Datentyp (z.B. numeric) haben</p>
+<p><strong>Typen von Vektoren:</strong></p>
+<ul>
+<li><p>Numerisch (Zahlen; umfasst <em>integer</em> und <em>double</em>)</p></li>
+<li><p>Character (Text)</p></li>
+<li><p>Logisch (TRUE / FALSE)</p></li>
+</ul>
+<hr>
+</section>
+<section id="datentypen-vektoren-2" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-vektoren-2">Datentypen: Vektoren (2)</h2>
+<p><strong>Erstellung von Vektoren:</strong></p>
+<ul>
+<li>meist mit “<code>c</code>” (<em>combine / concatenate</em>)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>numeric_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Frau"</span>, <span class="st">"Mann"</span>,<span class="st">"Non-Binär"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>logical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Sonderfall:</strong></p>
+<ul>
+<li>Ein Vektor mit nur einem Element = Skalar</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="notes">
+<p><strong>Numerische Vektoren</strong> (umfassen <em>integer</em> und <em>double</em>, R unterscheidet aber intern kaum zwischen „float“ und „double“)</p>
+<p>Integer: ganze zahlen</p>
+<p>double: zahlen mit kommastellen –&gt; Steht für double precision (wegen 64bit)</p>
+</div>
+<hr>
+</section>
+<section id="datentypen-vektoren-3" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-vektoren-3">Datentypen: Vektoren (3)</h2>
+<p>Werde Typen jedoch trotzdem vermischt, werden alle Elemente in denselben Typ umgewandelt – auch dann, wenn sie einzeln betrachtet eigentlich nicht zu diesem Typ gehören würden.</p>
+<p><strong>Beispiel:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vermischter_vektor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="st">"mann"</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(vermischter_vektor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(vermischter_vektor[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Attribute von Vektoren können zum Beispiel mit <code>typeof()</code>, <code>length()</code> oder <code>attributes()</code> eingesehen werden.</p>
+<hr>
+</section>
+<section id="datentypen-faktoren" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-faktoren">Datentypen: Faktoren</h2>
+<p><strong>Faktoren = kategoriale Variablen in R</strong> (z.B. Geschlecht, Versuchsbedingung)</p>
+<p><strong>Aufbau eines Faktors:</strong></p>
+<ul>
+<li><p>Kategorien (<em>Levels</em>)</p></li>
+<li><p>Intern als Zahlen gespeichert (→ keine inhaltliche Bedeutung)</p></li>
+</ul>
+<p>🎯 <strong>Wichtig für statistische Analysen mit kategorialen Daten</strong> (z.B. ANOVA, Regression)</p>
+<ul>
+<li><p>Faktoren sorgen dafür, dass R Kategorien korrekt interpretiert – also <strong>nicht</strong> als Text oder numerische Werte.</p></li>
+<li><p>Sie ermöglichen das <strong>Festlegen einer Referenzkategorie</strong>, die für Vergleiche in statistischen Modellen relevant ist.</p></li>
+</ul>
+<div class="notes">
+<p>Die Referenzkategorie spielt bei der ANOVA keine Rolle für den Gesamttest (F-Test). Bei z.B. einer linearen Regression, legt die Referenzkategorie fest welche Gruppe als Basis für den Vergleich dient.</p>
+</div>
+<hr>
+</section>
+<section id="datentypen-faktoren-2" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-faktoren-2">Datentypen: Faktoren (2)</h2>
+<p><strong>Beispiel: Geschlecht mit Faktorstufen</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>geschlecht <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"nonbinary"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>,<span class="st">"nonbinary"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>geschlecht_faktor <span class="ot">&lt;-</span> <span class="fu">factor</span>(geschlecht)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(geschlecht_faktor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "female"    "male"      "nonbinary"</code></pre>
+</div>
+</div>
+<p>Faktoren können auch numerisch sein, werden dann aber nicht mehr als Zahlen behandelt.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>numerisch <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>faktorstufen_numerisch <span class="ot">&lt;-</span> <span class="fu">factor</span>(numerisch)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(faktorstufen_numerisch)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1" "2" "3"</code></pre>
+</div>
+</div>
+<p><strong><em>🤔 Welche Variable(n) sollten in den Daten von Grinschgl et al.&nbsp;(2020) zu Faktoren transformiert werden?</em></strong></p>
+<div class="notes">
+<p>Die Faktorstufen werden standardmässig alphabetisch festgelegt.</p>
+<p>In Grinschgl2020 werden group_all als Faktor bestimmt, und nach der transformation zu einem Long Datensatz (kommende Wochen) auch noch time_rating.</p>
+</div>
+<hr>
+</section>
+<section id="datentypen-matrizen" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-matrizen">Datentypen: Matrizen</h2>
+<p><strong>Matrix = zweidimensionale Datenstruktur</strong></p>
+<ul>
+<li><p>besteht aus <strong>Zeilen</strong> und <strong>Spalten</strong></p></li>
+<li><p>alle Elemente haben den <strong>gleichen Datenyp</strong></p></li>
+</ul>
+<p><strong>Wichtige Idee:</strong></p>
+<p>👉 Eine Matrix ist eigentlich ein <strong>Vektor mit Dimensionen</strong></p>
+<p><strong>Erstellung einer Matrix:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(v) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span>) <span class="co"># Als Attribut des Vektors</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]    1    3    5    7    9   11   13   15   17    19
+[2,]    2    4    6    8   10   12   14   16   18    20</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(v)    <span class="co"># zeigt die Dimensionen</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$dim
+[1]  2 10</code></pre>
+</div>
+</div>
+<div class="notes">
+<p>Dim ist hier keine Funktion sondern ein Attribut.</p>
+</div>
+<hr>
+</section>
+<section id="datentypen-matrizen-2" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-matrizen-2">Datentypen: Matrizen (2)</h2>
+<p><strong>Erstellen und Zugriff</strong></p>
+<p><strong>Erstellung mit</strong> <code>matrix()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>👉 Standard: Werte werden <strong>spaltenweise eingefügt</strong></p>
+<p><strong>Zugriff auf Elemente:</strong></p>
+<p><code>m[Zeile, Spalte]</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Frage:</strong></p>
+<p>Welche Werte ergeben sich hier?</p>
+<p><strong><em>🤔</em></strong> Ist der Datensatz <code>dat_full</code> eine <strong>Matrix?</strong></p>
+<div class="notes">
+<ul>
+<li><p>Zweite Zeile, 4te Spalte –&gt; 8</p></li>
+<li><p>2, 4, 6, 8, 10. -&gt; Zweite Zeile, erste bis 5te spalte.</p></li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="datentypen-listen" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen">Datentypen: Listen</h2>
+<p><strong>Listen = flexible Datenstruktur in R</strong></p>
+<ul>
+<li>Eine Liste kann <strong>Elemente unterschiedlicher Typen</strong> enthalten (z.B. Zahlen, Text, Vektoren, Data Frames, andere Listen)</li>
+</ul>
+<p><strong>Unterschied zu Vektoren:</strong></p>
+<ul>
+<li><p>Vektoren → nur ein Datentyp</p></li>
+<li><p>Listen → mehrere Datentypen möglich</p></li>
+</ul>
+<hr>
+</section>
+<section id="datentypen-listen-2" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen-2">Datentypen: Listen (2)</h2>
+<p><strong>Erstellung mit <code>list()</code>:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Anna"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">27</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">scores =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">info =</span> <span class="fu">list</span>(<span class="at">city =</span> <span class="st">"Bern"</span>, <span class="at">student =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "Anna"
+
+$age
+[1] 27
+
+$scores
+[1]  8  9 10
+
+$info
+$info$city
+[1] "Bern"
+
+$info$student
+[1] TRUE</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="datentypen-listen-3" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen-3">Datentypen: Listen (3)</h2>
+<p><strong>Zugriff auf Listenelemente</strong></p>
+<p>Mit <strong><code>[ ]</code></strong> → gibt eine Teilliste zurück</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>my_list[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "Anna"</code></pre>
+</div>
+</div>
+<p>👉 Ergebnis bleibt eine <strong>Liste</strong></p>
+<ul>
+<li>Mit <strong><code>[[ ]]</code></strong> → gibt den Inhalt zurück</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  8  9 10</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">3</span>]][<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+</div>
+<p>👉 Ergebnis ist das <strong>eigentliche Element</strong> (z.B. Vektor)</p>
+<hr>
+</section>
+<section id="datentypen-listen-4" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen-4">Datentypen: Listen (4)</h2>
+<ul>
+<li>Mit <strong><code>$</code></strong> → Zugriff über Namen</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>info</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$city
+[1] "Bern"
+
+$student
+[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>info<span class="sc">$</span>student</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>👉 besonders praktisch bei benannten Listen</p>
+<hr>
+</section>
+<section id="datentypen-listen-5" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen-5">Datentypen: Listen (5)</h2>
+<p><strong>Elemente hinzufügen</strong></p>
+<p>Neues Element hinzufügen mit <code>[[ ]]</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="dv">5</span>]] <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "Anna"
+
+$age
+[1] 27
+
+$scores
+[1]  8  9 10
+
+$info
+$info$city
+[1] "Bern"
+
+$info$student
+[1] TRUE
+
+
+[[5]]
+[1] 42</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="datentypen-listen-6" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-listen-6">Datentypen: Listen (6)</h2>
+<p>Alternativ mit Namen</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>new_value <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "Anna"
+
+$age
+[1] 27
+
+$scores
+[1]  8  9 10
+
+$info
+$info$city
+[1] "Bern"
+
+$info$student
+[1] TRUE
+
+
+[[5]]
+[1] 42
+
+$new_value
+[1] 42</code></pre>
+</div>
+</div>
+<p><strong>Allgemeines Prinzip:</strong></p>
+<ul>
+<li><p>Listen können <strong>beliebig erweitert werden</strong></p></li>
+<li><p>neue Elemente werden über einen <strong>Index oder Namen</strong> hinzugefügt</p></li>
+</ul>
+<hr>
+</section>
+<section id="datentypen-data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-data-frames">Datentypen: Data Frames</h2>
+<p><strong>Data Frame = tabellarische Datenstruktur</strong></p>
+<ul>
+<li><p>besteht aus <strong>Zeilen und Spalten</strong></p></li>
+<li><p>jede Spalte ist ein <strong>Vektor</strong></p></li>
+</ul>
+<p><strong>Wichtige Eigenschaften:</strong></p>
+<ul>
+<li><p>Spalten können unterschiedliche Datentypen haben</p></li>
+<li><p>alle Spalte gleich lang (ggf. auffüllen mit NAs)</p></li>
+</ul>
+<p><strong>Warum Data Frames wichtig sind:</strong></p>
+<ul>
+<li><p>Standardformat für Daten in R</p></li>
+<li><p>Datensätze werden beim Einlesen meist als <strong>Data Frame</strong> gespeichert</p></li>
+</ul>
+<hr>
+</section>
+<section id="datentypen-data-frames-2" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-data-frames-2">Datentypen: Data Frames (2)</h2>
+<p><strong>Erstellen und Zugriff</strong></p>
+<p><strong>Erstellung eines Data Frames:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>bundesraet_innen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">vorname =</span> <span class="fu">c</span>(<span class="st">"Elisabeth"</span>, <span class="st">"Martin"</span>, <span class="st">"Ignazio"</span>),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">alter =</span> <span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">63</span>, <span class="dv">65</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">partei =</span> <span class="fu">c</span>(<span class="st">"SP"</span>, <span class="st">"Mitte"</span>, <span class="st">"FDP"</span>),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">graue_haare =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Data Frame anzeigen:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bundesraet_innen)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vorname alter partei graue_haare
+1 Elisabeth    62     SP        TRUE
+2    Martin    63  Mitte        TRUE
+3   Ignazio    65    FDP       FALSE</code></pre>
+</div>
+</div>
+<p><strong>Zugriff auf Spalten:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>bundesraet_innen<span class="sc">$</span>graue_haare</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="datentypen-data-frames-3" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-data-frames-3">Datentypen: Data Frames (3)</h2>
+<p><strong>Arbeiten mit Data Frames</strong></p>
+<ol type="1">
+<li><strong>Zugriff auf Elemente und Spalten</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>bundesraet_innen[<span class="dv">3</span>,<span class="st">"graue_haare"</span>] <span class="co">#Zugriff mittels Position im Data Frame</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bundesraet_innen<span class="sc">$</span>alter <span class="co">#Zugriff über Spaltennamen</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 62 63 65</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><strong>Filtern von Daten</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>brs_unter_63 <span class="ot">&lt;-</span> <span class="fu">filter</span>(bundesraet_innen, alter <span class="sc">&lt;</span> <span class="dv">63</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(brs_unter_63)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vorname alter partei graue_haare
+1 Elisabeth    62     SP        TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Alternative mit Base R</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>brs_unter_63 <span class="ot">&lt;-</span> <span class="fu">subset</span>(bundesraet_innen, bundesraet_innen<span class="sc">$</span>alter <span class="sc">&lt;</span> <span class="dv">63</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(brs_unter_63)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vorname alter partei graue_haare
+1 Elisabeth    62     SP        TRUE</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="datentypen-data-frames-4" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-data-frames-4">Datentypen: Data Frames (4)</h2>
+<ol start="3" type="1">
+<li><strong>Neue Variablen erstellen</strong></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bundesraet_innen<span class="sc">$</span>alter_in_10_jahren <span class="ot">&lt;-</span> bundesraet_innen<span class="sc">$</span>alter <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bundesraet_innen)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vorname alter partei graue_haare alter_in_10_jahren
+1 Elisabeth    62     SP        TRUE                 72
+2    Martin    63  Mitte        TRUE                 73
+3   Ignazio    65    FDP       FALSE                 75</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="datentypen-überblick" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen-überblick">Datentypen: Überblick</h2>
+<div style="font-size: 0.75em;">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Struktur</th>
+<th>Eigenschaften</th>
+<th>Beispiel-Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Vektor</strong></td>
+<td>- Enthält Elemente <strong>eines</strong> Datentyps<br>- Grundbaustein in R</td>
+<td><code>c(1, 2, 3)</code> oder <code>c("Anna", "Ben")</code></td>
+</tr>
+<tr class="even">
+<td><strong>Liste</strong></td>
+<td>- Kann verschiedene Datentypen enthalten<br>- Elemente können unterschiedlich lang sein</td>
+<td>Zahlenvektor, Textvektor, logischer Vektor in einer Liste</td>
+</tr>
+<tr class="odd">
+<td><strong>Matrix</strong></td>
+<td>- Enthält nur <strong>einen</strong> Datentyp<br>- Hat feste Dimensionen (Zeilen, Spalten)</td>
+<td>3x3-Matrix mit Zahlen 1–9</td>
+</tr>
+<tr class="even">
+<td><strong>Data Frame</strong></td>
+<td>- Tabellarisch aufgebaut<br>- Spalten können unterschiedliche Datentypen enthalten<br>- Jede Spalte gleich lang</td>
+<td>Tabelle mit Name (Character), Alter (Numeric), Studiert (Logical)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><em>👉</em></strong> <strong>Merksatz:</strong><br>
+<strong>Vektor</strong> = einfachste Struktur, ein Datentyp<br>
+<strong>Liste</strong> = flexibel, verschiedene Datentypen<br>
+<strong>Matrix</strong> = „Zahlenrechteck“, ein Datentyp<br>
+<strong>Data Frame</strong> = Tabelle, Spalten können unterschiedliche Datentypen haben</p>
+<hr>
+</section>
+<section id="heute-haben-wir" class="level2">
+<h2 class="anchored" data-anchor-id="heute-haben-wir">Heute haben wir:</h2>
+<ul>
+<li><p>Verschiedene Datentypen angeschaut:</p>
+<ul>
+<li><p>Vektoren</p></li>
+<li><p>Faktoren</p></li>
+<li><p>Matrizen</p></li>
+<li><p>Listen</p></li>
+<li><p>Dataframes</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="bis-nächstes-mal" class="level2">
+<h2 class="anchored" data-anchor-id="bis-nächstes-mal">Bis nächstes Mal:</h2>
+<ul>
+<li><p>Peer-Feedback: Codebook:</p>
+<p>Codebook des Partners/der Partnerin bis EH7 durchschauen und kommentieren (am besten mit Excel Kommentar-Funktion oder Notizen in zusätzlicher Datei) 👉 sind ALLE Variablen mit ausreichend Detail beschrieben?</p></li>
+<li><p>Upload auf Ilias mit Kommentaren + Weitergabe an Partner:in. Auch persönliches Feedback erwünscht 👉 selbstorganisiert</p></li>
+<li><p>Hands On Block 3 abschliessen!</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

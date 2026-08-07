@@ -1,0 +1,36 @@
+---
+title: "3 Datenanalyseplan"
+format: html
+---
+
+::: callout-important
+Unabhängig von den konkreten Fragen und Antworten gilt: Der Datenanalyseplan soll es fremden Wissenschaftler:innen aus der Psychologie ermöglichen die Studie und die Datenanalyse ohne weiteren Aufwand nachvollziehen zu können. Dafür sollte vor allem anderen auf die Vollständigkeit und Genauigkeit der Angaben geachtet werden.
+:::
+
+## Wie umfangreich soll ein Datenanalyseplan sein?
+
+Als Daumenregel: Der Datenanalyseplan sollte so lang wie nötig und so kurz wie möglich sein. Ziel ist es, die Analysen für fremende Wissenschaftler:innen aus der Psychologie nachvollziehbar zu machen. Hierbei gibt es allerdings Ermessensspielraum und keine exakte Antwort.
+
+## Müssen die Anmerkungen im Datenanalyseplan nach der Bearbeitung gelöscht werden, so dass nur die Frage und der Titel verbleiben?
+
+Üblicherweise werden Datenanalysepläne auf OSF (dem Open Science Framework) mitsamt den Anmerkungen veröffentlicht. Für das Seminar ist es möglich die Anmerkungen zu behalten oder zu löschen.
+
+## Müssen auch zu explorativen Fragestellungen Hypothesen aufgestellt werden?
+
+Kurzgesagt, nein. Bei explorativen Fragestellungen kann ebenfalls vermerkt werden, dass diese explorativ sind – es also keine bisherige Theorie oder Evidenz für einen bestimmte Richtung gibt. Wichtig ist hierbei vor allem, transparent und vorausschauend zu arbeiten, in diesem Fall also den Umstand, explorativ zu arbeiten, klar zu benennen.
+
+## Wenn Voraussetzungsprüfungen oder post-hoc Tests durchgeführt werden, müssen diese auch im Datenanalyseplan ergänzt werden?
+
+Grundsätzlich gilt: Der Datenanalyseplan soll fremden Wissenschaftler:innen aus der Psychologie ermöglichen die Studie und die Datenanalyse ohne weiteren Aufwand nachvollziehen zu können. Dafür sollte auf Vollständigkeit und Genauigkeit geachtet werden. Dementsprechend gilt es, die Voraussetzungsprüfungen entweder komplett wegzulassen oder sie sowohl im Skript als auch im Datenanalyseplan zu ergänzen.
+
+## Soll der Abstract bereits die Resultate von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) erwähnen oder offenlassen, welche Resultate zu erwarten sind?
+
+Üblicherweise lässt der Datenanalyseplan die Resultate der beschriebenen Analyse im Abstract noch offen, da diese zu dem Zeitpunkt, zu welchem der Datenanalyseplan erstellt wird, noch nicht bekannt sind. Bei einer Replikation der Originalstudie – wie es hier der Fall ist – können die Ergebnisse aus dieser aber auch bereits genannt werden. Bezüglich der eigenen Datenanalyse sollte wiederum von *erwarteten* Ergebnissen ausgehen. Da die Analyse der Daten erst nach Verfassen des Datenanalyseplans folgt sind die Resultate bis dahin nicht bekannt.
+
+## Wie lässt sich erkennen, ob ein Paper seine Daten öffentlich zugänglich gemacht hat?
+
+In den meisten wissenschaftlichen Artikeln, welche ihre Daten öffentlich zugänglich machen, findet sich ein eigener Abschnitt mit dem Titel "Data Availability", "Datenverfügbarkeit" oder ähnlichem. Dort wird in der Regel angegeben, wo die Daten zu finden sind (z.B. auf OSF, in einem Repositorium wie Zenodo, etc.). Falls kein solcher Abschnitt vorhanden ist, kann es hilfreich sein, im Methodenteil nach Hinweisen zu suchen oder direkt im Anhang des Artikels nachzusehen. Alternativ kann auch eine Suche auf Plattformen wie OSF oder Zenodo mit dem Titel des Artikels oder den Namen der Autor:innen durchgeführt werden. Es sollte immer auch überprüft werden, ob die Daten dann auch tatsächlich öffentlich zugänglich sind. Oft wird dies in Papern zwar behauptet, ist schlussendlich dann aber doch nicht der Fall.
+
+# Wie lässt sich feststellen, ob eine Fragestellung konfirmatorisch oder explorativ ist?
+
+Konfirmatorische Forschung überprüft bestehende Hypothesen oder Theorien, während exploratorische Forschung keine konkreten Annahmen zu den Zusammenhängen trifft, sondern diese zunächst erkundet. Daher müssen im Datenanalyseplan für explorative Fragestellungen auch keine Hypothesen formuliert werden.Die selbe Logik kann auch auf alle anderen Paper angewendet werden. Befinden sich in diesen zu den Fragestellungen keine Hypothesen, dann sind diese explorativ. Sind Hypothesen zu den Fragestellungen vorhanden, dann handelt es sich bei diesen um konfirmatorische Fragestellungen.

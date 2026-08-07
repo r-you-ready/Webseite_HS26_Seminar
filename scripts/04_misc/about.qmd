@@ -1,0 +1,27 @@
+---
+title: "About"
+author:
+  - name: "Dr. Sandra Grinschgl"
+  - name: "MSc. Laura Hirt"
+  - name: "BSc. Lars Schilling"
+date: today
+format: html
+---
+
+Diese Website wurde im Rahmen des Seminars "R u Ready" an der Universität Bern erstellt.
+
+Sollte deine Frage nicht beantwortet worden sein, dann wende dich gerne direkt an die Autor:innen:
+
+::: clean-list
+<ul>
+
+<li>lars.schilling\@unibe.ch</li>
+
+<li>laura.hirt\@unibe.ch</li>
+
+<li>sandra.grinschgl\@unibe.ch</li>
+
+</ul>
+:::
+
+<p>This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1">CC BY-SA 4.0</a> ![](../../images/CC.png)</p>

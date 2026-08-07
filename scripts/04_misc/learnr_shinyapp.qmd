@@ -1,0 +1,22 @@
+---
+title: "LearnR - Shinyapp"
+toc: false
+draft: true
+---
+
+Hier kannst du Übungen zu R lösen!
+
+<iframe
+  src="https://learnr-examples.shinyapps.io/ex-data-filter/#section-welcome"
+  width="100%"
+  height="950"
+  style="border:0;">
+</iframe>
+
+::: {.callout-tip}
+## Probleme mit der Anzeige?
+
+Falls die App nicht richtig lädt, kannst du sie auch direkt hier öffnen:
+[LearnR Shinyapp](https://learnr-examples.shinyapps.io/ex-data-filter/#section-welcome)
+:::
+---

@@ -1,0 +1,57 @@
+---
+title: "Hausübung: Peer-Feedback zum Datenanalyseplan"
+editor: visual
+---
+
+Im Rahmen des Abschlussprojekts gebt ihr euch gegenseitig Feedback zu euren Datenanalyseplänen. Ziel ist es, den Plan vor der finalen Abgabe zu verbessern und mögliche Unklarheiten oder Lücken frühzeitig zu erkennen.
+
+### Ablauf
+
+1.  **Musterlösung anschauen**\
+    Schaut euch zunächst die Musterlösung im Ordner *Abschlussprojekt* auf ILIAS an.
+
+2.  **Datenanalyseplan eurer Partnerperson prüfen**\
+    Lest den Datenanalyseplan eurer Partnerin oder eures Partners sorgfältig durch und gebt bis **18.03.** Feedback.\
+    Am besten verwendet ihr **Kommentare in Word oder PDF**.
+
+3.  **Abgabe**
+
+    -   Upload des kommentierten Dokuments auf **ILIAS**
+
+    -   Zusätzlich Weitergabe des Feedbacks an eure Partnerperson **per E-Mail**
+
+4.  **Optional: persönliches Feedback**\
+    Wenn ihr möchtet, könnt ihr euch zusätzlich persönlich austauschen und das Feedback gemeinsam besprechen.
+
+Bei Fragen könnt ihr euch jederzeit über das **Forum oder die Sprechstunde** melden.
+
+------------------------------------------------------------------------
+
+### Worauf ihr beim Feedback achten solltet
+
+Beim Feedback könnt ihr euch insbesondere an folgenden Fragen orientieren:
+
+-   **Klarheit und Verständlichkeit**\
+    Sind alle Begriffe und Konzepte ausreichend erklärt? Gibt es unklare oder verwirrende Formulierungen?
+
+-   **Vollständigkeit**\
+    Werden alle relevanten Fragen beantwortet? Fehlen wichtige Informationen für die geplante Analyse?
+
+-   **Reproduzierbarkeit**\
+    Ist der Analyseplan so beschrieben, dass eine andere Person die Analyse nachvollziehen und reproduzieren könnte?
+
+------------------------------------------------------------------------
+
+### Regeln für gutes Peer-Feedback
+
+-   Gebt **fundiertes, konstruktives und gut strukturiertes Feedback**.
+
+-   Der Fokus sollte auf der **inhaltlichen Qualität und den Anforderungen der Aufgabe** liegen, nicht auf persönlichen Präferenzen.
+
+-   **Konkrete Verbesserungsvorschläge** sind erwünscht – wir wollen aus dem Feedback lernen.
+
+-   Bleibt **sachlich und respektvoll** in eurer Formulierung.
+
+-   Hebt auch **besonders gelungene Aspekte** hervor.
+
+-   Ziel ist nicht nur die Verbesserung der aktuellen Arbeit, sondern auch der **Lernprozess für beide Seiten**.

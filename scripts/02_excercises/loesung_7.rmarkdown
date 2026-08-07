@@ -1,0 +1,525 @@
+---
+title: "Hands On – Analyze (Einheiten 13 und 14)"
+editor: visual
+bibliography: references.bib
+filters:
+  - conditional_content
+show_solutions: false
+draft: false
+format:
+  html
+---
+
+```{r, echo = FALSE, results = 'hide', message= FALSE, warning=FALSE}
+library(tidyverse)
+library(afex)
+library(emmeans)
+library(effsize)
+library(effectsize)
+library(car)
+
+dat_full <- read_csv("data/raw/dat_full.csv")
+dat_long <- read_csv(here::here("scripts/02_excercises/data/processed/data_long.csv"))
+
+dat_long <- dat_long |>
+  mutate(
+    time_rating = factor(time_rating, levels = c("pre1", "pre4")),
+    group_all = factor(group_all)
+  )
+```
+
+Bei Bedarf finden sich hier nochmal die Slides zur EH13:
+
+::: {=html}
+<iframe src="../01_slides/EH_13.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+
+</iframe>
+:::
+
+# Lernziele
+
+✅Einfaktorielle ANOVA
+
+✅Effektstärken berechnen
+
+✅Voraussetzungsprüfung ANOVA
+
+✅Mixed ANOVA
+
+✅Post-hoc *t*-Tests
+
+::: callout-important
+Für die heutigen Übungen benötigen wir den **Wide Datensatz** `dat_full` sowie den **Long Datensatz** `dat_long`
+:::
+
+::: {.callout-note collapse="true"}
+## Cheatsheet Statistik 2
+
+<iframe src="../../PDFs/Stat_2.pdf" width="100%" height="500px">
+
+</iframe>
+:::
+
+::: {.callout-note collapse="true"}
+## Verschiedene Packages für ANOVA
+
+ANOVAs können mit unterschiedlichen Packages berechnet werden, deren Syntax sich weitgehend ähnelt. Allerdings eignen sich nicht alle gleich gut für jede Form der ANOVA (z. B. für eine Mixed-ANOVA). In *Statistik* von Boris Mayer wird das afex-Package (`aov_4`) verwendet, weshalb wir uns hier ebenfalls an dieser Syntax orientieren. Dennoch sind BASE-R (`aov`) und andere Packages ebenfalls weit verbreitet.
+:::
+
+::: {.callout-note collapse="true"}
+## PDF Grinschgl2021
+
+<iframe src="PDFs/Grinschgl2020.pdf" width="100%" height="500px">
+
+</iframe>
+:::
+
+------------------------------------------------------------------------
+
+## 1. Einfaktorielle ANOVA
+
+Das Ziel ist, eine einfaktorielle ANOVA mit `aov_4` (aus dem Paket "afex") für die Offloading-Variable `mean_rl_all` (durchschnittliche Öffnungen des Modellfensters im PCT) für die drei Feedbackgruppen zu berechnen.
+
+### 1.1. Vorbereitung
+
+Dazu soll in einem ersten Schritt ein `Levene-Test` berechnet werden, um die Varianzhomogenität des Between-Faktors zu überprüfen.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo = TRUE}
+
+leveneTest(mean_rl_all ~ group_all, data= dat_full)
+
+```
+
+Der Levene-Test ist **nicht** signifikant (p \> 0.05). Damit gibt es keinen statistischen Hinweis auf eine Verletzung der Varianzhomogenität. Die Voraussetzung kann für diese Analyse daher als unproblematisch betrachtet werden.
+:::
+
+::::
+
+### 1.2. Definition der ANOVA
+
+Nutze die folgende Vorlage, um die passende ANOVA für diese Fragestellung zu definieren:
+
+```{r, eval = FALSE , echo = TRUE}
+
+model_1 <- aov_4(AV ~ Between-F + (1 | ID), data = data)
+
+summary(model_1)
+```
+
+Dabei gibt der Term `(1 | code)` an, welche Variable die Versuchspersonen eindeutig identifiziert. Obwohl es sich hier nicht um ein Messwiederholungsdesign handelt, benötigt `aov_4()` diese Information zur Modellschätzung.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo = TRUE}
+model_1 <- aov_4(mean_rl_all ~ group_all + (1 | code), data = dat_full)
+
+summary(model_1)
+```
+:::
+
+::::
+
+### 1.3. Interpretation des Outputs und Vergleich mit @grinschgl2021
+
+Versuche nun einmal, den Output des Modells zu interpretieren und mit dem @grinschgl2021 Paper zu vergleichen.
+
+👉 Und schon haben wir eine ANOVA für die Offloading Variablen berechnet!
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+Die ANOVA ist nicht signifikant (p \> 0.05). Es gibt also **keinen** statistisch signifikanten Hinweis darauf, dass sich die Gruppen in der Offloadinghäufigkeit unterscheiden.
+:::
+
+::::
+
+### 1.4. Berechnung der Effektstärken
+
+Berechne die beiden Effektstärken:
+
+-   partielles `η²`
+
+-   generalisiertes `η²`
+
+Ergänze dafür die vorherige aov_4-Funktion um `anova_table = list(es = c("ges" ,"pes"))`.
+
+Lasse dir das Ergebnis mit `model$anova_table` ausgeben.
+
+→ Bei einfaktoriellen ANOVAs sind partielles und generalisiertes `η²` identisch.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r}
+model_1 <- aov_4(mean_rl_all ~ group_all + (1 | code),
+                 data = dat_full,
+                 anova_table = list(es = c("ges" ,"pes")))
+
+model_1$anova_table
+```
+
+Das partielle Eta² und das generalisierte Eta² sind identisch und betragen 0.01, was auf einen sehr kleinen Effekt hinweist. Die Gruppenzugehörigkeit kann also nur wenig Varianz des Offloadingverhalten erklären. Dies hat sich auch in der ANOVA gezeigt, bei welcher die Gruppierungsvariable aufgrund geringer Varianzerklärung nicht signifikant wurde.
+:::
+
+::::
+
+### 1.5. Post-hoc *t*-Tests
+
+Da der globale ANOVA-Test nicht signifikant ist, wären Post-hoc-Tests inhaltlich normalerweise nicht erforderlich. Wir berechnen sie hier nur zu Übungszwecken, um die Syntax kennenzulernen.
+
+#### 1.5.1. Lade das Paket `emmeans`
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r}
+library(emmeans)
+```
+:::
+
+::::
+
+#### 1.5.2. Vorbereitungen
+
+Bevor wir die Post-hoc-Tests berechnen können, müssen wir zuerst die **geschätzten marginalen Mittelwerte** für die Gruppen berechnen.
+
+Diese Mittewerte werden nicht einfach direkt aus den Rohdaten genommen, sondern aus dem zuvor berechneten ANOVA-Modell geschätzt. Das hat den Vorteil, dass die Post-hoc-Tests auf demselben Modell basieren wie die ANOVA.
+
+Speichere deshalb mit
+
+`new_object <- emmeans(object = model_name, spes = ~ group_all)`
+
+die geschätzten Mittelwerte und Standardfehler für die Gruppen in einem neuen Objekt.
+
+→ Das Objekt `new_object` enthält nun für jede Gruppe:
+
+-   den geschätzten Mittelwert,
+
+-   den Standardfehler,
+
+-   die Freiheitsgrade,
+
+-   das Konfidenzintervall.
+
+Diese Informationen brauchen wir im nächsten Schritt, um die Gruppen paarweise miteinander zu vergleichen.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo = TRUE, eval = TRUE}
+
+new_object <- emmeans(object = model_1, specs = ~ group_all)
+new_object
+
+```
+:::
+
+::::
+
+#### 1.5.3. Post-hoc-Tests mit `pairs()`
+
+Berechne nun mit `pairs(new_object)` multiple Post-Hoc-Tests. Diese werden als default-Einstellung mit der `Tukey-Methode` korrigiert.
+
+Das ist eine Alternative zu den einzelnen t-Tests in @grinschgl2021 (so wie in EH12 berechnet).
+
+→ Diese Version ergibt leicht andere Werte als im Paper wegen der Tukey-Korrektur für multiples Testen.
+
+→ Für das Abschlussprojekt sind Post-hoc-Tests in beiden Varianten okay:
+
+-   entweder mit `emmeans()` und `pairs()` in Kombination,
+
+-   oder mit `t.test()`.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r}
+pairs(new_object)
+```
+
+Die einzelnen post-hoc Tests zeigen **keine** signifikanten Unterschiede zwischen den jeweiligen Gruppen (alle p-Werte \> 0.05). Auch dieses Resultat war zu erwarten, da ja schon der globale Test mit der ANOVA keinerlei Unterschiede zwischen irgendwelchen Gruppen signalisiert hat.
+:::
+
+::::
+
+::: {.callout-note collapse="true"}
+## Tukey-Korrektur
+
+Die Tukey-Korrektur ist ein simultanes Verfahren für Post-hoc-Gruppenvergleiche, das verhindert, dass sich der Alpha-Fehler durch viele t-Tests (familywise error rate) aufsummiert. Sie wird bevorzugt eingesetzt, wenn alle Gruppen miteinander verglichen werden sollen.
+:::
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, eval = TRUE, echo=TRUE}
+pairs(new_object)
+```
+
+Auch hier zeigen die post-hoc Tests keine signifikanten Unterschiede zwischen den jeweiligen Gruppen (alle p-Werte \> 0.05).
+:::
+
+::::
+
+::: {.callout-note collapse="true"}
+## Fortgeschritten - Effektstärken mit `pairs()`
+
+Der Befehl `pairs()` berechnet nicht automatisch die gewünschten Effektstärken (zum Beispiel Cohen’s d). Die Effektstärken können entweder einzeln wie in den Übungen zu EH 12 berechnet werden, etwa mit `cohens_d()`. Wenn man jedoch die Effektstärken aller Paarvergleiche simultan berechnen möchte, kann man dies mit `eff_size()` tun. Dafür greift man auf die Residualvarianzen und Freiheitsgrade des ANOVA-Modells zu. Diese Informationen sind im `lm`-Objekt des Modells gespeichert. Unten siehst du ein Codebeispiel:
+
+```{r, echo=TRUE}
+posthoc_tests <- emmeans(object = model_1, specs = ~ group_all)
+
+eff_size(
+  posthoc_tests,
+  sigma = sigma(model_1$lm),
+  edf   = df.residual(model_1$lm)
+)
+```
+
+**Zum Vergleich: Mit `cohens_d()`**
+
+```{r, echo=TRUE}
+dat_full_above_below <- dat_full |>
+  filter(group_all != "control")
+
+dat_full_above_below$group_all <- factor(dat_full_above_below$group_all )
+
+cohens_d(mean_rl_all ~ group_all, data = dat_full_above_below)
+```
+
+Die Effektstärken unterscheiden sich hier leicht, da nicht mit den exakt gleichen Varianzen gerechnet wird. `effsize()` verwendet hierfür die modellbasierten SDs, während `cohens_d()` die gepoolte Standardabweichung aus den Rohdaten verwendet. Dieser Unterschied kann jedoch vernachlässigt werden.
+:::
+
+## 2. 2x3 Mixed ANOVA mit Messwiederholung
+
+### 2.1. Definition der Mixed ANOVA
+
+Definiere das 2x3 ANOVA-Modell aus @grinschgl2021 nach folgendem Muster.
+
+→ Dafür benötigst du den Long-Datensatz, da dieses Modell einen Messwiederholungsfaktor beinhaltet!
+
+```{r, echo = TRUE, eval=FALSE}
+mixed_anova <- aov_4(AV ~ between_factor + (within_faktor | ID), data = df_long)
+```
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo=TRUE, eval = TRUE}
+mixed_anova <- aov_4(rating ~ group_all + (time_rating | code), data = dat_long)
+
+summary(mixed_anova)
+```
+
+`group_all` ist der Between-Subjects-Faktor, weil jede Person nur zu einer Gruppe gehört.
+
+`time_rating` ist der Within-Subjects-Faktor, weil jede Person zu mehreren Zeitpunkten gemessen wurde. Der Term `(time_rating| code)` sagt dem Modell, dass `time_rating` innerhalb der Personen-Id `code` wiederholt gemessen wurde.
+:::
+
+::::
+
+### 2.2. Berechnung der Effektstärken
+
+Ergänze den Code wir vorher um `anova_table = list(es = c("ges" ,"pes"))`, um die partielles und generalisiertes `η²` ausgeben zu lassen.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r}
+mixed_anova <- aov_4(rating ~ group_all + (time_rating | code),
+                     data = dat_long,
+                     anova_table = list(es = c("ges" ,"pes")))
+
+
+summary(mixed_anova)
+mixed_anova$anova_table
+```
+:::
+
+::::
+
+#### 2.2.1. Effektstärke in @grinschgl2021
+
+Im Paper wird jedoch nur das reine `η²` berichtet (weder generalisiert noch partiell).
+
+→ Wende `eta_squared()` aus dem Paket `effectsize` auf dein ANOVA-Modell an und setze dabei `partial = FALSE`. So solltest du zu demselben Ergebnis wie das Paper kommen.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo = TRUE}
+mixed_anova <- aov_4(rating ~ group_all + (time_rating | code),
+                     data = dat_long,
+                     anova_table = list(es = c("ges" ,"pes")))
+
+eta_squared(mixed_anova, partial = FALSE)
+```
+:::
+
+::::
+
+### 2.3. Interpretation des Outputs und Vergleich mit @grinschgl2021
+
+Versuche nun, das Ergebnis dieser Mixed ANOVA zu interpretieren und mit @grinschgl2021 zu vergleichen.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+Die Resultate der von uns gerechneten ANOVA und der in @grinschgl2021 berichteten ANOVA stimmen überein. Es gibt signifikante Haupteffekte für den Between-Faktor `group_all` (p \< 0.05, η² = 0.12), den Within-Faktor `time_rating` (p \< 0.05, η² = 0.04) und die Interaktion beider Variablen `group_all:time_rating` (p \< 0.05, η² = 0.07). Der signifikante Haupteffekt von `group_all` zeigt, dass sich die Gruppen im Rating unterschwieden, wenn über die Messzeitpunkte gemittelt wird. Der signifikante Haupteffekt von `time_rating` zeigt, dass sich das Rating über die Zeit verändert, wenn über die Gruppen gemittelt wird. Die signifikante Interaktion `group_all:time_rating` zeigt, dass die Veränderung über die Zeit nicht in allen Gruppen gleich ausfällt. Die Effektstärken deuten auf kleine bis mittlere Effekte hin.
+:::
+
+::::
+
+### 2.4. Post-Hoc *t*-Tests
+
+In der Mixed ANOVA haben wir drei Effekte getestet:
+
+1.  den Haupteffekt von `group_all` (Between-Subject)
+
+2.  den Haupteffekt von `time_rating` (Within-Subject)
+
+3.  die Interaktion `group_all:time_rating`
+
+Besonders interessant ist hier die **Interaktion**. Eine signifikante Interaktion bedeutet, dass die Veränderung des Ratings über die Zeit nicht in allen Gruppen gleich ist.
+
+Die ANOVA sagt uns also zunächst nur, **dass** sich die zeitliche Veränderung zwischen den Gruppen unterscheidet. Sie sagt uns aber noch nicht genau, **welche Gruppen sich unterscheiden** oder **wo** diese Unterschiede auftreten.
+
+→ Dafür benötigen wir Post-hoc-Analysen bzw. geplante Kontraste.
+
+Dafür verwenden wir erneut das Paket `emmeans`.
+
+#### 2.4.1. Vorbereitungen
+
+Erstelle zuerst ein Objekt mit den geschätzten margnialen Mittelwerten für die Kombination aus Messzeitpunkt und Gruppe nach folgender Vorlage:
+
+```{r, eval = FALSE, echo=TRUE}
+results <- emmeans(object = my_anova, specs = ~ within_factor * between_factor)
+```
+
+Dieses Objekt enthält die modellbasierten Mittelwerte für jede Kombination aus `time_rating` und `group_all`.
+
+→ Diese Werte bilden die Grundlage für die folgenden Post-hoc-Tests.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, eval = TRUE}
+results <- emmeans(object = mixed_anova,
+                   specs = ~ time_rating * group_all)
+
+results
+```
+:::
+
+::::
+
+#### 2.4.2. Gruppenunterschiede innerhalb jedes Messzeitpunkts
+
+Zuerst können wir prüfen, ob sich die Gruppen i**nnerhalb der einzelnen Messzeitpunkte** unterscheiden.
+
+Ergänze dazu die Funktion `pairs(model)` noch um das Argument `simple = "group_all"`.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo=TRUE}
+
+pairs(results, simple = "group_all")
+
+```
+:::
+
+::::
+
+Dieser Test beantwortet folgende Fragen:
+
+-   Unterscheiden sich die Gruppen bei `pre1`?
+
+-   Unterscheiden sich die Gruppen bei `pre4`?
+
+**Wichtig ist:** Diese Tests prüfen nicht direkt die Interaktion. Sie prüfen Gruppenunterschiede getrennt nach Messzeitpunkt.
+
+Sie sind aber hilfreich, um eine signifikante Interaktion zu verstehen. Wenn sich die Gruppen zum Beispiel bei `pre1` noch nicht unterscheiden, bei `pre4` aber schon, kann das darauf hinweisen, dass sich die Gruppen über die Zeit unterschiedlich entwickelt haben.
+
+#### 2.4.3. Zeitunterschiede innerhalb jeder Gruppe
+
+Als nächstes können wir prüfen, ob sich das Rating **innerhalb jeder Gruppe** von `pre1` zu `pre4` verändert hat.
+
+Ergänze dazu die Funktion `pairs(model)` noch um das Argument `simple = "time_rating"`.
+
+::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title = "Lösung"}
+
+```{r, echo=TRUE}
+
+pairs(results, simple = "time_rating")
+
+```
+:::
+
+::::
+
+Dieser Test beantwortet folgende Fragen:
+
+-   Verändert sich das Rating in der `control`-Gruppe von `pre1` zu `pre4`?
+
+<!-- -->
+
+-   Verändert sich das Rating in der `above`-Gruppe von `pre1` zu `pre4`?
+
+-   Verändert sich das Rating in der `below`-Gruppe von `pre1` zu `pre4`?
+
+Auch hier gilt, dass diese Tests nicht direkt die Interaktion prüfen. Sie zeigen lediglich, ob es innerhalb einzelner Gruppen eine Veränderung über die Zeit gibt.
+
+→ Das ist wichtig, denn folgende Situation wäre möglich:
+
+Eine Gruppe verädnert sich signifikant, eine andere nicht. Daraus darf man aber nicht automatisch schliessen, dass sich die beiden Gruppen signifikant unterschiedlich verändert haben. Dafür braucht man einen direkten Vergleich der Veränderungen zwischen den Gruppen.
+
+#### 2.4.4. Direkter Test der Interaktion: Vergleich der Veränderungen zwischen den Gruppen
+
+Der zentrale Post-hoc-Test zur Interaktion besteht darin, die Veränderung von `pre1` zu `pre4` zunächst **innerhalb jeder Gruppe** zu berechnen (wie bereits zuvor) und diese Veränderungen anschliessend **zwischen den Gruppen** zu vergleichen.
+
+Da dieser Code etwas anspruchsvoller wird, erhaltet ihr von Beginn an die Lösung. Versucht aber, die einzelnen Bestandteile zu verstehen!
+
+Dazu berechnen wir in einem ersten Schritt die geschätzten Mittelwerte für `time_rating` getrennt nach `group_all`:
+
+```{r, echo=TRUE}
+emm_time_by_group <- emmeans(
+  object = mixed_anova,
+  specs = ~ time_rating | group_all
+)
+
+emm_time_by_group
+```
+
+Danach berechnen wir die Veränderung von `pre1` zu `pre4` innerhalb jeder Gruppe:
+
+```{r, echo=TRUE}
+change_by_group <- contrast(emm_time_by_group, method = "revpairwise")
+
+change_by_group
+```
+
+In einem letzten Schritt wird diese Veränderung zwischen den Gruppen vergleichen:
+
+Mit `by = NULL` geben wir an, dass die Veränderungskontraste zwischen den Gruppen verglichen werden sollen. Ohne dieses Argument würde R versuchen, Vergleiche innerhalb jeder einzelnen Gruppe zu berechnen. Da pro Gruppe aber nur ein Veränderungswert vorliegt, wäre dort nichts zu vergleichen.
+
+```{r}
+pairs(
+  change_by_group,
+  by = NULL,
+  adjust = "bonferroni"
+)
+```
+
+Die Veränderung in der `below`-Gruppe unterscheidet sich signifikant von der Veränderung in der `above`-Gruppe und von der Veränderung in der `control`-Gruppe. Die Veränderung in der `above`-Gruppe unterscheidet sich dagegen nicht signifikant von der Veränderung in der `control`-Gruppe.
+
+::: callout-important
+Achtung: Die `pairs()` Funktion gibt keine Effektstärken aus. Diese müssen für die 2x3 ANOVA mit der `cohens_d()` Funktion berechnet werden wie wir das bereits in Hands On 6 geübt haben.
+:::
+
+# Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉
+

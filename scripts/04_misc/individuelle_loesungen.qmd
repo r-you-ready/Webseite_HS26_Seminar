@@ -1,0 +1,22 @@
+---
+title: "Individuelle Musterlösungen"
+toc: false
+draft: true
+---
+
+Hier kannst du deine individuellen Lösungen basierend auf deinem Datensatz abrufen.
+
+<iframe
+  src="https://aaronfriedli.shinyapps.io/r_you_ready_hs2025/"
+  width="100%"
+  height="950"
+  style="border:0;">
+</iframe>
+
+::: {.callout-tip}
+## Probleme mit der Anzeige?
+
+Falls die App nicht richtig lädt, kannst du sie auch direkt hier öffnen:
+[R You Ready App](https://aaronfriedli.shinyapps.io/r_you_ready_hs2025/)
+:::
+---

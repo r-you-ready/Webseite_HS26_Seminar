@@ -1,0 +1,30 @@
+/* Von ChatGPT erstellt und kommentiert; nicht weiter geprüft
+
+/* Basis: etwas kleinere Standardschrift in der Präsentation */
+.reveal {
+  font-size: 150%;
+}
+
+/* Quellcode-Style */
+.reveal pre.sourceCode {
+  background-color: #e6f0ff;
+  color: #222;
+  border-radius: 6px;
+  padding: 0.75em;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+  position: relative; /* damit z-index wirken kann, falls nötig */
+  z-index: 1;
+}
+
+/* Ausgabe-Blöcke */
+.reveal div.sourceCode + pre {
+  background-color: #f5f5f5;
+  color: #222;
+  border-radius: 6px;
+  padding: 0.75em;
+  font-family: monospace;
+  font-size: 0.9em;
+  position: relative;
+  z-index: 1;
+}

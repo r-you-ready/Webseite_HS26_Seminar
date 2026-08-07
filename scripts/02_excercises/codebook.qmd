@@ -1,0 +1,109 @@
+---
+title: "Hausübung: Codebook"
+editor: visual
+---
+
+Im Methodenseminar „R you Ready? Reproduzierbare Datenaufbereitung und –analyse in R“ erstellt ihr ein **Codebook für euren finalen Datensatz (dat_full)**.
+
+Das Codebook ist Teil eures Analyseprojekts und dokumentiert alle Variablen, im Datensatz beinhaltet sind und die ihr im Rahmen eurer Datenaufbereitung erstellt. Das Codebook bezieht sich **ausschliesslich auf euren finalen Datensatz (dat_full) und nicht auf die Rohdaten der Einzeldatensätze**.
+
+------------------------------------------------------------------------
+
+## Ziel der Hausübung
+
+Ziel dieser Hausübung ist es, dass ihr euren finalen Datensatz so dokumentiert, dass **eine aussenstehende Person eure Daten vollständig nachvollziehen kann**.
+
+Das bedeutet konkret:
+
+Eine Person sollte anhand eures Codebooks verstehen können,
+
+-   welche Variablen im Datensatz enthalten sind
+
+-   wie diese entstanden sind
+
+-   wie sie berechnet wurden
+
+-   welche Werte sie annehmen können
+
+-   wie sie zu interpretieren sind
+
+👉 Das Codebook bildet damit die **Verbindung zwischen eurem Datensatz und eurem R-Skript**.
+
+------------------------------------------------------------------------
+
+## Materialien und Vorlage
+
+Alle relevanten Materialien findet ihr auf ILIAS im ZIP-Ordner des Abschlussprojekts.
+
+Dort findet ihr:
+
+-   **Excel-Vorlage für das Codebook**
+
+-   Beispiel: *Example_Codebook*
+
+-   Dokument *Codebook* *Guideline* mit nützlichen Hinweisen zu den relevanten Spalten
+
+<iframe src="../../PDFs/Guideline_Codebook.pdf" width="100%" height="600px">
+
+</iframe>
+
+👉 Verwendet die bereitgestellte Vorlage und ergänzt die vorgesehenen Felder.
+
+------------------------------------------------------------------------
+
+## Wichtige Anforderungen
+
+Für die Bewertung ist insbesondere wichtig:
+
+-   **Vollständigkeit**\
+    → alle Variablen aus dat_full sind enthalten
+
+-   **Konsistenz**\
+    → Variablennamen stimmen exakt mit dem Datensatz überein
+
+-   **Nachvollziehbarkeit**\
+    → Berechnungen und Bedeutungen sind klar beschrieben
+
+👉 Das Codebook muss so klar sein, dass jemand eure Analyse **ohne Rückfragen verstehen kann**.
+
+------------------------------------------------------------------------
+
+## Abgabe
+
+-   **Abgabe bis EH6 (25.03.2026)**
+
+-   Upload über **ILIAS als Excel Datei**
+
+-   Zusätzlich Versand an eure/n **Peer-Partner:in**
+
+Nach der Abgabe:
+
+-   Ihr erhaltet **Peer-Feedback**
+
+-   Ihr überarbeitet euer Codebook (relevant für das Abschlussprojekt)
+
+------------------------------------------------------------------------
+
+## Zusammenhang mit den anderen Abgaben
+
+Euer Codebook ist Teil eines Gesamtpakets:
+
+-   **Datenanalyseplan** → Was wird analysiert?
+
+-   **R-Skript** → Wie wird es umgesetzt?
+
+-   **Codebook** → Was bedeuten die Variablen?
+
+👉 Diese drei Komponenten müssen **inhaltlich übereinstimmen**.
+
+------------------------------------------------------------------------
+
+## Sprache
+
+Das Codebook kann auf **Deutsch oder Englisch** verfasst werden.
+
+Wichtig ist:
+
+-   Konsistenz mit eurem Datenanalyseplan und (später auch eurem R-Skript)
+
+-   klare und einheitliche Begriffe

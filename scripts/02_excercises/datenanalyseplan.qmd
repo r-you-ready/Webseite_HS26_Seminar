@@ -1,0 +1,154 @@
+---
+title: "Hausübung: Datenanalyseplan (Reanalyse)"
+format: html
+---
+
+Im Methodenseminar **„R you Ready? Reproduzierbare Datenaufbereitung und –analyse in R“ (FS 2026)** erstellt ihr einen Datenanalyseplan zur Reanalyse einer bereits publizierten Studie.
+
+Ihr arbeitet mit der Studie von **Grinschgl et al. (2020)**. Diese Studie wurde bereits durchgeführt und veröffentlicht. Die Originaldaten liegen vor. (Später erhaltet ihr zusätzlich simulierte Datensätze zur gleichen Studie für euer Abschlussprojekt).
+
+Eure Aufgabe besteht **nicht** darin, eine neue Studie zu planen.\
+Eure Aufgabe besteht darin, die im Artikel beschriebenen Analysen möglichst exakt zu reproduzieren und systematisch zu überprüfen, ob sich die publizierten Ergebnisse erneut so finden lassen.
+
+Der Datenanalyseplan wird deshalb konsequent aus der Perspektive einer **Reanalyse** verfasst.
+
+------------------------------------------------------------------------
+
+# Materialien und Ablageort
+
+Alle relevanten Dokumente befinden sich auf **ILIAS** im ZIP-Ordner des Abschlussprojekts.
+
+Dort findet ihr:
+
+-   *Grinschgl et al. (2020)* – Originalversion (ohne Kommentare)\
+-   *Grinschgl et al. (2020)* – Version mit Kommentaren\
+-   Preregistration zur Studie (OSF) \[kein optimales Beispiel, an einigen Stellen zu knapp!\]\
+-   Vorlage für den Datenanalyseplan (nach van den Akker et al., 2021)\
+-   Tutorial zur Preregistration von Sekundärdatenanalysen (van den Akker et al., 2021)
+
+## Wofür dienen die einzelnen Dokumente?
+
+### Das Paper (ohne Kommentare)
+
+Dies ist die wissenschaftliche Originalpublikation. Hier entnehmt ihr:
+
+-   Hypothesen\
+-   Studiendesign\
+-   Stichprobe\
+-   Operationalisierung der Variablen\
+-   statistische Analysen\
+-   berichtete Ergebnisse
+
+Diese Version ist eure primäre wissenschaftliche Grundlage. Meldet euch bei inhaltlichen oder methodischen Fragen gerne bei uns!
+
+### Das Paper (mit Kommentaren)
+
+Diese Version enthält Hinweise, die euch zeigen, zu welchen Fragen des Datenanalyseplans bestimmte Textstellen gehören.
+
+Sie dient als **Orientierungshilfe**, ersetzt jedoch nicht die eigenständige Analyse des Papers.
+
+**Wichtig**: In den Kommentaren findet sich auch ein Hinweis zu einer Analyse, die nicht repliziert werden muss! -\> "Offloading strategies"
+
+### Die Präregistrierung (OSF)
+
+Die Preregistration enthält zusätzliche Informationen zu:
+
+-   Hypothesenstruktur\
+-   geplanten Analysen\
+-   Inferenzkriterien\
+-   Ausschlussregeln
+
+### Die Vorlage des Datenanalyseplans
+
+Die Vorlage bildet die verbindliche Struktur eures Dokuments.\
+Ihr könnt sie direkt verwenden und müsst sie mit den studienspezifischen Informationen aus Paper und Preregistration ergänzen. Unsere Kommentare und Anleitungen müssen nicht aus der Vorlage entfernt werden, ihr müsst bloss die grauen Felder ergänzen.
+
+------------------------------------------------------------------------
+
+# Was wird konkret von euch verlangt?
+
+Ihr erstellt einen strukturierten, transparenten und verbindlichen Plan, in dem ihr darlegt,
+
+-   welche Hypothesen aus der Originalstudie geprüft werden,
+-   welche Variablen verwendet werden,
+-   wie diese operationalisiert sind,
+-   welche statistischen Modelle eingesetzt werden,
+-   welche Ausschlusskriterien gelten,
+-   wie mit fehlenden Werten umgegangen wird,
+-   welche Inferenzkriterien angewendet werden.
+
+Ihr kopiert keine Textpassagen aus dem Paper, sondern formuliert klar und nachvollziehbar, **wie ihr die Analysen konkret umsetzen werdet**.
+
+Eine aussenstehende Person sollte euren Plan lesen und exakt verstehen können, welche Schritte später in R durchgeführt werden.
+
+------------------------------------------------------------------------
+
+# Zwei Phasen – zwei Abgaben
+
+## Phase 1: Reanalyse der Originalstudie
+
+**Abgabe: 11.03.2026 (4 Punkte)**
+
+Bis zum 11.03.2026 erstellt ihr einen Datenanalyseplan auf Basis:
+
+-   der publizierten Studie\
+-   der dort beschriebenen Daten\
+-   der berichteten Analysen
+
+Ab dem 11.03.2026 erhaltet ihr:
+
+-   eine Musterlösung\
+-   Peer-Feedback von eurer/eurem Partner:in (4 Punkte)
+
+Ihr überarbeitet euren Plan auf Basis dieses Feedbacks. Diese überarbeitete Version bildet die inhaltliche und strukturelle Grundlage für das Abschlussprojekt.
+
+------------------------------------------------------------------------
+
+## Phase 2: Anpassung für das Abschlussprojekt
+
+**Hierzu folgen genaue Informationen zu einem späteren Zeitpunkt!**
+
+Für das Abschlussprojekt erhaltet ihr simulierte Datensätze zur gleichen Studie. (Jede/r Studierende erhält individuelle Datensätze.)
+
+Eure Aufgabe besteht darin, die Analysen von Grinschgl et al. (2020) auf Basis dieser simulierten Daten zu reproduzieren.
+
+Da sich die Datengrundlage ändert, müsst ihr euren ursprünglichen Datenanalyseplan gezielt anpassen. Besonders sorgfältig zu prüfen und gegebenenfalls zu überarbeiten sind die Bereiche:
+
+-   data access\
+-   data collection procedures\
+-   missing data\
+-   data exclusion\
+-   data identifiers
+
+Die angepasste Version wird im Rahmen des Abschlussprojekts eingereicht.
+
+Wichtig: Alle im Datenanalyseplan beschriebenen Analyseschritte müssen später auch tatsächlich in eurem R-Skript umgesetzt werden.
+
+------------------------------------------------------------------------
+
+# Perspektive des Datenanalyseplans (zentral)
+
+Der Datenanalyseplan wird ausdrücklich aus der Perspektive einer Reanalyse formuliert.
+
+Das bedeutet:
+
+-   Ihr plant keine neue Studie.\
+-   Ihr entwickelt keine neuen Hypothesen.\
+-   Ihr verändert nicht eigenständig das Studiendesign.\
+-   Ihr fügt keine zusätzlichen Analysen hinzu, die nicht klar als explorativ gekennzeichnet sind.
+
+Stattdessen:
+
+-   Ihr orientiert euch eng an den im Artikel berichteten Hypothesen.\
+-   Ihr übernehmt die beschriebenen Variablen und statistischen Modelle systematisch.\
+-   Ihr beschreibt transparent, wie ihr diese Analysen konkret reproduzieren werdet.
+
+Es handelt sich um die strukturierte Reproduktion einer bestehenden Studie – nicht um ein eigenständiges Forschungsprojekt.
+
+------------------------------------------------------------------------
+
+# Sprache
+
+Der Datenanalyseplan darf auf Deutsch oder Englisch verfasst werden.
+
+Die gewählte Sprache muss zur Sprache eures R-Skripts passen, sodass eine konsistente und einheitliche Arbeit entsteht.

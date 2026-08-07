@@ -1,0 +1,240 @@
+---
+title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 5"
+author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+format: 
+  revealjs:
+    title-slide-attributes:
+      data-visibility: hidden
+    theme: [default, ../../custom.scss]
+    transition: slide
+    slide-number: true
+    logo: /images/unibe.png
+    incremental: false
+    self_contained: true
+    show-slide-number: all
+    smaller: true
+    progress: true
+    controls: true
+    embed-resources: true
+---
+
+## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
+
+FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**5. Einheit**, 18.03.2026
+
+------------------------------------------------------------------------
+
+## Heute:
+
+::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
+```{=html}
+<embed
+    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
+    type="application/pdf"
+    style="width:100%; height:220vh; border:0; display:block; background:white;"
+  >
+```
+:::
+
+------------------------------------------------------------------------
+
+## Muddiest Points I: Inhalte
+
+Eure Fragen und Anmerkungen liessen sich in folgende 3 Blöcke einteilen:
+
+1.  Fragen zum Codebook
+
+2.  Fragen zum Datenanalyseplan
+
+3.  Sonstige Fragen
+
+------------------------------------------------------------------------
+
+## Live-Demonstration Codebook
+
+-   Wie genau soll das Codebook bearbeitet werden?
+
+-   Wo findet man die entsprechenden Angaben?
+
+-   Wofür kann man das dann nutzen?
+
+-\> Gemeinsames Einfügen einer Variable
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan
+
+**Research Questions:** Für jede RQ auch ein "Statistical Model"
+
+-   Beeinflusst Fake-Performance Feedback die metakognitiven Überzeugungen der Versuchspersonen (im Sinne von subj. Leistungseinschätzungen) über ihre Arbeitsgedächtnisleistung?
+
+    -   👉 *2x3 ANOVA der subj. Leistungseinschätzungen*
+
+-   Gibt es Unterschiede zwischen den Gruppen bezüglich des Offloading-Verhaltens im Pattern Copy Task?
+
+    -   👉 *One-way ANOVA für jede Offloading-Variable (3x)*
+
+-   Explorativ: Gibt es Unterschiede zwischen den Gruppen bezüglich der Leistung im Pattern Copy Task?
+
+    -   👉 One-way ANOVA für Trial Dauer
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan (2)
+
+**Research Questions:** Für jede RQ auch ein "Statistical Model"
+
+-   Explorativ: Gibt es Unterschiede zwischen den Gruppen in Bezug auf den Glauben in ihre generellen Gedächtnisfähigkeiten?
+
+    -   👉 *One-way ANOVA für MMQ*
+
+-   Gibt es Unterschiede zwischen den Gruppen bezüglich ihrer Gedächtnisleistung im Feature Switch Detection Task?
+
+    -   👉 *One-way ANOVA für Arbeitsgedächtnisleistung*
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan (3)
+
+**Hypothesen**
+
+**Basierend auf RQ1:** Wir erwarten einen Interaktionseffekt der subjektiven Leistungseinschätzung. Bei der ersten Leistungseinschätzung erwarten wir keine Unterschiede zwischen den Gruppen, während wir unmittelbar vor dem Pattern Copy Task (4te Leistungeinschätzung) Unterschiede zwischen den drei Gruppen erwarten. Die unterdurchschnittliche-Gruppe wird ihre Leistung am niedrigsten bewerten, gefolgt von der Kontrollgruppe und der „überdurchschnittlichen“-Gruppe, von der wir erwarten, dass sie ihre kommende Leistung am höchsten bewertet.
+
+**Basierend auf RQ2:** Wir erwarten, dass die Versuchspersonen, die ein unterdurchschnittliches Leistungsfeedback erhalten, sich mehr Offloading-Verhalten zeigen als Versuchspersonen mit überdurchschnittlichem Feedback, während die Kontrollgruppe (ohne Feedback) zwischen den beiden liegt.
+
+**Explorativ:** RQ3 und RQ4
+
+**Basierend auf RQ5:** Wir erwarten keine Gruppenunterschiede in Bezug auf die Arbeitsgedächtniskapazität
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan (4)
+
+**Abhängige Variablen/Measured Variables:**
+
+-   **Subjektive Leistungseinschätzungen: (für RQ1)**
+
+    -   Vor jedem Task (4x) gaben die Versuchspersonen an, wie gut sie ihre bevorstehende Leistung im Vergleich zu anderen Studierenden einschätzten (0–100 Percentile).
+
+    -   Ein zusätzliches Post-Rating wurde nach dem Pattern Copy Task erhoben, um die eingeschätzte Leistung nach der Aufgabenbearbeitung zu erfassen.
+
+-   **Offloading-Verhalten: (für RQ2)**
+
+    -   Anzahl der Öffnungen des Modellfensters (Mittelwert aus 20 Trials)
+
+    -   Anzahl korrekt kopierter Items nach der ersten Öffnung (Mittelwert aus 20 Trials)
+
+    -   Dauer der ersten Öffnung (Mittelwert aus 20 Trials). 
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan (5)
+
+**Abhängige Variablen/Measured Variables:**
+
+-   **Leistung im Pattern Copy Task:**
+
+    -   (für RQ3) - Trial Dauer (Mittelwert aus 20 Trials)
+
+-   **MMQ**
+
+    -   (Mittelwert aus 18 Items) (für RQ4)
+
+-   **Arbeitsgedächtnisleistung**
+
+    -   Feature Switch Detection Task (Proportion richtiger Antworten bei 120 trials) (für RQ5)
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan (6)
+
+**Analyses - Statistical Models**
+
+1.  Beeinflusst Fake-Performance Feedback die metakognitiven Überzeugungen der Versuchspersonen (im Sinne von subj. Leistungseinschätzungen) über ihre Arbeitsgedächtnisleistung? 👉 **2x3 mixed ANOVA der «subjective performance ratings» mit post-hoc t-Tests. Unabhängige Variablen: Zeitpunkt der Selbsteinschätzung (1. vs. 4); 3 Gruppen**
+
+2.  Gibt es Unterschiede zwischen den Gruppen bezüglich des Offloading-Verhaltens im Pattern Copy Task? 👉 **One-way ANOVA für jede Offloading Variable. UV: 3 Gruppen**
+
+3.  Explorativ: Gibt es Unterschiede zwischen den Gruppen bezüglich der Leistung im Pattern Copy Task? 👉 **One-way ANOVA für Trial Dauer. UV: 3 Gruppen**
+
+4.  Explorativ: Gibt es Unterschiede zwischen den Gruppen in Bezug auf den Glauben in ihre generellen Gedächtnisfähigkeiten? 👉 **One-way ANOVA für MMQ mit post-hoc t-Tests. UV: 3 Gruppen**
+
+5.  Gibt es Unterschiede zwischen den Gruppen bezüglich ihrer Gedächtnisleistung im Feature Switch Detection Task? 👉 **One-way ANOVA für Arbeitsgedächtnisleistung; UV: 3 Gruppen**
+
+------------------------------------------------------------------------
+
+## {data-background-iframe="../../PDFs/Muddiest_Points_I.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
+## Fragen Hands On Block 2?
+
+![](../../images/EH_2_files/fragen.png){fig-align="center"}
+
+::: notes
+-   Mergen / Full_join
+
+-   Funktionen, Tastenkombinationen, Styler –\> wenn noch nicht gemacht heute nachholen
+:::
+
+------------------------------------------------------------------------
+
+## Reproduzierbare Auswertung: Quarto
+
+-   Open Source Publishing System: Nachfolger von RMarkdown
+
+-   Kombination von Text, Code und Resultaten 👉 Hohe Reproduzierbarkeit
+
+-   Kann für diverse Arten von Dokumenten verwendet werden:
+
+    ✏️Dokumente & Projekte
+
+    📊 Analysen und Reports
+
+    🌐Websites & Blogs
+
+    📱Slides und [Shinyapps](https://gallery.shinyapps.io/064-telephones-by-region/?_gl=1z7uznf_gaMTQ1NzEyMzY1My4xNzU4MTAwOTM3_ga_2C0WZ1JHG0*czE3NjA0MjU5MzYkbzgkZzAkdDE3NjA0MjU5MzgkajU4JGwwJGgw)
+
+::: notes
+Live vorzeigen, wie die Oberfläche von Quarto aussieht.
+
+-   Quarto erstellen
+
+-   Neuen Code-Chunk erstellen
+
+-   Rendern und Header anpassen
+
+-   Inline Code
+:::
+
+------------------------------------------------------------------------
+
+## Selbstständiges Arbeiten: Hands on Block 3
+
+------------------------------------------------------------------------
+
+## Was haben wir heute gemacht?
+
+-   Offene Fragen (*Muddiest Points*) aufgegriffen
+
+-   Live-Demonstration **Codebook**
+
+-   Wichtigste Punkte im **Datenanalyseplan** besprochen
+
+-   **Quarto** kennengelernt
+
+------------------------------------------------------------------------
+
+## Bis nächstes Mal:
+
+-   Datenanalyseplan:
+    -   Peer Feedback selbstständig anschauen und Datenanalyseplan überarbeiten
+    -   Bei Fragen oder für weitere Feedback -\> selbsständig auf uns zu kommen
+-   Abgabe **Codebook** (ILIAS und Peer–Partner:innen) bis zum **25.03.2026**
+
+**Reminder Instruktionen:**
+
+-   Notwendig für „gemergten“ Datensatz „dat_full“ (159 Versuchspersonen & 36 Variablen)
+
+-   Vorlage ist auf Englisch, kann aber auch auf Deutsch ausgefüllt werden (selbes gilt für Datenanalyseplan)
+
+-   Basierend auf Horstmann et al. (2020)

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Hands On – Coding Basics (Einheiten 9 und 10) – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Hands On – Coding Basics (Einheiten 9 und 10)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 5 - 18.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 6 - 25.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 7 - 01.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 8 - 15.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 9 - 22.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 10 - 29.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 11 - 06.05.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 3 (Woche 5 - 6) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 4 (Woche 7 - 8) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 5 (Woche 9 - 10) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 6 (Woche 11 - 12)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../hausuebungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Datenanalyseplan (18.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Codebook (25.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Codebook (01.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung I (22.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung II (08.05.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link active" data-scroll-target="#lernziele">Lernziele</a></li>
+  <li><a href="#duplizierte-werte-entfernen" id="toc-duplizierte-werte-entfernen" class="nav-link" data-scroll-target="#duplizierte-werte-entfernen"><strong>Duplizierte Werte entfernen</strong></a></li>
+  <li><a href="#dplyr-code-korrigieren-und-verbessern" id="toc-dplyr-code-korrigieren-und-verbessern" class="nav-link" data-scroll-target="#dplyr-code-korrigieren-und-verbessern">Dplyr: Code korrigieren und verbessern</a></li>
+  <li><a href="#wide-to-long" id="toc-wide-to-long" class="nav-link" data-scroll-target="#wide-to-long">Wide to Long:</a>
+  <ul class="collapse">
+  <li><a href="#übungen-zur-datenkonversion" id="toc-übungen-zur-datenkonversion" class="nav-link" data-scroll-target="#übungen-zur-datenkonversion">Übungen zur Datenkonversion</a></li>
+  </ul></li>
+  <li><a href="#datenqualität" id="toc-datenqualität" class="nav-link" data-scroll-target="#datenqualität">Datenqualität</a>
+  <ul class="collapse">
+  <li><a href="#skewness-und-kurtosis" id="toc-skewness-und-kurtosis" class="nav-link" data-scroll-target="#skewness-und-kurtosis">Skewness und Kurtosis</a></li>
+  <li><a href="#residuen" id="toc-residuen" class="nav-link" data-scroll-target="#residuen">Residuen</a></li>
+  <li><a href="#skalenreliabilität" id="toc-skalenreliabilität" class="nav-link" data-scroll-target="#skalenreliabilität">Skalenreliabilität</a></li>
+  <li><a href="#streudiagrammescatterplots-weitere-datenverteilungen" id="toc-streudiagrammescatterplots-weitere-datenverteilungen" class="nav-link" data-scroll-target="#streudiagrammescatterplots-weitere-datenverteilungen">Streudiagramme/Scatterplots &amp; weitere Datenverteilungen</a>
+  <ul class="collapse">
+  <li><a href="#tabelle-mit-geoms" id="toc-tabelle-mit-geoms" class="nav-link" data-scroll-target="#tabelle-mit-geoms">Tabelle mit Geoms()</a></li>
+  </ul></li>
+  <li><a href="#fortgeschrittene-freiwillige-übungen" id="toc-fortgeschrittene-freiwillige-übungen" class="nav-link" data-scroll-target="#fortgeschrittene-freiwillige-übungen">Fortgeschrittene (freiwillige Übungen)</a></li>
+  </ul></li>
+  <li><a href="#tabellen" id="toc-tabellen" class="nav-link" data-scroll-target="#tabellen">Tabellen</a></li>
+  <li><a href="#apa-konforme-tabellen-von-statistischen-analysen" id="toc-apa-konforme-tabellen-von-statistischen-analysen" class="nav-link" data-scroll-target="#apa-konforme-tabellen-von-statistischen-analysen">APA-konforme Tabellen von statistischen Analysen</a></li>
+  <li><a href="#zusatzübungen-für-die-extra-schnellen" id="toc-zusatzübungen-für-die-extra-schnellen" class="nav-link" data-scroll-target="#zusatzübungen-für-die-extra-schnellen">Zusatzübungen für die Extra-Schnellen</a></li>
+  <li><a href="#am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" id="toc-am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" class="nav-link" data-scroll-target="#am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern">Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hands On – Coding Basics (Einheiten 9 und 10)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Bei Bedarf finden sich hier nochmal die Slides zur EH9:</p>
+<div class="{=html}">
+<iframe src="../01_slides/EH_9.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+</iframe>
+</div>
+<p>Und hier die Slides zur EH10:</p>
+<div class="{=html}">
+<iframe src="../01_slides/EH_10.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+</iframe>
+</div>
+<section id="lernziele" class="level1">
+<h1>Lernziele</h1>
+<p>✅ Dplyr: Repetition</p>
+<p>✅ Duplizierte Werte Entfernen</p>
+<p>✅ Long &amp; Wide Transformationen</p>
+<p>✅ Datenqualitätsindkatoren berechnen</p>
+<p>✅ Ausreisseranalysen</p>
+<p>✅ Tabellen</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Für die heutigen Übungen benötigen wir <code>dat_full</code>!</p>
+</div>
+</div>
+</section>
+<section id="duplizierte-werte-entfernen" class="level1">
+<h1><strong>Duplizierte Werte entfernen</strong></h1>
+<p>In vielen Datensätzen kann es vorkommen, dass Werte mehrfach auftreten (z. B. wenn eine ID mehrmals vorkommt). Um dies zu bereinigen, müssen wir zunächst die Duplikate identifizieren und sie anschliessend bearbeiten oder entfernen.</p>
+<p>Im nächsten Schritt duplizieren wir exemplarisch drei zufällige Zeilen aus unserem Datensatz <strong>dat_full</strong>. Diese künstlich erzeugten Duplikate werden wir danach wieder bereinigen.</p>
+<p>Führe diesen Code-Chunk aus: Danach sollte dein <strong>dat_full</strong> 162 Beobachtungen enthalten.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)   </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dup_rows <span class="ot">&lt;-</span> dat_full <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dat_full <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(dat_full, dup_rows)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Es gibt mehrere Arten und Weisen, Duplikate zu identifizieren. Verwende die <code>dplyr</code>-Funktion <code>count()</code>, um die einzelnen IDs zu zählen. Gib dir anschliessend mit <code>filter()</code> diejenigen aus, die mehr als einmal vorkommen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat_full <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(XXXX) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(XXX)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Entferne die Duplikate wieder, indem du z. B. <code>unique()</code> auf den Datensatz anwendest. <code>unique()</code> entfernt vollständig identische Zeilen und behält nur eine davon.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Alternative: Falls du Duplikate nur auf Basis einer bestimmten Variable (z. B. id) entfernen möchtest, kannst du duplicated() verwenden. Dadurch bleibt pro ID nur die erste Zeile erhalten.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat_full <span class="ot">&lt;-</span> dat_full[<span class="sc">!</span><span class="fu">duplicated</span>(dat_full<span class="sc">$</span>code), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dplyr-code-korrigieren-und-verbessern" class="level1">
+<h1>Dplyr: Code korrigieren und verbessern</h1>
+<p><strong>Dieser Code funktioniert nicht. Korrigiere ihn. Achte dabei auf Syntaxfehler.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat_full <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(code, post, strategies)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="at">strtegies =</span> <span class="st">"1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Dieser Code funktioniert, ist jedoch sehr umständlich und ineffizient. Verwende <code>dplyr</code>-Funktionen, um ihn kürzer und übersichtlicher zu gestalten.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat_full <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gesamtmittelwert =</span> <span class="fu">mean</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        question1, question2, question3, question4, question5,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        question6, question7, question8, question9, question10,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        question11, question12, question13, question14, question15,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        question16, question17, question18</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>💡Tips:</strong></p>
+<ul>
+<li><p>Nutze <code>select()</code> zusammen mit <code>starts_with()</code>.<br>
+Achtung: <code>select()</code> braucht als erstes Argument den Datensatz obwohl wir die Pipe verwenden.</p></li>
+<li><p>Um den Gesamtmean zu berechnen, musst du zuerst <code>rowMeans()</code> anwenden und dann mit <code>mean()</code> kombinieren. <code>select()</code> gibt als Resultat nur ein Dataframe zurück, das <code>mean()</code> nicht direkt verarbeiten kann.</p></li>
+</ul>
+<p>Du kannst versuchen diese Struktur mit den richtigen Funktionen zu ergänzen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat_full <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gesamtmittelwert =</span> <span class="fu">Funktion_1</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Funktion_2</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Funktion_3</span>(dat_full, <span class="fu">starts_with</span>(<span class="st">"XXX"</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="wide-to-long" class="level1">
+<h1>Wide to Long:</h1>
+<section id="übungen-zur-datenkonversion" class="level2">
+<h2 class="anchored" data-anchor-id="übungen-zur-datenkonversion">Übungen zur Datenkonversion</h2>
+<p>📖<a href="https://r4ds.hadley.nz/data-tidy.html#sec-pivoting">R4DS - Kapitel 5.3</a></p>
+<p>📖<a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html#manuelle-konversion-von-wide-zu-long">Einführung in R - Kapitel 3.1.3</a></p>
+<p>Die folgenden Schritte dienen der Konversion von Daten zwischen dem Wide- und Long-Format unter Verwendung des <code>Tidyverse</code>-Pakets in R.</p>
+<ul>
+<li><p>Mit der Funktion <strong><code>pivot_longer()</code></strong> Spalten der Leistungseinschätzung in Long-Format umwandeln und in neuen Datensatz speichern, <strong>nur für Übungszwecke</strong>.</p></li>
+<li><p>Wandle den Datensatz noch mal in das Long Format um, aber nur basierend auf den Spalten <strong><code>pre1</code></strong> und <strong><code>pre4</code></strong> <strong>Long-Format wird für 2x3 ANOVA aus Grinschgl et al.&nbsp;(2020) benötigt; für Vergleich der 2 Messzeitpunkte in dieser Analysen, benötigen wir diese im Long-Format.</strong></p></li>
+<li><p>Wandle die Spalte <strong><code>time_rating</code></strong> in einen Factor um –&gt; <strong>auch notwendig für Analysen</strong>.</p></li>
+<li><p>Speichere den Long Datensatz als <strong><code>csv.</code></strong> Datei ab. Den Long Datensatz werden wir in den kommenden Wochen benötigen.</p></li>
+</ul>
+<ul>
+<li>Verwende <strong><code>pivot_wider</code></strong> unter Angabe von <strong><code>names_from</code></strong> und <strong><code>values_from</code></strong> um den Datensatz wieder in das Wide-Format zu bringen. –&gt; <strong>nur für Übungszwecke.</strong></li>
+</ul>
+</section>
+</section>
+<section id="datenqualität" class="level1">
+<h1>Datenqualität</h1>
+<p>Ab hier wieder mit dem normalen Datensatz (<code>dat_full</code>) arbeiten.</p>
+<section id="skewness-und-kurtosis" class="level2">
+<h2 class="anchored" data-anchor-id="skewness-und-kurtosis">Skewness und Kurtosis</h2>
+<p>Die folgenden Schritte dienen der Vorbereitung und deskriptiven Analyse von Daten in R.</p>
+<ul>
+<li><strong>Installieren und laden des Pakets</strong> {psych}: Stelle sicher, dass das Statis Paket <code>psych</code>für die weiteren Analysen geladen ist.</li>
+</ul>
+<ul>
+<li>Berechne die Schiefe und die Kurtosis der Variablen “Öffnungen des Modellfensters” (<code>mean_rl_all</code>) für die drei Gruppen. Verwende hierfür die <code>dplyr</code>-Funktionen <code>group_by()</code> und <code>summarize()</code>.</li>
+</ul>
+</section>
+<section id="residuen" class="level2">
+<h2 class="anchored" data-anchor-id="residuen">Residuen</h2>
+<p>📖Siehe auch: <a href="https://bjoernwalther.com/normalverteilung-der-residuen-bei-der-regression-in-r-testen/">Normalverteilung der Residuen bei der Regression in R testen</a></p>
+<p>Für die folgenden Schritte berechnen wir zuerst ein Regressionsmodell:</p>
+<ul>
+<li><strong>Spezifikation des Regressionsmodells:</strong> Verwende die Funktion <code>lm()</code> um ein Regressionsmodell zwischen Cognitive Offloading (<code>mean_rl_all</code> und der Arbeitsgedächtnisleistung (Feature Switch Detection Task - <code>cvstm_propcorrect</code>) zu spezifizieren.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>reg_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Cognitive_Offloading_Variable <span class="sc">~</span> Arbeitsgedächtnisleistung, <span class="at">data =</span> dat_ full)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><strong>Speichern der Residuen:</strong> Speichere die Residuen dieses Regressionsmodells mit der Funktion <code>rstandard()</code></li>
+</ul>
+<ul>
+<li><p><strong>Visualisierung mittels Histogramm:</strong> Stelle die die Residuen in einem Histogramm mit der Funktion <code>hist()</code> dar.</p>
+<p><em>Frage:</em> Ist im Histogramm eine <strong>Glockenkurve</strong> (Normalverteilung) erkennbar?</p></li>
+<li><p><strong>Visualisierung mittels QQ-Plot:</strong> Stelledie Residuen in einem <code>QQ-Plot</code> mit der Funktion <code>qqnorm()</code> dar. Ergänze die <strong>Regressionsgerade</strong> mit <code>qqline()</code>.</p>
+<p><em>Frage:</em> Wie nah sind die Residuen einer <strong>perfekten Normalverteilung</strong> (d.h. der Geraden)?</p></li>
+</ul>
+</section>
+<section id="skalenreliabilität" class="level2">
+<h2 class="anchored" data-anchor-id="skalenreliabilität">Skalenreliabilität</h2>
+<p>📖 <a href="https://bookdown.org/annabrown/psychometricsR/exercise5.html">Psychometrics in R</a> &amp; <a href="https://bjoernwalther.com/cronbachs-alpha-in-r-berechnen/">Björn Walther</a></p>
+<p>Die folgenden Schritte dienen der Prüfung der <strong><em>internen Konsistenz</em></strong> der Messinstrumente.</p>
+<ul>
+<li><p><strong>Datenvorbereitung für die Analyse:</strong> Speichere alle Variablen des <code>MMQs</code> in einem <strong>neuen</strong> Data Frame ab. Wähle dabei die Spalten mittels <code>select</code> aus.</p></li>
+<li><p><strong>Berechnung von Cronbach’s Alpha:</strong> Verwende die Funktion <code>alpha()</code> aus dem <code>psych</code>-Paket und wende sie auf das neue Objekt an, um <strong>Cronbach’s Alpha</strong> (Interne Konsistenz) für diesen Fragebogen zu berechnen. Schau dir die Ergebnisse (insbesondere <code>raw_alpha</code>) an. Dieses sollte mit Werten in <span class="citation" data-cites="grinschgl2021">Grinschgl et al. (<a href="#ref-grinschgl2021" role="doc-biblioref">2021</a>)</span> übereinstimmen.</p></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Achtung: Wenn du das Package ggplot() geladen hast, kann es sein dass die Funktion <code>alpha()</code>dadurch verdeckt wird. Spezifiziere aus welchem Package du die Funktion verwenden willst mit <code>psych::alpha()</code></p>
+</div>
+</div>
+<ul>
+<li><p>Verwende die Funktion <code>omega()</code> aus dem <strong>psych-Paket</strong> und wende sie auf dein Objekt (z. B. den Datensatz mit den relevanten Items) an, um <strong>McDonald’s Omega</strong> (interne Konsistenz auf Basis eines Faktorenmodells) zu berechnen.<br>
+</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>PDF Grinschgl2021 –&gt; Seite 7 –&gt; Multifactorial Memory Questionnaire
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<iframe src="../../PDFs/Grinschgl2020.pdf" width="100%" height="500px">
+</iframe>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Tipp:</strong> In der <code>alpha()</code> Funktion werden unter <code>details</code> alle Werte beschrieben. Für weitere Erklärungen siehe auch: <a href="https://bookdown.org/annabrown/psychometricsR/exercise5.html">Psychometrics in R</a></p>
+</blockquote>
+<hr>
+</section>
+<section id="streudiagrammescatterplots-weitere-datenverteilungen" class="level2">
+<h2 class="anchored" data-anchor-id="streudiagrammescatterplots-weitere-datenverteilungen">Streudiagramme/Scatterplots &amp; weitere Datenverteilungen</h2>
+<p>📊<a href="https://ggplot2.tidyverse.org/reference/index.html">Auflistung von Argumenten</a></p>
+<p>📊<a href="https://r4ds.hadley.nz/layers">R4DS - Layers</a></p>
+<p>📊<a href="https://r4ds.hadley.nz/EDA.html">R4DS - EDA</a></p>
+<section id="tabelle-mit-geoms" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle-mit-geoms">Tabelle mit Geoms()</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Geom</th>
+<th>Funktion</th>
+<th>Einsatzbereich</th>
+<th>Bild / Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>geom_point()</strong></td>
+<td>Streudiagramm</td>
+<td>Zwei numerische Variablen vergleichen (x = Var1, y = Var2)</td>
+<td><img src="images/EH_10/geom_point.png" class="img-fluid"></td>
+</tr>
+<tr class="even">
+<td><strong>geom_jitter()</strong></td>
+<td>Jitter-Plot</td>
+<td>Punkte leicht versetzen, um Überlappung zu vermeiden (v. a. bei kategorialem x)</td>
+<td><img src="images/EH_10/geom_jitter.png" class="img-fluid"></td>
+</tr>
+<tr class="odd">
+<td><strong>geom_line()</strong></td>
+<td>Liniendiagramm</td>
+<td>Werteverlauf Über kontinuierliche x-Achse darstellen</td>
+<td><img src="images/EH_10/geom_line.png" class="img-fluid"></td>
+</tr>
+<tr class="even">
+<td><strong>geom_bar()</strong></td>
+<td>Balkendiagramm</td>
+<td>Häufigkeiten oder Aggregationen für Kategorien (x = Gruppe)</td>
+<td><img src="images/EH_10/geom_bar.png" class="img-fluid"></td>
+</tr>
+<tr class="odd">
+<td><strong>geom_histogram()</strong></td>
+<td>Histogramm</td>
+<td>Verteilung einer numerischen Variable (x = Wert)</td>
+<td><img src="images/EH_10/geom_histogram.png" class="img-fluid"></td>
+</tr>
+<tr class="even">
+<td><strong>geom_boxplot()</strong></td>
+<td>Boxplot</td>
+<td>Verteilungen über Gruppen vergleichen (x = Gruppe, y = Wert)</td>
+<td><img src="images/EH_10/geom_boxplot.png" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cheatsheet ggplot2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<iframe src="../../PDFs/ggplot.pdf" width="100%" height="500px">
+</iframe>
+</div>
+</div>
+</div>
+<p>Um Plots zu erstellen gibt es diverse Packages. Für einfache Darstellungen ist die Syntax der Base r <code>plot()</code> Funktion nützlich, bietet jedoch wesentlich weniger Optionen an als <code>ggplot()</code>. Für diese aufgaben sind zwar beide geeignet, jedoch empfehlen wir <code>ggplot()</code></p>
+<ul>
+<li>Plotte den Zusammenhang zwischen Cognitive Offloading (Öffnungen des Modelfensters - <code>mean_rl_all</code>) und der Arbeitsgedächtnisleistung (Feature Switch Detection Task <code>cvstm_propcorrect</code>). Ergänze dafür den Code unten mit den richtigen Variablen. (Wichtig für Ausreißerkontrolle bei Berechnungen von Korrelationen/Regressionen)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dat_full, <span class="fu">aes</span>(<span class="at">x =</span> XXXXX, <span class="at">y =</span> XXXXXX))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_XXXX</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Ausreißer können auch mit <code>boxplots</code> für einzelne Variablen identifiziert werden 👉 für Öffnungen des Modelfensters anschauen. Nutze das richtige <code>geom()</code> aus der Tabelle.</li>
+</ul>
+<p>❗Man sollte schon vor Studienerhebung oder zumindest vor der Datenanalyse festlegen ob bzw. wie man Ausreißer identifiziert und ausschließt (z.B. in Präregistrierungen oder Datenanalyseplänen)</p>
+<ul>
+<li>Lass dir den <code>boxplot()</code> getrennt für die 3 Experimentalgruppen anzeigen. Setze dafür <code>y = group</code>.</li>
+</ul>
+</section>
+</section>
+<section id="fortgeschrittene-freiwillige-übungen" class="level2">
+<h2 class="anchored" data-anchor-id="fortgeschrittene-freiwillige-übungen">Fortgeschrittene (freiwillige Übungen)</h2>
+<ul>
+<li><p>Erweitere den Scatterplot deiner beiden Variablen um die folgenden Dinge:</p>
+<ul>
+<li><p>Färbe deine Datenpunkte nach Gruppenzugehörigkeit ein mit <code>color()</code></p></li>
+<li><p>Füge einen titel ein mit <code>labs</code> und title()</p></li>
+<li><p>Benne die Achsen mit <code>ylab()</code> und <code>xlab()</code></p></li>
+<li><p>Änder die Darstellungart zu <code>theme_minimal()</code></p></li>
+</ul></li>
+</ul>
+<p><strong><em>Wir werden in EH 11 noch vertiefende Übungen zu ggplot durchführen.</em></strong></p>
+</section>
+</section>
+<section id="tabellen" class="level1">
+<h1>Tabellen</h1>
+<p>Diese Schritte dienen der Erstellung eines übersichtlichen Tabellen mit deskriptiver Statistik.</p>
+<ul>
+<li><strong>Paketinstallation und Laden:</strong> Paket <code>knitr</code> <strong>installieren</strong> und <strong>laden</strong> (ggf. muss davor das Paket <code>xfun</code> geupdated werden.</li>
+</ul>
+<ul>
+<li><p><strong>Erstellung des Data Frames:</strong> Erstelle einen Data Frame mit deskriptiver Statistik, z.B. mittels <code>summarise()</code> für die 4 Variablen des Pattern Copy Task</p></li>
+<li><p><strong>Anwendung von Labels:</strong> Wende <code>kable()</code> auf den Data Frame mit deskriptiver Statistik an.</p></li>
+<li><p><strong>Hilfefunktion und Formatierung:</strong> Schau dir die Hilfefunktion von <code>kable</code> an und nimm Formatierungen vor, wie etwa die Umbenennung der Spalten mit <code>col.names(c(„new colnames here“))</code>, die Anpassung der Nachkommastellen auf 2 mit <code>digit =</code>, das Ergänzen einer Überschrift mit <code>caption =</code></p></li>
+</ul>
+<hr>
+</section>
+<section id="apa-konforme-tabellen-von-statistischen-analysen" class="level1">
+<h1>APA-konforme Tabellen von statistischen Analysen</h1>
+<p><strong>📑Referenz:</strong> <a href="https://dstanley4.github.io/apaTables/articles/apaTables.html" class="uri">https://dstanley4.github.io/apaTables/articles/apaTables.html</a></p>
+<ul>
+<li><strong>Paketinstallation und Laden:</strong> Paket <code>apaTables</code> <strong>installieren</strong> und <strong>laden</strong>.</li>
+</ul>
+<ul>
+<li><strong>Datenvorbereitung:</strong> Erstelle einen Data Frame nur mit den <strong>Proportion Correct Variablen</strong> der 3 Arbeitsgedächtnistests.</li>
+</ul>
+<ul>
+<li><strong>Erstellung der Korrelationstabelle:</strong> Wende <code>apa.cor.table()</code> auf diesen Data Frame an → du bekommst eine <strong>Korrelationstabelle im</strong> APA Format.</li>
+</ul>
+<ul>
+<li><strong>Speichern der Tabelle:</strong> Speichere die Tabelle in einer Word Datei mit der Ergänzung <code>filename = "somefilename.doc"</code> im Ordner <em>data -&gt; outputs -&gt; results</em></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Wichtiger Hinweis:</strong> Diese Funktion kann man auch für Regressionen und ANOVAs erstellen. Wir benutzen aber ein anderes Paket für ANOVAs (nicht ezANOVA, auf dem apaTables basiert)!</p>
+</blockquote>
+<hr>
+</section>
+<section id="zusatzübungen-für-die-extra-schnellen" class="level1">
+<h1>Zusatzübungen für die Extra-Schnellen</h1>
+<ul>
+<li><p>Versuche Tabelle 1 aus dem Paper (Grinschgl et al., 2020) möglichst ident zu reproduzieren und als Word-Datei abzuspeichern</p></li>
+<li><p>Erstelle eine Abbildung deiner Wahl und versuche dabei möglichst viele APA-Richtlinien zu missachten.</p></li>
+</ul>
+</section>
+<section id="am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-grinschgl2021" class="csl-entry" role="listitem">
+Grinschgl, Sandra, Hauke S. Meyerhoff, Stephan Schwan, and Frank Papenmeier. 2021. <span>“From Metacognitive Beliefs to Strategy Selection: Does Fake Performance Feedback Influence Cognitive Offloading?”</span> <em>Psychological Research</em> 85 (7): 2654–66. <a href="https://doi.org/10.1007/s00426-020-01435-9">https://doi.org/10.1007/s00426-020-01435-9</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

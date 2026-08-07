@@ -1,0 +1,51 @@
+---
+title: "Links und Ressourcen"
+---
+
+Auf dieser Seite finden sich die Links zu den Ressourcen, die wir im Rahmen dieses Seminars empfehlen.
+
+## Open Science und Replikationskrise
+
+-   🎥 [Is there a reproducibility crisis in science? – Matt Anticole](https://www.youtube.com/watch?v=FpCrY7x5nEE)
+
+-   📘 [The Seven Deadly Sins of Psychology (Chris Chambers, 2017)](https://doi.org/10.1515/9781400884940)
+
+-   🏛️ [Universitätsbibliothek Bern – Open Science](https://www.ub.unibe.ch/service/open_science/index_ger.html)
+
+-   🌐 [Data Colada](https://datacolada.org/)
+
+-   ☕ [ReproducibiliTea](https://reproducibilitea.org/)
+
+-   🎓 [Universität Bern – Lehrveranstaltungen Institut für Psychologie](https://www.dig.psy.unibe.ch/studium/lehrveranstaltungen/index_ger.html)
+
+-   🎥 [Charlotte Pennington – A Student’s Guide to Open Science](https://www.youtube.com/watch?v=LXauIZPg_lE)
+
+## R und R-Studio
+
+-   📗 [Einführung in R – Methodenlehre Uni Bern (Andrew Ellis & Boris Mayer)](https://methodenlehre.github.io/einfuehrung-in-R/)
+
+-   📘 [R for Data Science – Basics wie Import, Aufbereitung, Visualisierung](https://r4ds.hadley.nz/)
+
+-   📊 [Data Visualization in R – A Practical Introduction (Kieran Healy)](https://socviz.co)
+
+-   📊 [The R Graph Gallery - R charts](https://r-graph-gallery.com)
+
+-   📖 [R für Einsteiger – Maike Luhmann](https://www.beltz.de/index.php?id=1731)
+
+-   📊 [Psychometrics in Exercises using R and RStudio – EFA, CFA, SEM](https://bookdown.org/markhoff/psychometrics_in_exercises/)
+
+-   📦 [Informationen zu R-Paketen (CRAN)](https://cran.r-project.org/web/packages/)
+
+-   🤖 [Psyteacher AI Tutor](https://psyteacher.ai/)
+
+-   💡 [Learnr Shinyapps](https://rstudio.github.io/learnr/)
+
+-   📋 [RStudio Cheatsheets](https://posit.co/resources/cheatsheets/)
+
+-   💬 [Stack Overflow – R Community](https://stackoverflow.com/questions/tagged/r)
+
+-   🎓 [DataCamp – Interactive R Courses](https://www.datacamp.com/)
+
+-   📰 [Newsletter zu R](https://rweekly.org/) – Aktuelle News, Pakete und Tutorials aus der R-Community
+
+-   📚 [Überblick über weitere Ressourcen – Arslan (2025)](https://rubenarslan.github.io/posts/2025-06-04-resources-for-learning-r/)

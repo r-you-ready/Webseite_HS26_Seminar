@@ -1,0 +1,346 @@
+---
+title: "Hausübung 1"
+editor: visual
+---
+
+```{r, echo = FALSE, results = 'hide', message= FALSE}
+library(tidyverse)
+library(readxl)
+library(skimr)
+library(here)
+```
+
+# Aufgabenstellung
+
+-   Abgabefrist: **22.04.2026**
+
+-   Abgabe auf **ILIAS** und Weitergabe an Peerpartner:in
+
+-   Arbeite für diese Hausübung mit **Quarto**.
+
+-   Versuche beim Lösen der Aufgaben darauf zu achten, dass du sie **reproduzierbar** gestaltest. Am Ende der Aufgabe **renderst du dein Skript**.
+
+-   Die **Abgabe** besteht dann aus deinem Skript sowie dem gerenderten Skript als **HTML- oder PDF-Datei**.
+
+```{r}
+#| label: download-data
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "hide"
+
+# Copy from raw/ into the same folder as your .qmd (ryouready/)
+file.copy(
+  from = "raw/fake_bfi_dataset.csv",
+  to   = "fake_bfi_dataset.csv",
+  overwrite = TRUE
+)
+```
+
+# Aufgabe 1: Datensatz aufbereiten und beschreiben
+
+Wir arbeiten für die Übungen mit diesem Datensatz. Dieser wurde simuliert und spiegelt keine echten Daten oder Zusammenhänge wider. Der Datensatz beinhaltet demografische Variablen sowie eine Version des BFI-44-Fragebogens. In den folgenden Aufgaben werden wir diesen mit den bisher kennengelernten **tidyverse**-Funktionen aufbereiten und analysieren.
+
+<a href="fake_bfi_dataset.csv" download class="btn btn-primary"> 📥 Download fake_bfi_dataset.csv </a>
+
+Nutze die **dplyr**-Funktionen, die wir kennengelernt haben, um die folgenden Aufgaben zu bearbeiten.
+
+**Tipp:** In einigen Variablen gibt es fehlende Werte (*missings*). Die Bearbeitung dieser Werte erfolgt erst in **Aufgabe 2**. Verwende, falls nötig, das Argument `na.rm = TRUE`.
+
+**Aufgaben**
+
+-   Benenne die Variable *Ort* in *Postleitzahl* um.
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data <- read_delim("raw/fake_bfi_dataset.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+data <- data |> 
+  rename(Postleitzahl = Ort)
+```
+
+-   Im Datensatz gibt es eine doppelt vorhandene Spalte. Identifiziere diese und entferne sie.
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data <- select(data, - Ort_2)
+```
+
+-   Personen, die nicht volljährig sind, dürfen nicht an der Studie teilnehmen und müssen ausgeschlossen werden.
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data <- filter(data, Age >= 18)
+```
+
+-   Füge dem Datensatz die Spalte *Alterskohorte* hinzu. Wenn eine Person über 60 Jahre alt ist, gilt sie als *alt*, ansonsten als *jung*.
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data <- data |>
+  mutate(Alterskohorte = ifelse(Age >60, "alt", "jung"))
+```
+
+-   Welche Variablen sollten Faktoren (kategoriale Variablen) sein? Wandle sie in Faktoren um
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+data$Gender <- as.factor(data$Gender)
+data$Alterskohorte <- as.factor(data$Alterskohorte)
+```
+
+-   Erstelle eine Kopie des Datensatzes nur mit den demographischen Variablen.
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+data_demographic <- data |> 
+  select(Age, Gender, Postleitzahl, Alterskohorte)
+```
+
+**Verwende die dplyr-Funktionen, um die folgenden Fragen zu beantworten:**
+
+-   Welchen Anteil am Gesamtsample hat jeder Ort bzw. jede Postleitzahl, und wie kann dieser als neue Spalte im Datensatz ergänzt werden?
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data <- data %>%
+  group_by(Postleitzahl) %>%
+  mutate(proportion = n() / nrow(data)) %>%
+  ungroup()
+```
+
+-   In welchem Quartier leben proportional am meisten Personen, die sich als weiblich beschreiben?
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data_demographic %>%
+  group_by(Postleitzahl) %>%
+  summarise(
+    n_female = sum(Gender == "female", na.rm = TRUE),
+    n_total = n(),
+    proportion_weiblich = n_female / n_total
+  ) %>%
+  arrange(desc(proportion_weiblich))
+```
+
+-   Wie hoch ist das durchschnittliche Alter pro Quartier?
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data_demographic |>
+  group_by(Postleitzahl) |> 
+  summarize(durchschnittsalter = mean(Age, na.rm = TRUE))
+```
+
+-   Wie alt sind die jüngsten Personen getrennt nach Gender?
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+data_demographic |>
+  group_by(Gender) |> 
+  summarize(min_age = min(Age, na.rm = TRUE))
+```
+
+-   Erstelle eine Rangliste der Quartiere nach durchschnittlichem Alter (vom höchsten zum niedrigsten).
+
+```{r, echo = FALSE, results = 'hide', message=FALSE}
+
+rangliste <- data_demographic |>
+  group_by(Postleitzahl) |> 
+  summarise(mean_age = mean(Age, na.rm = TRUE)) |> 
+  arrange(desc(mean_age))
+
+rangliste
+```
+
+# Aufgabe 2: Fehlende Werte
+
+[📖Kapitel 4.3.3 Ellis & Mayer](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#fehlende-werte-auschliessen-drop_na)
+
+Führe die folgenden Schritte durch:
+
+-   Untersuche den Datensatz auf fehlende Werte. Wie viele fehlende Werte gibt es insgesamt, und in welchen Variablen treten sie auf?
+
+```{r, echo = FALSE, results = 'hide', message= FALSE}
+
+skim(data)
+
+table(is.na(data))
+
+colSums(is.na(data))
+```
+
+-   Einige **Personen** haben keine Angabe zu ihrer Geschlechtsidentität gemacht. Ersetze diese **fehlenden Werte (NAs)** durch *"Keine Angabe"*. Nutze dafür die Funktion `mutate()` und `replace_na().` Beachte: Gender wurde bereits als Faktor definiert, muss aber erneut zu einem Character transformiert werden. Anschliessend soll die Variable erneut als Faktor definiert werden.
+
+```{r, echo = FALSE, results = 'hide'}
+
+library(dplyr)
+library(tidyr)
+
+data <- data %>%
+  mutate(
+    Gender = as.character(Gender),
+    Gender = replace_na(Gender, "Keine Angabe"),
+    Gender = as.factor(Gender)
+  )
+```
+
+-   **Zeilen mit fehlenden Werten löschen**\
+    Erstelle eine **Kopie** des Datensatzes und verwende `drop_na()`,\
+    um alle Zeilen mit fehlenden Werten zu entfernen.
+
+```{r, echo = FALSE, results = 'hide'}
+
+data_drop_na <- drop_na(data) 
+```
+
+# Aufgabe 3: Skalenberechnung
+
+[📖Kapitel 4.4. Ellis & Mayer](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html)
+
+**Aufgaben:**
+
+-   **Umwandlung der BFI-Items in numerische Werte.**
+
+    -   „Stimme gar nicht zu“ → **1**
+
+    -   „Stimme voll und ganz zu“ → **5**
+
+Verwende dafür eine Kombination aus `mutate()`, `across()` und `case_when()` oder `recode()`.
+
+```{r, echo = FALSE, results = 'hide'}
+
+data_numeric <- data_drop_na %>%
+  mutate(
+    across(
+      extra_1:neuro_9_r,   # selects all columns in that range
+      ~ case_when(
+        . == "Stimme gar nicht zu" ~ 1,
+        . == "Stimme eher nicht zu" ~ 2,
+        . == "Neutral" ~ 3,
+        . == "Stimme eher zu" ~ 4,
+        . == "Stimme voll und ganz zu" ~ 5
+      )
+    )
+  )
+
+# Alternative mit recode
+data_numeric <- data_drop_na %>%
+  mutate(
+    across(
+      extra_1:neuro_9_r,
+      ~ recode(
+        .,
+        "Stimme gar nicht zu" = 1,
+        "Stimme eher nicht zu" = 2,
+        "Neutral" = 3,
+        "Stimme eher zu" = 4,
+        "Stimme voll und ganz zu" = 5
+      )
+    )
+  )
+```
+
+-   **Umpolen der negativ formulierten Items**
+
+Die negativ formulierten Items enden alle mit `_r` (für reverse). Pole diese Items um.
+
+Suche dir eine dplyr Funktion, welche helfen kann alle Variablen auszuwählen welche mit `_r` aufhören.
+
+💡***Tipp: Ähnlich wie starts_with***
+
+```{r, echo = FALSE, results = 'hide'}
+
+library(dplyr)
+
+data_reversed <- data_numeric %>%
+  mutate(
+    across(
+      ends_with("_r"),
+      ~ case_when(
+        . == 1 ~ 5,
+        . == 2 ~ 4,
+        . == 3 ~ 3,
+        . == 4 ~ 2,
+        . == 5 ~ 1
+      )
+    )
+  )
+```
+
+-   **Berechnung der Big-Five-Skalen**
+
+    -   Erstelle neue Variablen, die den **Mittelwert jedes Big-Five-Faktors** pro Person enthalten.
+    -   Mit welcher Funktion kannst du dir ersparen, alle Variablen auszuschreiben?
+
+```{r, echo = FALSE, results = 'hide'}
+
+
+# Berechnung der Mittelwerte ohne na.rm
+data_bfi_scores <- data_reversed |>
+  mutate(
+    extraversion = rowMeans(select(data_reversed, starts_with("extra"))),
+    agreeableness = rowMeans(select(data_reversed, starts_with("agree"))),
+    conscientiousness = rowMeans(select(data_reversed, starts_with("consc"))),
+    neuroticism = rowMeans(select(data_reversed, starts_with("neuro"))),
+    openness = rowMeans(select(data_reversed, starts_with("open")))
+  )
+```
+
+-   **Zusammenhänge zwischen Skalen testen**
+
+    -   Teste mit `cor.test()` die **Korrelation** zwischen zwei Big-Five-Faktoren,\
+        zum Beispiel zwischen **Extraversion** und **Offenheit**.
+
+```{r, echo = FALSE, results = 'hide'}
+
+
+# Korrelation zwischen Extraversion und Offenheit testen
+cor.test(
+  data_bfi_scores$extraversion,
+  data_bfi_scores$openness
+)
+```
+
+-   Berechne die **Durchschnittswerte**, **Standardabweichungen** und **Mediane** der Big-Five-Faktoren Extraversion und Offenheit, unterteilt nach der **Geschlechtsangabe**.
+
+```{r, echo = FALSE, results = 'hide', warning=FALSE}
+
+
+data_summary <- data_bfi_scores %>%
+  
+  filter(Postleitzahl %in% c(3012, 3014)) %>%
+  
+  group_by(Gender) %>%
+  summarise(
+    across(
+      c(extraversion, openness),
+      list(
+        Mittelwert = mean,
+        SD = sd,
+        Median = median
+      ),
+      na.rm = TRUE
+    )
+  )
+```
+
+-   Rendere dein Skript!
+
+**Gib dein Skript und deine gerenderte Datei als ZIP (Dateinaname: vorname_nachname_hausübung_1.ZIP) auf ILIAS ab und leite sie deiner/m Peerpartner:in weiter.**
+
+# Instruktionen Peerfeedback:
+
+-   Kommentiere direkt im Quarto File deiner Peerpartner:in und schicke es ihm/ihr zu.
+
+-   Schreibe eine kurzen Kommentar im Forum auf ILIAS (Ordner EH8).
+
+***Fokussiere dich dabei auf die folgenden Punkte:***
+
+-   Funktioniert der Code?
+
+-   Ist die Analyse reproduzierbar (z. B. durch relative Pfade, Kommentierung des Codes, Einhaltung von Style-Guidelines)?
+
+-   Welche Aspekte wurden gut umgesetzt?
+
+-   Welche Punkte lassen sich noch verbessern?
+
+![](../../images/EH_8/Forum_Peer_Feedback.png){fig-align="center"}

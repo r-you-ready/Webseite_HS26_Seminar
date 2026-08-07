@@ -1,0 +1,81 @@
+---
+title: ""
+Author: Lars Schilling
+format:
+  revealjs:
+    css: styles/presentation_styles.css
+    footer: "R u Ready? FS2026 | Psychologie der Digialisierung"
+    theme: default
+    transition: slide
+    slide-number: true
+---
+
+# R u Ready? Reprodzierbare Datenaufbereitung und -analyse mit R
+
+FS 2026<br><br><br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br><br><br> **1. Einheit**, 18.02.2026
+
+```{r}
+#| label: setup
+#| message: false
+#| include: false
+
+install.packages("tidyverse", repos = "https://cloud.r-project.org")
+library(tidyverse)
+```
+
+## Beispielhafte Chunks & Output
+
+::::: {.columns gap="2em"}
+::: {.column width="50%"}
+```{r}
+#| echo: true
+
+print("Hello world!")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+
+2+2
+```
+:::
+:::::
+
+## Beispielhafte Formatierung
+
+Diese Präsentation verwendet Reveal.js in Quarto
+
+::: callout-warning
+## Hinweis
+
+Auf den Folien sind erst einmal nur Beispiele zu sehen, wie man mit Quarto Präsentationen einfach Code einbinden und zeigen kann.
+:::
+
+## Beispielhafter Datensatz
+
+```{r}
+#| echo: true
+
+head(mtcars)
+```
+
+## Beispielhafter ggplot-code und plot
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| output-location: slide # Option for location of output (next slide)
+#| code-line-numbers: "1-3|4-6|7-9" # Highlights lines of code
+
+ggplot(data = mtcars, aes(x = hp, y = mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  labs(
+    title = "PS vs. Verbrauch",
+    x = "Horsepower (hp)",
+    y = "Miles per Gallon (mpg)",
+    color = "Zylinder"
+  ) +
+  theme_minimal()
+```

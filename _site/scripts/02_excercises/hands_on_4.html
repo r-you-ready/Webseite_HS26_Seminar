@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Hands On – Tidy (Einheiten 7 und 8) – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d4be639c637f3db3c684c66cefad7e0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Hands On – Tidy (Einheiten 7 und 8)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hands_on_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_exercises/hausuebungen.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link active" data-scroll-target="#lernziele">Lernziele</a></li>
+  <li><a href="#pipe-operator" id="toc-pipe-operator" class="nav-link" data-scroll-target="#pipe-operator"><strong>Pipe-Operator</strong></a></li>
+  <li><a href="#datenaufbereitung-tidy-transform" id="toc-datenaufbereitung-tidy-transform" class="nav-link" data-scroll-target="#datenaufbereitung-tidy-transform">Datenaufbereitung – Tidy &amp; Transform</a>
+  <ul class="collapse">
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">filter()</a>
+  <ul class="collapse">
+  <li><a href="#übungen-zu-filter" id="toc-übungen-zu-filter" class="nav-link" data-scroll-target="#übungen-zu-filter"><strong>Übungen zu <code>filter()</code></strong></a></li>
+  </ul></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">select()</a>
+  <ul class="collapse">
+  <li><a href="#übungen-zu-select" id="toc-übungen-zu-select" class="nav-link" data-scroll-target="#übungen-zu-select"><strong>Übungen zu select()</strong></a></li>
+  <li><a href="#kombination-von-filter-und-select" id="toc-kombination-von-filter-und-select" class="nav-link" data-scroll-target="#kombination-von-filter-und-select"><strong>Kombination von filter() und select()</strong></a></li>
+  </ul></li>
+  <li><a href="#rename" id="toc-rename" class="nav-link" data-scroll-target="#rename">rename()</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">mutate()</a></li>
+  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize">summarize()</a></li>
+  <li><a href="#kombination-summarize-und-group_by" id="toc-kombination-summarize-und-group_by" class="nav-link" data-scroll-target="#kombination-summarize-und-group_by">Kombination summarize() und group_by()</a></li>
+  <li><a href="#anwendung-dplyr-funktionen" id="toc-anwendung-dplyr-funktionen" class="nav-link" data-scroll-target="#anwendung-dplyr-funktionen">Anwendung: dplyr-Funktionen</a>
+  <ul class="collapse">
+  <li><a href="#berechnen-von-mmq_mean" id="toc-berechnen-von-mmq_mean" class="nav-link" data-scroll-target="#berechnen-von-mmq_mean">Berechnen von <em>mmq_mean</em></a></li>
+  </ul></li>
+  <li><a href="#multiplizieren-von-pre-ratings" id="toc-multiplizieren-von-pre-ratings" class="nav-link" data-scroll-target="#multiplizieren-von-pre-ratings">Multiplizieren von Pre Ratings</a></li>
+  </ul></li>
+  <li><a href="#fehlende-werte" id="toc-fehlende-werte" class="nav-link" data-scroll-target="#fehlende-werte">Fehlende Werte</a>
+  <ul class="collapse">
+  <li><a href="#häufige-formen-fehlender-werte" id="toc-häufige-formen-fehlender-werte" class="nav-link" data-scroll-target="#häufige-formen-fehlender-werte"><strong>Häufige Formen fehlender Werte</strong></a></li>
+  <li><a href="#umgang-mit-fehlenden-werten" id="toc-umgang-mit-fehlenden-werten" class="nav-link" data-scroll-target="#umgang-mit-fehlenden-werten">Umgang mit fehlenden Werten</a></li>
+  <li><a href="#aufgabe" id="toc-aufgabe" class="nav-link" data-scroll-target="#aufgabe">Aufgabe:</a></li>
+  </ul></li>
+  <li><a href="#skalenberechnung" id="toc-skalenberechnung" class="nav-link" data-scroll-target="#skalenberechnung">Skalenberechnung</a>
+  <ul class="collapse">
+  <li><a href="#umpolen-der-negativ-formulierten-items" id="toc-umpolen-der-negativ-formulierten-items" class="nav-link" data-scroll-target="#umpolen-der-negativ-formulierten-items"><strong>Umpolen der negativ formulierten Items</strong></a></li>
+  <li><a href="#berechnung-der-big-five-skalen" id="toc-berechnung-der-big-five-skalen" class="nav-link" data-scroll-target="#berechnung-der-big-five-skalen"><strong>Berechnung der Big-Five-Skalen</strong></a></li>
+  </ul></li>
+  <li><a href="#am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" id="toc-am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" class="nav-link" data-scroll-target="#am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern">Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hands On – Tidy (Einheiten 7 und 8)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Bei Bedarf finden sich hier nochmal die Slides zur EH7:</p>
+<div class="{=html}">
+<iframe src="../01_slides/EH_7.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+</iframe>
+</div>
+<p>Und hier die Slides zur EH8:</p>
+<div class="{=html}">
+<iframe src="../01_slides/EH_8.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+</iframe>
+</div>
+<section id="lernziele" class="level1">
+<h1>Lernziele</h1>
+<p>✅ Pipe-Operator |&gt; oder %&gt;% kennenlernen und anwenden</p>
+<p>✅ dplyr-Funktionen verstehen und nutzen</p>
+<p>✅ Skalenberechnung &amp; Kodierung</p>
+<p>✅ Identifikation und Umgang mit fehlenden Werten</p>
+</section>
+<section id="pipe-operator" class="level1">
+<h1><strong>Pipe-Operator</strong></h1>
+<p><a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#der-pipe-operator">📖Kapitel 4.2 Ellis &amp; Mayer</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Tastenkombinationen für den Pipe Operator:</strong></p>
+<p><strong>Windows/Linux:</strong> <code>Ctrl</code> + <code>Shift</code> + <code>M</code> → fügt |&gt; ein</p>
+<p><strong>Mac:</strong> <code>Cmd</code> + <code>Shift</code> + <code>M</code> → fügt |&gt; ein</p>
+<p>Vergiss nicht, dass du das <code>tidyverse</code> laden musst um die Pipe zu verwenden!</p>
+<p>Ggf. musst du unter “Tools” - “Global Options” - “Code” noch den “Native Pipe Operator” aktivieren</p>
+</div>
+</div>
+<p><strong>Aufgabe:</strong></p>
+<p>Schreibe folgenden Code mit der Pipe um:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">round</span>((<span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)), <span class="at">digits =</span> <span class="dv">2</span>), <span class="at">trim =</span> <span class="fl">0.5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.5</code></pre>
+</div>
+</div>
+<p>💡 Hinweis: Überlege, welche Schritte nacheinander ausgeführt werden und wie man sie mit |&gt; lesbarer machen kann.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Versuche in den folgenden Übungen wenn möglich mit der Pipe zu arbeiten!</p>
+</div>
+</div>
+</section>
+<section id="datenaufbereitung-tidy-transform" class="level1">
+<h1>Datenaufbereitung – Tidy &amp; Transform</h1>
+<p>In den folgenden Aufgaben lernen wir die grundlegenden Funktionen des <strong>dplyr</strong>-Packages aus dem <strong>tidyverse</strong> kennen.</p>
+<p><strong>Hier findest du ein Cheatsheet zu den dplyr-Funktionen:</strong></p>
+<iframe src="../../PDFs/dplyr_cheatsheet.pdf" width="100%" height="600px">
+</iframe>
+<section id="filter" class="level2">
+<h2 class="anchored" data-anchor-id="filter">filter()</h2>
+<section id="übungen-zu-filter" class="level3">
+<h3 class="anchored" data-anchor-id="übungen-zu-filter"><strong>Übungen zu <code>filter()</code></strong></h3>
+<p>Diese Aufgaben helfen dir, den Umgang mit <code>dplyr</code>-Funktionen wie <code>filter()</code> und <code>select()</code> zu üben.</p>
+<p>Der Datensatz heißt <strong><code>dat_full</code></strong> und enthält 159 Zeilen und 36 Variablen. Stelle sicher, dass du diesen geladen hast.</p>
+<p><em>Reminder: Verwende die logischen Operatoren, die wir in Hands On 1 kennengelernt haben.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Zeichen</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>gleich</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>ungleich</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>grösser</td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td>grösser gleich</td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>kleiner</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>kleiner gleich</td>
+</tr>
+<tr class="odd">
+<td>|</td>
+<td>Logisches Oder</td>
+</tr>
+<tr class="even">
+<td>&amp;</td>
+<td>Logisches Und</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Erste Schritte mit Filter</strong></p>
+<ul>
+<li><p>Wähle alle Teilnehmenden aus, die in der Gruppe <code>"above"</code> sind.</p></li>
+<li><p>Wähle alle Teilnehmenden aus, die mehr als 0.7 in <code>cvstm_propcorrect</code> erreicht haben.</p></li>
+</ul></li>
+</ul>
+<ul>
+<li><p><strong>Kombinierte Filter: Nutze die Pipe um beide Filter nacheinander auszuführen.</strong></p>
+<ul>
+<li><p>Filtere alle, die gleichzeitig in der Gruppe <code>below</code> sind UND weniger als 0.6 in <code>vp_propcorrect</code> haben.</p></li>
+<li><p>Wähle alle Fälle aus, deren <code>strategies</code> größer oder gleich 2 sind oder deren Wert in <code>mean_rl_all</code> nicht gleich 4.5 ist.</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="select" class="level2">
+<h2 class="anchored" data-anchor-id="select">select()</h2>
+<section id="übungen-zu-select" class="level3">
+<h3 class="anchored" data-anchor-id="übungen-zu-select"><strong>Übungen zu select()</strong></h3>
+<ol type="a">
+<li>Wähle die Variablen (bzw. Spalten) <code>code</code>, <code>group_all</code>, <code>vp_sum</code> und <code>cvstm_propcorrect</code> aus <code>dat_full</code> aus</li>
+</ol>
+</section>
+<section id="kombination-von-filter-und-select" class="level3">
+<h3 class="anchored" data-anchor-id="kombination-von-filter-und-select"><strong>Kombination von filter() und select()</strong></h3>
+<ol type="a">
+<li><p>Wähle alle Personen aus der Gruppe “above” aus, die mehr als 0.8 in <code>vp_propcorrect</code> haben,</p>
+<p>und zeige nur <code>code</code>, <code>group_all</code>, <code>vp_sum</code>, <code>vp_propcorrect</code> an.</p></li>
+</ol>
+</section>
+</section>
+<section id="rename" class="level2">
+<h2 class="anchored" data-anchor-id="rename">rename()</h2>
+<ul>
+<li><p>Benenne die Variable <code>group_all</code> in <code>group</code> um, indem du die Funktion <code>rename()</code> verwendest; achte dabei darauf, dass der neue Name zuerst angegeben wird.</p>
+<p>Anmerkung: je nachdem wie du deine Daten gemerged hast, heisst die Variable bereits “group”. Dann ist dieser Schritt nicht notwendig.</p></li>
+</ul>
+</section>
+<section id="mutate" class="level2">
+<h2 class="anchored" data-anchor-id="mutate">mutate()</h2>
+<p>Nur für Übungszwecke: Erstelle eine neue Spalte aus der Variable <code>group</code>. Aus <code>above</code> soll <code>EG1</code>, aus <code>below</code> <code>EG2</code> und aus <code>control</code> <code>KG</code> werden. Verwende dafür eine Kombination aus <code>case_when()</code> (oder <code>recode()</code>) und <code>mutate()</code></p>
+</section>
+<section id="summarize" class="level2">
+<h2 class="anchored" data-anchor-id="summarize">summarize()</h2>
+<p>Dich interessieren der <strong>Durchschnitt (mean)</strong> und die <strong>Standardabweichung (sd)</strong> der Variable <code>mean_e1_all</code>. Du möchtest diese Werte jedoch <strong>nicht</strong> zu <code>dat_full</code> hinzufügen, sondern als <strong>Zusammenfassung in einem neuen Objekt</strong> speichern.<br>
+Nutze dafür die Funktion <code>summarize()</code>.</p>
+</section>
+<section id="kombination-summarize-und-group_by" class="level2">
+<h2 class="anchored" data-anchor-id="kombination-summarize-und-group_by">Kombination summarize() und group_by()</h2>
+<p>Finde heraus, wie die <strong>durchschnittlichen Werte</strong> und <strong>Standardabweichungen</strong> von <code>pre4</code> in den verschiedenen Gruppen (<code>group</code>) ausfallen.</p>
+<ul>
+<li><p>Nutze dafür zuerst <code>group_by()</code></p></li>
+<li><p>Pipe das Ergebnis in <code>summarize()</code></p></li>
+</ul>
+<p>So kannst du zum Beispiel Tabelle 1 aus Grinschgl et al.&nbsp;(2020) reproduzieren.</p>
+</section>
+<section id="anwendung-dplyr-funktionen" class="level2">
+<h2 class="anchored" data-anchor-id="anwendung-dplyr-funktionen">Anwendung: dplyr-Funktionen</h2>
+<p>In der Analyse von Grinschgl et al.&nbsp;(2020), werden die Skalenwerte des MMQ-Fragebogens untersucht.<br>
+Um diese auszuwerten, müssen wir den Skalenwert pro Person berechnen.</p>
+<section id="berechnen-von-mmq_mean" class="level3">
+<h3 class="anchored" data-anchor-id="berechnen-von-mmq_mean">Berechnen von <em>mmq_mean</em></h3>
+<p>Mit <code>mutate()</code> kannst du einem bestehenden Datensatz eine neue Spalte hinzufügen.<br>
+Um die Daten des MMQ zu analysieren, füge eine Spalte hinzu, die den Durchschnitt (<em>mmq_mean</em>) über alle 18 Items (z. B. <code>question1</code> bis <code>question18</code>) enthält.</p>
+<p>💡 <strong>Tipps:</strong></p>
+<ul>
+<li><p>Verwende <code>rowMeans()</code> statt <code>mean()</code>, um den Mittelwert pro Versuchsperson zeihlenweise zu berechnen.</p></li>
+<li><p>Du kannst mit <code>starts_with()</code> alle Spalten auswählen, die mit <em>question</em> beginnen.</p></li>
+<li><p>Wenn die Items im Datensatz nebeneinanderstehen, kannst du sie auch mit einem Bereich auswählen, z. B. <code>question1:question18</code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="multiplizieren-von-pre-ratings" class="level2">
+<h2 class="anchored" data-anchor-id="multiplizieren-von-pre-ratings">Multiplizieren von Pre Ratings</h2>
+<p>Die Variablen <em>pre1</em>–<em>pre4</em> und <em>post</em> stellen in der Studie die Leistungseinschätzungen auf einer Skala von 1 bis 100 dar. In unserem Datensatz sind sie jedoch nur auf einer Skala von 1 bis 10 abgebildet. Verwende die Funktion <code>mutate</code>, um die Variablen mit 10 zu multiplizieren und so die richtigen Werte zu erhalten.</p>
+<p>Weitere Informationen zu dplyr findest du auch hier: <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#data-wrangling-dplyr">📖Kapitel 4.4 Ellis &amp; Mayer</a></p>
+</section>
+</section>
+<section id="fehlende-werte" class="level1">
+<h1>Fehlende Werte</h1>
+<p>In den meisten Datensätzen gibt es <strong>fehlende Werte</strong>.<br>
+Diese können je nach verwendeter Software <strong>unterschiedlich kodiert</strong> sein.</p>
+<section id="häufige-formen-fehlender-werte" class="level2">
+<h2 class="anchored" data-anchor-id="häufige-formen-fehlender-werte"><strong>Häufige Formen fehlender Werte</strong></h2>
+<ul>
+<li><p><code>NA</code> (R-typische Kennzeichnung für <em>Not Available</em>)</p></li>
+<li><p><code>999</code> oder <code>-999</code> (häufig manuell gesetzte Platzhalter)</p></li>
+<li><p>leere Zellen (<code>""</code>)</p></li>
+<li><p><code>NULL</code> (in manchen Programmiersprachen, aber in R selten in Datensätzen verwendet)</p></li>
+</ul>
+</section>
+<section id="umgang-mit-fehlenden-werten" class="level2">
+<h2 class="anchored" data-anchor-id="umgang-mit-fehlenden-werten">Umgang mit fehlenden Werten</h2>
+<p>Im Umgang mit fehlenden Werten sollten wir:</p>
+<ol type="1">
+<li><p><strong>Prüfen</strong>, ob und wie viele Werte fehlen.</p></li>
+<li><p><strong>Verstehen</strong>, warum sie fehlen (z. B. fehlende Eingabe durch Teilnehmende).</p></li>
+<li><p><strong>Entscheiden</strong>, wie mit den fehlenden Werten umgegangen werden soll – basierend auf dieser Analyse.</p></li>
+</ol>
+</section>
+<section id="aufgabe" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe">Aufgabe:</h2>
+<p><a href="bfi_10_data.csv" download="" class="btn btn-primary"> 📥 Download bfi_10_data.csv </a></p>
+<p><a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#fehlende-werte-auschliessen-drop_na">📖Kapitel 4.3.3 Ellis &amp; Mayer</a></p>
+<p>Führe die folgenden Schritte durch:</p>
+<ol type="1">
+<li><strong>Datensatz downloaden und einlesen</strong><br>
+Lade den Übungsdatensatz in R ein. Achte auf den Delimiter/das Trennzeichen (<code>;</code>)</li>
+</ol>
+<ol type="1">
+<li><strong>Fehlende Werte prüfen</strong><br>
+Teste mit <code>is.na()</code>, ob der Datensatz fehlende Werte enthält,<br>
+und zähle sie mit <code>table(is.na())</code>. Eine weitere Art und Weise einen Überblick über missings zu erhalten ist mit dem <code>skimr</code> Paket und der <code>skim()</code> Funktion. Teste diese.</li>
+</ol>
+<ol type="1">
+<li><strong>Zeilen mit fehlenden Werten löschen</strong><br>
+Erstelle eine <strong>Kopie</strong> des Datensatzes und verwende <code>drop_na()</code>,<br>
+um alle Zeilen mit fehlenden Werten zu entfernen.<br>
+Zähle anschließend erneut, wie viele fehlende Werte noch vorhanden sind.</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Achtung:</strong> Ein einziger fehlender Wert reicht aus, damit die <strong>gesamte Zeile (also eine Versuchsperson)</strong> entfernt wird!</p>
+</div>
+</div>
+</section>
+</section>
+<section id="skalenberechnung" class="level1">
+<h1>Skalenberechnung</h1>
+<p><a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html">📖Kapitel 4.4. Ellis &amp; Mayer</a></p>
+<p>In den meisten psychologischen Studien arbeiten wir mit <strong>Skalen</strong>.<br>
+Ein häufig genutzter Fragebogen ist der <strong>Big-Five-Fragebogen</strong> mit 10 Items (BFI-10).<br>
+In diesem Fragebogen sind einige <strong>invertiert (reverse) kodierte Items</strong> enthalten.</p>
+<section id="umpolen-der-negativ-formulierten-items" class="level2">
+<h2 class="anchored" data-anchor-id="umpolen-der-negativ-formulierten-items"><strong>Umpolen der negativ formulierten Items</strong></h2>
+<ul>
+<li>Pole die negativ gepolten (reverse codierten) BFI-Items um. Die reverse kodierten Items enden immer mit <code>_r</code>. Du kannst dafür <strong>Base R</strong> oder Funktionen aus dem <strong>tidyverse</strong> verwenden.</li>
+</ul>
+<p><strong>Vervollständige diesen Code!</strong></p>
+<ul>
+<li>Nötige Argumente: Datensatz, Variablen, Rekodierungsschema.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_bfi_recoded <span class="ot">&lt;-</span> XXXXX <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(XXXXXX),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        . <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        XXXXXXXXXX</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Erklärungen zu diesem Code findest du hier: <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#neue-variablen-erstellen-mit-mutate">Kapitel 4.4.6 Ellis &amp; Mayer</a> und hier: <a href="https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#variablen-rekodieren-mit-case_when">Kapitel 4.4.7 Ellis &amp; Mayer</a></p>
+</section>
+<section id="berechnung-der-big-five-skalen" class="level2">
+<h2 class="anchored" data-anchor-id="berechnung-der-big-five-skalen"><strong>Berechnung der Big-Five-Skalen</strong></h2>
+<ul>
+<li>Erstelle neue Variablen, die den <strong>Mittelwert jedes Big-Five-Faktors</strong> pro Person enthalten.</li>
+</ul>
+<p>Nutze dafür die Funktionen:</p>
+<ul>
+<li><code>mutate()</code>, <code>row_means()</code> und <code>select()</code></li>
+</ul>
+<p>💡<strong>Tipp:</strong> Wenn du die <code>select()</code>-Funktion <strong>innerhalb von <code>mutate()</code></strong> verwendest und den <strong>native pipe (<code>|&gt;</code>)</strong> nutzt, musst du angeben, <strong>auf welchen Datensatz</strong> sich <code>select()</code> bezieht.</p>
+<p>z.B: <code>extraversion = rowMeans(select(data_bfi_recoded, bfi_extra_1_r, bfi_extra_2))</code></p>
+<p><strong>Abschlussübung:</strong> Versuche dein Skript dieser Hands on Einheit zu rendern. Wenn es nicht funktioniert, versuche die Fehlermeldungen nachzuvollziehen und zu beheben!</p>
+</section>
+</section>
+<section id="am-ende-deiner-übungen---vergiss-nicht-dein-skript-abzuspeichern" class="level1">
+<h1>Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉</h1>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,278 @@
+---
+title: "hausuebung_3"
+editor: visual
+format:
+  html:
+    toc: TRUE
+    echo: false
+    eval: true
+    message: false
+    warning: false
+    fig-show: "hide"
+    embed-resources: true
+---
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(psych)
+library(knitr)
+library(apaTables)
+library(car) 
+library(afex)
+library(emmeans)
+library(skimr)
+library(ggplot2)
+
+```
+
+# Hausübung 3
+
+## 📅 Formalitäten und Abgabe
+
+-   **Abgabe bis:** Freitag 12.12, 23:55 via ILIAS
+
+-   **Zip-Datei benennen:** `vorname_nachname.zip`
+
+    -   **Gerendertes Skript:** `vorname_nachname_hausuebung_3.html`
+
+    -   **Ungerendertes Quarto-Skript:** `vorname_nachname_hausuebung_3.qmd`
+
+-   **Peer Feedback:** Bis 17.12 direkt an die Person und im Forum als Zusammenfassung. Im Forum bitte auch Namen der Person, für die das Feedback bestimmt ist, nennen.
+
+::: {.callout-note collapse="true"}
+Stelle deinen YAML-Header so ein, dass ein *table of contents* erstellt wird, `embed-resources: true` aktiviert ist und das Ausgabeformat auf `html` gesetzt wird. Dies verbessert die Leserlichkeit des Dokuments.
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "hide"
+#| eval: true
+
+# Copy CSV into project root (optional)
+file.copy("raw/therapie_bedingung.csv", "therapie_bedingung.csv", overwrite = TRUE)
+
+# Copy CSV into _site/ folder where the HTML actually lives
+file.copy("raw/therapie_bedingung.csv",
+          "_site/therapie_bedingung.csv",
+          overwrite = TRUE)
+
+
+
+# Copy CSV into project root (optional)
+file.copy("raw/therapie_results.csv", "therapie_results.csv", overwrite = TRUE)
+
+# Copy CSV into _site/ folder where the HTML actually lives
+file.copy("raw/therapie_results.csv",
+          "_site/therapie_results.csv",
+          overwrite = TRUE)
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+#| eval: true
+
+# Download button
+cat('<a href="therapie_bedingung.csv" download class="btn btn-primary">📥 Download therapie_bedingung.csv</a>')
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+#| eval: true
+
+
+# Download button
+cat('<a href="therapie_results.csv" download class="btn btn-primary">📥 Download therapie_results.csv</a>')
+
+```
+
+------------------------------------------------------------------------
+
+## 📖 Datensätze "Therapie" einlesen und bereinigen
+
+In den folgenden Daten versuchst du herauszufinden, ob sich eine neuartige Therapie von der Kontrollgruppe (Warteliste) unterscheidet. Dafür wurde das Wohlbefinden der Personen über drei Zeitpunkte hinweg gemessen (*therapie_results*). Zuerst musst du die Daten bereinigen, mergen und visualisieren und zum Schluss mit einem Hypothesentest entscheiden, ob die neue Therapieform besser abschneidet als die Kontrollgruppe.
+
+-   Lies die beiden Datensätze `therapie_Bedingung` und `therapie_results` ein.
+
+    ```{r, eval = FALSE}
+    therapie_results <- read_delim("raw/therapie_results.csv",  delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+    therapie_bedingung <- read_delim("raw/therapie_bedingung.csv",  delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+    ```
+
+-   Bereinge die Datensätze! Gibt es duplizierte Werte? Gibt es Missings? Gibt es unmögliche Werte?
+
+```{r, eval = FALSE}
+skimr::skim(therapie_bedingung)
+skim(therapie_results)
+
+
+therapie_bedingung_clean <- unique(therapie_bedingung)
+
+
+```
+
+-   Merge die bereinigten Datensätze!
+
+```{r, eval = FALSE}
+
+therapie <- full_join(therapie_bedingung_clean, therapie_results, by = "id")
+```
+
+-   Wandle die Variablen `id` und `bedingung` in Faktoren um.
+
+```{r, eval = FALSE}
+# Variablen zu Faktoren umwandeln
+therapie$id <- as.factor(therapie$id)
+therapie$bedingung <- as.factor(therapie$bedingung)
+```
+
+-   Führe eine Wide-to-Long-Transformation durch und erstelle damit einen Dataframe `therapie_long` mit einem messwiederholten Faktor `messzeitpunkt` und der (Outcome-)Variable `wohlbefinden`. Diese setzt sich aus den Werten in `beginn`, `mitte` und `ende` zusammen.
+
+```{r, eval = FALSE}
+therapie_long <- therapie  |> 
+  pivot_longer(
+    cols = c("beginn", "mitte", "ende"), 
+    names_to = "messzeitpunkt", 
+    values_to = "wohlbefinden"
+    )
+```
+
+-   Definiere die Variable `messzeitpunkt` als Faktor mit den Faktorstufen `beginn`, `mitte` und `ende` (in genau dieser Reihenfolge).
+
+```{r, eval = FALSE}
+therapie_long <-  therapie_long |>  
+    mutate(messzeitpunkt = factor(messzeitpunkt, 
+                                  levels = c("beginn", "mitte", "ende")))
+levels(therapie_long$messzeitpunkt)
+```
+
+------------------------------------------------------------------------
+
+## 🖌️Daten visualisieren
+
+-   Bevor wir die Daten mit Hypothesentests analysieren, wollen wir ein Gefühl für die Daten erhalten. Plotte dafür den Mittelwertsverlauf mit Fehlerbalken über die drei Zeitpunkte hinweg. Nutze den zur Verfügung gestellten Code, um ein Summary zu erstellen.
+
+```{r, eval = FALSE,  echo=TRUE}
+summary_data <- therapie_long |>
+  group_by(bedingung, messzeitpunkt) |>
+  summarise(
+    mean_wb = mean(wohlbefinden),
+    se_wb   = sd(wohlbefinden) / sqrt(n())
+  )
+```
+
+-   Plotte nun die Daten. Färbe die Verlaufslinien nach Versuchsbedingung ein und gruppiere die Daten mit `color = bedingung` und `group = bedingung`. Verwende drei Geoms:
+
+    -   `geom_line()` für die Verlaufslinien
+
+    -   `geom_point()` für die einzelnen Datenpunkten
+
+    -   `geom_errorbar()` für die Fehlerbalken.
+
+-   Füge ausserdem angemessene Formatierungen hinzu (Titel, Achsenbeschriftungen, Theme).
+
+```{r, echo = FALSE, eval=FALSE}
+ggplot(summary_data, aes(x = messzeitpunkt, y = mean_wb,
+                         color = bedingung, group = bedingung)) +
+  geom_line() +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean_wb - se_wb, ymax = mean_wb + se_wb),
+                width = 0.1) +
+  labs(
+    x = "Messzeitpunkt",
+    y = "Wohlbefinden",
+    color = "Bedingung"
+  ) +
+  theme_minimal()
+
+```
+
+------------------------------------------------------------------------
+
+## 📊 ANOVAs und Post-hoc t-Tests
+
+::: callout-note
+## Benötigte Packages
+
+-   Für die folgenden Aufgaben benötigst du `afex` und `car` und `emmeans`
+:::
+
+::: {.callout-note collapse="true"}
+## Cheatsheet Statistik 2
+
+<iframe src="../../PDFs/Stat_2.pdf" width="100%" height="500px">
+
+</iframe>
+:::
+
+Prüfe die Daten auf Varianzhomogenität und nutze dafür den Levene-Test. Der Levene-Test wird für die abhängige Variable über den Between-Faktor berechnet (also: Sind die Varianzen der AV über die drei Gruppen hinweg ähnlich verteilt?).
+
+-   Ergänze dafür den Code um die nötigen Variablen. Der Test prüft gegen Varianzhomogenität; daher bedeutet ein nicht signifikantes Ergebnis, dass die Voraussetzung für die ANOVA nicht verletzt ist.
+
+```{r, echo = TRUE, eval = FALSE}
+leveneTest(AV ~ Gruppen, data = )
+```
+
+```{r, eval = FALSE}
+leveneTest(wohlbefinden ~ bedingung, data = therapie_long)
+```
+
+-   Führe eine Mixed-Design-ANOVA mit `aov_4()` (aus dem Paket `afex`) durch. Die abhängige Variable ist *`wohlbefinden`*, der unabhängige Between-Faktor ist *`bedingung`* und der unabhängige Within-Faktor ist *`messzeitpunkt`*. Die Formel für die ANOVA lautet: AV \~ Between-Faktor + (Within-Faktor). Für den Within-Faktor verwenden wir die folgende Schreibweise: *`(messzeitpunkt | id)`*, da die Messwiederholungen innerhalb jeder Person verschachtelt sind.
+
+**Passe den Code an:**
+
+```{r, echo= TRUE, eval = FALSE}
+anova_1 <- aov_4(AV ~ between_subjects_faktor + (messzeitpunkt | id), data = xx)
+  
+summary(anova_1)
+```
+
+::: callout-note
+Schaue dir die Ergebnisse einschliesslich des Mauchly-Tests auf Sphärizität an – dieser ist relevant bei mindestens drei Within-Faktoren. Der Mauchly-Test sollte nicht signifikant sein, sodass wir Sphärizität annehmen können (ähnlich zum Levene Test). Falls doch: Werte nach Greenhouse-Geisser-Korrektur interpretieren.
+:::
+
+```{r, eval = FALSE}
+anova_1 <- aov_4(wohlbefinden ~ bedingung + (messzeitpunkt | id),
+                      data = therapie_long)
+
+summary(anova_1)
+```
+
+-   Berechne die die ANOVA erneut und inkludiere die Berechnung des partiellen Eta². Nutze dafür als zusätzliches Argument in der `aov_4` Funktion `anova_table = list(es = c("ges", "pes")))` .
+-   Betrachte die Ergebnisse indem du mit `$` auf `anova_table` des Objekts zugreifst in dem du die ANOVA abgespeichert hast.
+
+```{r, eval = FALSE}
+anova_2 <- aov_4(wohlbefinden ~ bedingung + (messzeitpunkt | id),
+                      data = therapie_long,
+                anova_table = list(es = c("ges", "pes")))
+
+summary(anova_2)
+
+anova_2$anova_table
+```
+
+-   Berechne nun paarweise Post-hoc-Vergleiche mit `Tukey-Korrektur` (Korrektur für multiples Testen), indem du zuerst `emmeans()` (aus dem Paket "emmeans") speicherst und anschliessend die Funktion `pairs()` anwendest. Hier ist ein Muster-Code:
+
+```{r, eval = FALSE, echo = TRUE}
+
+result <- emmeans(object = your_anova_model, specs = ~ messwiederholung_faktor * between_factor)
+pairs(results, simple = "mw_factor", adjust = "tukey")
+```
+
+```{r, eval = FALSE}
+result_emmeans <- emmeans(object = anova_1, specs = ~ messzeitpunkt * bedingung)
+
+pairs(result_emmeans, simple = "bedingung", adjust = "tukey")
+pairs(result_emmeans, simple = "messzeitpunkt", adjust = "tukey")
+```

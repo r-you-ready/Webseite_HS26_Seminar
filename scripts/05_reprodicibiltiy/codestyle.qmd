@@ -1,0 +1,238 @@
+---
+title: "Codestyle"
+date: today
+---
+
+```{r, include = FALSE}
+required_packages <- c("ggplot2")
+
+install_if_missing <- function(p) {
+  if (!require(p, character.only = TRUE)) {
+    install.packages(p, dependencies = TRUE)
+    library(p, character.only = TRUE)
+  }
+}
+
+sapply(required_packages, install_if_missing)
+```
+
+# Grundlage
+
+Um die Reproduzierbarkeit und Nachvollziehbarkeit von Analysen zu verbessern, ist es wichtig, einen einheitlichen Codestyle zu verwenden. Ein Codestyle umfasst die Konventionen und Regeln, die bei der Erstellung von Code beachtet werden sollten. Dies erleichtert nicht nur die Zusammenarbeit mit anderen, sondern auch die Wartung und Erweiterung des Codes in der Zukunft. Im Folgenden werden einige wichtige Aspekte eines guten Codestyles beschrieben
+
+::: callout-note
+RStudio bietet einen automatischen Formatierer, der dabei helfen kann, einen einheitlichen Codestyle zu gewährleisten. Dieser kann über die Tastenkombination `Strg + Shift + P` (Windows) oder `Cmd + Shift + P` (Mac) und die Auswahl "Reformat current document" aktiviert werden.
+:::
+
+## Übertragbarkeit
+
+Ziel eines reproduzierbaren Codestyles ist es, dass dieser unabhängig vom eingesetzen Endgerät und der ausführenden Person zum gleichen Ergebnis gelangt. Hierfür sind vor allem relative Pfade gegenüber absoluten Pfaden hilfreich. Absolute Pfade geben immer den gesamten Pfad im Dateiensystem aus. Relative Pfade geben nur die relative Position zum working directory des Skriptes aus. Wird die Funktion `here::here` verwendet, dann werden automatisch relative Pfade, abhängig zum Ort des Projektfiles verwendet.
+
+```{r, eval = FALSE}
+# Beispiel für einen absoluten Pfad
+data <- read.csv("C:/Users/Username/Documents/Project/data/raw/my_data.csv")
+
+# Beispiel für einen relativen Pfad, bei welcher sich die Rohdatei in zuvor erwähnter Ordnerstruktur befindet
+data <- read.csv(here::here("data", "raw", "my_data.csv"))
+```
+
+## Namen
+
+Variablen sollten immer aussagekräftige Namen haben, welcher den Inhalt wiedergeben. Funktionen sollten verben beinhalten, welche die Arbeitsweise widergeben. Sofern nicht beabsichtigt, sollte eine Variable oder eine Funktion nicht nach einer bereits vorhanden Variable oder einer vorhandenen Funktion benannt werden.
+
+Für R und Rstudio wird die Schreibweise snake_case verwendet. Bei snake_case werden Leerzeichen mit einem Unterstrich ersetzt, Grossbuchstaben werden zu Kleinbuchstaben.
+
+::: callout-note
+Beispielsweise `Temp`, `Data1` oder `myFunction` sind keine aussagekräftigen Namen und folgen zudem nicht snake_case, während `temperature`, `raw_data` oder `calculate_mean` aussagekräftige und snake_case folgende Namen sind.
+:::
+
+Idealerweise werden auch Dateien und Ordner einheitlich nach snake_case benannt und es werden Umlaute vermieden. Dies gewährt die Lesbarkeit für sowohl Mensch als auch Maschiene.
+
+## Kommentare
+
+Kommentare sollten verwendet werden, um den Code zu erklären. Hierbei geht es nicht um die genaue Logik einer bereits vorhandenen Funktionen. Diese kann anhand der Dokumentationen auf CRAN nachvollzogen werden. Kommentare sollten bestenfalls Kontext geben, warum Input, Funktionsweise und entsprechender Outout in denn Code eingebunden wurden.
+
+```{r}
+# Keine Kommentare
+data <- c(10, 20, 30, 40, 50)
+m <- mean(data)
+print(m)
+
+# Mit passendem Umfang an Kommentaren
+## Beispiel-Vektor mit Messwerten erstellen
+messwerte <- c(10, 20, 30, 40, 50)
+
+## Durchschnittsberechnung für den Abschlussbericht
+durchschnitt <- mean(messwerte)
+print(durchschnitt)
+
+# Definieren einer Variable namens 'werte'
+# Die c() Funktion, um Zahlen zu kombinieren
+werte <- c(10, 20, 30, 40, 50) # Zahlen von 10 bis 50
+
+# Aufrufen der Funktion `mean()` nit dem Argument werte
+# mean berechnet das arithmetische Mittel
+ergebnis <- mean(werte) # Das Ergebnis wird gespeichert
+
+# print(), um das Ergebnis in der Konsole auszugeben
+print(ergebnis) # Die Ausgabe erfolgt hier
+```
+
+Wird eine eigene Funktion definiert (s.u.), so sollte diese mit einem kurzen Kommentar versehen werden, welcher die Funktionalität der Funktion erklärt. Es sollte klar sein, welche Argumente die Funktion erwartet und was sie zurückgibt.
+
+In RStudio können Kommentare oder Funktionsweisen auch ausserhalb eines Chunk platziert werden. Hierfür dient inline code: `r`:
+
+Der Mittelwert der Messwerte beträgt `r ergebnis`.
+
+## Struktur
+
+Lange Skripte können in mehere kleinere unterteilt werden. Beispielsweise gibt es ein Skript für die Bereinigung der Daten, ein weiteres für die Analyse der Daten und ein letztes für die Visulisierung und inferenzstatistischen Tests.
+
+::: callout-note
+Beachte, dass wir im Rahmen des Seminars bei der Endabgabe nur ein einzelnes Skript erwarten!
+:::
+
+Innerhalb eines Skripts können mit dem YAML-Header wichtige Metainformationen bereitgestellt werden. Hierzu gehören nicht nur der Autor, das Datum oder auch die Einbindung von Zitationen, sondern auch Formatoptionen zum gerenderten Dokument.
+
+Abhängigkeiten in Form von Paketen sollten direkt zu Beginn des Skriptes geladen bzw. notfalls auch erst noch geladen werden.
+
+Über die Anzahl an \# zu Beginn einer Zeile können verschiedene Ebenen von Überschriften erstellt werden. So kann beispielsweise mit `#` eine Hauptüberschrift erstellt werden, mit `##` eine Unterüberschrift und mit `###` eine weitere Unterüberschrift. So können die verschiedenen Abschnitte des Skriptes klar strukturiert und voneinander abgegrenzt werden.
+
+In RStudio können global oder für einzelne Chunks Einstellungen vorgenommen werden, welche die Ausgabe des Skriptes beeinflussen. Sollen diese Einstellungen global gelten, werden sie im YAML-Header ergänzt. Gelten sie nur für den spezifischen Chunk, werden die Einstellungen direkt bei diesem übergeben. Hier eine Übersicht zu den häufigsten Optionen:
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| warning: true
+#| error: true
+#| include: true
+
+# **`eval: true`**: Der Chunk wird tatsächlich berechnet.
+# **`echo: true`**: Der  Code des Chunks ist im gerenderten Dokument sichtbar.
+# **`output: true`**: Die Ergebnisse des Chunks (z. B. eine Tabelle) werden gezeigt.
+# **`warning: true`**: R-Warnungen erscheinen im Dokument.
+# **`error: false`**: Wenn der Code des Chunks einen Fehler hat, bricht das Rendern sofort ab (sicherer Modus).
+# **`include: false`**: Der Chunk inkl. Code, Output und möglicher Warnungen oder Fehler wird komplett ignoriert.
+```
+
+Am Ende des Skripts sollten Informationen über die verwendete Software gegeben werden. Hierfür kann folgender Code verwendet werden:
+
+```{r, eval = FALSE}
+sessionInfo()
+```
+
+Ausserdem kann bei verwendeter Zitation auch noch ein Literaturverzeichnis ergänzt werden:
+
+```{r, eval = FALSE}
+# Dieser Code wird üblicherweise ausserhalb eines Chunks platziert. Hier wurde der Code nur innerhalb eines Chunks festgelegt, da kein Literaturverzeichnis existiert und es sonst zu einer Fehlermeldung kommen würde.
+::: {#refs}
+:::
+```
+
+## Funktionen
+
+Eine der Grundregeln guten Codestyles ist es, sich nicht zu wiederholen (Don\`t Repeat Yourself, DRY). Hierfür kann es schnell hilfreich sein, seine eigene kleine Funktion zu schreiben. Die grundlegende Syntax um eine eigene Funktion zu schreiben sieht folgendermassen aus:
+
+```{r, eval = FALSE}
+# Hier wird die Funktion definiert. Die erwarteten Argumente werden in Klammern angegeben. Die Funktion muss zugewiesen werden, damit sie anschliessend auch aufgerufen und genutzt werden kann.
+my_function <- function(argument1, argument2) {
+  
+  # Hier wird die Funktion definiert
+  result <- argument1 + argument2
+  
+  # Hier wird das Ergebnis zurückgegeben
+  return(result)
+}
+```
+
+Hier ein Beispiel für redundanten Code, bei welcher der gleiche Plot nur mit einer anderen Rahmenfarbe definiert wird.
+
+```{r, eval = FALSE}
+ggplot(data, aes(x = {{ column }})) +
+    geom_histogram(fill = color, bins = 20, color = "white") +
+    theme_minimal() +
+    labs(
+      title = paste("Verteilung von", deparse(substitute(column))),
+      x = deparse(substitute(column)),
+      y = "Häufigkeit"
+    )
+
+ggplot(data, aes(x = {{ column }})) +
+    geom_histogram(fill = color, bins = 20, color = "black") +
+    theme_minimal() +
+    labs(
+      title = paste("Verteilung von", deparse(substitute(column))),
+      x = deparse(substitute(column)),
+      y = "Häufigkeit"
+    )
+
+ggplot(data, aes(x = {{ column }})) +
+    geom_histogram(fill = color, bins = 20, color = "blue") +
+    theme_minimal() +
+    labs(
+      title = paste("Verteilung von", deparse(substitute(column))),
+      x = deparse(substitute(column)),
+      y = "Häufigkeit"
+    )
+```
+
+Hier eine Funktion um diese drei Plots mit einem einziegen Codeblock zu erstellen:
+
+```{r, eval = FALSE}
+
+"""
+Die Funktion `create_histogram` erstellt ein Histogramm für eine gegebene Spalte in einem Dgegebenen atensatz.  Die Farbe des Rahmens kann über das Argument `color_name` angepasst werden.
+
+Argumente:
+@param data: Ein Dataframe, der die Daten enthält.
+@param column: Die Spalte, für die das Histogramm erstellt werden soll.
+@param color_name: Der Name der Farbe für den Rahmen des Histogramms.
+
+Rückgabewert: Ein ggplot-Objekt, das das Histogramm mit gewünschter Rahmenfarbe darstellt.
+"""
+
+create_histogram <- function(data, column, color_name) {
+  ggplot(data, aes(x = {{ column }})) +
+    geom_histogram(fill = color, bins = 20, color = color_name) +
+    theme_minimal() +
+    labs(
+      title = paste("Verteilung von", deparse(substitute(column))),
+      x = deparse(substitute(column)),
+      y = "Häufigkeit"
+    )
+}
+```
+
+Zuletzt der Aufruf der Funktion für die drei Farben:
+
+```{r, eval = FALSE}
+create_histogram(data, column, "white")
+create_histogram(data, column, "black")
+create_histogram(data, column, "blue")
+```
+
+## Abhängigkeiten
+
+Ein weiterer wichtiger Aspekt eines guten Codestyles ist es, die Abhängigkeiten des Codes klar zu definieren. Hierfür sollten alle benötigten Pakete direkt zu Beginn des Skriptes geladen werden. So ist sofort ersichtlich, welche Pakete für die Ausführung des Skriptes notwendig sind. Es kann auch Code geschrieben werden, welcher auf notwendige Pakete prüft, diese ggf. installiert, und dann erst die Pakete lädt:
+
+::: callout-important
+Dieser Codevorschlag kombiniert die Logik einer selbstgeschriebenen Funktion und einer Schleife, um diese auf mehere Objekte gleichzeitig anzuwenden. Bitte mache dich vor dem Einsatz dieses Codes mit der Logik vertraut und übernimm den Code erst, wenn du diesen komplett verstanden hast!
+:::
+
+```{r, eval = FALSE}
+# Liste der benötigten Pakete
+
+required_packages <- c("ggplot2", "dplyr", "here")
+
+# Funktion zum Prüfen, Installieren und Laden
+install_if_missing <- function(p) {
+  if (!require(p, character.only = TRUE)) {
+    install.packages(p, dependencies = TRUE)
+    library(p, character.only = TRUE)
+  }
+}
+
+# Auf alle Pakete anwenden
+sapply(packages, install_if_missing)
+```

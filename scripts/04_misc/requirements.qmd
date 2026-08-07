@@ -1,0 +1,31 @@
+---
+title: "Requirements"
+format: html
+execute:
+  eval: false
+---
+
+```{r}
+# requirements.R
+
+# Nutze das benutzerdefinierte Library-Verzeichnis, falls gesetzt
+if (!is.na(Sys.getenv("R_LIBS_USER", unset = NA))) {
+  .libPaths(Sys.getenv("R_LIBS_USER"))
+}
+
+install_if_missing <- function(pkg) {
+  if (!pkg %in% rownames(installed.packages())) {
+    install.packages(pkg, repos = "https://cloud.r-project.org")
+  }
+}
+
+# Liste der benötigten Pakete – hier kannst du jederzeit erweitern
+pkgs <- c(
+  "tidyverse",
+  "knitr",
+  "rmarkdown"
+)
+
+sapply(pkgs, install_if_missing)
+
+```

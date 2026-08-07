@@ -1,0 +1,21 @@
+.clean-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.clean-list li {
+  margin-bottom: 0.3em;
+  line-height: 1.4;
+}
+
+.clean-list {
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+h2 {
+  border-bottom: 1px solid #ccc;  /* Graue Linie unten */
+  padding-bottom: 0.3em;           /* Abstand unter der Überschrift */
+  margin-bottom: 0.8em;            /* Abstand zum folgenden Text */
+}

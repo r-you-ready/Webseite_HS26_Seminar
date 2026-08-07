@@ -1,0 +1,121 @@
+---
+title: "Hausübung: Peer-Feedback zum Codebook"
+format: html
+editor: visual
+---
+
+Ihr gebt euch gegenseitig Feedback zu euren Codebooks.\
+Ziel ist es, die Dokumentation eures finalen Datensatzes zu verbessern und sicherzustellen, dass alle Variablen klar, vollständig und nachvollziehbar beschrieben sind.
+
+------------------------------------------------------------------------
+
+### Codebook eurer Partnerperson prüfen
+
+Schaut euch das Codebook eurer Partnerin oder eures Partners sorgfältig an und gebt bis **01.04.2026** Feedback.
+
+👉 Am besten verwendet ihr:
+
+-   die Kommentar-Funktion in Excel
+
+-   oder ergänzt Hinweise in einer separaten Datei
+
+------------------------------------------------------------------------
+
+### Abgabe
+
+-   Upload des **kommentierten Codebooks auf ILIAS**
+
+-   Zusätzlich: **Weitergabe des Feedbacks an eure Partnerperson** (z.B. per E-Mail)
+
+------------------------------------------------------------------------
+
+### Optional: persönliches Feedback
+
+Wenn ihr möchtet, könnt ihr euch zusätzlich austauschen und das Feedback gemeinsam besprechen.
+
+👉 Dies ist freiwillig und selbstorganisiert, kann aber sehr hilfreich sein.
+
+------------------------------------------------------------------------
+
+### Worauf ihr beim Feedback achten solltet
+
+Beim Feedback könnt ihr euch insbesondere an folgenden Fragen orientieren:
+
+#### Vollständigkeit
+
+-   Sind **alle Variablen aus `dat_full` enthalten**?
+
+#### Klarheit und Verständlichkeit
+
+-   Sind die Variablen klar beschrieben?
+
+-   Sind Definitionen und Formulierungen verständlich?
+
+#### Nachvollziehbarkeit
+
+-   Ist ersichtlich, **wie Variablen entstanden oder berechnet wurden**?
+
+-   Sind Transformationen und Berechnungsschritte erklärt?
+
+#### Interpretation
+
+-   Ist klar, **was die Variablen bedeuten**?
+
+-   Sind Wertebereiche und Codierungen verständlich beschrieben?
+
+👉 Leitfrage:\
+Könnte eine externe Person den Datensatz allein anhand des Codebooks verstehen?
+
+------------------------------------------------------------------------
+
+### Wichtige Hinweise
+
+-   Es gibt **keine Musterlösung** für das Codebook.
+
+-   Orientiert euch daher besonders an den Anforderungen der Aufgabe.
+
+👉 Relevante Informationen findet ihr in:
+
+-   der Studie von Grinschgl et al. (2020)
+
+-   dem Dokument *Informationen_zu_Daten.xlsx*
+
+Diese Quellen helfen euch insbesondere bei:
+
+-   Variablenbedeutungen
+
+-   Codierungen
+
+-   Hintergrundinformationen zum Datensatz
+
+👉 Bei Unklarheiten zu einzelnen Variablen oder Codierungen könnt ihr euch jederzeit an uns wenden.
+
+------------------------------------------------------------------------
+
+### Regeln für gutes Peer-Feedback
+
+-   Gebt **konkretes, konstruktives und gut strukturiertes Feedback**
+
+-   Fokussiert euch auf die **inhaltliche Qualität**, nicht auf persönliche Präferenzen
+
+-   Macht **konkrete Verbesserungsvorschläge**
+
+-   Bleibt **sachlich und respektvoll**
+
+-   Hebt auch **positive Aspekte** hervor
+
+👉 Ziel ist nicht nur die Verbesserung des Codebooks, sondern auch euer eigener Lernprozess.
+
+------------------------------------------------------------------------
+
+### Zusammenhang mit den anderen Abgaben
+
+Euer Codebook ist Teil eines Gesamtpakets:
+
+-   **Datenanalyseplan** → Was wird analysiert?
+
+-   **R-Skript** → Wie wird es umgesetzt?
+
+-   **Codebook** → Was bedeuten die Variablen?
+
+👉 Diese drei Komponenten müssen **inhaltlich übereinstimmen**.

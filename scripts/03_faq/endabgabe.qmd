@@ -1,0 +1,64 @@
+---
+title: "5 Abschlussprojekt"
+format: html
+---
+
+::: callout-note
+Lies dir neben den folgenden Fragen auch noch mal die allgemeinen Infos zum Abschlussprojekt unter "[Leistungsnachweis](https://r-you-ready.quarto.pub/leistungsnachweis.html)" durch.
+:::
+
+Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. Suche deine Frage am besten mit ctrl + F (MAC: Cmd +F) und dem passendsten Stichwort!
+
+# Formelles
+
+## Darf mit generativer KI wie beispielsweise ChatGPT gearbeitet werden und wie ist das dann zu kennzeichnen?
+
+Wenn die generative KI lediglich zur Textkorrektur oder zur sprachlichen Verbesserung genutzt wird muss dies nicht angegeben werden. Wenn jedoch inhaltlich größere Teile direkt übernommen oder sich stark auf generierte Texte gestütz wird, dann muss die generative KI als Quelle gennant werden. Die Verantwortung für die Richtigkeit und Nachvollziehbarkeit der Inhalte liegt dabei immer bei der Person selbst. Tipps, wie die Verwendung von generativer KI bei Abschlussarbeiten angegeben werden kann, finden sich [hier](https://www.unibe.ch/universitaet/organisation/leitung_und_zentralbereich/vizerektorat_lehre/startseite_vizerektorat_lehre/faq_zur_verwendung_von_ki_gestuetzten_hilfsmitteln_in_der_lehre__vizerektorat_lehre_universitaet_bern/index_ger.html). Im Fall der Seminarabgabe wird am besten der Link zum Chat mit abgegeben.
+
+## Was gibt es für Formatvorgaben für das Skript (Schriftgrösse, Fettmarkierungen etc.)?
+
+Es gibt keine exakten Formatvorgaben für das Skript. Vielmehr gilt: Das Skript sollte übersichtlich sein und keine ungewöhnlichen Formatierungen enthalten. Mit den Vorgaben von [APA 7](https://apastyle.apa.org/style-grammar-guidelines/paper-format/sample-papers) ist das Skript sicher passend formatiert.
+
+## Welche Stilvorgaben gibt es bei der Erstellung des Skripts zu beachten?
+
+Das Skript sollte sinnvolle Überschriften und eine sinnvolle Gliederung enthalten. Der Code sollte kommentiert sein, so dass die Auswahl von Funktionen und das Vorgehen begründet sind. Sofern LLMs oder andere externe Tools zur Hilfe herangezogen worden sind, muss dies angemerkt werden. Hierfür kann ggf. eine getrennte Kopie des Chatverlaufes eingereicht oder ein Link nach [APA-Guidelines](https://apastyle.apa.org/style-grammar-guidelines/references/examples) ergänzt werden.
+
+## In welcher Sprache, Zeitform, Perspektive und in welchem Stil soll der Datenanalyseplan geschrieben werden?
+
+Alle für die Abgabe relevanten Unterlagen dürfen auf Englisch oder Deutsch eingereicht werden. Wichtig ist lediglich, dass die Unterlagen untereinander einer einheitlichen Sprache folgen. Als Zeitform gilt das Präsens. Der Datenanalyseplan ist in der Wir-Form und im wissenschaftlichen Stil zu verfassen.
+
+## Wie umfangreich sollen die Kommentare des Codes im Skript sein?
+
+Die Funktionsweise von üblicher Syntax (wie beispielsweise dem Pipe Operator `|>`) oder einer Funktion muss nicht kommentiert werden. Aber: Das Dokument muss für fremde Wissenschaftler:innen der Psychologie ohne weiteres nachvollziehbar sein. Bedeutet, Kommentare sollten das Vorgehen im Skript ausreichend begründen.
+
+## Sollen im Skript Warn- und/oder Fehlermeldungen unterbunden werden oder sichtbar sein?
+
+Damit die Abgabe leichter kontrolliert werden kann, sollen die Warn- und Fehlermeldungen bitte **sichtbar** und **nicht ausgeschaltet** sein. Auch unabhängig von der Abgabe ist zu empfehlen die Meldungen sichtbar zu lassen. Das erleichtert Unbeteiligten die Analyse nachzuvollziehen und sie auf mögliche Fehler zu untersuchen.
+
+## Darf im Skript auch noch Code von Übungsaufgaben vorhanden sein?
+
+Hier gilt der Grundsatz: Euer Skript, wie auch alle anderen Unterlagen, sollten für fremde Wissenschaftler:innen der Psychologie ohne weiteres nachvollziehbar sein. Code, welcher nicht im Zusammenhang mit der Endabgabe steht - und dementsprechend auch nicht im Datenanalyseplan erwähnt wird – würde nur vom wesentlichen Ablenken und soll daher nicht im Skript vorhanden sein.
+
+# Umfang
+
+## Wie exakt sollen die Tabellen und Abbildungen denen aus dem Paper von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) entsprechen?
+
+Die Tabellen und Abbildungen aus dem Originalpaper von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) müssen nicht exakt repliziert werden. Wichtig ist allerdings, dass die Aussage der Abbildung bzw. der Tabelle korrekt ist und keine wichtigen Details ausgelassen werden.
+
+## Im Leistungsnachweis steht, dass eine Tabelle oder Abbildung nach Wahl erstellt werden soll. Muss es sich hierbei um eine Grafik handeln, welche auch im Paper von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) vorhanden ist?
+
+Es darf auch eine andere Grafik sein. Wichtig ist, dass die Grafik einen Mehrwert für die Darstellung der Ergebnisse der Datenanalyse bietet.
+
+## Soll die Berechnung von Cronbachs Alpha aus dem Paper von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) auch durchgeführt werden?
+
+Nein, die Berechnung von Cronbachs-Alpha aus dem Paper von [Grinschgl et al. (2020)](https://link.springer.com/article/10.1007/s00426-020-01435-9) ist nicht Teil des Abschlussprojekts.
+
+## Müssen ausnahmslos alle Resultate im Ordner data/outputs/results abgespeichert werden?
+
+Nein, nur jene Resultate, die aufgrund des Codes exportiert werden, müssen in diesem Ordner abgespeichert werden. Beispielsweise Ergebnisse von statistischen Tests werden nicht exportiert und müssen demnach auch nicht in irgendeiner Form in data/outputs/results vorhanden sein.
+
+## Müssen Resultate interpretiert werden und wenn ja, wie müssen diese verschriftlicht werden?
+
+Es werden keine inhaltlichen Interpretationen der Ergebnisse gefordert. Kurze Zusammenfassungen der Resultate direkt nach den jeweiligen Codechunks können jedoch das Verständnis erleichtern und illustrieren, dass die Analysen korrekt gelesen werden könnten.
+
+Zum Beispiel: *The one-way ANOVA indicated that there were no significant group differences in this working memory performance measure, F(2, 156) = 0.07, p = 0.929, η² \< 0.01.*

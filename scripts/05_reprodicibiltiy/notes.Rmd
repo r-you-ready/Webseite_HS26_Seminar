@@ -1,0 +1,18 @@
+### Ideen zur Erweiterung:
+
+Codestyle:
+- seeds
+- Modularisierung von Skripten oder im Skript durch Funktionen
+- Parallelisierungen (asyncio, purr etc.)
+- Generierung von Plots und Tabellen direkt in R (bzw. anderen Sprachen)
+- Erläuterung von inline-Code für Resultatinterpretation
+
+Sonstiges:
+- Containerumgebung
+
+version_control:
+- Erläuterung von .gitignore
+- renv
+
+Absprache mit Jamie/Ian/Lukas:
+- Erweiterung auf andere Programmiersprachen wie Python oder Julia§

@@ -1,0 +1,147 @@
+project:
+  type: website
+  pre-render:
+    - Rscript copy_files.R
+  resources:
+    - PDFs
+    - scripts/02_excercises/downloads/*.qmd
+  render:
+    - "*.qmd"
+    - "scripts/**/*.qmd"
+    - "!scripts/02_excercises/downloads/*.qmd"
+
+website:
+  title: "R u Ready"
+  site-url: https://r-you-ready.github.io/Webseite_HS26_Seminar/
+  sidebar:
+    style: floating
+    search: true
+    collapse-level: 1
+    logo: images/ryouready_logo.png
+    active-link: true
+    contents:
+      - href: index.qmd
+        text: "Einleitung"
+      - href: scripts/01_slides/0_presentation.qmd
+        text: "Präsentationen"
+        contents:
+          - href: scripts/01_slides/EH_1.qmd
+            text: "Einheit 1 - 18.02.2026"
+          - href: scripts/01_slides/EH_2.qmd
+            text: "Einheit 2 - 25.02.2026"
+          - href: scripts/01_slides/EH_3.qmd
+            text: "Einheit 3 - 04.03.2026"
+          - href: scripts/01_slides/EH_4.qmd
+            text: "Einheit 4 - 11.03.2026"
+          - href: scripts/01_slides/EH_5.qmd 
+            text: "Einheit 5 - 18.03.2026"
+          - href: scripts/01_slides/EH_6.qmd
+            text: "Einheit 6 - 25.03.2026"
+          - href: scripts/01_slides/EH_7.qmd
+            text: "Einheit 7 - 01.04.2026"
+          - href: scripts/01_slides/EH_8.qmd
+            text: "Einheit 8 - 15.04.2026"
+          - href: scripts/01_slides/EH_9.qmd
+            text: "Einheit 9 - 22.04.2026"
+          - href: scripts/01_slides/EH_10.qmd 
+            text: "Einheit 10 - 29.04.2026"
+          - href: scripts/01_slides/EH_11.qmd
+            text: "Einheit 11 - 06.05.2026"
+          - href: scripts/01_slides/EH_12.qmd
+            text: "Einheit 12 - 13.05.2026"
+          - href: scripts/01_slides/EH_13.qmd
+            text: "Einheit 13 - 20.05.2026"
+          - href: scripts/01_slides/EH_14.qmd
+            text: "Einheit 14 - 27.05.2026"
+      - href: scripts/02_excercises/Übungen.qmd
+        text: "Übungen zu den Einheiten"
+        contents: 
+          - href: scripts/02_excercises/loesung_1.qmd
+            text: "Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_2.qmd
+            text: "Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_3.qmd
+            text: "Hands on - Block 3 (Woche 5 - 6) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_4.qmd
+            text: "Hands on - Block 4 (Woche 7 - 8) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_5.qmd
+            text: "Hands on - Block 5 (Woche 9 - 10) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_6.qmd
+            text: "Hands on - Block 6 (Woche 11 - 12) - mit Musterlösungen"
+          - href: scripts/02_excercises/loesung_7.qmd
+            text: "Hands on - Block 7 (Woche 13) - mit Musterlösungen"
+      - href: hausuebungen.qmd
+        text: "Hausübungen"
+        contents:
+          - href: scripts/02_excercises/datenanalyseplan.qmd
+            text: "Datenanalyseplan (11.03.26)"
+          - href: scripts/02_excercises/peer_feedback_datenanalyseplan.qmd
+            text: "Peer-Feedback Datenanalyseplan (18.03.26)"
+          - href: scripts/02_excercises/codebook.qmd
+            text: "Codebook (25.03.26)"
+          - href: scripts/02_excercises/peer_feedback_codebook.qmd
+            text: "Peer-Feedback Codebook (01.04.26)"
+          - href: scripts/02_excercises/hausuebung_loesung_1.qmd
+            text: "R Übung I (22.04.26)"
+          - href: scripts/02_excercises/hausuebung_loesung_2.qmd
+            text: "R Übung II (08.05.26)"
+          - href: scripts/02_excercises/peer_feedback_r_I.qmd
+            text: "Peer-Feedback R Übung I (13.05.26)"
+          - href: scripts/02_excercises/hausuebung_loesung_3.qmd
+            text: "R Übung III (27.05.26)"
+      - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
+        text: "Wettbewerb: R-Cheatsheet"
+      - href: scripts/04_misc/muddiest_points.qmd
+        text: "Muddiest Points"
+        contents:
+          - href: scripts/04_misc/muddiest_points_1.qmd
+            text: "Muddiest Points 1"
+          - href: scripts/04_misc/muddiest_points_2.qmd
+            text: "Muddiest Points 2"
+          - href: scripts/04_misc/muddiest_points_3.qmd
+            text: "Muddiest Points 3"
+      - href: scripts/03_faq/faq.qmd
+        text: "FAQ"
+        contents:
+          - href: scripts/03_faq/rstudio.qmd
+            text: "1  RStudio"
+            contents:
+              - href: scripts/03_faq/fehlermeldungen.qmd
+                text: "1.1  Fehlermeldungen"
+          - href: scripts/03_faq/codebook.qmd
+            text: "2  Codebook"
+          - href: scripts/03_faq/datenanalyseplan.qmd
+            text: "3  Datenanalyseplan"
+          - href: scripts/03_faq/statistic.qmd
+            text: "4  Statistik"
+          - href: scripts/03_faq/endabgabe.qmd
+            text: "5  Abschlussprojekt"
+      - href: scripts/04_misc/here.qmd
+        text: "Probleme beim Rendern"
+      - href: scripts/04_misc/links_und_ressourcen.qmd
+        text: "Links und Ressourcen"
+        contents:
+          - href: scripts/04_misc/LLMs.qmd
+            text: "LLMs in RStudio"
+          - href: scripts/04_misc/Memes.qmd
+            text: "Memes :)"
+      - href: scripts/04_misc/leistungsnachweis.qmd
+        text: "Leistungsnachweis"
+        contents:
+          - href: scripts/04_misc/checkliste_abschlussarbeit_FS26.qmd
+            text: "Checkliste Abschlussarbeit"
+      - href: scripts/04_misc/checkliste_abschlussarbeit.qmd
+        text: "Checkliste Abschlussarbeit"
+      - href: scripts/04_misc/individuelle_loesungen.qmd
+        text: "Individuelle Musterlösungen"
+      - href: scripts/04_misc/about.qmd
+        text: "About"
+
+format:
+  html:
+    toc: true
+    toc-expand: false
+    css:
+      - styles.css
+      - styles/website_styles.css
+

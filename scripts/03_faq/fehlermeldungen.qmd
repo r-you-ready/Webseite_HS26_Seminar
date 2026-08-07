@@ -1,0 +1,133 @@
+---
+title: "Fehlermeldungen"
+format: html
+execute:
+  eval: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## LaTeX muss erst noch installiert werden werden, damit eine PDF erstellt werden kann
+
+LaTeX ist eine Software um individuelle, professionelle Formatierungen für PDFs oder andere Dateien zu erstellen. Was für unsere Zwecke bereits ausreichen sollte ist die Installation von `tinytex`. `tinytex` ist keine eigenständige Software, sondern schlichtweg um ein Paket von vielen in R.
+
+```{r}
+#| eval: false
+#| echo: true
+#install.packages("tinytex")
+```
+
+Nach der Installation des Pakets wird die folgende Funktion aufgerufen:
+
+```{r}
+#| eval: false
+#| echo: true
+#tinytex::install_tinytex() 
+#tinytex:: stellt sicher, dass die Funktion aus dem entsprechenden Paket aufgerufen wird
+```
+
+Hierdurch wird temporär die eigentliche Software installiert, mit welcher aus eurem Quarto-Dokument eine PDF erstellt werden kann. Dies kann einige Minuten dauern. Im Anschluss sollte das Rendern hin zu einer PDF funktionieren.
+
+## Rendering in Quarto zu einer PDF funktioniert nicht
+
+In der Vergangenheit gab es öfter Probleme mit der Installation von `tinytex`. Eine beispielhafte Fehlermeldung hierfür sah folgendermassen aus:
+
+```text
+processing file: skript.qmd
+|........................................ | x% [unnamed-chunk-x]
+
+Error in `contrib.url()`:
+! trying to use CRAN without setting a mirror
+
+Backtrace:
+- utils::install.packages("tinytex")
+- utils::contrib.url(repos, "source")
+
+Execution halted
+```
+
+
+
+Der Kern der Fehlermeldung lautet: "! trying ot use CRAN without setting a mirror". CRAN ist die Plattform, von welcher standardmässig Pakete heruntergeladen werden. Die URL, also die Internetadressse von CRAN, ist dafür im Hintergrund in R eingestellt. Hier scheint es nun aber so, dass es unter der gesetzten URL kein Paket `tinytex` gibt. Dieses Problem lässt sich temporär (also einmalig für eure laufende Sitzung in RStudio)oder dauerhaft (also auch, wenn ihr RStudio schliesst und wieder neu startet) beheben. Das Problem lässt sich temporär lösen, indem die URL zu CRAN explizit in der Console angegeben wird:
+
+```{r}
+#| eval: false
+#| echo: true
+
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+```
+
+Möchte man die Einstellung dauerhaft behalten braucht es einen weiteren Schritt. Erst wird über die Console eine globale Einstellungsdatei von RStudio geöffnet:
+
+```r
+file.edit("~/.Rprofile")
+```
+
+
+In diese Datei kann dann der Befehl zur expliziten Setzung der URL platziert werden. Diese Datei abspeichern und RStudio neu starten. Jetzt sollte `tinytex` von der korrekten URL abgerufen, gefunden und schlussendlich auch erfolgreich installiert werden können.
+
+## Das Objekt mit dem ich etwas machen möchte kann nicht gefunden werden
+
+"==\> quarto preview Hands on - Block 3.qmd --to html --no-watch-inputs
+--no-browse
+
+processing file: Hands-on---Block-3.rmarkdown
+\|................................................. \| 96%
+\[unnamed-chunk-10\] Error:! object 'dat_full' not foundBacktrace: ▆ 1.
+└─dplyr::rename(dat_full, cvstm_sum = "csvtm_sum") Quitting from
+Hands-on---Block-3.rmarkdown:331-343 \[unnamed-chunk-10\] Execution
+halted"
+
+Netterweise gibt uns die Fehlermeldung die Stelle im Code aus, an welcher das Problem aufrat:
+
+```{r, eval = FALSE, echo=TRUE}
+
+
+dplyr::rename(dat_full, cvstm_sum = "csvtm_sum")
+```
+
+![](../../images/Fehlermeldungen.png)
+
+Der zentrale Teil der Fehlermeldung ist hierbei "Error:! object `dat_full` not found". Der Datensatz `dat_full` ist vor der Ausführung scheinbar noch nicht vorhanden. Vor der Ausführung von `dplyr::rename(dat_full, cvstm_sum = "csvtm_sum")` muss überprüft werden, dass der Datensatz eingelesen wurde und der dafür vorgesehene Chunk zum Einlesen **nicht** auf `eval = FALSE` gesetzt ist.
+
+## Quarto geht beim Rendern nicht vom gesetzten working directory aus
+
+Beim Rendern von Quarto-Files könen Probleme aufreten, die auf der Auswertung von Filepaths zurückzuführen sind.
+
+Während Code beim einfachen Ausführen in RStudio relativ zum Projektordner interpretiert wird, erfolgt die Pfadauswertung beim Rendern relativ zum Skript selbst. Dies kann zu Render-Fehlern wie dem folgenden führen.
+
+![](../../images/EH_14/Fehlermeldung_path.png){fig-align="center"}
+
+Um dieses Problem zu beheben, kann das **here**-Package verwendet werden. **here** evaluiert Pfade konsistent relativ zum Projektordner und verhindert dadurch solche Render-Probleme.
+
+Durch die Verwendung von **here** ändern sich die Angaben des Filepfades beim Einlesen und Schreiben von Dateien leicht. Die einzige Veränderung ist dass wir den Filepfad in die `here` Funktion übergeben (in Klammern). Siehe dafür das Beispiel unten.
+
+Dazu muss das Package **here** zunächst installiert werden:
+
+```{r, echo = TRUE, eval=FALSE}
+install.packages("here")
+library(here)
+```
+
+Und aus diesem Code der zu Problemen führen kann
+
+```{r, echo = TRUE, eval = FALSE}
+data_cb <- read_csv("data/raw/data_cb.csv") #Kann zu Problemen beim Rendern führen. 
+```
+
+**wird**:
+
+```{r, echo = TRUE, eval = FALSE}
+data_cb <- read_csv(here("data/raw/data_cb.csv")) # Sichere Variante
+```
+
+Das gleiche gilt für das schreiben von daten mit `write.csv`
+
+```{r, echo = TRUE, eval = FALSE}
+# Kann zu Problemen führen
+write.csv(dat_full, "data/processed/dat_full.csv")
+
+# Sicherer: Pfad wird immer relativ zum Projekt-Root aufgelöst
+write.csv(dat_full, here("data/processed/dat_full.csv"))
+```

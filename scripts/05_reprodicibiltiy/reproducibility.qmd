@@ -1,0 +1,10 @@
+---
+title: "Reproduzierbarkeit"
+date: today
+---
+
+In diesem Kapitel werden mögliche Schritte beschrieben um die Reproduzierbarkeit seiner Analyse weiter zu verbessern. Die Inhalte orientieren sich am [Guide to Reproducible Code](https://bes-guide.github.io/reproducible-code/) der British Ecological Society (BES).
+
+::: callout-important
+**Wichtig:** Die Inhalte hier dienen lediglich der Vertiefung. Sie sind nicht notwendig um jegliche Abgaben erfolgreich zu bestehen. Vorgaben zu den Abgaben gehen jeglichen Empfehlungen aus diesem Abschnitt vor. Bei Fragen wende dich gerne an uns!
+:::

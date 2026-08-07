@@ -1,0 +1,6 @@
+---
+title: "Hausuebungen"
+editor: visual
+---
+
+Hier findest du die Hausübungen.

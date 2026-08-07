@@ -1,0 +1,12 @@
+---
+title: "Muddiest Points 3"
+editor: visual
+format: html
+execute: 
+  eval: false
+bibliography: references.bib
+---
+
+<iframe src="../../PDFs/Muddiest_Points_III.pdf" width="100%" height="600px">
+
+</iframe>

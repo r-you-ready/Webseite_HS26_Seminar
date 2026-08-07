@@ -1,0 +1,47 @@
+---
+title: "Einleitung"
+author:
+  - name: "Dr. Sandra Grinschgl"
+  - name: "MSc. Laura Hirt"
+  - name: "Bsc. Lars Schilling"
+date: today
+---
+
+In diesem E-Book findest du alle wichtigen Informationen zum Methodenseminar "R u Ready". Du kannst hier u. a. die wöchentlichen Folien, Hands-On R Übungen, den Leistungsnachweis, und Frequently Asked Questions einsehen. Du kannst über die Unterkapitel (links) zu den entsprechenden Inhalten navigieren, oder auch die Suchfunktion oben links verwenden, um nach einem bestimmten Begriff zu suchen.
+
+# Hinweisboxen
+
+Hier einen Überblick über die auf den Seiten enthaltenen Hinweisboxen:
+
+::: callout-note
+**Vertiefung:** Hier geht es in die Tiefe.
+:::
+
+::: callout-important
+**Wichtig:** Dies ist eine wichtige Information.
+:::
+
+::: callout-warning
+**Achtung:** Hier ist Vorsicht geboten.
+:::
+
+::: callout-caution
+**Vorsicht:** Diese Information ist noch in Bearbeitung.
+:::
+
+# Syllabus
+
+::: callout-caution
+**Vorsicht:** Der Syllabus dient als grobe Richtlinie und kann angepasst werden, falls wir in einzelnen Einheiten mehr oder weniger Zeit benötigen.
+:::
+
+<iframe src="../../PDFs/Syllabus.pdf" width="100%" height="600px">
+
+</iframe>
+
+```{r, echo=FALSE}
+
+last_update <- format(Sys.time(), "%B %d, %Y at %H:%M")
+```
+
+Letztes Update `r last_update`

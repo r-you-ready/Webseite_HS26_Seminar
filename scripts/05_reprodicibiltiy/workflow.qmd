@@ -1,0 +1,91 @@
+---
+title: "Workflow"
+date: today
+---
+
+# Grundlage
+
+Die Grundidee einer robusten, reproduzierbaren Analyse ist ein sauberer, wiederholbarer und **skriptbasierter Workflow**. Hierunter versteht sich, dass jegliche Schritte der Datenanalyse in einem Skript dokumentiert sind und mit einem einzigen Befehl ausgeführt werden können. Dies ermöglicht es, die Analyse jederzeit zu reproduzieren und zu überprüfen, ob die Ergebnisse konsistent sind. Die folgenden Abschnitte gehen tiefer in die einzelnen Aspekte des skriptbasierten Workflows ein:
+
+``` text
+Überordner/
+├── projekt.Rproj         # Projekt-File
+├── data/                 # Alle Analyse-Inputs
+│   └── raw/              # Rohdaten
+├── scripts/              # Alle Analyse-Skripte
+│   └── analyses.qmd      # Hauptskript
+├── outputs/              # Alle Analyse-Outputs
+│   ├── figs/             # Grafiken und Plots
+│   └── tables/           # Tabellen
+├── README.md             # Kurze Projekterklärung
+├── references.bib        # BibTex-Datei
+└── licence.txt           # Lizenzinformationen
+```
+
+## Projekte
+
+Ein RStudio Projekt (Dateiendung `.Rproj`) ist das Fundament für einen skriptbasierten Workflow. Man kann sich die Koordinationsstelle des gesamten Projektes vorstellen. Alle zum gleichen Projekt gehörigen Dateien sollten im selben Ordner oder einem der Unterordner liegen. Daten können relativ zum Projektfile geladen und gespeichert werden. Damit ist es möglich den gesamten Projektordner weiterzugeben und anderweitig auf Reproduzierbarkeit zu prüfen.
+
+Um die relativen Pfade zum laden und speichern der Dateien einfach zu gestalten kann die Funktion `here::here()` genutzt werden.
+
+```{r, eval = FALSE}
+install.packages("here")
+
+here::here("data", "raw", "meine_rohdaten.csv") # Beispiel für den Pfad zu einer Rohdatendatei
+```
+
+::: callout-note
+Projektfiles sind ausserdem notwendig um die Versionierung über Git und GitHub zu ermöglichen. Auf den folgenden Seiten findest du mehr Informationen hierzu.
+:::
+
+## Rohdaten
+
+Wichtig für einen reproduzierbaren und skriptbasierten Workflow sind **Rohdaten**. Rohdaten beziehen sich auf Materialien, die nach einem Verlust nicht wiederhergestellt werden könnten (beispielsweise ausgefüllte Fragebögen). Deshalb ist der erste Schritt im skriptbasierten Workflow ausnahmslos eine Kopie der Rohdaten zu erstellen, diese unter `data/raw` abzulegen und ausschliesslich mit diesen Kopien zu arbeiten. So kann notfalls immer auf eine unveränderte Version der Rohdaten zurückgegriffen werden.
+
+## Skripte
+
+Wie der Name des skriptbasierten Workflows schon erahnen lässst, das Skript ist das Herzstück eines solchen Workflows. Alle Schritte der Datenanalyse, von der Datenbereinigung über die Transformation bis hin zur Visualisierung, sollten in einem Skript dokumentiert werden. Manuelle Bearbeitungen werden hierdurch automatisch unterbunden und es ist sichergestellt nachvollziehbare und reproduzierbare Resultate zu erhalten. Das Skript verbindet die (kopierten) Rohdaten aus `data/raw` und erstellt entsprechende Plots und Tabellen für `outputs`.
+
+::: callout-note
+In das Skript kann auch noch die Zitierung eingebunden werden. Ausserdem kann aus dem Skript heraus die Version control vorgenommen werden. Hierzu findest du weiter unten unter "zitation" und auf den folgenden Seiten noch mehr Informationen. Informationen, was innerhalb der Skripte zu beachten ist, findest du ebenfalls auf einer der folgenden Seiten.
+:::
+
+## Outputs
+
+Die resultierenden Daten sollten separat von den Rohdaten gespeichert werden, um Verwechslungen zu vermeiden und notfalls mit unveränderten Rohdaten neu starten zu können. Outputs können beispielsweise Plots oder Tabellen sein. Es ist wichtig, dass die Skripte so gestaltet sind, dass sie die Outputs automatisch generieren, wenn sie ausgeführt werden. So werden auch hier manuelle Bearbeitungen automatisch unterbunden und es ist sichergestellt nachvollziehbare und reproduzierbare Plots oder Tabellen zu erhalten.
+
+## README
+
+Wie der Name der README-Datei (Dateiendung `.md`) verät ist diese Datei dazu gedacht als erstes gelesen zu werden, wenn eine fremde Person das Projekt öffnet. Man kann sich ein README wie ein Handbuch für das Projekt vorstellen, anhand welchem dritte das Projekt nachvollziehen und auf ihm aufbauen können. Üblicherweise enthält das README folgende Stellen:
+
+1.  **Projektname & Kurzbeschreibung**: Hier wird kurz der Rahmen des Projektes beschrieben.
+
+2.  **Inhalt des Projektes**: Hier wird kurz beschrieben, was sich in den verschiedenen Ordnern befindet und wie die Dateien strukturiert sind.
+
+3.  **Anleitung zur Reproduktion**: Hier wird beschrieben, welche Schritte zur Reproduzierbarkeit nachzubilden sind. Die Reproduzierbarkeit kann vor allem daran bemessen werden wie umfangreich diese Anleitung ist und wie viel Vorwissen eine dritte Preson benötigt.
+
+4.  **Lizenzierung**: Sofern keine getrennte Lizenz vorliegt, kann hier die Lizenzierung des Projektes beschrieben werden.
+
+## Zitation
+
+Arbeitet man im Rahmen einer Projektdatei, so ist es möglich die Zitation direkt in das Skript einzubinden. Hierfür braucht es lediglich eine BibTeX-Datei (Dateiendung `.bib`) mit den entsprechenden Literaturangaben. Diese kann über ein Literaturverwaltungsprogramm wie beispielsweise [Zotero](https://www.zotero.org/) oder manuell erstellt werden. Hier ein Beispiel wie eine solche Datei strukturiert ist:
+
+@book{Grinschgl et al. 2026, title={R you Ready}, author={Grinschgl, Sandra, Hirt, Laura and Schilling, Lars}, year={2026}, publisher={R you Ready Publishing} }
+
+Wenn man die Zitation sogar im APA7-Style erstellt haben möchte, so muss erst noch eine entsprechende Citation Style Language (CSL) [heruntergeladen](https://www.zotero.org/styles) und im Projektordner gespeichert werden.
+
+Die Einbindung der BibTex-Datei und der CSL-Datei erfolgt dann innerhalb von Quarto über die YAML-Header des Skriptes:
+
+```{r, eval = FALSE}
+---
+title: "R you ready"
+bibliography: references.bib
+csl: apa.csl
+---
+```
+
+Im Skript ist dann entweder die Einbindung im Text über `@Grinschgl et al. 2026` oder über eckige Klammern am Satzende möglich.
+
+## Lizenz
+
+Die Lizenzierung von Code und Daten ist ein wichtiger Schritt, um die Wiederverwendbarkeit und den Schutz der eigenen Arbeit zu gewährleisten. Es gibt [verschiedene Arten von Lizenzen](https://choosealicense.com), die regeln, ob und in welcher Form die eigene Arbeit vervielfältigt werden darf und welche Vorgaben dabei zu beachten sind. Entsprechend der Lizenz kann auch noch ein Vorschlag eingebaut werden, wie die eigene Arbeit zitiert werden soll.

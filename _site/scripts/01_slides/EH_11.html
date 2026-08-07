@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sandra Grinschgl, Laura Hirt, Lars Schilling">
+
+<title>R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 11 – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_11.html">Einheit 11 - 06.05.2026</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 5 - 18.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 6 - 25.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 7 - 01.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 8 - 15.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 9 - 22.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 10 - 29.04.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_11.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Einheit 11 - 06.05.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 3 (Woche 5 - 6) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 4 (Woche 7 - 8) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 5 (Woche 9 - 10) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 6 (Woche 11 - 12)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../hausuebungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Datenanalyseplan (18.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Codebook (25.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Codebook (01.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung I (22.04.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hausuebung_loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Übung II (08.05.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_r_I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback R Übung I (13.05.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/checkliste_abschlussarbeit_FS26.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste Abschlussarbeit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" id="toc-r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="nav-link active" data-scroll-target="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</a></li>
+  <li><a href="#heute" id="toc-heute" class="nav-link" data-scroll-target="#heute">Heute:</a></li>
+  <li><a href="#inhalte-heute" id="toc-inhalte-heute" class="nav-link" data-scroll-target="#inhalte-heute">Inhalte heute</a></li>
+  <li><a href="#fragen-zu-hands-on-block-5-hü-1" id="toc-fragen-zu-hands-on-block-5-hü-1" class="nav-link" data-scroll-target="#fragen-zu-hands-on-block-5-hü-1">Fragen zu Hands On Block 5 &amp; HÜ 1?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-1" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-1" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-1">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-2" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-2" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-2">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-3" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-3" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-3">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-4" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-4" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-4">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-5" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-5" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-5">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#repetition-wie-ist-ein-ggplot-aufgebaut-6" id="toc-repetition-wie-ist-ein-ggplot-aufgebaut-6" class="nav-link" data-scroll-target="#repetition-wie-ist-ein-ggplot-aufgebaut-6">Repetition: Wie ist ein ggplot aufgebaut?</a></li>
+  <li><a href="#inferenzstatistik" id="toc-inferenzstatistik" class="nav-link" data-scroll-target="#inferenzstatistik">Inferenzstatistik</a>
+  <ul class="collapse">
+  <li><a href="#von-der-visualisierung-zur-inferenz-1" id="toc-von-der-visualisierung-zur-inferenz-1" class="nav-link" data-scroll-target="#von-der-visualisierung-zur-inferenz-1">Von der Visualisierung zur Inferenz (1)</a></li>
+  <li><a href="#von-der-visualisierung-zur-inferenz-2" id="toc-von-der-visualisierung-zur-inferenz-2" class="nav-link" data-scroll-target="#von-der-visualisierung-zur-inferenz-2">Von der Visualisierung zur Inferenz (2)</a></li>
+  <li><a href="#wie-wählen-wir-den-richtigen-test" id="toc-wie-wählen-wir-den-richtigen-test" class="nav-link" data-scroll-target="#wie-wählen-wir-den-richtigen-test">Wie wählen wir den richtigen Test?</a></li>
+  <li><a href="#hilfe-bei-der-wahl-des-tests" id="toc-hilfe-bei-der-wahl-des-tests" class="nav-link" data-scroll-target="#hilfe-bei-der-wahl-des-tests">Hilfe bei der Wahl des Tests</a></li>
+  <li><a href="#diese-verfahren-nutzen-wir-im-seminar" id="toc-diese-verfahren-nutzen-wir-im-seminar" class="nav-link" data-scroll-target="#diese-verfahren-nutzen-wir-im-seminar">Diese Verfahren nutzen wir im Seminar</a></li>
+  <li><a href="#korrelationen" id="toc-korrelationen" class="nav-link" data-scroll-target="#korrelationen">Korrelationen</a></li>
+  <li><a href="#korrelationen-interpretieren" id="toc-korrelationen-interpretieren" class="nav-link" data-scroll-target="#korrelationen-interpretieren">Korrelationen interpretieren</a></li>
+  <li><a href="#voraussetzungen-der-korrelation" id="toc-voraussetzungen-der-korrelation" class="nav-link" data-scroll-target="#voraussetzungen-der-korrelation">Voraussetzungen der Korrelation</a></li>
+  <li><a href="#korrelation-in-r" id="toc-korrelation-in-r" class="nav-link" data-scroll-target="#korrelation-in-r">Korrelation in R</a></li>
+  <li><a href="#regressionen" id="toc-regressionen" class="nav-link" data-scroll-target="#regressionen">Regressionen</a></li>
+  <li><a href="#korrelation-vs.-regression" id="toc-korrelation-vs.-regression" class="nav-link" data-scroll-target="#korrelation-vs.-regression">Korrelation vs.&nbsp;Regression</a></li>
+  <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link" data-scroll-target="#einfache-lineare-regression">Einfache lineare Regression</a></li>
+  <li><a href="#multiple-lineare-regression" id="toc-multiple-lineare-regression" class="nav-link" data-scroll-target="#multiple-lineare-regression">Multiple lineare Regression</a></li>
+  <li><a href="#regression-output-verstehen" id="toc-regression-output-verstehen" class="nav-link" data-scroll-target="#regression-output-verstehen">Regression: Output verstehen</a></li>
+  <li><a href="#voraussetzungen-der-linearen-regression" id="toc-voraussetzungen-der-linearen-regression" class="nav-link" data-scroll-target="#voraussetzungen-der-linearen-regression">Voraussetzungen der linearen Regression</a>
+  <ul class="collapse">
+  <li><a href="#nützliche-funktionen-für-regressionen-und-verwandte-analysen-in-r" id="toc-nützliche-funktionen-für-regressionen-und-verwandte-analysen-in-r" class="nav-link" data-scroll-target="#nützliche-funktionen-für-regressionen-und-verwandte-analysen-in-r"><strong>Nützliche Funktionen für Regressionen und verwandte Analysen in R</strong></a></li>
+  </ul></li>
+  <li><a href="#hierarchische-regression" id="toc-hierarchische-regression" class="nav-link" data-scroll-target="#hierarchische-regression">Hierarchische Regression</a></li>
+  <li><a href="#hands-on---block-6" id="toc-hands-on---block-6" class="nav-link" data-scroll-target="#hands-on---block-6">Hands On - Block 6!</a></li>
+  <li><a href="#heute-haben-wir" id="toc-heute-haben-wir" class="nav-link" data-scroll-target="#heute-haben-wir">Heute haben wir:</a></li>
+  <li><a href="#peer-feedback" id="toc-peer-feedback" class="nav-link" data-scroll-target="#peer-feedback">Peer Feedback:</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="EH_11.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_11.html">Einheit 11 - 06.05.2026</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 11</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sandra Grinschgl, Laura Hirt, Lars Schilling </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="level2">
+<h2 class="anchored" data-anchor-id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</h2>
+<p>FS 2026<br><br><br> <strong>LV-Leitung</strong>: PD Dr.&nbsp;Sandra Grinschgl / MSc. Laura Hirt<br> <strong>Tutor</strong>: BSc. Lars Schilling<br><br><br><strong>11. Einheit</strong>, 06.05.2026</p>
+<hr>
+</section>
+<section id="heute" class="level2">
+<h2 class="anchored" data-anchor-id="heute">Heute:</h2>
+<div style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; ">
+<embed src="../../PDFs/Syllabus.pdf#view=FitH&amp;navpanes=0&amp;toolbar=0" type="application/pdf" style="width:100%; height:220vh; border:0; display:block; background:white;">
+</div>
+<hr>
+</section>
+<section id="inhalte-heute" class="level2">
+<h2 class="anchored" data-anchor-id="inhalte-heute">Inhalte heute</h2>
+<p><br></p>
+<ul>
+<li><p>Fragen Hands on Block 5 &amp; R Hausübung 1</p></li>
+<li><p>Repetition: <code>ggplot()</code></p></li>
+<li><p>Inferenzstatistik: Korrelation &amp; Regression</p></li>
+</ul>
+<hr>
+</section>
+<section id="fragen-zu-hands-on-block-5-hü-1" class="level2">
+<h2 class="anchored" data-anchor-id="fragen-zu-hands-on-block-5-hü-1">Fragen zu Hands On Block 5 &amp; HÜ 1?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_7/Bild1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="411"></p>
+</figure>
+</div>
+<div class="notes">
+<p>zu HÜ sollten jetzt alle Feedback bekommen haben. Bei uns melden, falls etwas unklar ist.</p>
+<p>Häufige Fehler:</p>
+<ul>
+<li><p>absoluter Pfad</p></li>
+<li><p>Unnötiges Laden von Paketen</p></li>
+<li><p>“weder noch” bei Big 5 Items falsch umgewandelt</p></li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_11/ggplot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="380"></p>
+</figure>
+</div>
+<p><br></p>
+<p>➡️ <em>Ein ggplot besteht aus mehreren Bestandteilen, die wir Schritt für Schritt hinzufügen.</em></p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-1" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-1">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_1.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ Wir starten immer mit einem Datensatz – ohne Daten keine Grafik.</p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-2" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-2">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_2.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_2.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ <code>aes()</code> legt fest, welche Variablen auf den Achsen dargestellt werden.</p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-3" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-3">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_3.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_3.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ <code>geom()</code> bestimmt, wie die Daten dargestellt werden (z.B. Punkte).</p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-4" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-4">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_4.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_4.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ Mit + fügen wir weitere Layer hinzu (z.B. eine Regressionslinie).</p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-5" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-5">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_5.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_5.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ <code>labs()</code> fügt Beschriftungen hinzu und macht die Grafik verständlich.</p>
+<hr>
+</section>
+<section id="repetition-wie-ist-ein-ggplot-aufgebaut-6" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-wie-ist-ein-ggplot-aufgebaut-6">Repetition: Wie ist ein ggplot aufgebaut?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/ggplot_6.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="../../images/EH_11/plot_6.png" class="img-fluid"></p>
+</div>
+</div>
+<p><br></p>
+<p>➡️ <code>theme()</code> verändert das Aussehen der Grafik (Design).</p>
+<hr>
+</section>
+<section id="inferenzstatistik" class="level1">
+<h1>Inferenzstatistik</h1>
+<p><br></p>
+<p><strong>Ist das ein statistisch signifikanter Effekt – oder nur Zufall?</strong></p>
+<hr>
+<section id="von-der-visualisierung-zur-inferenz-1" class="level2">
+<h2 class="anchored" data-anchor-id="von-der-visualisierung-zur-inferenz-1">Von der Visualisierung zur Inferenz (1)</h2>
+<p><br></p>
+<p>Wir können Daten visualisieren…</p>
+<p>→ z.B. einen Zusammenhang im Plot erkennen</p>
+<p><br></p>
+<p>👉 <strong>Aber:</strong></p>
+<p>→ Ist dieser Zusammenhang wirklich belastbar oder bloss ein Zufall in unseren Daten?</p>
+<hr>
+</section>
+<section id="von-der-visualisierung-zur-inferenz-2" class="level2">
+<h2 class="anchored" data-anchor-id="von-der-visualisierung-zur-inferenz-2">Von der Visualisierung zur Inferenz (2)</h2>
+<p><br></p>
+<p><strong>Genau diese Frage beantwortet die Inferenzstatistik!</strong></p>
+<p><br></p>
+<p>Sie hilft uns:</p>
+<ul>
+<li><p>von einer Stichprobe auf die Population zu schliessen</p></li>
+<li><p>zu überprüfen, ob Effekte <strong>statistisch signifikant sind</strong></p></li>
+<li><p>fundierte Entscheidungen auf Basis von Daten zu treffen</p></li>
+</ul>
+<p><br></p>
+<p>➡️ Dafür nutzen wir statistische Testverfahren.</p>
+<hr>
+</section>
+<section id="wie-wählen-wir-den-richtigen-test" class="level2">
+<h2 class="anchored" data-anchor-id="wie-wählen-wir-den-richtigen-test">Wie wählen wir den richtigen Test?</h2>
+<p><br></p>
+<p>Die Wahl des statistischen Tests hängt ab von, z.B.:</p>
+<ul>
+<li><p>unserer Fragestellung</p></li>
+<li><p>der Art der Variablen (z.B. metrisch vs.&nbsp;kategorial)</p></li>
+</ul>
+<p><br></p>
+<p>👉 Diese Überlegungen habt ihr bereits im Datenanalyseplan gemacht.</p>
+<p>👉 Durch das Festlegen von Analysen in einer Präregistrierung oder einem Datenanalyseplan spart man sich nun Arbeit und Zeit!</p>
+<hr>
+</section>
+<section id="hilfe-bei-der-wahl-des-tests" class="level2">
+<h2 class="anchored" data-anchor-id="hilfe-bei-der-wahl-des-tests">Hilfe bei der Wahl des Tests</h2>
+<p><br></p>
+<p><a href="https://etools.fernuni.ch/entscheidungsbaum/main.html">Entscheidungsbaum statistischer Testverfahren</a></p>
+<p>(fernuni.ch)</p>
+<p><br><br></p>
+<p><a href="https://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html">Entscheidungsbaum UZH</a></p>
+<p>(methodenberatung.uzh.ch)</p>
+<p><br></p>
+<p>👉 Diese helfen euch, den passenden Test systematisch auszuwählen. Es gibt aber noch viele weitere statistische Analyseverfahren, die in diesen Entscheidungbäumen nicht abgebildet sind!</p>
+<hr>
+</section>
+<section id="diese-verfahren-nutzen-wir-im-seminar" class="level2">
+<h2 class="anchored" data-anchor-id="diese-verfahren-nutzen-wir-im-seminar">Diese Verfahren nutzen wir im Seminar</h2>
+<p><br></p>
+<p>Wir konzentrieren uns auf vier zentrale Verfahren:</p>
+<ul>
+<li><p><strong>Korrelation</strong> → Zusammenhang zwischen Variablen</p></li>
+<li><p><strong>Regression</strong> → Vorhersage von Variablen</p></li>
+<li><p><strong>t-Test</strong> → Unterschiede zwischen zwei Gruppen</p></li>
+<li><p><strong>One-Way und Mixed ANOVA</strong> → Unterschiede zwischen mehreren Gruppen</p></li>
+</ul>
+<p><br></p>
+<p>➡️ Diese schauen wir uns jetzt Schritt für Schritt an.</p>
+<hr>
+</section>
+<section id="korrelationen" class="level2">
+<h2 class="anchored" data-anchor-id="korrelationen">Korrelationen</h2>
+<p><br></p>
+<p>Wir untersuchen:</p>
+<p>➡️ <strong>Gibt es einen (linearen) Zusammenhang zwischen zwei Variablen?</strong></p>
+<p><br></p>
+<ul>
+<li>Positive Korrelation</li>
+</ul>
+<p>→ hohe Werte gehen mit hohen Werten einher (z.B. Körpergrösse &amp; Schuhgrösse)</p>
+<p><br></p>
+<ul>
+<li>Negative Korrelation</li>
+</ul>
+<p>→ hohe Werte gehen mit niedrigen Werten einher (z.B. Lernzeit &amp; Anzahl Fehler)</p>
+<hr>
+</section>
+<section id="korrelationen-interpretieren" class="level2">
+<h2 class="anchored" data-anchor-id="korrelationen-interpretieren">Korrelationen interpretieren</h2>
+<p><br></p>
+<p><strong>Korrelationskoeffizient r</strong> (Stärke des Zusammenhangs):</p>
+<ul>
+<li><p>r ≈ 0 → kein Zusammenhang</p></li>
+<li><p>r &gt; 0 → positiver Zusammenhang</p></li>
+<li><p>r &lt; 0 → negativer Zusammenhang</p></li>
+</ul>
+<p><br></p>
+<p>➡️ Werte zwischen -1 und +1</p>
+<p>👉 Je näher r an ±1, desto stärker der Zusammenhang</p>
+<hr>
+</section>
+<section id="voraussetzungen-der-korrelation" class="level2">
+<h2 class="anchored" data-anchor-id="voraussetzungen-der-korrelation">Voraussetzungen der Korrelation</h2>
+<p><br></p>
+<p>Damit wir eine <strong>Pearson-Korrelation</strong> sinnvoll interpretieren können:</p>
+<ul>
+<li><p>linearer Zusammenhang zwischen den Variablen</p></li>
+<li><p>keine starken Ausreisser</p></li>
+<li><p>Variablen sind metrisch</p></li>
+</ul>
+<p><br></p>
+<p>👉 Wenn diese Voraussetzungen nicht erfüllt sind:</p>
+<p><strong>Spearman-Korrelation</strong> als nicht-parametrische Alternative</p>
+<hr>
+</section>
+<section id="korrelation-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="korrelation-in-r">Korrelation in R</h2>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(penguins<span class="sc">$</span>bill_length_mm,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         penguins<span class="sc">$</span>body_mass_g)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  penguins$bill_length_mm and penguins$body_mass_g
+t = 13.654, df = 340, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.5220040 0.6595358
+sample estimates:
+      cor 
+0.5951098 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>• r ≈ 0.60 → mittelstarker positiver Zusammenhang<br>
+• p &lt; .001 → statistisch signifikant</p>
+<hr>
+</section>
+<section id="regressionen" class="level2">
+<h2 class="anchored" data-anchor-id="regressionen">Regressionen</h2>
+<p><br></p>
+<p>Wir untersuchen:</p>
+<p>➡️ Kann eine Variable durch eine oder mehrere andere Variablen vorhergesagt werden?</p>
+<ul>
+<li><p><strong>Abhängige Variable (AV):</strong> Was wollen wir vorhersagen?</p>
+<p>→ y</p></li>
+<li><p><strong>Prädiktor/en (UVs):</strong> Womit wollen wir vorhersagen?</p>
+<p>→ x, x1, x2, …</p></li>
+</ul>
+<p><br></p>
+<p>👉 Regressionen prüfen Zusammenhänge - aber mit einer gerichteten Fragestellung.</p>
+<hr>
+</section>
+<section id="korrelation-vs.-regression" class="level2">
+<h2 class="anchored" data-anchor-id="korrelation-vs.-regression">Korrelation vs.&nbsp;Regression</h2>
+<p><br></p>
+<p><strong>Korrelation:</strong></p>
+<p>➡️ Wie stark hängen zwei Variablen zusammen?</p>
+<ul>
+<li>Beispiel: Hängen Lernzeit und Leistung zusammen?</li>
+</ul>
+<p><br></p>
+<p><strong>Regression:</strong></p>
+<p>➡️ Wie gut lässt sich eine Variable durch andere Variable(n) vorhersagen?</p>
+<ul>
+<li>Sagt Lernzeit die Leistung vorher?</li>
+</ul>
+<p><br></p>
+<p>⚠️ Auch Regression erlaubt keine Kausalaussagen ohne geeignetes Studiendesign!</p>
+<p>⚠️ Einfache lineare Regressionen sind identisch zu Korrelationen!</p>
+<hr>
+</section>
+<section id="einfache-lineare-regression" class="level2">
+<h2 class="anchored" data-anchor-id="einfache-lineare-regression">Einfache lineare Regression</h2>
+<p><br></p>
+<p>Eine abhängige Variable (AV) wird durch einen Prädiktor (UV) vorhergesagt.</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_rl_all <span class="sc">~</span> cvstm_propcorrect,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> dat_full)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mean_rl_all ~ cvstm_propcorrect, data = dat_full)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1982 -0.6544 -0.1708  0.7555  3.5717 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         7.6277     0.8257   9.238  &lt; 2e-16 ***
+cvstm_propcorrect  -3.2993     1.1202  -2.945  0.00372 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.097 on 157 degrees of freedom
+Multiple R-squared:  0.05236,   Adjusted R-squared:  0.04632 
+F-statistic: 8.674 on 1 and 157 DF,  p-value: 0.003719</code></pre>
+</div>
+</div>
+<p>⚠️Identisch zur Korrelation: r = sqrt(r_squared)</p>
+<hr>
+</section>
+<section id="multiple-lineare-regression" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-lineare-regression">Multiple lineare Regression</h2>
+<p><br></p>
+<p>Eine abhängige Variable (AV) wird durch mehrere Prädiktoren (UVs) vorhergesagt.</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_rl_all <span class="sc">~</span> cvstm_propcorrect <span class="sc">+</span> vp_propcorrect,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> dat_full)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mean_rl_all ~ cvstm_propcorrect + vp_propcorrect, 
+    data = dat_full)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.0632 -0.6941 -0.0968  0.7648  3.1623 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         9.8053     0.9525  10.294  &lt; 2e-16 ***
+cvstm_propcorrect  -1.7277     1.1364  -1.520     0.13    
+vp_propcorrect     -3.9572     0.9734  -4.065 7.58e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.046 on 156 degrees of freedom
+Multiple R-squared:  0.1431,    Adjusted R-squared:  0.1322 
+F-statistic: 13.03 on 2 and 156 DF,  p-value: 5.849e-06</code></pre>
+</div>
+</div>
+<p>➡️ Jeder Prädiktor wird geprüft, während die anderen Prädiktoren im Modell kontrolliert werden.</p>
+<p>Dadurch können wir untersuchen, ob ein Prädiktor zusätzlich zur Vorhersage beiträgt.</p>
+<hr>
+</section>
+<section id="regression-output-verstehen" class="level2">
+<h2 class="anchored" data-anchor-id="regression-output-verstehen">Regression: Output verstehen</h2>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_11/Regressionsoutput.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Hier eine <strong>sehr kurze, punktuelle Zusammenfassung</strong>:</p>
+<ul>
+<li><p><strong>Intercept (7.63)</strong>: Ausgangswert von <em>mean_rl_all</em>, wenn cvstm_propcorrect = 0.</p></li>
+<li><p><strong>Steigung (-3.30)</strong>: Hoeherer cvstm_propcorrect sagt niedrigeren mean_rl_all voraus (negativer Zusammenhang</p></li>
+<li><p><strong>p = .0037</strong>: Zusammenhang ist <strong>signifikant</strong>.</p></li>
+<li><p><strong>Residuen</strong>: Durchschnittliche Abweichung vom Modell ca. 1.10.</p></li>
+<li><p><strong>R² = 0.052</strong>: Modell erklaert <strong>5% der Varianz</strong> → kleiner Effekt.</p></li>
+<li><p><strong>F-Test p = .0037</strong>: Das Gesamtmodell ist signifikant.</p></li>
+</ul>
+<p><strong>Kurz:</strong> Höhere cvstm_propcorrect-Werte gehen mit niedrigeren mean_rl_all-Werten einher, aber das Modell erklaert nur wenig Varianz.</p>
+</div>
+<hr>
+</section>
+<section id="voraussetzungen-der-linearen-regression" class="level2">
+<h2 class="anchored" data-anchor-id="voraussetzungen-der-linearen-regression">Voraussetzungen der linearen Regression</h2>
+<p><br></p>
+<p>Damit wir eine lineare Regression sinnvoll interpretieren können:</p>
+<ul>
+<li><p>linearer Zusammenhang zwischen Prädiktor(en) und abhängiger Variable</p></li>
+<li><p>normalverteilte Residuen (siehe Hands On 5)</p></li>
+<li><p>Homoskedastizität</p></li>
+<li><p>keine starken Ausreisser</p></li>
+<li><p>bei multipler Regression: keine starke Multikollinearität</p></li>
+</ul>
+<p><br></p>
+<p>👉 Die Voraussetzungen prüfen wir über Diagnostikplots und Kennwerte.</p>
+<hr>
+<section id="nützliche-funktionen-für-regressionen-und-verwandte-analysen-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="nützliche-funktionen-für-regressionen-und-verwandte-analysen-in-r"><strong>Nützliche Funktionen für Regressionen und verwandte Analysen in R</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lm(y ~ x)</code></td>
+<td>Einfache lineare Regression mit einer abhängigen Variablen <em>y</em> und einem Prädiktor <em>x</em>.</td>
+</tr>
+<tr class="even">
+<td><code>lm(y ~ x1 + x2)</code></td>
+<td>Multiple Regression mit einer abhängigen Variablen <em>y</em> und zwei Prädiktoren <em>x1</em> und <em>x2</em>.</td>
+</tr>
+<tr class="odd">
+<td><code>summary()</code></td>
+<td>Gibt die Ergebnisse der Regressionsanalyse für ein Regressionsmodell aus.</td>
+</tr>
+<tr class="even">
+<td><code>confint()</code></td>
+<td>Konfidenzintervalle für die Regressionskoeffizienten.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>fitted()</code></td>
+<td>Vorhergesagte Werte des Regressionsmodells.</td>
+</tr>
+<tr class="even">
+<td><code>resid()</code></td>
+<td>Residuen des Regressionsmodells.</td>
+</tr>
+<tr class="odd">
+<td><code>predict()</code></td>
+<td>Vorhergesagte Werte für neue Werte der Prädiktorvariablen.</td>
+</tr>
+<tr class="even">
+<td><code>anova(model1, model2)</code></td>
+<td>Vergleicht die Determinationskoeffizienten zweier Regressionsmodelle mit einem F-Test.</td>
+</tr>
+<tr class="odd">
+<td><code>vif()</code> *</td>
+<td>Variance Inflation Factors (VIF) für jeden Prädiktor; aus dem <strong>car</strong>-Paket.</td>
+</tr>
+</tbody>
+</table>
+<p>* aus zusätzlichen Paketen</p>
+<hr>
+</section>
+</section>
+<section id="hierarchische-regression" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchische-regression">Hierarchische Regression</h2>
+<p><br></p>
+<p>Bei der hierarchischen Regression vergleichen wir mehrere Modelle.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> data)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> data)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> data)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_1, model_2, model_3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Fragestellung:</p>
+<p>➡️ Erklärt das komplexere Modell zusätzliche Varianz?</p>
+<p>👉 Wir prüfen also, ob neue Prädiktoren die Vorhersage verbessern.</p>
+<p><br></p>
+<p>Siehe hier: <a href="https://www.youtube.com/watch?v=JzcIKIW6mfc"><strong>Lineare Regression mit R (einfach, multiple, hierarchisch)</strong></a></p>
+<hr>
+</section>
+<section id="hands-on---block-6" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on---block-6">Hands On - Block 6!</h2>
+<ul>
+<li><p>Visualisierungen mit <code>ggplot2</code></p></li>
+<li><p>Korrelationen</p></li>
+<li><p>Regressionen</p></li>
+</ul>
+<hr>
+</section>
+<section id="heute-haben-wir" class="level2">
+<h2 class="anchored" data-anchor-id="heute-haben-wir">Heute haben wir:</h2>
+<ul>
+<li><p>Aufbau von <code>ggplot()</code> repetiert</p></li>
+<li><p>Korrelationen und Regressionen in R kennengelernt</p></li>
+</ul>
+<p><strong>Reminder: R Übung bis Freitag 08.05., Peer Feedback über ILIAS bis 13.05.</strong></p>
+<hr>
+</section>
+<section id="peer-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="peer-feedback">Peer Feedback:</h2>
+<p>–siehe Datei im Ordner Abgaben—</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

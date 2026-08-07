@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sandra Grinschgl, Laura Hirt, Lars Schilling">
+
+<title>R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 4 – R u Ready</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d4be639c637f3db3c684c66cefad7e0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../styles/website_styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_4.html">Einheit 4 - 11.03.2026</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/ryouready_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einleitung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/01_slides/0_presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Präsentationen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 1 - 18.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 2 - 25.02.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 3 - 04.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Einheit 4 - 11.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 5 - 18.03.2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/01_slides/EH_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einheit 6 - 25.03.2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/02_excercises/Übungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übungen zu den Einheiten</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 1 (Woche 1 - 2) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/loesung_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 2 (Woche 3 - 4) - mit Musterlösungen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/hands_on_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands on - Block 3 (Woche 5 - 6)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../hausuebungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hausübungen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datenanalyseplan (11.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/peer_feedback_datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Peer-Feedback Datenanalyseplan (18.03.26)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/02_excercises/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Codebook (25.03.26)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/wettbewerb_cheatsheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wettbewerb: R-Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/muddiest_points.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../PDFs/Muddiest_Points_I.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/muddiest_points_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muddiest Points 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/03_faq/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1  RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/fehlermeldungen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Fehlermeldungen</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/codebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Codebook</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/datenanalyseplan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Datenanalyseplan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Statistik</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/03_faq/endabgabe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Abschlussprojekt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../scripts/04_misc/links_und_ressourcen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Links und Ressourcen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/LLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/Memes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memes :)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/leistungsnachweis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Leistungsnachweis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../scripts/04_misc/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" id="toc-r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="nav-link active" data-scroll-target="#r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</a></li>
+  <li><a href="#fragen-zum-datenanalyseplan-codebook" id="toc-fragen-zum-datenanalyseplan-codebook" class="nav-link" data-scroll-target="#fragen-zum-datenanalyseplan-codebook">Fragen zum Datenanalyseplan &amp; Codebook:</a></li>
+  <li><a href="#heute" id="toc-heute" class="nav-link" data-scroll-target="#heute">Heute:</a></li>
+  <li><a href="#hands-on" id="toc-hands-on" class="nav-link" data-scroll-target="#hands-on">Hands On!</a></li>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen">Daten einlesen</a></li>
+  <li><a href="#wie-funktionieren-joins" id="toc-wie-funktionieren-joins" class="nav-link" data-scroll-target="#wie-funktionieren-joins"><strong>Wie funktionieren Joins?</strong></a></li>
+  <li><a href="#full_join" id="toc-full_join" class="nav-link" data-scroll-target="#full_join">full_join()</a></li>
+  <li><a href="#beispiel" id="toc-beispiel" class="nav-link" data-scroll-target="#beispiel">Beispiel</a></li>
+  <li><a href="#unterschiede-zwischen-den-diversen-joins" id="toc-unterschiede-zwischen-den-diversen-joins" class="nav-link" data-scroll-target="#unterschiede-zwischen-den-diversen-joins">Unterschiede zwischen den diversen Joins:</a></li>
+  <li><a href="#unterschiede-zwischen-den-diversen-joins-1" id="toc-unterschiede-zwischen-den-diversen-joins-1" class="nav-link" data-scroll-target="#unterschiede-zwischen-den-diversen-joins-1">Unterschiede zwischen den diversen Joins:</a></li>
+  <li><a href="#unterschiede-zwischen-den-diversen-joins-2" id="toc-unterschiede-zwischen-den-diversen-joins-2" class="nav-link" data-scroll-target="#unterschiede-zwischen-den-diversen-joins-2">Unterschiede zwischen den diversen Joins:</a></li>
+  <li><a href="#unterschiede-zwischen-den-diversen-joins-3" id="toc-unterschiede-zwischen-den-diversen-joins-3" class="nav-link" data-scroll-target="#unterschiede-zwischen-den-diversen-joins-3">Unterschiede zwischen den diversen Joins:</a></li>
+  <li><a href="#check-in" id="toc-check-in" class="nav-link" data-scroll-target="#check-in">Check-in:</a></li>
+  <li><a href="#fehlererkennung-in-r-1" id="toc-fehlererkennung-in-r-1" class="nav-link" data-scroll-target="#fehlererkennung-in-r-1">Fehlererkennung in R (1)</a></li>
+  <li><a href="#fehlererkennung-in-r-2" id="toc-fehlererkennung-in-r-2" class="nav-link" data-scroll-target="#fehlererkennung-in-r-2">Fehlererkennung in R (2)</a>
+  <ul class="collapse">
+  <li><a href="#wenn-ihr-nicht-weiterkommt" id="toc-wenn-ihr-nicht-weiterkommt" class="nav-link" data-scroll-target="#wenn-ihr-nicht-weiterkommt">Wenn ihr nicht weiterkommt</a></li>
+  </ul></li>
+  <li><a href="#code-diagnostik" id="toc-code-diagnostik" class="nav-link" data-scroll-target="#code-diagnostik">Code Diagnostik:</a></li>
+  <li><a href="#r-studio-gibt-hinweise" id="toc-r-studio-gibt-hinweise" class="nav-link" data-scroll-target="#r-studio-gibt-hinweise">R-Studio gibt Hinweise!</a></li>
+  <li><a href="#r-ressourcen" id="toc-r-ressourcen" class="nav-link" data-scroll-target="#r-ressourcen">R-Ressourcen</a></li>
+  <li><a href="#wettbewerb-erstelle-dein-eigenes-r-cheatsheet-1" id="toc-wettbewerb-erstelle-dein-eigenes-r-cheatsheet-1" class="nav-link" data-scroll-target="#wettbewerb-erstelle-dein-eigenes-r-cheatsheet-1">Wettbewerb: Erstelle dein eigenes R-Cheatsheet (1)</a></li>
+  <li><a href="#wettbewerb-erstelle-dein-eigenes-r-cheatsheet-2" id="toc-wettbewerb-erstelle-dein-eigenes-r-cheatsheet-2" class="nav-link" data-scroll-target="#wettbewerb-erstelle-dein-eigenes-r-cheatsheet-2">Wettbewerb: Erstelle dein eigenes R-Cheatsheet (2)</a></li>
+  <li><a href="#large-language-models-datenanalyse" id="toc-large-language-models-datenanalyse" class="nav-link" data-scroll-target="#large-language-models-datenanalyse">Large Language Models &amp; Datenanalyse</a></li>
+  <li><a href="#github-copilot-in-r" id="toc-github-copilot-in-r" class="nav-link" data-scroll-target="#github-copilot-in-r">Github CoPilot in R</a></li>
+  <li><a href="#llm-interface-in-r" id="toc-llm-interface-in-r" class="nav-link" data-scroll-target="#llm-interface-in-r">LLM-Interface in R</a></li>
+  <li><a href="#code-based-llms-in-r" id="toc-code-based-llms-in-r" class="nav-link" data-scroll-target="#code-based-llms-in-r">Code-based LLMs in R</a></li>
+  <li><a href="#vibe-coding" id="toc-vibe-coding" class="nav-link" data-scroll-target="#vibe-coding">Vibe coding</a></li>
+  <li><a href="#ki---llms-copilot-llama-rtutor" id="toc-ki---llms-copilot-llama-rtutor" class="nav-link" data-scroll-target="#ki---llms-copilot-llama-rtutor">KI - LLMs (Copilot, Llama, Rtutor)</a></li>
+  <li><a href="#sinnvolle-nutzung-von-ki-im-datenanalyseprozess" id="toc-sinnvolle-nutzung-von-ki-im-datenanalyseprozess" class="nav-link" data-scroll-target="#sinnvolle-nutzung-von-ki-im-datenanalyseprozess">Sinnvolle Nutzung von KI im Datenanalyseprozess:</a></li>
+  <li><a href="#verwendung-von-llms" id="toc-verwendung-von-llms" class="nav-link" data-scroll-target="#verwendung-von-llms">Verwendung von LLMs</a></li>
+  <li><a href="#heute-haben-wir" id="toc-heute-haben-wir" class="nav-link" data-scroll-target="#heute-haben-wir">Heute haben wir:</a></li>
+  <li><a href="#peer-feedback-zum-datenanalyseplan" id="toc-peer-feedback-zum-datenanalyseplan" class="nav-link" data-scroll-target="#peer-feedback-zum-datenanalyseplan">Peer-Feedback zum Datenanalyseplan</a></li>
+  <li><a href="#peer-feedback-zum-datenanalyseplan-1" id="toc-peer-feedback-zum-datenanalyseplan-1" class="nav-link" data-scroll-target="#peer-feedback-zum-datenanalyseplan-1">Peer Feedback zum Datenanalyseplan</a></li>
+  <li><a href="#peer-feedback-regeln" id="toc-peer-feedback-regeln" class="nav-link" data-scroll-target="#peer-feedback-regeln">Peer Feedback Regeln</a></li>
+  <li><a href="#abfrage-muddiest-points-i" id="toc-abfrage-muddiest-points-i" class="nav-link" data-scroll-target="#abfrage-muddiest-points-i">Abfrage Muddiest Points I</a></li>
+  <li><a href="#zusammenfassung-der-to-dos" id="toc-zusammenfassung-der-to-dos" class="nav-link" data-scroll-target="#zusammenfassung-der-to-dos">Zusammenfassung der To Do’s</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="EH_4.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../scripts/01_slides/0_presentation.html">Präsentationen</a></li><li class="breadcrumb-item"><a href="../../scripts/01_slides/EH_4.html">Einheit 4 - 11.03.2026</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 4</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sandra Grinschgl, Laura Hirt, Lars Schilling </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r" class="level2">
+<h2 class="anchored" data-anchor-id="r-u-ready-reproduzierbare-datenaufbereitung-und--analyse-mit-r">R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R</h2>
+<p>FS 2026<br><br><br> <strong>LV-Leitung</strong>: Dr.&nbsp;Sandra Grinschgl / MSc. Laura Hirt<br> <strong>Tutor</strong>: BSc. Lars Schilling<br><br><br><strong>4. Einheit</strong>, 11.03.2026</p>
+<hr>
+</section>
+<section id="fragen-zum-datenanalyseplan-codebook" class="level2">
+<h2 class="anchored" data-anchor-id="fragen-zum-datenanalyseplan-codebook">Fragen zum Datenanalyseplan &amp; Codebook:</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_2_files/fragen.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Abgaben Datenanalysesplan heute via Ilias und per Email an Peer Feedback Partner:in</p>
+</div>
+<hr>
+</section>
+<section id="heute" class="level2">
+<h2 class="anchored" data-anchor-id="heute">Heute:</h2>
+<div style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; ">
+<embed src="../../PDFs/Syllabus.pdf#view=FitH&amp;navpanes=0&amp;toolbar=0" type="application/pdf" style="width:100%; height:220vh; border:0; display:block; background:white;">
+</div>
+<hr>
+</section>
+<section id="hands-on" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on">Hands On!</h2>
+<p>🎯 <strong>Ziel:</strong> Heute mindestens bis zum Daten-Mergen und Speichern kommen!</p>
+<p>🏃 <strong>Für alle, die schneller fertig sind:</strong> Coding Basics, Funktionen und Styler</p>
+<p>✈️ <strong>Für besonders Schnelle:</strong> Weiterarbeiten am Codebook / Peer-Feedback</p>
+<hr>
+</section>
+<section id="daten-einlesen" class="level2">
+<h2 class="anchored" data-anchor-id="daten-einlesen">Daten einlesen</h2>
+<p><strong>Code immer im Skript speichern</strong></p>
+<ul>
+<li><p>Alle Schritte beim Einlesen von Daten gehören ins R-Skript</p></li>
+<li><p>Nur so ist der Analyseprozess nachvollziehbar und reproduzierbar</p></li>
+</ul>
+<p><strong>Das heisst: Code nicht nur in der Konsole ausführen</strong></p>
+<ul>
+<li>Code in der Konsole wird nicht gespeichert</li>
+<li>Analysen lassen sich später nicht mehr reproduzieren</li>
+</ul>
+<p><strong>Beim Einlesen über das Environment</strong></p>
+<ul>
+<li>Der generierte Code muss ins Skript kopiert werden. Sonst ist der Import nicht dokumentiert.</li>
+</ul>
+<hr>
+</section>
+<section id="wie-funktionieren-joins" class="level2">
+<h2 class="anchored" data-anchor-id="wie-funktionieren-joins"><strong>Wie funktionieren Joins?</strong></h2>
+<div class="notes">
+<p>Fragen, wie weit man letzte Einheit gekommen ist, ggf. zuerst weiter arbeiten lassen</p>
+</div>
+<ul>
+<li><p><code>cbind()</code> vs.&nbsp;<code>full_join()</code></p></li>
+<li><p><code>cbind()</code> verbindet Datensätze spaltenweise – warum ist das suboptimal?</p></li>
+<li><p><code>full_join()</code> nimmt alle Variablen aus beiden Datensätzen. Die Verbindung erfolgt über eine oder mehrere <strong>gemeinsame Schlüsselvariable(n) (z.B. ID)</strong>, die in beiden Datensätzen vorhanden ist/sind.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/clipboard-2597715273.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" width="238"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="full_join" class="level2">
+<h2 class="anchored" data-anchor-id="full_join">full_join()</h2>
+<p><strong>Was ist der Schlüssel?</strong></p>
+<p>Eine gemeinsame Variable (z.B. <strong>CODE</strong>), die in beiden Datensätzen vorkommt und über die die Datensätze miteinander verbunden werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_cb <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/raw/data_cb.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data_vp <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/raw/data_vp.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dat_full_1 <span class="ot">&lt;-</span> <span class="fu">full_join</span>(data_cb, data_vp, <span class="at">by =</span> <span class="st">"code"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_full_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+   code cb_sum cb_propcorrect vp_sum vp_propcorrect
+  &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+1     1     26          0.722     33          0.917
+2     2     27          0.75      27          0.75 
+3     3     30          0.833     33          0.917
+4     4     27          0.75      31          0.861
+5     5     25          0.694     32          0.889
+6     6     23          0.639     24          0.667</code></pre>
+</div>
+</div>
+<div class="notes">
+<p>Iterativer Prozess: immer für 2 Datensätze bis man dat_full mit allen 7 Datensätzen hat –&gt; dafür wird dann Codebook geschrieben</p>
+</div>
+<hr>
+</section>
+<section id="beispiel" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel">Beispiel</h2>
+<p><code>full_join()</code> kombiniert beide Datensätze über die Variable <code>id</code> und behält <strong>alle IDs aus beiden Tabellen</strong>. Fehlt zu einer ID eine Information, wird der entsprechende Wert mit <code>NA</code> ergänzt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Anna"</span>, <span class="st">"Ben"</span>, <span class="st">"Chris"</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">70</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id  name score
+1  1  Anna    NA
+2  2   Ben    80
+3  3 Chris    90
+4  4  &lt;NA&gt;    70</code></pre>
+</div>
+</div>
+<div class="notes">
+<p>ID 1 kommt nur in df1 vor → score aus Datensatz 2 = NA ID 4 kommt nur in df2 vor → name aus Datensatz 1 = NA</p>
+<p>Es werden aus beiden Datensätzen alle Variablen genommen. Die Schlüsselvariable ist in diesem Beispiel die Variable id. Da nicht in beiden Datensätzen alle id’s vorkommen (in df1 kommen nur 1,2 und 3 vor; in df2 2, 3 und 4), fehlen für diese jeweils die Angaben der anderen Variable. Diese fehlenden Werte werden bei einem full_join() automatisch mit NAs ergänzt.</p>
+</div>
+<hr>
+</section>
+<section id="unterschiede-zwischen-den-diversen-joins" class="level2">
+<h2 class="anchored" data-anchor-id="unterschiede-zwischen-den-diversen-joins">Unterschiede zwischen den diversen Joins:</h2>
+<div class="notes">
+<p>inner_join() behält im Gegensatz zu full_join() nur solche Beobachtungen, die in beiden Datensätzen vorkommen. Beobachtung 3 und 4 werden also ausgeschlossen. So werden nur Beobachtungen oder VPN beibehalten, welche in jedem Datensatz enthalten sind.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/inner-join.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="unterschiede-zwischen-den-diversen-joins-1" class="level2">
+<h2 class="anchored" data-anchor-id="unterschiede-zwischen-den-diversen-joins-1">Unterschiede zwischen den diversen Joins:</h2>
+<div class="notes">
+<p>left_join() verbindet zwei Datensätze über eine Schlüsselvariable (z. B. id) und behält alle Beobachtungen aus dem linken Datensatz. Fehlende Werte aus dem rechten Datensatz werden mit NA ergänzt.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/left-join.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="unterschiede-zwischen-den-diversen-joins-2" class="level2">
+<h2 class="anchored" data-anchor-id="unterschiede-zwischen-den-diversen-joins-2">Unterschiede zwischen den diversen Joins:</h2>
+<div class="notes">
+<p>right_join() verbindet zwei Datensätze über eine Schlüsselvariable (z. B. id) und behält alle Beobachtungen aus dem rechten Datensatz. Fehlende Werte aus dem linken Datensatz werden mit NA ergänzt.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/right-join.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="unterschiede-zwischen-den-diversen-joins-3" class="level2">
+<h2 class="anchored" data-anchor-id="unterschiede-zwischen-den-diversen-joins-3">Unterschiede zwischen den diversen Joins:</h2>
+<div class="notes">
+<p>semi_join() filtert den linken Datensatz anhand einer Schlüsselvariable und behält nur Beobachtungen, für die es eine passende Beobachtung im rechten Datensatz gibt. Es werden keine neuen Variablen hinzugefügt.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/semi-join.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="check-in" class="level2">
+<h2 class="anchored" data-anchor-id="check-in">Check-in:</h2>
+<ul>
+<li><p>Nun sollte jede/r einen Datensatz <em>dat_full</em> haben, der alle 7 Einzeldatensätze beinhaltet mit:</p>
+<ul>
+<li><p><strong>159</strong> <strong>Versuchspersonen (= Zeilen)</strong></p></li>
+<li><p><strong>und 36 Variablen (= Spalten).</strong></p></li>
+</ul></li>
+<li><p>Checkt mit euren Peer-Partner:innen/Sitznachbar:innen!</p></li>
+<li><p>Mit diesem Datensatz werden wir die Analysen von Grinschgl et al.&nbsp;(2020) durchführen.</p></li>
+<li><p>Zu diesem Datensatz sollt ihr bis zum <strong>25.03.</strong> den ersten Entwurf für das Codebook schreiben!</p></li>
+</ul>
+<hr>
+</section>
+<section id="fehlererkennung-in-r-1" class="level2">
+<h2 class="anchored" data-anchor-id="fehlererkennung-in-r-1">Fehlererkennung in R (1)</h2>
+<p><em>Der Code läuft nicht! Wie könnt ihr vorgehen, um den Fehler zu identifizieren und beheben?</em></p>
+<p>1️⃣ <strong>Fehlermeldung lesen</strong></p>
+<p><img src="../../images/EH_4/Fehlermeldungen.png" class="img-fluid" width="477"></p>
+<p>2️⃣ <strong>Typische Ursachen prüfen:</strong></p>
+<p>✅ Tippfehler</p>
+<p>✅ Syntaxfehler, z.B. fehlende Klammern</p>
+<p>✅ Falsche Datentypen, prüfen mit <code>class()</code></p>
+<p>✅ Fehlende Pakete</p>
+<p>✅ Verschachtelten Code schrittweise ausführen, z.B. <code>round(mean(vector1))</code></p>
+<hr>
+</section>
+<section id="fehlererkennung-in-r-2" class="level2">
+<h2 class="anchored" data-anchor-id="fehlererkennung-in-r-2">Fehlererkennung in R (2)</h2>
+<section id="wenn-ihr-nicht-weiterkommt" class="level3">
+<h3 class="anchored" data-anchor-id="wenn-ihr-nicht-weiterkommt">Wenn ihr nicht weiterkommt</h3>
+<p>🔎 Fehlermeldung googeln</p>
+<p>Fehlermeldungen lassen sich besser googeln, wenn R auf Englisch eingestellt ist:</p>
+<ul>
+<li>👉<code>Sys.setenv(LANGUAGE = "en")</code></li>
+<li>oft ist es auch hilfreich, das Betriebssystem anzugeben: <code>sessionInfo()</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="code-diagnostik" class="level2">
+<h2 class="anchored" data-anchor-id="code-diagnostik">Code Diagnostik:</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/Code Diagnostik.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>RStudio kann viele Fehler automatisch erkennen und anzeigen:</p>
+<ul>
+<li><p>zeigt mögliche Fehler direkt im Skript an</p></li>
+<li><p>warnt bei undefinierten Variablen oder falschen Argumenten</p></li>
+<li><p>hilft, Probleme früh zu entdecken</p></li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="r-studio-gibt-hinweise" class="level2">
+<h2 class="anchored" data-anchor-id="r-studio-gibt-hinweise">R-Studio gibt Hinweise!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/Hinweise_R.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Fehlermeldungen: Die Information vor dem Doppelpunkt gibt uns an, in welcher Funktion der Fehler steckt; die Information nach dem Doppelpunkt gibt Aufschluss über die Art des Fehlers. Zweiteres ist für die Fehlersuche (zumeist) von großer Bedeutung.</p>
+<p>Wenn ein oder mehrere Zeichen überflüssig sind bzw. fehlen, dann bekommt man Unerwartete(s) ‘…’ in “…” ausgegeben. Hierbei teilt uns die Meldung mit, wo der Fehler liegt: In den Anführungszeichen “…” wird nur ein Teil des Codes ausgegeben und der Fehler ist zumeist das zuletzt ausgegebene Zeichen (oder es liegt unmittelbar davor).  z.B.&nbsp;daten[2]</p>
+</div>
+<hr>
+</section>
+<section id="r-ressourcen" class="level2">
+<h2 class="anchored" data-anchor-id="r-ressourcen">R-Ressourcen</h2>
+<p>-&gt; siehe <a href="https://r-you-ready.github.io/Webseite_FS26_Seminar/scripts/04_misc/links_und_ressourcen.html">Website</a></p>
+<hr>
+</section>
+<section id="wettbewerb-erstelle-dein-eigenes-r-cheatsheet-1" class="level2">
+<h2 class="anchored" data-anchor-id="wettbewerb-erstelle-dein-eigenes-r-cheatsheet-1">Wettbewerb: Erstelle dein eigenes R-Cheatsheet (1)</h2>
+<p>🎯 <strong>Ziel</strong></p>
+<p>Erstelle auf Basis der Vorlage (ILIAS) ein eigenes R-Cheatsheet mit wichtigen Befehlen, Beispielen und kurzen Erklärugen.</p>
+<p>💡 <strong>Idee</strong></p>
+<p>Ein persönliches Nachschlagewerk für R-Workflows, Funktionen und Analysen; auch nützlich für spätere Projekte und/oder die Masterarbeit.</p>
+<p>⭐ <strong>Extrapunkte</strong></p>
+<ul>
+<li><p>2 Punkte für Teilnahme (bei erfüllten Mindestkriterien)</p></li>
+<li><p>+2 Punkte für das beste Cheatsheet (Abstimmung im Seminar)</p></li>
+</ul>
+<p>-&gt; maximal 4 Extrapunkte!</p>
+<hr>
+</section>
+<section id="wettbewerb-erstelle-dein-eigenes-r-cheatsheet-2" class="level2">
+<h2 class="anchored" data-anchor-id="wettbewerb-erstelle-dein-eigenes-r-cheatsheet-2">Wettbewerb: Erstelle dein eigenes R-Cheatsheet (2)</h2>
+<p>📋 <strong>Mindestkriterien</strong></p>
+<ul>
+<li><p>klare Struktur (z.B. Datenimport, Visualisierung, Modelle…)</p></li>
+<li><p>R-Code mit kurzen Erklärungen</p></li>
+<li><p>praktisch nutzbar für andere</p></li>
+<li><p>visuell ansprechend</p></li>
+</ul>
+<p>📅 <strong>Abgabe</strong></p>
+<p>EH13 (20.05.)</p>
+<p>🗳 <strong>Abstimmung</strong></p>
+<p>EH14 (27.05.)</p>
+<p>⚠️ <strong>Teilnahme freiwillig!</strong></p>
+<hr>
+</section>
+<section id="large-language-models-datenanalyse" class="level2">
+<h2 class="anchored" data-anchor-id="large-language-models-datenanalyse">Large Language Models &amp; Datenanalyse</h2>
+<ul>
+<li><p>Modelle wie <strong>ChatGPT</strong></p></li>
+<li><p>Berechnen <strong>Wortwahrscheinlichkeiten</strong> und erzeugen daraus Text</p></li>
+<li><p><strong>ABER:</strong></p>
+<ul>
+<li><p>Verstehen <strong>keine Bedeutung</strong></p></li>
+<li><p>Können <strong>nicht beurteilen, was inhaltlich korrekt ist</strong></p></li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/menti_llm_eh4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="300"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Für welche Aufgaben nutzt du LLMs im Analyseprozess?</p>
+</div>
+</section>
+<section id="github-copilot-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="github-copilot-in-r">Github CoPilot in R</h2>
+<div class="absolute" data-top="50%" data-left="33%" style="font-size: 3em;">
+<p><strong>LIVE DEMO</strong></p>
+</div>
+<hr>
+</section>
+<section id="llm-interface-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="llm-interface-in-r">LLM-Interface in R</h2>
+<div class="absolute" data-top="50%" data-left="33%" style="font-size: 3em;">
+<p><strong>LIVE DEMO</strong></p>
+</div>
+<hr>
+</section>
+<section id="code-based-llms-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="code-based-llms-in-r">Code-based LLMs in R</h2>
+<div class="absolute" data-top="50%" data-left="33%" style="font-size: 3em;">
+<p><strong>LIVE DEMO</strong></p>
+</div>
+<hr>
+</section>
+<section id="vibe-coding" class="level2">
+<h2 class="anchored" data-anchor-id="vibe-coding">Vibe coding</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/Vibecoding.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>👉KI in natürlicher Sprache prompten, ohne den generierten Code zu prüfen oder zu verstehen.</p>
+<div class="notes">
+<p>Vibe Coding bedeutet, dass Nutzer*innen mit KI-Codegeneratoren (z. B. ChatGPT, GitHub Copilot) Programme schreiben, indem sie nur Zielbeschreibungen in natürlicher Sprache eingeben, ohne den generierten Code wirklich zu verstehen oder gründlich zu überprüfen.<br>
+</p>
+<p>Es ist also intuitives, versuchsorientiertes „Codieren nach Gefühl“, bei dem Schnelligkeit vor Verständnis steht.</p>
+</div>
+<hr>
+</section>
+<section id="ki---llms-copilot-llama-rtutor" class="level2">
+<h2 class="anchored" data-anchor-id="ki---llms-copilot-llama-rtutor">KI - LLMs (Copilot, Llama, Rtutor)</h2>
+<p>✔️ <strong>Vorteile</strong></p>
+<ul>
+<li><p>Generieren schnell viel Code</p></li>
+<li><p>Code häufig syntaktisch korrekt</p></li>
+<li><p>On-Demand-Assistenz für Fragen aller Art</p></li>
+<li><p>Reduziert Einstiegshürden</p></li>
+<li><p>Unterstützung bei Debugging und Error Handling</p></li>
+<li><p><strong>Tutoring-Funktion</strong> –&gt; siehe <a href="https://learnius.com/llms/5+Prompting/Examples/AI+tutor+by+Ethan+Mollick+with+Claude+2">Prompts</a></p></li>
+</ul>
+<hr>
+<p>❌ <strong>Risiken/Nachteile</strong></p>
+<ul>
+<li><p>Unreflektiert Code übernehmen → Lerneffekt sinkt</p></li>
+<li><p>Keine Garantie für Korrektheit → Code kann plausibel wirken, aber methodisch unangemessen sein</p></li>
+<li><p>Overreliance / Cognitive Offloading → Reduziertes Verständnis dessen, was man tut</p></li>
+<li><p>Nicht immer Best-Practice-Beispiele → Verletzung wissenschaftlicher Standards</p></li>
+<li><p>“Fast but Flawed”</p></li>
+<li><p>⚠️Datenschutz: Niemals sensible Daten in LLMs hochladen ⚠️</p></li>
+</ul>
+<div class="notes">
+<ul>
+<li><p>Beispiel: unreflektiert ChatGPT fragen, ob ich eine Mediationsanalyse machen kann → Code übernehmen, Output interpretieren lassen, Diskussion schreiben lassen → Rezept für ein Desaster.</p></li>
+<li><p>Datenanalyse darf keine Blackbox sein → Die Schritte der Analyse müssen mindestens für die Person, die sie durchführt, nachvollziehbar sein.</p></li>
+</ul>
+<!-- -->
+<ul>
+<li>Datenschutz: unklar, wo Daten gespeichert werden; Risiko von Training Leakage und rechtlichen Verstössen!</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="sinnvolle-nutzung-von-ki-im-datenanalyseprozess" class="level2">
+<h2 class="anchored" data-anchor-id="sinnvolle-nutzung-von-ki-im-datenanalyseprozess">Sinnvolle Nutzung von KI im Datenanalyseprozess:</h2>
+<p>✔️ <strong>Sinnvoll: Unterstützend – nicht ersetzend</strong></p>
+<ul>
+<li>Kontrolle einfacher Fehler (Klammern, Typos)</li>
+<li>Erklärung von Code und Syntax</li>
+<li>Hilfe bei Fehlersuche (Debugging)</li>
+<li>Kommentierung und Dokumentation</li>
+</ul>
+<hr>
+<p>❌ <strong>Nicht sinnvoll: Ersatz statt Unterstützung</strong></p>
+<ul>
+<li><p>Generierung ganzer Analyse-Skripte</p></li>
+<li><p>Automatische Auswahl von Methoden oder Tests</p></li>
+<li><p>Interpretation statistischer Ergebnisse durch KI</p></li>
+<li><p>Erstellung kompletter Berichte oder Diskussionen</p></li>
+<li><p>Hochladen sensibler Daten</p></li>
+<li><p>Unkritisches Übernehmen von Output</p>
+<p><strong>-&gt; Statt Vibe-Coding zur Methodenberatung!</strong></p></li>
+</ul>
+<hr>
+</section>
+<section id="verwendung-von-llms" class="level2">
+<h2 class="anchored" data-anchor-id="verwendung-von-llms">Verwendung von LLMs</h2>
+<p><img src="../../images/EH_4/Bild1.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="heute-haben-wir" class="level2">
+<h2 class="anchored" data-anchor-id="heute-haben-wir">Heute haben wir:</h2>
+<ul>
+<li><p>Datensätze gemerged und diverse <code>joins</code> kennengelernt</p></li>
+<li><p>Tools für die Fehlerdiagnostik in R kennengelernt</p></li>
+<li><p>Uns mit Ressourcen und dem Umgang mit LLMs befasst</p></li>
+</ul>
+<hr>
+</section>
+<section id="peer-feedback-zum-datenanalyseplan" class="level2">
+<h2 class="anchored" data-anchor-id="peer-feedback-zum-datenanalyseplan">Peer-Feedback zum Datenanalyseplan</h2>
+<p>📋 To Do’s:</p>
+<ul>
+<li><p>Musterlösung anschauen! (siehe Ordner Abschlussprojekt auf Ilias)</p></li>
+<li><p>Datenanalyseplan des Partners/der Partnerin bis am <strong>18.03.</strong> durchschauen und kommentieren (am besten mit Word oder PDF Kommentaren)</p></li>
+<li><p>Upload auf Ilias mit Kommentaren + Weitergabe an Partner:in per Email</p></li>
+<li><p>Auch persönliches Feedback erwünscht 👉 selbstorganisiert</p>
+<p><em>Selbständigkeit:</em> Bei Fragen auf uns zukommen (Forum, Sprechstunde etc. nutzen)</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/EH_4/Feedback.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="177"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="peer-feedback-zum-datenanalyseplan-1" class="level2">
+<h2 class="anchored" data-anchor-id="peer-feedback-zum-datenanalyseplan-1">Peer Feedback zum Datenanalyseplan</h2>
+<ul>
+<li><p><strong>Klarheit und Verständlichkeit</strong> (z.B. sind alle Begriffe und Konzepte ausreichend erklärt? Gibt es verwirrende oder unklare Formulierungen?)</p></li>
+<li><p><strong>Vollständigkeit</strong> (z.B. wurden alle notwendigen Fragen ausreichend beantwortet? Fehlen Informationen?)</p></li>
+<li><p><strong>Reproduzierbarkeit</strong> (Ist der Plan so formuliert, dass er von einer anderen Person nachvollzogen und reproduziert werden kann?)</p></li>
+</ul>
+<hr>
+</section>
+<section id="peer-feedback-regeln" class="level2">
+<h2 class="anchored" data-anchor-id="peer-feedback-regeln">Peer Feedback Regeln</h2>
+<ul>
+<li><p>Gib fundiertes, konstruktives und gut strukturiertes Feedback!</p></li>
+<li><p>Fokus sollte auf inhaltlicher Qualität und Übereinstimmung mit den Anforderungen liegen, nicht auf persönlichen Präferenzen.</p></li>
+<li><p>Verbesserungsvorschläge sind gewünscht, kein „Schön reden“ notwendig –&gt; wir wollen dazu lernen!</p></li>
+<li><p>Verbesserungsvorschläge sollten möglichst konkret sein.</p></li>
+<li><p>Bleibt aber natürlich sachlich und verwendet eine respektvolle Sprache!</p></li>
+<li><p>Auch Lob für besonders gute Abschnitte darf nicht fehlen. Feedback ist ein Lernprozess, auch für den Gebenden. Seit bereit, euer Feedback anzupassen, wenn die andere Person es anders versteht oder weitere Informationen liefert.</p></li>
+<li><p>Peer Feedback sollte nicht nur auf die aktuelle Aufgabe abzielen, sondern auch helfen, den Lernprozess der beteiligten Personen langfristig zu verbessern</p></li>
+</ul>
+<hr>
+</section>
+<section id="abfrage-muddiest-points-i" class="level2">
+<h2 class="anchored" data-anchor-id="abfrage-muddiest-points-i">Abfrage Muddiest Points I</h2>
+<ul>
+<li><p>Denke an die bisher besprochenen Inhalte zurück – was ist dir unklar geblieben? Was sollten wir noch einmal besprechen?</p></li>
+<li><p>Denke sowohl an die R Hands On Sessions als auch die theoretischen Inhalte (z.B. Open Science, Datenanalyseplan, Codebook).</p></li>
+<li><p>Notiere bitte max. drei konkrete Punkte. Falls du Vorschläge/Ideen zur Aufarbeitung dieser Punkte hast, gib diese auch gerne an.</p></li>
+<li><p>Umfrage auf ILIAS (siehe EH 4) bis <strong>Sonntag 15.03. 23:55</strong></p></li>
+</ul>
+<hr>
+</section>
+<section id="zusammenfassung-der-to-dos" class="level2">
+<h2 class="anchored" data-anchor-id="zusammenfassung-der-to-dos">Zusammenfassung der To Do’s</h2>
+<ul>
+<li><p>Muddiest Points Umfrage bis Sonntag, 15.03. (23:55)</p></li>
+<li><p>Peer-Feedback Datenanalyseplan bis Mittwoch, 18.03.</p></li>
+<li><p>Selbstständiges Durcharbeiten des Hands On Block 2 bis Mittwoch, 18.03.</p></li>
+<li><p>Freiwillig: Cheatsheet Wettbewerbung, Einreichung bis 20.05</p></li>
+</ul>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+
+
+<script>
+
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+  // slide changes (different for each slide format).
+
+  (function () {
+
+    // dispatch for htmlwidgets
+
+    function fireSlideEnter() {
+
+      const event = window.document.createEvent("Event");
+
+      event.initEvent("slideenter", true, true);
+
+      window.document.dispatchEvent(event);
+
+    }
+
+
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+
+      fireSlideEnter();
+
+
+
+      // dispatch for shiny
+
+      if (window.jQuery) {
+
+        if (previousSlide) {
+
+          window.jQuery(previousSlide).trigger("hidden");
+
+        }
+
+        if (currentSlide) {
+
+          window.jQuery(currentSlide).trigger("shown");
+
+        }
+
+      }
+
+    }
+
+
+
+    // hookup for slidy
+
+    if (window.w3c_slidy) {
+
+      window.w3c_slidy.add_observer(function (slide_num) {
+
+        // slide_num starts at position 1
+
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+      });
+
+    }
+
+
+
+  })();
+
+</script>
+
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-you-ready\.github\.io\/Webseite_FS26_Seminar\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

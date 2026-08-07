@@ -1,0 +1,488 @@
+---
+title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 6"
+author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+format: 
+  revealjs:
+    title-slide-attributes:
+      data-visibility: hidden
+    theme: [default, ../../custom.scss]
+    transition: slide
+    slide-number: true
+    logo: /images/unibe.png
+    incremental: false
+    self_contained: true
+    show-slide-number: all
+    smaller: true
+    progress: true
+    controls: true
+    embed-resources: true
+---
+
+## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
+
+FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**6. Einheit**, 25.03.2026
+
+------------------------------------------------------------------------
+
+## Heute:
+
+::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
+```{=html}
+<embed
+    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
+    type="application/pdf"
+    style="width:100%; height:220vh; border:0; display:block; background:white;"
+  >
+```
+:::
+
+------------------------------------------------------------------------
+
+## Quarto
+
+-   Wir arbeiten ab jetzt immer in **Quarto Dateien** (und im Projektordner)
+
+-   Vorteil: Code, Ergebnisse und Beschreibung/Interpretation sind an einem Ort
+
+    -\> **Nachvollziehbar & reproduzierbar**
+
+-   Falls das Rendern nicht klappt → meldet euch!
+
+-   Bei Problemen mit Word und PDF Datein: im Terminal `quarto install tinytex`
+
+------------------------------------------------------------------------
+
+## Verschiedene Datentypen
+
+-   In R gibt es verschiedene Datentypen mit unterschiedlichen Eigenschaften
+
+-   Der Datentyp bestimmt, wie Daten gespeichert und verarbeitet werden können
+
+**Wichtige Datentypen im Überblick:**
+
+-   Vektoren
+
+-   Faktoren
+
+-   Matrizen
+
+-   Listen
+
+-   Data Frames
+
+------------------------------------------------------------------------
+
+## Datentypen: Vektoren
+
+-   Vektoren sind der grundlegende Datentyp in R
+
+-   Ein Vektor ist eine Sammlung von Elementen gleichen Typs
+
+👉 Wichtig: Alle Elemente müssen den gleichen Datentyp (z.B. numeric) haben
+
+**Typen von Vektoren:**
+
+-   Numerisch (Zahlen; umfasst *integer* und *double*)
+
+-   Character (Text)
+
+-   Logisch (TRUE / FALSE)
+
+------------------------------------------------------------------------
+
+## Datentypen: Vektoren (2)
+
+**Erstellung von Vektoren:**
+
+-   meist mit "`c`" (*combine / concatenate*)
+
+```{r echo = TRUE}
+numeric_vector <- c(5, 4, 5)
+character_vector <- c("Frau", "Mann","Non-Binär")
+logical_vector <- c(TRUE, FALSE, TRUE)
+```
+
+**Sonderfall:**
+
+-   Ein Vektor mit nur einem Element = Skalar
+
+```{r echo = TRUE}
+x <- 5
+```
+
+::: notes
+**Numerische Vektoren** (umfassen *integer* und *double*, R unterscheidet aber intern kaum zwischen „float“ und „double“)
+
+Integer: ganze zahlen
+
+double: zahlen mit kommastellen –\> Steht für double precision (wegen 64bit)
+:::
+
+------------------------------------------------------------------------
+
+## Datentypen: Vektoren (3)
+
+Werde Typen jedoch trotzdem vermischt, werden alle Elemente in denselben Typ umgewandelt – auch dann, wenn sie einzeln betrachtet eigentlich nicht zu diesem Typ gehören würden.
+
+**Beispiel:**
+
+```{r, echo = TRUE}
+vermischter_vektor <- c(2, 1, "mann", TRUE)
+class(vermischter_vektor)
+class(vermischter_vektor[1])
+```
+
+Attribute von Vektoren können zum Beispiel mit `typeof()`, `length()` oder `attributes()` eingesehen werden.
+
+------------------------------------------------------------------------
+
+## Datentypen: Faktoren
+
+**Faktoren = kategoriale Variablen in R** (z.B. Geschlecht, Versuchsbedingung)
+
+**Aufbau eines Faktors:**
+
+-   Kategorien (*Levels*)
+
+-   Intern als Zahlen gespeichert (→ keine inhaltliche Bedeutung)
+
+🎯 **Wichtig für statistische Analysen mit kategorialen Daten** (z.B. ANOVA, Regression)
+
+-   Faktoren sorgen dafür, dass R Kategorien korrekt interpretiert – also **nicht** als Text oder numerische Werte.
+
+-   Sie ermöglichen das **Festlegen einer Referenzkategorie**, die für Vergleiche in statistischen Modellen relevant ist.
+
+::: notes
+Die Referenzkategorie spielt bei der ANOVA keine Rolle für den Gesamttest (F-Test). Bei z.B. einer linearen Regression, legt die Referenzkategorie fest welche Gruppe als Basis für den Vergleich dient.
+:::
+
+------------------------------------------------------------------------
+
+## Datentypen: Faktoren (2)
+
+**Beispiel: Geschlecht mit Faktorstufen**
+
+```{r, echo = TRUE}
+geschlecht <- c("male", "female", "nonbinary", "female", "male","nonbinary")
+
+geschlecht_faktor <- factor(geschlecht)
+
+levels(geschlecht_faktor)
+```
+
+Faktoren können auch numerisch sein, werden dann aber nicht mehr als Zahlen behandelt.
+
+```{r, echo = TRUE}
+
+numerisch <- c(1, 2, 2, 1, 2, 3, 2, 1)
+
+faktorstufen_numerisch <- factor(numerisch)
+
+levels(faktorstufen_numerisch)
+```
+
+***🤔 Welche Variable(n) sollten in den Daten von Grinschgl et al. (2020) zu Faktoren transformiert werden?***
+
+::: notes
+Die Faktorstufen werden standardmässig alphabetisch festgelegt.
+
+In Grinschgl2020 werden group_all als Faktor bestimmt, und nach der transformation zu einem Long Datensatz (kommende Wochen) auch noch time_rating.
+:::
+
+------------------------------------------------------------------------
+
+## Datentypen: Matrizen
+
+**Matrix = zweidimensionale Datenstruktur**
+
+-   besteht aus **Zeilen** und **Spalten**
+
+-   alle Elemente haben den **gleichen Datenyp**
+
+**Wichtige Idee:**
+
+👉 Eine Matrix ist eigentlich ein **Vektor mit Dimensionen**
+
+**Erstellung einer Matrix:**
+
+```{r, echo = TRUE}
+v <- 1:20
+dim(v) <- c(2, 10) # Als Attribut des Vektors
+v
+```
+
+```{r, echo = TRUE}
+attributes(v)    # zeigt die Dimensionen
+```
+
+::: notes
+Dim ist hier keine Funktion sondern ein Attribut.
+:::
+
+------------------------------------------------------------------------
+
+## Datentypen: Matrizen (2)
+
+**Erstellen und Zugriff**
+
+**Erstellung mit** `matrix()`
+
+```{r, echo = TRUE}
+m <- matrix(1:20, nrow = 2, ncol = 10)
+```
+
+👉 Standard: Werte werden **spaltenweise eingefügt**
+
+**Zugriff auf Elemente:**
+
+`m[Zeile, Spalte]`
+
+```{r, echo=TRUE, results='hide'}
+m[2, 4]
+m[2, 1:5]
+```
+
+**Frage:**
+
+Welche Werte ergeben sich hier?
+
+***🤔*** Ist der Datensatz `dat_full` eine **Matrix?**
+
+::: notes
+-   Zweite Zeile, 4te Spalte –\> 8
+
+-   2, 4, 6, 8, 10. -\> Zweite Zeile, erste bis 5te spalte.
+:::
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen
+
+**Listen = flexible Datenstruktur in R**
+
+-   Eine Liste kann **Elemente unterschiedlicher Typen** enthalten (z.B. Zahlen, Text, Vektoren, Data Frames, andere Listen)
+
+**Unterschied zu Vektoren:**
+
+-   Vektoren → nur ein Datentyp
+
+-   Listen → mehrere Datentypen möglich
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen (2)
+
+**Erstellung mit `list()`:**
+
+```{r, echo = TRUE}
+my_list <- list(
+  name = "Anna",
+  age = 27,
+  scores = c(8, 9, 10),
+  info = list(city = "Bern", student = TRUE)
+)
+
+my_list
+```
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen (3)
+
+**Zugriff auf Listenelemente**
+
+Mit **`[ ]`** → gibt eine Teilliste zurück
+
+```{r, echo = TRUE}
+my_list[1]
+```
+
+👉 Ergebnis bleibt eine **Liste**
+
+-   Mit **`[[ ]]`** → gibt den Inhalt zurück
+
+```{r, echo=TRUE}
+
+my_list[[3]]
+my_list[[3]][2]
+```
+
+👉 Ergebnis ist das **eigentliche Element** (z.B. Vektor)
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen (4)
+
+-   Mit **`$`** → Zugriff über Namen
+
+```{r, echo = TRUE}
+my_list$info
+my_list$info$student
+```
+
+👉 besonders praktisch bei benannten Listen
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen (5)
+
+**Elemente hinzufügen**
+
+Neues Element hinzufügen mit `[[ ]]`:
+
+```{r, echo = TRUE}
+my_list[[5]] <- 42
+my_list
+```
+
+------------------------------------------------------------------------
+
+## Datentypen: Listen (6)
+
+Alternativ mit Namen
+
+```{r, echo = TRUE}
+my_list$new_value <- 42
+my_list
+```
+
+**Allgemeines Prinzip:**
+
+-   Listen können **beliebig erweitert werden**
+
+-   neue Elemente werden über einen **Index oder Namen** hinzugefügt
+
+------------------------------------------------------------------------
+
+## Datentypen: Data Frames
+
+**Data Frame = tabellarische Datenstruktur**
+
+-   besteht aus **Zeilen und Spalten**
+
+-   jede Spalte ist ein **Vektor**
+
+**Wichtige Eigenschaften:**
+
+-   Spalten können unterschiedliche Datentypen haben
+
+-   alle Spalte gleich lang (ggf. auffüllen mit NAs)
+
+**Warum Data Frames wichtig sind:**
+
+-   Standardformat für Daten in R
+
+-   Datensätze werden beim Einlesen meist als **Data Frame** gespeichert
+
+------------------------------------------------------------------------
+
+## Datentypen: Data Frames (2)
+
+**Erstellen und Zugriff**
+
+**Erstellung eines Data Frames:**
+
+```{r, echo=TRUE}
+bundesraet_innen <- data.frame(
+  vorname = c("Elisabeth", "Martin", "Ignazio"),
+  alter = c(62, 63, 65),
+  partei = c("SP", "Mitte", "FDP"),
+  graue_haare = c(TRUE, TRUE, FALSE)
+)
+```
+
+**Data Frame anzeigen:**
+
+```{r, echo=TRUE}
+head(bundesraet_innen)
+```
+
+**Zugriff auf Spalten:**
+
+```{r, echo=TRUE}
+bundesraet_innen$graue_haare
+```
+
+------------------------------------------------------------------------
+
+## Datentypen: Data Frames (3)
+
+**Arbeiten mit Data Frames**
+
+1.  **Zugriff auf Elemente und Spalten**
+
+```{r echo = TRUE}
+bundesraet_innen[3,"graue_haare"] #Zugriff mittels Position im Data Frame
+bundesraet_innen$alter #Zugriff über Spaltennamen
+```
+
+2.  **Filtern von Daten**
+
+```{r echo = TRUE}
+library(tidyverse)
+
+brs_unter_63 <- filter(bundesraet_innen, alter < 63)
+head(brs_unter_63)
+
+#Alternative mit Base R
+brs_unter_63 <- subset(bundesraet_innen, bundesraet_innen$alter < 63)
+head(brs_unter_63)
+```
+
+------------------------------------------------------------------------
+
+## Datentypen: Data Frames (4)
+
+3.  **Neue Variablen erstellen**
+
+```{r echo = TRUE}
+bundesraet_innen$alter_in_10_jahren <- bundesraet_innen$alter + 10
+head(bundesraet_innen)
+```
+
+------------------------------------------------------------------------
+
+## Datentypen: Überblick
+
+::: {style="font-size: 0.75em;"}
+| Struktur | Eigenschaften | Beispiel-Inhalt |
+|------------------------|------------------------|------------------------|
+| **Vektor** | \- Enthält Elemente **eines** Datentyps<br>- Grundbaustein in R | `c(1, 2, 3)` oder `c("Anna", "Ben")` |
+| **Liste** | \- Kann verschiedene Datentypen enthalten<br>- Elemente können unterschiedlich lang sein | Zahlenvektor, Textvektor, logischer Vektor in einer Liste |
+| **Matrix** | \- Enthält nur **einen** Datentyp<br>- Hat feste Dimensionen (Zeilen, Spalten) | 3x3-Matrix mit Zahlen 1–9 |
+| **Data Frame** | \- Tabellarisch aufgebaut<br>- Spalten können unterschiedliche Datentypen enthalten<br>- Jede Spalte gleich lang | Tabelle mit Name (Character), Alter (Numeric), Studiert (Logical) |
+:::
+
+***👉*** **Merksatz:**\
+**Vektor** = einfachste Struktur, ein Datentyp\
+**Liste** = flexibel, verschiedene Datentypen\
+**Matrix** = „Zahlenrechteck“, ein Datentyp\
+**Data Frame** = Tabelle, Spalten können unterschiedliche Datentypen haben
+
+------------------------------------------------------------------------
+
+## Heute haben wir:
+
+-   Verschiedene Datentypen angeschaut:
+
+    -   Vektoren
+
+    -   Faktoren
+
+    -   Matrizen
+
+    -   Listen
+
+    -   Dataframes
+
+------------------------------------------------------------------------
+
+## Bis nächstes Mal:
+
+-   Peer-Feedback: Codebook:
+
+    Codebook des Partners/der Partnerin bis EH7 durchschauen und kommentieren (am besten mit Excel Kommentar-Funktion oder Notizen in zusätzlicher Datei) 👉 sind ALLE Variablen mit ausreichend Detail beschrieben?
+
+-   Upload auf Ilias mit Kommentaren + Weitergabe an Partner:in. Auch persönliches Feedback erwünscht 👉 selbstorganisiert
+
+-   Hands On Block 3 abschliessen!
