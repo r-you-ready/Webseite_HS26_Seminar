@@ -16,6 +16,7 @@ format:
     progress: true
     controls: true
     embed-resources: true
+draft: true
 ---
 
 ```{r, echo = FALSE, message=FALSE}

@@ -17,7 +17,7 @@ format:
     controls: true
     embed-resources: true
 bibliography: references.bib
-draft: false
+draft: true
 ---
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R

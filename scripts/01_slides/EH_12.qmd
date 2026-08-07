@@ -17,7 +17,7 @@ format:
     controls: true
     embed-resources: true
 bibliography: references.bib
-draft: false
+draft: true
 ---
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
