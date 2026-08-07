@@ -26,33 +26,33 @@ website:
         text: "Präsentationen"
         contents:
           - href: scripts/01_slides/EH_1.qmd
-            text: "Einheit 1 - 18.02.2026"
+            text: "Einheit 1 - 16.09.2026"
           - href: scripts/01_slides/EH_2.qmd
-            text: "Einheit 2 - 25.02.2026"
+            text: "Einheit 2 - 23.09.2026"
           - href: scripts/01_slides/EH_3.qmd
-            text: "Einheit 3 - 04.03.2026"
+            text: "Einheit 3 - 30.09.2026"
           - href: scripts/01_slides/EH_4.qmd
-            text: "Einheit 4 - 11.03.2026"
+            text: "Einheit 4 - 07.10.2026"
           - href: scripts/01_slides/EH_5.qmd 
-            text: "Einheit 5 - 18.03.2026"
+            text: "Einheit 5 - 14.10.2026"
           - href: scripts/01_slides/EH_6.qmd
-            text: "Einheit 6 - 25.03.2026"
+            text: "Einheit 6 - 21.10.2026"
           - href: scripts/01_slides/EH_7.qmd
-            text: "Einheit 7 - 01.04.2026"
+            text: "Einheit 7 - 28.10.2026"
           - href: scripts/01_slides/EH_8.qmd
-            text: "Einheit 8 - 15.04.2026"
+            text: "Einheit 8 - 04.11.2026"
           - href: scripts/01_slides/EH_9.qmd
-            text: "Einheit 9 - 22.04.2026"
+            text: "Einheit 9 - 11.11.2026"
           - href: scripts/01_slides/EH_10.qmd 
-            text: "Einheit 10 - 29.04.2026"
+            text: "Einheit 10 - 18.11.2026"
           - href: scripts/01_slides/EH_11.qmd
-            text: "Einheit 11 - 06.05.2026"
+            text: "Einheit 11 - 25.11.2026"
           - href: scripts/01_slides/EH_12.qmd
-            text: "Einheit 12 - 13.05.2026"
+            text: "Einheit 12 - 02.12.2026"
           - href: scripts/01_slides/EH_13.qmd
-            text: "Einheit 13 - 20.05.2026"
+            text: "Einheit 13 - 09.12.2026"
           - href: scripts/01_slides/EH_14.qmd
-            text: "Einheit 14 - 27.05.2026"
+            text: "Einheit 14 - 16.12.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 

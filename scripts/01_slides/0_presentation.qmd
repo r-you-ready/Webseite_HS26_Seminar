@@ -4,112 +4,139 @@ title: "Präsentationen"
 
 # Überblick Slides
 
-## **Einheit 1 - 18.02.2026**
-
+## **Einheit 1 - 16.09.2026**
+<!---
 <iframe src="EH_1.html" width="100%" height="500px">
 
 </iframe>
-
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 ---
 
-## **Einheit 2 - 25.02.2026**
-
+## **Einheit 2 - 23.09.2026**
+<!---
 <iframe src="EH_2.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 3 - 04.03.2026**
-
+## **Einheit 3 - 30.09.2026**
+<!---
 <iframe src="EH_3.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 4 - 11.03.2026**
-
+## **Einheit 4 - 07.10.2026**
+<!---
 <iframe src="EH_4.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 5 - 18.03.2026**
-
+## **Einheit 5 - 14.10.2026**
+<!---
 <iframe src="EH_5.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 6 - 25.03.2026**
-
+## **Einheit 6 - 21.10.2026**
+<!---
 <iframe src="EH_6.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 7 - 01.04.2026**
-
+## **Einheit 7 - 28.10.2026**
+<!---
 <iframe src="EH_7.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 8 - 15.04.2026**
-
+## **Einheit 8 - 04.11.2026**
+<!---
 <iframe src="EH_8.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 9 - 22.04.2026**
-
+## **Einheit 9 - 11.11.2026**
+<!---
 <iframe src="EH_9.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 10 - 29.04.2026**
-
+## **Einheit 10 - 18.11.2026**
+<!---
 <iframe src="EH_10.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 11 - 06.05.2026**
-
+## **Einheit 11 - 25.11.2026**
+<!---
 <iframe src="EH_11.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 12 - 13.05.2026**
-
+## **Einheit 12 - 02.12.2026**
+<!---
 <iframe src="EH_12.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 13 - 20.05.2026**
-
+## **Einheit 13 - 09.12.2026**
+<!---
 <iframe src="EH_13.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
 
 ---
 
-## **Einheit 14 - 27.05.2026**
-
+## **Einheit 14 - 16.12.2026**
+<!---
 <iframe src="EH_14.html" width="100%" height="500px">
 
 </iframe>
+-->
+Die Folien werden kurz vor dem entsprechenden Termin hier hochgeladen.
