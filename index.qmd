@@ -3,7 +3,7 @@ title: "Einleitung"
 author:
   - name: "Dr. Sandra Grinschgl"
   - name: "MSc. Laura Hirt"
-  - name: "Bsc. Lars Schilling"
+  - name: "Bsc. Jan-Pierre Pahnke"
 date: today
 ---
 
@@ -34,10 +34,11 @@ Hier einen Überblick über die auf den Seiten enthaltenen Hinweisboxen:
 ::: callout-caution
 **Vorsicht:** Der Syllabus dient als grobe Richtlinie und kann angepasst werden, falls wir in einzelnen Einheiten mehr oder weniger Zeit benötigen.
 :::
-
+<!---
 <iframe src="PDFs/Syllabus.pdf" width="100%" height="600px">
 
 </iframe>
+-->
 
 ```{r, echo=FALSE}
 
