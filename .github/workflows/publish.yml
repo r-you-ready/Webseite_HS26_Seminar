@@ -1,0 +1,112 @@
+name: Render and Publish Quarto Website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RENV_CONFIG_AUTOLOADER_ENABLED: "FALSE"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.5.3'
+          use-public-rspm: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pkg-config \
+            libuv1-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libfontconfig1-dev \
+            libfreetype6-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev \
+            libwebp-dev
+
+      - name: Disable renv
+        run: rm -rf renv renv.lock
+
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/work/_temp/Library
+          key: ${{ runner.os }}-r-4.5.3-lib-${{ hashFiles('.github/workflows/publish.yml', '_quarto.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-r-4.5.3-lib-
+
+      - name: Install required R packages
+        run: |
+          Rscript -e 'install.packages(c(
+            "rmarkdown",
+            "knitr",
+            "palmerpenguins",
+            "apaTables",
+            "afex",
+            "emmeans",
+            "effectsize",
+            "psych",
+            "effsize",
+            "skimr",
+            "here",
+            "styler",
+            "tidyverse",
+            "stringr",
+            "readr",
+            "dplyr",
+            "ggplot2"
+          ), repos = "https://cloud.r-project.org", dependencies = TRUE)'
+
+      - name: Install chattr
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          Rscript -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes", repos = "https://cloud.r-project.org")'
+          Rscript -e 'if (!requireNamespace("chattr", quietly = TRUE)) remotes::install_github("mlverse/chattr", dependencies = TRUE)'
+
+      - name: Render website
+        run: quarto render
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
