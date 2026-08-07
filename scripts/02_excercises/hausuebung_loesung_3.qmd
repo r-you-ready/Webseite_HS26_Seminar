@@ -11,7 +11,7 @@ resources:
 filters:
   - conditional_content
 show_solutions: false
-draft: false
+draft: true
 ---
 
 ```{r, eval = TRUE,  echo = FALSE, message = FALSE, warning = FALSE}

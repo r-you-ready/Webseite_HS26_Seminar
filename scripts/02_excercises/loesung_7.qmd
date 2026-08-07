@@ -5,13 +5,10 @@ bibliography: references.bib
 filters:
   - conditional_content
 show_solutions: false
-draft: false
+draft: true
 format:
   html:
-    code-tools:
-       source: downloads/loesung_7_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei"
+    code-tools: false
 ---
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE, warning=FALSE}

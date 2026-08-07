@@ -9,8 +9,8 @@ resources:
   - practice_dataset2.csv
 filters:
   - conditional_content
-show_solutions: true
-draft: false
+show_solutions: false
+draft: true
 ---
 
 ```{r, echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE}

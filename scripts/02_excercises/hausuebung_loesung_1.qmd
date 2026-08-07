@@ -3,8 +3,8 @@ title: "Hausübung 1"
 editor: visual
 filters:
   - conditional_content
-show_solutions: true
-draft: false
+show_solutions: false
+draft: true
 ---
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE}

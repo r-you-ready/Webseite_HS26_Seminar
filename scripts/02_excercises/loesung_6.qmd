@@ -5,13 +5,10 @@ bibliography: references.bib
 filters:
   - conditional_content
 show_solutions: false
-draft: false
+draft: true
 format:
   html:
-    code-tools:
-       source: downloads/loesung_6_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei"
+    code-tools: false
 ---
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE, warning=FALSE}
@@ -75,7 +72,7 @@ In diesem Teil wiederholen wir den Aufbau eines `ggplot()` und reproduzieren zwe
 ### Häufig verwendete Geoms
 
 | Geom | Funktion | Einsatzbereich | Bild / Beispiel |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | **geom_point()** | Streudiagramm | Zusammenhang zwischen zwei numerischen Variablen (x = Var1, y = Var2) | ![](../../images/EH_10/geom_point.png) |
 | **geom_jitter()** | Jitter-Plot | Punkte leicht versetzen, um Überlappung zu vermeiden (v. a. bei kategorialem x) | ![](../../images/EH_10/geom_jitter.png) |
 | **geom_line()** | Liniendiagramm | Verlauf über eine kontinuierliche oder geordnete x-Achse | ![](../../images/EH_10/geom_line.png) |
@@ -621,7 +618,7 @@ Für eine Pearson-Korrelation sollten die Variablen metrisch sein, der Zusammenh
 ### **Tabelle: Funktionen für Regressionen und verwandte Analysen in R**
 
 | Funktion | Beschreibung |
-|----|----|
+|------------------------------------|------------------------------------|
 | **lm(y \~ x)** | Einfache lineare Regression mit einer abhängigen Variablen *y* und einem Prädiktor *x*. |
 | **lm(y \~ x1 + x2)** | Multiple Regression mit einer abhängigen Variablen *y* und zwei Prädiktoren *x1* und *x2*. |
 | **summary()** | Gibt die Ergebnisse der Regressionsanalyse für ein Regressionsmodell aus. |
@@ -895,7 +892,7 @@ Während Korrelation und Regression Zusammenhänge untersuchen, prüfen t-Tests 
 ### **Tabelle: Funktionen für *t*-Tests und verwandte Analysen in R**
 
 | Funktion | Beschreibung |
-|----|----|
+|------------------------------------|------------------------------------|
 | **t.test** | Allgemeine Funktion für verschiedene t-Tests: Ein-Stichproben-t-Test, t-Test für unabhängige Stichproben und t-Test für abhängige Stichproben. |
 | **t.test(av, mu = x)** | Ein-Stichproben-t-Test. **av** = abhängige Variable. **x** = Vergleichswert der Population. |
 | **t.test(av \~ uv)** | Welch-t-Test für **unabhängige Stichproben**. **av** = abhängige Variable, **uv** = Gruppenvariable. |

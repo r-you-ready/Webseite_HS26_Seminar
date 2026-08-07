@@ -21,7 +21,7 @@ format:
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**1. Einheit**, 18.02.2026
+FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**1. Einheit**, 16.09.2026
 
 ![](images/ryouready_logo.png){fig-align="center" width="306"}
 

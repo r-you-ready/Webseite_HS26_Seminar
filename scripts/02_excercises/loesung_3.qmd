@@ -2,14 +2,11 @@
 title: "Hands On – Coding Basics (Einheiten 5 und 6)"
 filters:
   - conditional_content
-show_solutions: true
-draft: false
+show_solutions: false
+draft: true
 format:
   html:
-    code-tools:
-       source: downloads/loesung_3_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei" 
+    code-tools: false
 ---
 
 Bei Bedarf findest du hier nochmals die Slides zu Einheit 5:

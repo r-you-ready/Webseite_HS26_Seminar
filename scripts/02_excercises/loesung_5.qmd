@@ -4,14 +4,11 @@ editor: visual
 bibliography: references.bib
 filters:
   - conditional_content
-show_solutions: true
-draft: false
+show_solutions: false
+draft: true
 format:
   html:
-    code-tools:
-       source: downloads/loesung_5_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei" 
+    code-tools: false
 ---
 
 ```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE}
@@ -554,7 +551,7 @@ Mit graphischen Darstellungen lassen sich Verteilungen, Ausreisser und Zusammenh
 ### Überblick über wichtige ggplot2-Geoms
 
 | **Geom** | **Funktion** | **Einsatzbereich** |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | geom_point() | Streudiagramm | Zwei numerische Variablen vergleichen (x = Var1, y = Var2) |
 | geom_line() | Liniendiagramm | Werteverlauf über kontinuierliche x-Achse darstellen |
 | geom_bar() | Balkendiagramm | Häufigkeiten oder Aggregationen für Kategorien (x = Gruppe) |
