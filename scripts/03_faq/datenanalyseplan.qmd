@@ -4,7 +4,7 @@ format: html
 ---
 
 ::: callout-important
-Unabhängig von den konkreten Fragen und Antworten gilt: Der Datenanalyseplan soll es fremden Wissenschaftler:innen aus der Psychologie ermöglichen die Studie und die Datenanalyse ohne weiteren Aufwand nachvollziehen zu können. Dafür sollte vor allem anderen auf die Vollständigkeit und Genauigkeit der Angaben geachtet werden.
+Unabhängig von den konkreten Fragen und Antworten gilt: Der Datenanalyseplan soll es fremden Wissenschaftler:innen aus der Psychologie ermöglichen, die Studie und die Datenanalyse ohne weiteren Aufwand nachvollziehen zu können. Dafür sollte vor allem anderen auf die Vollständigkeit und Genauigkeit der Angaben geachtet werden.
 :::
 
 ## Wie umfangreich soll ein Datenanalyseplan sein?

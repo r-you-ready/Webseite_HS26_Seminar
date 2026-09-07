@@ -46,6 +46,115 @@ readr::write_csv(data, "data.csv", row.names = FALSE)
 
 ```
 
+# automatisiert Daten einlesen
+
+## Könnten wir noch automatisiertes Dateneinlesen behandeln?
+
+Wir werden das automatisierte Einlesen von mehreren Daten im Seminar leider nicht bearbeiten können, da dies zeitlich nicht reicht und auch zu anspruchsvoll wäre. Hier aber einige grundsätzliche Informationen:
+
+Beim automatisierten Einlesen mehrerer Dateien kann grundsätzlich zwischen zwei Varianten unterschieden werden:
+  1. Alle Dateien einlesen und in einer gemeinsamen Liste speichern
+  2. Jede Datei als separates Objekt im Environment speichern
+
+**Variante 1: Mehrere Dateien automatisiert einlesen und in einer Liste speichern**
+
+Gehen wir davon aus, dass wir einen Ordner namens data haben, welcher mehrere CSV-Dateien beinhaltet. Diese wollen wir nun alle in einem Schritt einlesen und in einer übergeordneten Liste abspeichern:
+
+```{r}
+# 1) Alle CSV-Dateien im Ordner "data/" auflisten
+#
+# list.files() sucht nach Dateien in einem Ordner:
+# - path = "data" gibt an, in welchem Ordner gesucht wird.
+# - pattern = "\\.csv$" sorgt dafür, dass nur CSV-Dateien gefunden werden.
+#   Das Muster kann bei Bedarf entsprechend angepasst werden.
+# - full.names = TRUE gibt den vollständigen Dateipfad zurück.
+files <- list.files(
+  path = "data",
+  pattern = "\\.csv$",
+  full.names = TRUE
+)
+
+# 2) Zur Kontrolle anzeigen, welche Dateien gefunden wurden
+#
+# Damit kann geprüft werden, ob die richtigen Dateien gefunden wurden.
+files
+
+# 3) Alle Dateien einlesen und in einer Liste speichern
+#
+# lapply() führt dieselbe Funktion für jedes Element eines Vektors aus.
+# Hier wird für jede Datei in `files` read.csv() aufgerufen.
+# Die eingelesenen Datensätze werden in der Liste `data_list` gespeichert.
+data_list <- lapply(files, read.csv)
+
+# 4) Den Listenelementen sinnvolle Namen geben
+#
+# basename() entfernt den Verzeichnispfad.
+# tools::file_path_sans_ext() entfernt anschließend die Dateiendung.
+names(data_list) <- tools::file_path_sans_ext(basename(files))
+
+# 5) Liste anzeigen
+data_list
+```
+
+Es kann dann auf einzelne Datensätze in der Liste zugegriffen werden (z.B. data_list$studie1 oder data_list[[1]]).
+
+```{r}
+# 1) Alle CSV-Dateien im Ordner "data/" auflisten, gleiche Logik wie oben
+files <- list.files(
+  path = "data/",
+  pattern = "\\.csv$",
+  full.names = TRUE
+)
+
+# 2) Objektnamen aus den Dateinamen erzeugen
+# Ohne diesen Schritt würden die Elemente nur [[1]], [[2]] usw. heissen.    So erhalten sie sinnvolle Namen.
+#
+# basename(files) entfernt den Ordnerpfad und lässt nur den Dateinamen      übrig.
+# tools::file_path_sans_ext(…) entfernt die Dateiendung .csv
+object_names <- tools::file_path_sans_ext(basename(files))
+
+# 3) Jede Datei einlesen und als separates Objekt speichern
+#
+# Die for-Schleife liest die jeweilige Datei ein und erstellt ein Objekt mit dem Namen, der als Zeichenkette übergeben wird.
+# Um mehr über Loops zu erfahren, eignet sich «Kapitel 26: Iterations» in R for Data Science, welches unter den Ressourcen verlinkt ist. 
+for (i in seq_along(files)) {
+  assign(
+    x = object_names[i],
+    value = read.csv(files[i]),
+    envir = .GlobalEnv
+  )
+}
+```
+Es kann danach direkt wie gewohnt mit den einzelnen Datensätzen gearbeitet werden.
+
+# R-internes Hilfesystem
+
+## Wie kann ich mir erklären lassen, wofür ich eine Funktion gebrauchen kann? 
+
+In R gibt es eine eingebaute Hilfsfunktion, mit der du dir zu jeder Funktion eine ausführliche Beschreibung anzeigen lassen kannst.
+Dafür gibt es zwei einfache Wege:
+  
+  1. Über die Konsole: Du kannst in der Konsole ein Fragezeichen vor den       entsprechenden Funktionsnamen setzten und diesen Code ausführen:
+```{r}
+    ?mean
+```
+     Dadurch öffnet sich automatisch die passende Hilfeseite im Help-Tab.
+
+![](../../images/faq_rstudio_help_questionmark.jpg)
+
+![](../../images/faq_rstudio_help_searchbar.jpg)
+
+  2. Über den Help-Tab: Du kannst auch direkt im Help-Fenster nach einer       Funktion suchen.
+  
+Wie kannst du die Hilfeseite lesen, die sich anschliessend öffnet?
+
+Die Hilfeseiten sämtlicher Funktionen sind immer sehr ähnlich aufgebaut und enthalten mehrere wichtige Abschnitte:
+
+![](../../images/faq_rstudio_help_helppage1.jpg)
+![](../../images/faq_rstudio_help_helppage2.jpg)
+
+  
+  
 # Spezifische Argumente
 
 ## Wofür stehen die zusätzlichen Argumente wie `escape_double` oder `trim_ws` beim Einlesen von Dateien?
