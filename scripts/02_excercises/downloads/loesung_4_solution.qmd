@@ -4,14 +4,11 @@ editor: visual
 bibliography: references.bib
 filters:
   - conditional_content
-show_solutions: true
-draft: false
+show_solutions: false
+draft: true
 format:
   html:
-    code-tools:
-       source: downloads/loesung_4_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei" 
+    code-tools: false
 ---
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE}

@@ -1,6 +1,6 @@
 ---
 title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 1"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     history: true
@@ -20,9 +20,9 @@ format:
 draft: true
 ---
 
-## R u Ready? Reproduzierbare Datenaufbereitung und -analyse
+## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**1. Einheit**, 16.09.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**1. Einheit**, 16.09.2026
 
 ![](images/ryouready_logo.png){fig-align="center" width="306"}
 
@@ -30,18 +30,43 @@ FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> *
 
 ------------------------------------------------------------------------
 
-## LV-Leitung
+## Programm heute
+
+**Leitfrage:** Wie komme ich von einer Forschungsfrage zu einem reproduzierbaren Ergebnis in R?
+
+<br>
+
+1.  Kennenlernen & Organisatorisches
+
+2.  Ziel und Aufbau des Seminars
+
+3.  Unser gemeinsames Forschungsprojekt
+
+4.  Der Datenanalyse-Workflow
+
+5.  R, RStudio & erste Coding Basics
+
+6.  Hands-on
+
+7.  Bedarfsanalyse & Ausblick
+
+------------------------------------------------------------------------
+
+## Seminarleitung
 
 ::::: columns
 ::: {.column width="70%"}
-### *Dr. Sandra Grinschgl (sie/ihr)*
+### *Dr. Sandra Grinschgl*
 
--   Dozentur für «Mensch in digitaler Transformation»\
--   Arbeitsbereich Psychologie der Digitalisierung\
--   Fabrikstrasse 8, Raum D 262\
--   sandra.grinschgl\@unibe.ch\
--   Sprechstunde nach Vereinbarung\
--   Fun Fact: ist fasziniert davon, wie sich Schweizer:innen den Zahnarzt leisten können\
+-   Seminarleitung
+
+-   Arbeitsbereich Psychologie der Digitalisierung
+
+-   Fabrikstrasse 8, Raum D 262
+
+-   sandra.grinschgl\@unibe.ch
+
+-   Sprechstunde nach Vereinbarung
 :::
 
 ::: {.column width="30%"}
@@ -51,48 +76,48 @@ FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> *
 
 ------------------------------------------------------------------------
 
-## LV-Leitung *(2)*
+## Leitung beider Seminargruppen
 
 ::::: columns
-::: {.column width="80%"}
-### *Laura Hirt (sie/ihr) (MSc. Psychologie)*
+::: {.column width="70%"}
+### *Laura Hirt, MSc. Psychologie*
 
--   Lehrassistenz R you Ready / Methodenberatung\
+-   Lehrassistenz R you Ready
 
--   Fabrikstrasse 8, Raum A 263\
+-   Methodenberatung
 
--   Sprechstunde/Methodenberatung nach Vereinbarung\
+-   Fabrikstrasse 8, Raum A 263
+
+-   Sprechstunde/Methodenberatung nach Vereinbarung
 
 -   laura.hirt\@unibe.ch
-
--   Weiss nie, ob ich 'R' Englisch oder Deutsch aussprechen soll.
 :::
 
-::: {.column width="20%"}
+::: {.column width="30%"}
 ![](../../images/laura.jpg){fig-align="center" width="332"}
 :::
 :::::
 
 ------------------------------------------------------------------------
 
-## LV-Leitung (3)
+## Tutor
 
 ::::: columns
-::: {.column width="80%"}
-### *Lars Schilling (er/ihm)(BSc. Psychologie)*
+::: {.column width="70%"}
+### *Jan-Pierre Pahnke, BSc. Psychologie*
 
--   Tutor R you Ready\
+-   Tutor R you Ready
 
--   Fabrikstrasse 8, D266\
+-   Unterstützung bei Hands-on-Übungen
 
--   Sprechstunde nach Vereinbarung\
+-   Fabrikstrasse 8, D266
 
--   lars.schilling\@unibe.ch
+-   Sprechstunde nach Vereinbarung
 
--   Traut seinem mit RStudio selbstgeschriebenem Spotify-Wrapped nicht
+-   jan-pierre.pahnke\@unibe.ch
 :::
 
-::: {.column width="20%"}
+::: {.column width="30%"}
 ![](../../images/lars.jpg){fig-align="center" width="267"}
 :::
 :::::
@@ -101,49 +126,33 @@ FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> *
 
 ## Barrierefreiheit!
 
-Bitte melde dich auf einem für dich angemessenem Weg bei uns, wenn dir in dieser Lehrveranstaltung Barrieren begegnen, die auszugleichen sind.
+Bitte melde dich auf einem für dich passenden Weg bei uns, wenn dir in dieser Lehrveranstaltung Barrieren begegnen, die auszugleichen sind.
 
 [![](../../presentation_files/eh1/barrierefreiheit.png){fig-align="center"}](https://www.unibe.ch/unibe/portal/content/e1006/e1061/e106351/e1427734/UniBE_Icon_001_ger.png)
 
 ------------------------------------------------------------------------
 
-## Pronomen/Namen
+## Miteinander im Seminar
 
 Bitte gebt uns auch Bescheid, falls wir euch falsch ansprechen!
 
-![Illustration: Freepik](../../images/diversity.jpeg){fig-align="center" width="460"}
+![](../../images/diversity.jpeg){fig-align="center" width="45%"}
 
-Wir hoffen es ist für alle in Ordnung wenn wir uns Duzen!
-
-------------------------------------------------------------------------
-
-## Österreichisch vs. Berndeutsch
-
-Bitte gebt mir/uns auch Bescheid, solltet ihr etwas nicht verstehen! Seht es uns nach, falls wir etwas nicht verstehen und nachfragen!
-
-::::: columns
-::: {.column width="50%"}
-![Uhrturm Graz: Foto C. Stadler/Bwag](../../images/Uhrturm_graz.jpg){width="350"}
-:::
-
-::: {.column width="50%"}
-![Foto: https://en.wikipedia.org/wiki/Zytglogge#/media/File:Zytglogge_01.jpg](../../images/Zytglogge.jpg){width="353"}
-:::
-:::::
+Wir hoffen es ist für alle in Ordnung, wenn wir uns Duzen!
 
 ------------------------------------------------------------------------
 
 ## Organisatorisches
 
--   🕝 Immer Mittwochs um 12:15 (Gruppe Laura) / 16:15 (Gruppe Sandra)
+-   📅 **14 Termine**, immer mittwochs
 
--   📍Fabrikstrasse 8, Raum B101
+-   🕝 Gruppe 1: **10:15 (Raum B 102)**
 
--   💻 Eigener Laptop mit R-Studio notwendig
+-   🕝 Gruppe 2: **16:15 (Raum B 101)**
 
--   📁Unterlagen auf ILIAS und [Website](https://r-you-ready.quarto.pub)
+-   💻 Eigener Laptop mit RStudio erforderlich
 
--   📅 14 Einheiten
+-   📚 Materialien auf Kurswebseite & ILIAS
 
 -   🛫 Maximal 2 unentschuldigte Fehltermine
 
@@ -153,101 +162,207 @@ Keine Pause - Selbstständig wenn nötig.
 
 ------------------------------------------------------------------------
 
-## Website: Navigation und Inhalte
+## Wo finde ich was?
 
--   Auf **Quarto Website**:
+**Kurswebseite**
 
-    -   Alle Präsentationen
+-   Präsentationen
 
-        -   Auch als PDF verfügbar (PDF-Mode) –\> Download über "Drucken"
+    -   Auch als PDF verfügbar (PDF-Mode -\> Download über "Drucken")
 
-    -   Alle Hands On Übungen & R Hausübungen
+-   Hands-on-Übungen & R-Hausübungen
 
-    -   Muddiest Points & FAQ
+-   Musterlösungen
 
-    -   Administrative Infos, z. B. Details zum Leistungsnachweis
+-   FAQ / Resultate Muddiest Points
 
--   Auf **ILIAS**
+-   Ressourcen & Cheat Sheets
 
-    -   Downloads
+**ILIAS**
 
-    -   Uploads (d.h. Abgaben)
+-   Downloads
 
-    -   Forum für Fragen und Peer Feedback
+-   Abgaben & Umfragen
 
-    -   Umfragen
+-   Peer-Feedback
+
+-   Forum
 
 ------------------------------------------------------------------------
 
-## Themen der Lehrveranstaltung
+## Worum geht es in diesem Seminar?
 
-**Ziele**
+<br><br>
 
--   Methodenkenntnisse in R auffrischen & festigen
+**Wir beantworten eine empirische Forschungsfrage reproduzierbar - von der Planung über die Rohdaten bis zum berichteten Ergebnis.**
 
--   Transfer von Statistik-Bachelorwissen auf Datenaufbereitung & -analyse
+<br>
 
--   Erwerb konzeptueller & praktischer Kompetenzen
+![](../../images/Tabelle_EH1.png){fig-align="center"}
 
-**Ablauf**
-
--   Datenanalyseplan & Codebook
-
--   R Basics
-
--   Reproduzierbare Datenaufbereitung (u.a. mit tidyverse)
-
--   Reproduzierbare Datenanalyse (u.a. mit tidyverse)
-
-**Format**
-
--   Präsenz: Input & Anwendung
-
--   Hausübungen & Abschlussprojekt
+R ist unser Werkzeug; der Forschungsprozess gibt die Struktur vor.
 
 ::: notes
-Kontinuierlicher Lernaufwand während dem Semester - dafür keine Prüfung
+Warum diese Perspektive?
+
+Was macht Datenanalyse oft schwierig? Nicht unbedingt nur die Statistik. Häufiger sind Fragen wie:
+
+-   Wo beginne ich?
+
+-   Was muss ich mit meinen Rohdaten machen?
+
+-   Welche Variable brauche ich für meine Fragestellung?
+
+-   Wo gehört welcher Code hin?
+
+-   Wie weiss ich, ob meine Daten jetzt wirklich analysebereit sind?
+
+-   Welchen Schritt mache ich als nächstes?
+
+-\> Wir arbeiten in diesem Seminar mit einem vollständigen Projektworkflow.
 :::
 
 ------------------------------------------------------------------------
 
-## Lernziele
+## Unser Weg durch das Semester: Überblick
 
--   **Konzeptionell**: Schritte der Datenaufbereitung und -analyse im Analyseplan begründen **(WAS muss ich tun & WARUM)**
+Ein Forschungsprojekt, sechs Phasen:
 
--   **Praktisch**: Reproduzierbare Datenaufbereitung (**WIE** Daten in ein analysierbares Format bringen)
+<br>
 
--   **Praktisch**: Reproduzierbare Datenanalyse (**WIE** Fragestellungen und Hypothesen testen)
+![](../../images/Phasen_Forschungsprojekt.png){width="65%" fig-align="center"}
 
-**Nach dem Seminar können Studierende**
-
--   Grundkenntnisse in R / RStudio anwenden
-
--   Notwendige Schritte für reproduzierbare Datenaufbereitung und -analyse überblicken und praktisch umsetzen
-
--   Selbständig neue Analyse-Herausforderungen bewältigen und passende Ressourcen nutzen
+**Reproduzierbarkeit** begleitet uns durch alle Phasen!
 
 ------------------------------------------------------------------------
 
-## Was das Seminar nicht leisten kann:
+## Unser Weg durch das Semester: Details
 
--   Keine Auffrischung der Statistikvorlesungen
+<br>
 
--   Kein "Schritt-für-Schritt Kochbuch" für die Analyse der Masterarbeit
+![](../../images/Projekt_Workflow.png){width="65%" fig-align="center"}
+
+Diese Übersicht wird uns das ganze Semester begleiten.
 
 ::: notes
-Masterarbeit bleibt eine individuelle Leistung, und es gibt keine One-Size-Fits all Lösung. Das Seminar soll helfen, die Grundlagen aufzufrischen, die ihr für eine erfolgreiche Datenaufbereitung und Auswertung braucht.
+Wir befinden uns momentan in der ersten Phase der Orientierung. Wir werden heute also noch keine Daten aufbereiten und auch keine ANOVA rechnen.
+
+Heute geht es darum, das Ziel zu kennen, den Workflow zu verstehen, die Arbeitsumgebung kennenzulernen und die ersten Werkzeuge auszuprobieren.
+:::
+
+------------------------------------------------------------------------
+
+## Ein Paper begleitet uns durch das Semester
+
+::::: columns
+::: {.column width="70%"}
+**Grinschgl et al. (2021)**
+
+*From metacognitive beliefs to strategy selection: does fake performance feedback influence cognitive offloading?*
+
+Im Semester werden wir Schritt für Schritt:
+
+-   **ORIENTIEREN:** Fragestellungen & Hypothesen verstehen
+
+-   **PLANEN:** Datenanalyseplan für das Paper erstellen
+
+-   **ORGANISIEREN:** 7 Rohdatensätze; Projektstruktur aufbauen & Codebook erstellen
+
+-   **AUFBEREITEN:** Rohdatensätze importieren, mergen und transformieren
+
+-   **ANALYSIEREN:** Deskriptiv- & Inferenzstatistik
+
+-   **INTEGRIEREN:** Umfassendes Forschungsprojekt
+:::
+
+::: {.column width="30%"}
+![](../../images/Paper_Seminar.png){fig-align="center" width="350"}
+:::
+:::::
+
+::: notes
+Wir machen nicht alles auf einmal. Jede Woche kommt genau der nächste notwendige Schritt hinzu.
+
+Wir arbeiten das ganze Semester hinweg mit denselben Originaldaten dieses Projekts. Dadurch müsst ihr nicht jede Woche gleichzeitig einen neuen Datensatz, eine neue Forschungsfrage, neue Variablen, neue R-Funktionen und eine neue statistische Methode verstehen. Stattdessen haben wir ein Projekt, dass wir Schritt für Schritt weiterentwickeln. Das hilft euch dann, bei eurer Masterarbeit genau gleich vorzugehen.
+:::
+
+------------------------------------------------------------------------
+
+## Wo wollen wir am Semesterende sein?
+
+**Am Ende des Seminars...**
+
+erhaltet ihr individuell simulierte Rohdatensätze zur Grinschgl-Studie.
+
+Dann führt ihr selbstständig den Workflow durch, den wir im Seminar Schritt für Schritt gemeinsam erarbeiten:
+
+-   Forschungsfragen & Datenanalyseplan nutzen
+
+-   Projektstruktur & Codebook führen
+
+-   Rohdaten importieren, zusammenführen & aufbereiten
+
+-   Analysevariablen erzeugen & Daten prüfen
+
+-   Daten beschreiben & visualisieren
+
+-   geplante Analysen durchführen & interpretieren
+
+-   Ergebnisse reproduzierbar dokumentieren
+
+<br>
+
+**Ihr sollt nicht alles auswenig wissen, sondern den Analyseprozess selbstständig und systematisch durchführen können.**
+
+------------------------------------------------------------------------
+
+## Was das Seminar nicht leisten kann
+
+-   Keine vollständige Wiederholung der Statistikvorlesungen
+
+-   Kein "Kochbuch" für jede mögliche Masterarbeit
+
+-   Keine vollständige Einführung in sämtliche R-Funktionen
+
+-   Keine Behandlung aller möglichen statistischen Modelle
+
+<br>
+
+**Aber:**
+
+Wir wollen euch einen stabilen Workflow und Werkzeugkasten geben, mit dem ihr neue Herausforderungen wesentlich selbstständiger angehen könnt.
+
+------------------------------------------------------------------------
+
+## Aufbau der 14 Einheiten
+
+Kombination aus Input und Übung
+
+Folie noch gestalten!!!!!
+
+------------------------------------------------------------------------
+
+## Semesterplan
+
+::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
+```{=html}
+<embed
+    src="../../PDFs/Semesterplan_HS26.pdf#view=FitH&navpanes=0&toolbar=0"
+    type="application/pdf"
+    style="width:100%; height:220vh; border:0; display:block; background:white;"
+  >
+```
 :::
 
 ------------------------------------------------------------------------
 
 ## Leistungsbeurteilung
 
--   Mitarbeit: 14 Punkte
+-   **Mitarbeit:** 14 Punkte
 
--   Regelmässige Hausübungen: 8x, gesamt 32 Punkte
+-   **Regelmässige Hausübungen:** 8 Abgaben; insgesamt 32 Punkte
 
--   Abschlussprojekt: 54 Punkte
+-   **Abschlussprojekt:** 54 Punkte
 
     -\> Total 100 Punkte
 
@@ -357,7 +472,6 @@ Wir sind hier um Fehler zu machen; auch bei uns ist vieles Trial-und-Error. Das 
 ## Syllabus
 
 ::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-
 ```{=html}
 <embed
     src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
