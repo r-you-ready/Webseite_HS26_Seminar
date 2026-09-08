@@ -67,7 +67,8 @@ website:
             text: "LLMs in RStudio"
           - href: scripts/04_misc/Memes.qmd
             text: "Memes :)"
-      - href: scripts/04_misc/
+      - href: scripts/04_misc/leistungsnachweis.qmd
+        text: "Leistungsnachweis"
       - href: scripts/04_misc/about.qmd
         text: "About"
 
