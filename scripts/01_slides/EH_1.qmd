@@ -124,6 +124,22 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 
 ------------------------------------------------------------------------
 
+Kurze Folien mit Bulletpoints für individuelle Vorstellungsrunde
+
+Alle sagen nur soviel, wie sie gerne sagen möchten
+
+Vorstellungsrunden finden nicht alle toll, wer nicht will, muss nicht
+
+Nachher bei individuellem Arbeiten noch mehr als genug Zeit, euch gegenseitig besser kennenzulernen!
+
+Auch in kommender Woche Zweier-Teams bilden.
+
+Name, wo im Master, Schwerpunkt, Warum Seminar?, Was am Ende des Semesters gerne selbstständig können? Wie würdest du deine aktuelle Beziehung zu R mit einem Wort beschreiben?
+
+-\> Während dem Namensschilder austeilen und gestalten.
+
+------------------------------------------------------------------------
+
 ## Barrierefreiheit!
 
 Bitte melde dich auf einem für dich passenden Weg bei uns, wenn dir in dieser Lehrveranstaltung Barrieren begegnen, die auszugleichen sind.
@@ -360,62 +376,59 @@ Folie noch gestalten!!!!!
 
 -   **Mitarbeit:** 14 Punkte
 
--   **Regelmässige Hausübungen:** 8 Abgaben; insgesamt 32 Punkte
+-   **Begleitende Hausübungen:** 8 Abgaben; insgesamt 32 Punkte
 
 -   **Abschlussprojekt:** 54 Punkte
 
-    -\> Total 100 Punkte
+    **-\> Total 100 Punkte**
 
--   Genauere Informationen zum Leistungsnachweis hier: Hier Link aktuelle Webseite
+-   Genauere Informationen zum Leistungsnachweis hier: [Webseite](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/04_misc/leistungsnachweis.html)
 
-    –\> Update im Laufe des Semesters
+<br>
 
--   **Kontinuierliche Arbeit während dem Semester!**
+**Arbeitsaufwand**
 
--   **Aufwand**: 5ECTS für erfolgreichen Abschluss des Seminars -\> +- 9h pro Woche
+5 ECTS
 
-    ```{r}
-    #| echo: TRUE
+≈ 125 Stunden
 
-    ECTS <- 25 
+≈ 9 Stunden/Woche
 
-    Wochen_semester <- 14
+**-\> Kontinuierliche Arbeit während dem Semester!**
 
-    aufwand_semester <- 5*ECTS
+::: notes
+Das hört sich erstmals nach sehr viel Aufwand an. Zu diesen 9 Stunden gehören aber die Präsenzzeit, individuelle Vor- und Nachbereitungen, Hands-on Übungen, die Hausübungen und die Abschlussarbeit.
 
-    aufwand_pro_woche <- mean(aufwand_semester/Wochen_semester)
-
-    aufwand_pro_woche
-
-    ```
+Aus meinen Erfahrungen und aus Erfahrungen von letztem Semester aber berichten, dass diese Zahl sehr hoch ist und 4 Stunden realistischer sind.
+:::
 
 ------------------------------------------------------------------------
 
 ## Leistungsnachweis: Mitarbeit (14 Punkte)
 
-... kann unterschiedlich ausfallen zum Beispiel:
+... kann unterschiedlich ausfallen, zum Beispiel:
 
 -   Wortmeldungen im Plenum
 
--   Aktive Teilnahme an den Hands On Sessions
+-   Aktive Teilnahme an den Hands-on Sessions
 
--   Beteiligung an Online-Foren & Error Hunt
+-   Beteiligung am Online-Forum & Error Hunt
 
 **Punktevergabe:**
 
--   7 Punkte durch LV-Leitung
+-   7 Punkte durch Seminarleitung
 
--   7 Punkte durch Selbstevaluation
+-   7 Punkte durch Selbstevaluation am Ende des Semesters
 
 ------------------------------------------------------------------------
 
 ## Leistungsnachweis: Hausübungen (32 Punkte)
 
--   8 Hausübungen - 4 oder 8 Punkte pro Hausübung
+-   8 Hausübungen (je 4 Punkte)
 
--   Bewertungsrelevant: Auseinandersetzung mit dem Stoff/den aufgetragenen Aufgaben.
+-   Bewertungsrelevant: Auseinandersetzung mit dem Stoff/den aufgetragenen Aufgaben
 
--   Korrektheit zweitrangig.
+-   Korrektheit zweitrangig
 
 ::: notes
 Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ihr euch auch ans Forum wenden und eure Frage posten.
@@ -425,7 +438,7 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 ## Leistungsnachweis: Abschlussprojekt (54 Punkte)
 
--   Vorgegebenes Paper aber individuelle, simulierte Datensätze
+-   Replikation von Grinschgl et al. (2021) mit individuell simulierten Rohdatensätzen
 
 -   Datenanalyseplan überarbeiten/ergänzen
 
@@ -433,171 +446,203 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 -   Reproduzierbare Datenaufbereitung und Analyse mit Quarto
 
-Abgabe: Datenanalyseplan, Codebook, Datenfiles, Analyseskript(e) nach vorgegebener Ordnerstruktur
+**Abgabe:** Datenanalyseplan, Codebook, Datenfiles, Analyseskripte nach vorgegebener Ordnerstruktur
 
-**Deadline: 14.06.2026**
+**Deadline: 10.01.2027**
 
 -\> Weitere Informationen im Verlauf des Semesters
 
 ------------------------------------------------------------------------
 
-## Fehlerkultur
+## Fehlerkultur: Trial & Error gehört dazu
+
+**Beim Arbeiten mit R werden wir...**
+
+-   Fehlermeldungen bekommen und Code schreiben, der nicht sofort funktioniert
+
+-   Dinge ausprobieren, verändern und erneut testen
+
+-   nachschlagen und HIlfe suchen
+
+-   Fragen stellen und voneinander lernen
 
 <br>
 
-*"Ich verliere nie. Entweder ich gewinne oder ich lerne"* - Nelson Mandela
-
-<br>
-
-*"Auch Umwege erweitern unseren Horizont"* - Ernst Ferstl
-
-<br>
-
-*"Wege entstehen dadurch dass wir sie gehen"* - Franz Kafka
-
-<br>
-
-*"Failure is not the opposite of success, its part of it"* - Karamo Brown in Queer Eye
-
-<br>
-
-*"Den grössten Fehler, den man im Leben machen kann, ist, immer Angst zu haben einen Fehler zu machen"* - Dietrich Bonhoeffer
+**Das ist normal - und Teil des Lernprozesses!**
 
 ::: notes
-Wir sind hier um Fehler zu machen; auch bei uns ist vieles Trial-und-Error. Das darf und soll auch so sein! Bei Hausübungen sind Fehler erlaubt! Es geht ums das Mitarbeiten und sich bemühen, dann kriegt man auch mit Fehlern die Punkte Klar machen, dass man laufend dran sein muss um zu Lernen & HÜs wichtig sind Auch ich selbst weiß vieles nicht auswendig, muss googlen…
+Wir sind hier, um Fehler zu machen. Auch bei uns ist vieles Trial-und-Error.
+
+Das darf und soll auch so sein! Auch wir kennen nicht jeden R-Befehl auswendig und müssen regelmässig nachschlagen oder verschiedene Lösungen ausprobieren.
+
+Bei den Hausübungen sind Fehler erlaubt. Entscheidend ist, dass ihr euch aktiv mit den Aufgaben, Materialien und eurem Code auseinandersetzt. Ist dies ersichtlich, erhaltet ihr trotzdem die Punkte!
 :::
 
 ------------------------------------------------------------------------
 
-## Syllabus
+## Unterstützung im Semester
 
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
+**Wenn ihr nicht weiterkommt...**
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**Selbst prüfen**
+
+-   Fehlermeldungen lesen
+
+-   Code schrittweise ausführen
+
+-   Unterlagen/Cheat Sheets nutzen
+
+<br>
+
+**Ressourcen nutzen**
+
+-   Kurswebseite
+
+-   Bachelor-Unterlagen
+
+-   Online-Ressourcen/KI
 :::
 
-------------------------------------------------------------------------
+::: {.column width="50%"}
+**Andere Fragen**
 
-## Begleitende Literatur
+-   Peer-Partner:in & Online-Forum
 
--   [Kurswebsite: FAQ und weitere Informationen](https://r-you-ready.quarto.pub)
+-   Sprechstunde für "R Troubles" mit Jan-Pierre
 
--   Wickham, H., Cetinkaya-Rundel, & Grolemund, G., &. (2023). R for Data Science. O’Reilly Media. <https://r4ds.hadley.nz/>
+    -   vor/während/nach den Einheiten + bei Bedarf
 
--   Ellis, A., & Mayer, B. (2024). Einführung in R. <https://methodenlehre.github.io/einfuehrung-in-R/>
+<br>
 
--   Weitere nützliche Ressourcen:
+**Unsicherheiten sichtbar machen**
 
-    -   Tidyverse cheat sheets <https://posit.co/resources/cheatsheets/>
+-   3x Muddiest Points während dem Semester
 
-    -   Luhmann, M. (2020). R für Einsteiger. Beltz.
-
-------------------------------------------------------------------------
-
-## Unterstützungsangebote
-
--   Mit vorhanden Ressourcen arbeiten: Unterlagen aus dem Bachelor + Online-Ressourcen (auch LLMs)
-
--   Online-Forum für Peer-to-Peer und Peer-to-Teacher Fragen; Mitarbeitspunkte für Code-Error-Hunt
-
--   Sprechstunde für «R Troubles» mit Lars –\> vor/nach/während den Einheiten + bei Bedarf
-
--   Erhebung & Besprechung der «Muddiest Points»
-
--   Musterlösungen zu Übungen werden blockweise auf der Kurswebsite ergänzt
-
-------------------------------------------------------------------------
-
-## Anwesenheit prüfen / Kennenlernen
-
-::: notes
-Ja/Nein Fragen - bei Ja aufstehen:
-
--   Ich hatte schon mal Angst vor Statistik.
-
--   Ich habe schon einmal R geöffnet.
-
--   Ich glaube, ich bin „nicht der Programmier-Typ“.
-
--   Ich vertraue KI bei methodischen Fragen.
-
--   Ich freue mich auf dieses Seminar.
-
-    2te Runde:
-
--   Namen sagen
-
--   Wo im Master (zb schon an Masterarbeit)
+-   Sprechstunde/Methodenberatung
 :::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Warum R?
 
--   Es gibt viele Gründe die für R sprechen:
+**Warum arbeiten wir mit R?**
 
-    -   R kann mehr
+-   kostenlos & Open Source
 
-    -   R ist aktuell
+-   weit verbreitet in Forschung & Data Science
 
-    -   R ist ansprechbar
+-   **reproduzierbar:** dieselben Schritte können erneut ausgeführt werden
 
-    -   R schläft nicht
+-   **transparent:** Analyseschritte sind im Code sichtbar
 
-    -   R ist nachgefragt
+-   **flexibel:** Datenaufbereitung, Statistik & Visualisierung in einer Umgebung
 
-    -   R ist Open Source & somit kostenlos
+-   **automatisierbar:** wiederkehrende Schritte müssen nicht manuell durchgeführt werden
 
-    Quelle: Luhmann, 2019.
+<br>
+
+**-\> R macht unseren Analyseweg nachvollziehbar & reproduzierbar!**
+
+------------------------------------------------------------------------
+
+## Hands-on: Erste Schritte in R (1)
+
+Heute geht es bewusst nur um die Grundlagen:
+
+1.  R & RStudio installieren und ggf. updaten
+
+2.  RStudio öffnen & die Oberfläche kennenlernen
+
+3.  Skript erstellen
+
+4.  Einfache Rechnungen ausführen
+
+5.  Objekte erzeugen
+
+6.  Funktionen anwenden
+
+7.  Vektoren erstellen
+
+8.  Erste Daten anschauen
+
+**Wichtig:** Die Übungen müssen heute nicht fertig sein! Wir arbeiten immer 2 Wochen an denselben Übungen weiter.
+
+-\> Die Übung ist auf der Webseite zu finden!
+
+Hier unbedingt noch Link zu Übung einfügen!!!!!
 
 ::: notes
--   R bietet viele funktionen die in programmen nicht vorhanden ist
--   R wird auch ständig weiterentwicklet, auch mit funktionen die erst jahre später in andere programme übernommmen werden
--   R die programmierer einzelner packages sind oft erreichbar und antworten auch auf fragen usw.
--   R R nutzer auf der ganzen welt, auch in sozialen medien unterwegs (z.B auch R-Ladies https://rladies.org/about-us/mission/)
--   R ist nachgefragt, eröffnet jobmöglichkeiten in und ausserhalb der wissenschaft
-
-R erhöhrt auch die transparenz!! --\> Open science Block nächste Woche
+Wichtig ist, dass niemand heute "R können" muss! Ziel ist es, dass R und RStudio heute bei allen installiert sind und laufen und RStudio am Ende der Sitzung weniger fremd aussieht als am Anfang.
 :::
 
 ------------------------------------------------------------------------
 
-## Jetzt: Hands On!
+## Hands-on: Erste Schritte in R (2)
 
-**Übungen auf der [Website](https://r-you-ready.github.io/Webseite_FS26_Seminar/scripts/02_excercises/hands_on_1.html)!**
+**So arbeiten wir:**
 
--   In eigenem Tempo arbeiten, nicht stressen lassen!
+-   Im eigenen Tempo, nicht stressen lassen
 
--   Helft euren Sitznachbar:innen
+-   Code selbst ausführen
 
--   Meldet euch bei uns!
+-   Ausprobieren
 
--   Für die sehr schnellen Personen —\> Bedarfsanalyse auf ILIAS (siehe Sitzung 1).
+-   Fehlermeldungen lesen
 
-::: notes
-Mit Block anfangen; Lars und ich gehen rum, und beantworten Fragen. Wenn ihr nicht fertig werdet ist das kein Problem.
-:::
+-   Sitznachbar:innen fragen
+
+-   Jan-Pierre & Laura rufen bei Bedarf (wir helfen gerne!)
+
+**Für Schnellere:**
+
+-   Zusatzaufgaben
+
+-   Bedarfsanalyse beginnen (ILIAS, Einheit 1)
+
+-   Ausprobieren, wie einzelne Befehle verändert werden können
 
 ------------------------------------------------------------------------
 
 ## Bedarfsanalyse
 
-Bitte reflektiere das im Bachelor erworbene Wissen und überlege wo Aufholbedarf im Bezug auf die Datenaufbereitung und -analyse mit R besteht. Du kannst die zentralen Unterlagen des Bachelor-Studiums (z.B. zu den Statistikvorlesungen) im Ilias Kurs "Masterarbeit Psychologie" einsehen.
+**Damit wir wissen, wo ihr startet...**
 
-**Anonyme Umfrage um**
+Bitte reflektiert:
 
--   Präferenz für das Peer-Pairing zu erfragen
+-   Wie sicher fühle ich mich aktuell mit R/RStudio?
+
+-   Welche Schritte der Datenaufbereitung kann ich bereits?
+
+-   Welche statistischen Analysen habe ich schon einmal in R durchgeführt?
+
+-   Wo verliere ich den Überblick & was bereitet mir Mühe?
+
+-   Welche Unterstützung hilft mir beim Lernen?
+
+Die Bedarfsanalyse dient dazu:
 
 -   Vorkenntnisse zu erfassen
 
--   Bedarf an R-Unterstützung zu erfassen
+-   Unterstützungsbedarf zu erkennen
 
-Umfrage in ILIAS, Deadline **Sonntag 22.02., 23:55**
+-   Schwerpunkte & Wiederholungen anzupassen
+
+-   Peer-Pairing vorzubereiten
+
+-\> Umfrage in ILIAS, Deadline: **Sonntag 20.09.26, 23:55**
+
+------------------------------------------------------------------------
+
+## Heute haben wir...
+
+Rückblick und Ausblick auf die kommende Woche
+
+Aufträge (Bedarfsanalyse & Paper lesen)
 
 ------------------------------------------------------------------------
 
@@ -634,3 +679,19 @@ Umfrage in ILIAS, Deadline **Sonntag 22.02., 23:55**
 -   Bedarfsanalyse auf ILIAS (Sitzung 1) bis Sonntag ausfüllen!
 
     ![](images/ryouready_logo-01.png){width="268"}
+
+------------------------------------------------------------------------
+
+## Begleitende Literatur
+
+-   [Kurswebsite: FAQ und weitere Informationen](https://r-you-ready.quarto.pub)
+
+-   Wickham, H., Cetinkaya-Rundel, & Grolemund, G., &. (2023). R for Data Science. O’Reilly Media. <https://r4ds.hadley.nz/>
+
+-   Ellis, A., & Mayer, B. (2024). Einführung in R. <https://methodenlehre.github.io/einfuehrung-in-R/>
+
+-   Weitere nützliche Ressourcen:
+
+    -   Tidyverse cheat sheets <https://posit.co/resources/cheatsheets/>
+
+    -   Luhmann, M. (2020). R für Einsteiger. Beltz.
