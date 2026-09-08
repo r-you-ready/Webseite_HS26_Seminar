@@ -27,6 +27,8 @@ website:
         contents:
           - href: scripts/01_slides/EH_1.qmd
             text: "Einheit 1 - 16.09.2026"
+          - href: scripts/01_slides/EH_2.qmd
+            text: "Einheit 2 - 23.09.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 
@@ -65,6 +67,7 @@ website:
             text: "LLMs in RStudio"
           - href: scripts/04_misc/Memes.qmd
             text: "Memes :)"
+      - href: scripts/04_misc/
       - href: scripts/04_misc/about.qmd
         text: "About"
 
