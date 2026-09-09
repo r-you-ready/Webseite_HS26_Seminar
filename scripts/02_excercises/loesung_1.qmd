@@ -27,9 +27,9 @@ Und hier nochmal die Slides zur EH2:
 
 ## 🧭 Wo befinden wir uns?
 
-**Projektphase: ORIENTIEREN -\> PLANEN**
+**Projektphase: ORIENTIEREN → PLANEN**
 
-In diesem ersten Hands-on Block lernen wir die Arbeitsumgebung kennen und erstellen unser erstes nachvollziehbares R-Skript.
+In diesem ersten Hands-on Block lernen wir unsere Arbeitsumgebung kennen und erstellen unser erstes nachvollziehbares R-Skript.
 
 **Einheit 1:** RStudio, Skripte, Objekte, Funktionen, Vektoren und ein erster Datensatz
 
@@ -41,7 +41,7 @@ Am Ende müsst ihr nicht alle Befehle auswendig können. Ihr sollt:
 
 -   euch in RStudio orientieren können,
 
--   Code in eurem Skript schreiben und speichern,
+-   Code in eurem Skript schreiben, ausführen und speichern,
 
 -   einfache Objekte und Vektoren erstellen,
 
@@ -49,42 +49,269 @@ Am Ende müsst ihr nicht alle Befehle auswendig können. Ihr sollt:
 
 -   nachvollziehbaren Code schreiben,
 
--   bei einfachen Problemen selbst erste Lösungswege ausprobieren,
+-   bei einfachen Problemen erste Lösungswege selbst ausprobieren,
 
 -   und verstehen, wie Planung und Code später zusammengehören.
 
-# TEIL A - EINHEIT 1
+# Einheit 1: Erste Schritte in R
 
-al
+## A0 - Technischer Check: R & RStudio
 
-Installiere R und RStudio:
+Bevor wir mit dem Programmieren beginnen, stellen wir sicher, dass eure Arbeitsumgebung funktioniert.
 
-1.  Installation von R – neueste Version 4.5.2: <https://stat.ethz.ch/CRAN/>
+### Was ist eigentlich R - und was ist RStudio?
 
-2.  Installation von Rstudio (Version 2026.01.06): <https://posit.co/download/rstudio-desktop/>
+Für dieses Seminar benötigt ihr R und RStudio. Dabei handelt es sich um zwei unterschiedliche Programme mit unterschiedlichen Aufgaben:
 
-Du weisst nicht, was es mit R auf sich hat? Hier ist eine Kurzerklärung: <https://methodenlehre.github.io/einfuehrung-in-R/>
+-   **R** ist die eigentliche Programmiersprache bzw. Software. R führt unsere Befehle aus und übernimmt die Berechnungen.
 
-## Einstellungen
+-   **RStudio** ist die Benutzeroberfläche bzw. Arbeitsumgebung, über die wir mit R arbeiten. RStudio hilft uns dabei,
 
-1.  RStudio öffnen & Einstellungen vornehmen: Unter «tools» –«global options» die **unter 1.1.** beschriebenen Einstellungen vornehmen: [https://methodenlehre.github.io/einfuehrung-in-R/chapters/01-workflow.html](#0){.uri}
+    -   Code zu schrieben und zu speichern,
 
-<!-- -->
+    -   Dateien und Datensätze zu verwalten,
 
-2.  Neues Skript öffnen & orientieren:
+    -   Ergebnisse und Graphiken anzusehen,
 
-## Hands on: Coding Basics
+    -   Pakete zu verwenden,
 
-Im folgenden machen wir uns vertraut mit der Oberfläche von R-Studio:
+    -   und unsere Arbeit übersichtlich zu organisieren.
+
+📌 **Merke:** R erledigt die Berechnungen im Hintergrund, RStudio ist die Arbeitsumgebung, über die wir mit R arbeiten.
+
+### Warum brauchen wir beide Programme?
+
+RStudio greift auf eine installierte R-Version zurück. Deshalb benötigen wir grundsätzlich beide Programme.
+
+Die Reihenfolge bei einer Neuinstallation ist:
+
+1.  R installieren
+
+2.  RStudio installieren
+
+3.  RStudio öffnen und darin mit R arbeiten
+
+❗**Wichtig:** Ein Update von RStudio aktualisiert R nicht automatisch - und umgekehrt. Beide Programme besitzen eigene Versionsnummern und werden unabhängig voneinander aktualisiert.
+
+### ✅ Technischer Check
+
+Bitte prüfe jetzt:
+
+-   R ist installiert
+
+-   RStudio ist installiert
+
+-   RStudio lässt sich problemlos öffnen
+
+-   R ist nicht stark veraltet
+
+-   RStudio ist nicht stark veraltet
+
+Ihr benötigt nicht zwingend die allerneuste Version von R und RStudio.
+
+Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, indealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
+
+Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
+
+-   Pakete lassen sich nicht installieren oder laden,
+
+-   neuere Funktionen stehen noch nicht zur Verfügung,
+
+-   Code verhält sich anders als in unseren Übungen,
+
+-   oder Fehlermeldugen entstehen aufgrund von Versionsunterschieden.
+
+### Welche Version habe ich?
+
+**R-Version prüfen**
+
+Öffne RStudio und führe in der Konsole aus:
+
+`R.version.string`
+
+**RStudio-Version prüfen**
+
+Die RStudio-Version findest du über:
+
+-   Windows: Help -\> About RStudio
+
+-   Mac: RStudio -\> About RStudio
+
+### 🛟 Installation oder Update nötig?
+
+1.  R installieren/aktualisieren: <https://stat.ethz.ch/CRAN/>
+
+2.  RStudio installieren/aktualisieren: <https://posit.co/download/rstudio-desktop/>
+
+Eine ausführliche Schritt-für-Schritt-Anleitung findet ihr hier: <https://methodenlehre.github.io/einfuehrung-in-R/>
+
+### ✅ Mini-Check: Funktioniert alles?
+
+Öffne RStudio und gib in der Konsole ein:
+
+`1 + 1`
+
+Wenn R anschliessend `[1] 2` ausgibt, funktioniert die grundlegende Verbindung zwischen R und RStudio.
+
+**Als Nächstes:** Wir schauen uns RStudio genauer an und erstellen unser erstes Skript.
+
+## A1 - RStudio einrichten & Oberfläche kennenlernen
+
+Nachdem wir überprüft haben, dass R und RStudio funktionieren, richten wir nun unsere Arbeitsumgebung ein und schauen uns an, wo in RStudio welche Dinge passieren.
+
+**Warum machen wir das?**
+
+RStudio enthält mehrere Bereiche mit unterschiedlichen Aufgaben. Gerade am Anfang kann die Oberfläche deshalb etwas unübersichtlich wirken.
+
+Für das Seminar ist es wichtig, dass ihr zunächst grob wisst:
+
+-   wo ihr Code schreibt,
+
+-   wo R den Code ausführt,
+
+-   wo erzeugte Objekte erscheinen,
+
+-   und wo ihr Dateien, Graphiken, Pakete und Hilfe findet.
+
+📌 **Merke:** Ihr müsst euch nicht sofort jedes Detail von RStudio merken. Wichtig ist zunächst, dass ihr die zentralen Bereiche wiedererkennt und wisst, wofür sie grundsätzlich da sind.
+
+### 🧭 1. Empfohlene Einstellungen vornehmen
+
+Bevor wir beginnen, nehmen wir einige Grundeinstellungen in RStudio vor. Diese Einstellungen müssen normalerweise nur einmal vorgenommen werden und erleichtern uns später das reproduzierbare Arbeiten.
+
+Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General`so ein wie auf dem folgenden Bild:
+
+![](../../images/Global_Options.png){fig-align="center"}
+
+<br>
+
+Zudem solltest du in den Optionen unter `Code` noch die Option `use native pipe operator` aktivieren. Das Bild zeigt dir, wo die Option zu aktivieren ist:
+
+![](../../images/Options_Code.png){fig-align="\"center"}
+
+Falls einzelne Menüpunkte bei dir etwas anders aussehen, ist das kein Problem. Je nach Betriebssystem und RStudio-Version können sich kleinere Unterschiede ergeben.
+
+### 🧭 2. Die RStudio-Oberfläche kennenlernen
+
+RStudio ist normalerweise in mehrere Bereiche aufgeteilt.
+
+Schau dir zunächst die folgende Abbildung an und versuche anschliessend, dieselben Bereiche in deinem eigenen RStudio-Fenster wiederzufinden.
 
 ![](../../images/R_overview.png){fig-align="center"}
 
-<!-- -->
+Die vier wichtigsten Bereiche sind:
 
-a)  Skript für Code-Eingabe sowie Kommentare
-b)  Konsole für die Ausführung von Code -\> Teste einfache mathematische Operation in dieser; reproduziere diese mittels Skript
-c)  Rechts oben: Environment & History
-d)  Rechts unten: Files, Plots, Packages und Help Viewer
+**Source/Editor**
+
+Hier schreiben und speichern wir unseren Code.
+
+Später werden hier z.B. unsere
+
+-   R-Skripte,
+
+-   Quarto-Dateien,
+
+-   Kommentare,
+
+-   und vollständigen Analyseabläufe
+
+liegen.
+
+Falls der Source-/Editor-Bereich bei dir noch nicht sichtbar ist: Keine Sorge - das ändern wir im nächsten Schritt, indem wir unser erstes Skript öffnen.
+
+**Konsole**
+
+Hier führt R unseren Code tatsächlich aus.
+
+Wenn wir einen Befehl aus dem Skript ausführen, erscheint er in der Konsole und R gibt dort das Ergebnis oder ggf. eine Fehlermeldung aus.
+
+Einzelne Berechnungen können auch direkt in der Konsole ausgeführt werden.
+
+**Environment**
+
+Hier sehen wir Objekte, die wir während unserer aktuellen R-Sitzung erstellt haben.
+
+Z.B. später:
+
+-   Zahlen
+
+-   Vektoren
+
+-   Datensätze,
+
+-   Ergebnisse von Berechnungen.
+
+**Files/Plots/Packages/Help**
+
+Dieser Bereich enthält mehrere Tabs:
+
+-   **Files:** Dateien oder Ordner ansehen
+
+-   **Plots:** erstellte Graphiken anzeigen
+
+-   **Packages:** installierte Pakete verwalten
+
+-   **Help:** Hilfeseiten zu R-Funktionen öffnen
+
+📌 **Merke:** Wir werden diese Bereiche nicht alle heute ausführlich behandeln. Im Laufe des Semesters lernen wir sie immer dann genauer kennen, wenn wir sie für einen konkreten Arbeitsschritt brauchen.
+
+## A2 - Dein erstes R-Skript
+
+Nachdem wir uns in RStudio orientiert haben, erstellen wir nun unseren eigentlichen Arbeitsplatz für den Code.
+
+In diesem Seminar möchten wir nicht einfach Befehle einmalig ausführen. Unsere Arbeitsschritte sollen so dokumentiert sein, dass wir später noch nachvollziehen können:
+
+-   **was** wir gemacht haben,
+
+-   **warum** wir es gemacht haben,
+
+-   **in welcher Reihenfolge** wir vorgegangen sind,
+
+-   und **wie** ein bestimmtes Ergebnis entstanden ist.
+
+Dafür verwenden wir Skripte.
+
+### Was ist ein R-Skript?
+
+Ein R-Skript ist eine Datei, in der wir unseren R-Code **schreiben, strukturieren und speichern**. R-Skripte haben die Dateiendung: `.R`
+
+Der Code im Skript wird nicht automatisch ausgeführt. Wir entscheiden selbst, welche Zeilen R ausführen soll.
+
+📌 **Merke:** Ein Skript ist wie ein Protokoll oder Rezept unserer Analyse. Es dokumentiert die einzelnen Schritte und ermöglicht uns, diese später erneut auszuführen.
+
+Genau das ist eine wichtige Grundlage für reproduzierbares Arbeiten.
+
+### 🧭 1. Ein neues Skript erstellen
+
+Öffne in RStudio:
+
+`File → New File → R Script`
+
+Nun sollte sich im Source-/Editor-Bereich eine neue, leere Datei öffnen.
+
+Vergleiche dies kurz mit der RStudio-Abbildung aus A1.
+
+### 🧭 2. Das Skript direkt speichern
+
+Bevor wir Code schreiben, speichern wir unser Skript.
+
+Wähle: `File→ Save As...` und gib der Datei einen verständlichen Namen, z.B.:
+
+`01_coding_basics.R`
+
+Speichere die Datei an einem Ort, an dem du sie nächste Woche problemlos wiederfindest.
+
+Für diesen ersten Hands-on-Block reicht ein eigener Ordner für das Seminar. Wie wir später komplette Forschungsprojekte und Dateien strukturiert organisieren, behandeln wir ausführlich in einer späteren Einheit.
+
+📌 **Merke:** Gute Dateinamen helfen uns, auch Wochen oder Monate später noch zu erkennen, was eine Datei enthält.
+
+### 🧭 2. Das Skript beschriften
+
+Auch Code soll für Menschen verständlich sein.
+
+In R können wir Kommentare mit \# schreiben.
+
+### 
 
 ## Pakete installieren und laden
 
