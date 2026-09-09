@@ -124,19 +124,27 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 
 ------------------------------------------------------------------------
 
-Kurze Folien mit Bulletpoints für individuelle Vorstellungsrunde
+## Kurze Vorstellungsrunde
 
-Alle sagen nur soviel, wie sie gerne sagen möchten
+**Wenn ihr mögt...**
 
-Vorstellungsrunden finden nicht alle toll, wer nicht will, muss nicht
+-   Name
 
-Nachher bei individuellem Arbeiten noch mehr als genug Zeit, euch gegenseitig besser kennenzulernen!
+-   Wo stehst du ungefähr im Master/Schwerpunkt?
 
-Auch in kommender Woche Zweier-Teams bilden.
+-   Warum hast du dieses Seminar gewählt?
 
-Name, wo im Master, Schwerpunkt, Warum Seminar?, Was am Ende des Semesters gerne selbstständig können? Wie würdest du deine aktuelle Beziehung zu R mit einem Wort beschreiben?
+-   Was würdest du am Ende dieses Seminars gerne selbstständig können?
 
--\> Während dem Namensschilder austeilen und gestalten.
+-   Wie würdest du deine aktuelle Beziehung zu R in einem Wort beschreiben?
+
+-\> Ihr entscheidet selbst, wie viel ihr erzählen möchtet!
+
+::: notes
+Namensschilder austeilen, welche sie mit ihrem Vornamen (oder so, wie wir sie nennen sollen) beschriften sollen. Diese sollen sie jeweils am Ende der Stunde wieder bei uns abgeben, damit sie sie nicht jedes Mal mitnehmen müssen. So machen wir auch direkt die Anwesenheitskontrolle.
+
+Wir machen einmal eine kurze Runde, damit wir zumindest schon Namen und Gesichter ein bisschen zuordnen können. Ihr müsst natürlich nicht alle Fragen beantworten - sagt einfach so viel, wie ihr möchtet. Wir werden später im Semester noch genug Zeit haben, uns beim gemeinsamen Arbeiten besser kennenzulernen. Auch werdet ihr ab nächster Woche oft in Zweier-Teams arbeiten.
+:::
 
 ------------------------------------------------------------------------
 
@@ -200,9 +208,7 @@ Keine Pause - Selbstständig wenn nötig.
 
 -   Abgaben & Umfragen
 
--   Peer-Feedback
-
--   Forum
+-   Peer-Feedback & Forum
 
 ------------------------------------------------------------------------
 
@@ -338,9 +344,7 @@ Dann führt ihr selbstständig den Workflow durch, den wir im Seminar Schritt f�
 
 -   Kein "Kochbuch" für jede mögliche Masterarbeit
 
--   Keine vollständige Einführung in sämtliche R-Funktionen
-
--   Keine Behandlung aller möglichen statistischen Modelle
+-   Keine vollständige Abdeckung aller R-Funktionen & statistischen Modelle
 
 <br>
 
@@ -350,11 +354,42 @@ Wir wollen euch einen stabilen Workflow und Werkzeugkasten geben, mit dem ihr ne
 
 ------------------------------------------------------------------------
 
-## Aufbau der 14 Einheiten
+## So läuft eine typische Einheit ab
 
-Kombination aus Input und Übung
+<br>
 
-Folie noch gestalten!!!!!
+::::: columns
+::: {.column width="50%"}
+#### 💬 Input (ca. 45 Minuten) 
+
+Einen Schritt im Forschungsprozess verstehen:
+
+-   Wo stehen wir?
+
+-   Was fehlt unserem Projekt?
+
+-   Was lernen wir heute?
+
+-   Welches Konzept oder R-Werkzeug brauchen wir dafür?
+:::
+
+::: {.column width="50%"}
+#### 💻 Hands-on in R (ca. 45 Minuten)
+
+Das Gelernte direkt anwenden:
+
+-   Übungen am Datensatz
+
+-   Gemeinsam ausprobieren & im Team arbeiten
+
+-   Fragen stellen
+
+-   Ergebnisse prüfen & besprechen
+:::
+:::::
+
+\
+**Das Seminar ist interaktiv:** Mitdenken, Mitmachen & Fragen stellen sind ausdrücklich erwünscht!
 
 ------------------------------------------------------------------------
 
@@ -394,7 +429,7 @@ Folie noch gestalten!!!!!
 
 ≈ 9 Stunden/Woche
 
-**-\> Kontinuierliche Arbeit während dem Semester!**
+**-\> Kontinuierliche Arbeit während des Semesters!**
 
 ::: notes
 Das hört sich erstmals nach sehr viel Aufwand an. Zu diesen 9 Stunden gehören aber die Präsenzzeit, individuelle Vor- und Nachbereitungen, Hands-on Übungen, die Hausübungen und die Abschlussarbeit.
@@ -438,7 +473,7 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 ## Leistungsnachweis: Abschlussprojekt (54 Punkte)
 
--   Replikation von Grinschgl et al. (2021) mit individuell simulierten Rohdatensätzen
+-   Reproduktion zentraler Analysen von Grinschgl et al. (2021) mit individuell simulierten Rohdatensätzen
 
 -   Datenanalyseplan überarbeiten/ergänzen
 
@@ -454,6 +489,28 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 ------------------------------------------------------------------------
 
+## Warum R?
+
+**Warum arbeiten wir mit R?**
+
+-   kostenlos & Open Source
+
+-   weit verbreitet in Forschung & Data Science
+
+-   **reproduzierbar:** dieselben Schritte können erneut ausgeführt werden
+
+-   **transparent:** Analyseschritte sind im Code sichtbar
+
+-   **flexibel:** Datenaufbereitung, Statistik & Visualisierung in einer Umgebung
+
+-   **automatisierbar:** wiederkehrende Schritte müssen nicht manuell durchgeführt werden
+
+<br>
+
+**-\> R macht unseren Analyseweg nachvollziehbar & reproduzierbar!**
+
+------------------------------------------------------------------------
+
 ## Fehlerkultur: Trial & Error gehört dazu
 
 **Beim Arbeiten mit R werden wir...**
@@ -462,7 +519,7 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 -   Dinge ausprobieren, verändern und erneut testen
 
--   nachschlagen und HIlfe suchen
+-   Nachschlagen und Hilfe suchen
 
 -   Fragen stellen und voneinander lernen
 
@@ -508,7 +565,7 @@ Bei den Hausübungen sind Fehler erlaubt. Entscheidend ist, dass ihr euch aktiv 
 :::
 
 ::: {.column width="50%"}
-**Andere Fragen**
+**Andere fragen**
 
 -   Peer-Partner:in & Online-Forum
 
@@ -520,33 +577,11 @@ Bei den Hausübungen sind Fehler erlaubt. Entscheidend ist, dass ihr euch aktiv 
 
 **Unsicherheiten sichtbar machen**
 
--   3x Muddiest Points während dem Semester
+-   3x Muddiest Points während des Semesters
 
 -   Sprechstunde/Methodenberatung
 :::
 :::::
-
-------------------------------------------------------------------------
-
-## Warum R?
-
-**Warum arbeiten wir mit R?**
-
--   kostenlos & Open Source
-
--   weit verbreitet in Forschung & Data Science
-
--   **reproduzierbar:** dieselben Schritte können erneut ausgeführt werden
-
--   **transparent:** Analyseschritte sind im Code sichtbar
-
--   **flexibel:** Datenaufbereitung, Statistik & Visualisierung in einer Umgebung
-
--   **automatisierbar:** wiederkehrende Schritte müssen nicht manuell durchgeführt werden
-
-<br>
-
-**-\> R macht unseren Analyseweg nachvollziehbar & reproduzierbar!**
 
 ------------------------------------------------------------------------
 
@@ -596,7 +631,7 @@ Wichtig ist, dass niemand heute "R können" muss! Ziel ist es, dass R und RStudi
 
 -   Sitznachbar:innen fragen
 
--   Jan-Pierre & Laura rufen bei Bedarf (wir helfen gerne!)
+-   Jan-Pierre & Laura jederzeit fragen
 
 **Für Schnellere:**
 
@@ -604,7 +639,7 @@ Wichtig ist, dass niemand heute "R können" muss! Ziel ist es, dass R und RStudi
 
 -   Bedarfsanalyse beginnen (ILIAS, Einheit 1)
 
--   Ausprobieren, wie einzelne Befehle verändert werden können
+-   Code verändern und beobachten, was passiert
 
 ------------------------------------------------------------------------
 
@@ -616,9 +651,7 @@ Bitte reflektiert:
 
 -   Wie sicher fühle ich mich aktuell mit R/RStudio?
 
--   Welche Schritte der Datenaufbereitung kann ich bereits?
-
--   Welche statistischen Analysen habe ich schon einmal in R durchgeführt?
+-   Welche Schritte der Datenaufbereitung/ -analyse kenne ich bereits?
 
 -   Wo verliere ich den Überblick & was bereitet mir Mühe?
 
@@ -638,31 +671,37 @@ Die Bedarfsanalyse dient dazu:
 
 ------------------------------------------------------------------------
 
-## Heute haben wir...
+## Heute & nächste Woche
 
-Rückblick und Ausblick auf die kommende Woche
+**Heute**
 
-Aufträge (Bedarfsanalyse & Paper lesen)
+Wir haben...
+
+-   den Gesamtworkflow kennengelernt,
+
+-   das gemeinsame Forschungsprojekt eingeordnet,
+
+-   gesehen, wie das Semester aufgebaut ist,
+
+-   erste Schritte in R gemacht.
+
+<br>
+
+**Nächste Woche:**
+
+Bevor wir mit den Daten arbeiten, müssen wir wissen, welche Frage wir beantworten wollen.
+
+-\> Open Science, Forschungsfragen, Hypothesen & Datenanalyseplan
 
 ------------------------------------------------------------------------
 
-## Heute haben wir...
+## Bis nächste Woche!
 
--   R bzw. RStudio und wichtige Pakte darin installiert
+-   Bedarfsanalyse auf ILIAS (Sitzung 1) bis So, 20.09., 23:55 ausfüllen
 
--   Uns mit der Oberfläche von R-Studio bekannt gemacht
+-   Paper von Grinschgl et al. (2021) lesen/überfliegen
 
--   Erste Operationen in R ausgeführt:
-
-    -   Einfache Rechnungen
-
-    -   Erste Zuweisungen mit `<-`
-
-    -   Vektoren erstellt
-
--   Erste Funktionen aufgerufen ( z.b. `sum()`
-
--\> Fortsetzung in EH 2
+    ![](images/ryouready_logo-01.png){width="268"}
 
 ------------------------------------------------------------------------
 
@@ -671,27 +710,3 @@ Aufträge (Bedarfsanalyse & Paper lesen)
 [Methodenberatung](https://www.dig.psy.unibe.ch/tools__services/methodenberatung_psychologie/index_ger.html)
 
 ![](../../images/Methodenberatung.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## Bis nächste Woche!
-
--   Bedarfsanalyse auf ILIAS (Sitzung 1) bis Sonntag ausfüllen!
-
-    ![](images/ryouready_logo-01.png){width="268"}
-
-------------------------------------------------------------------------
-
-## Begleitende Literatur
-
--   [Kurswebsite: FAQ und weitere Informationen](https://r-you-ready.quarto.pub)
-
--   Wickham, H., Cetinkaya-Rundel, & Grolemund, G., &. (2023). R for Data Science. O’Reilly Media. <https://r4ds.hadley.nz/>
-
--   Ellis, A., & Mayer, B. (2024). Einführung in R. <https://methodenlehre.github.io/einfuehrung-in-R/>
-
--   Weitere nützliche Ressourcen:
-
-    -   Tidyverse cheat sheets <https://posit.co/resources/cheatsheets/>
-
-    -   Luhmann, M. (2020). R für Einsteiger. Beltz.
