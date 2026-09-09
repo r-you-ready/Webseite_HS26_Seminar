@@ -1,15 +1,13 @@
 ---
-title: "Hands On – Coding Basics (Einheiten 1 und 2)"
+title: "Hands-on Block 1: Vom ersten R-Skript zum nachvollziehbaren Workflow (Einheiten 1 & 2)"
 filters:
   - conditional_content
 show_solutions: false
 format:
   html:
     code-tools: false
-draft: true
+draft: false
 ---
-
-# Lösung - Codings Basics (Einheiten 1 und 2)
 
 Bei Bedarf finden sich hier nochmal die Slides zur EH1:
 
@@ -27,7 +25,37 @@ Und hier nochmal die Slides zur EH2:
 </iframe>
 :::
 
-## Installation R und R-Studio
+## 🧭 Wo befinden wir uns?
+
+**Projektphase: ORIENTIEREN -\> PLANEN**
+
+In diesem ersten Hands-on Block lernen wir die Arbeitsumgebung kennen und erstellen unser erstes nachvollziehbares R-Skript.
+
+**Einheit 1:** RStudio, Skripte, Objekte, Funktionen, Vektoren und ein erster Datensatz
+
+**Einheit 2:** nachvollziehbarer Code, gute Benennungen, Fehlersuche und Übergang zum Datenanalyseplan
+
+## 🎯 Ziel dieses Blocks
+
+Am Ende müsst ihr nicht alle Befehle auswendig können. Ihr sollt:
+
+-   euch in RStudio orientieren können,
+
+-   Code in eurem Skript schreiben und speichern,
+
+-   einfache Objekte und Vektoren erstellen,
+
+-   Funktionen anwenden,
+
+-   nachvollziehbaren Code schreiben,
+
+-   bei einfachen Problemen selbst erste Lösungswege ausprobieren,
+
+-   und verstehen, wie Planung und Code später zusammengehören.
+
+# TEIL A - EINHEIT 1
+
+al
 
 Installiere R und RStudio:
 
