@@ -31,9 +31,9 @@ Und hier nochmal die Slides zur EH2:
 
 In diesem ersten Hands-on Block lernen wir unsere Arbeitsumgebung kennen und erstellen unser erstes nachvollziehbares R-Skript.
 
-**Einheit 1:** RStudio, Skripte, Objekte, Funktionen, Vektoren und ein erster Datensatz
+**Einheit 1:** RStudio, Skripte, Pakete, Operatoren, Objekte, Funktionen, Vektoren und grundlegende Datentypen
 
-**Einheit 2:** nachvollziehbarer Code, gute Benennungen, Fehlersuche und Übergang zum Datenanalyseplan
+**Einheit 2:** nachvollziehbarer Code, Fehlersuche und erste Arbeit mit einem Datensatz
 
 ## 🎯 Ziel dieses Blocks
 
@@ -305,42 +305,164 @@ Für diesen ersten Hands-on-Block reicht ein eigener Ordner für das Seminar. Wi
 
 📌 **Merke:** Gute Dateinamen helfen uns, auch Wochen oder Monate später noch zu erkennen, was eine Datei enthält.
 
-### 🧭 2. Das Skript beschriften
+### 🧭 3. Das Skript beschriften
 
 Auch Code soll für Menschen verständlich sein.
 
-In R können wir Kommentare mit \# schreiben.
+In R können wir Kommentare mit `#` schreiben. Alles, was in einer Zeile hinter `#` steht, wird von R nicht als Code ausgeführt.
 
-### 
+Schreibe ganz oben in dein Skript:
 
-## Pakete installieren und laden
+`# R you Ready - Hands-on Block 1`
 
-Tidyverse ist ein Meta-Paket, das mehrere Pakete umfasst[![https://www.tidyverse.org/](../../images/clipboard-602781303.png){width="472"}](https://www.tidyverse.org/)
+`# Name:`
 
-1.  Pakete installieren (nur 1x notwendig) -\> führe diesen Code in der Konsole aus
+`# Datum:`
 
-    ```{r}
-    #| eval: false
-    #| echo: TRUE
+Ergänze deinen Namen und das heutige Datum.
 
-    install.packages("tidyverse")
-    ```
+💡 Kommentare werden uns später dabei helfen, unsere Datenaufbereitung und Analysen nachvollziehbarer zu strukturieren.
 
-2.  Paket laden (innerhalb des Skriptes, bei jedem Neustart von R notwendig)
+### Konsole oder Skript - was ist der Unterschied?
 
-    ```{r}
-    #| echo: TRUE
+**Konsole**
 
-    library(tidyverse)
-    ```
+Die Konsole führt einen eingegebenen Befehl sofort aus. Sie eignet sich gut, wenn wir etwas:
 
-Tipp: Pakete regelmässig updaten mit z.B. update.packages()
+-   kurz ausprobieren,
 
-### Operatoren kennenlernen
+-   testen,
 
-1.  a\. Nutze R als Taschenrechner
+-   oder nachschauen möchten.
 
-    1.  `123+456`
+**Skript**
+
+Im Skript schreiben und speichern wir Code, den wir:
+
+-   später erneut ausführen,
+
+-   nachvollziehen,
+
+-   verändern,
+
+-   oder mit anderen teilen möchten.
+
+📌 Grundsätzlich gilt in diesem Seminar, dass sämtlicher Code im Skript geschrieben und angemessen dokumentiert werden soll.
+
+#### 🧭 **Teste den Unterschied selbst**
+
+1.  Klicke in die Konsole und gib ein:
+
+    -   `2 + 2`
+
+    -   Drücke anschliessend Enter.
+
+    -   R sollte ausgeben: `[1] 4`
+
+    -   Die Berechnung wird sofort ausgeführt.
+
+    -   Aber: Der Befehl ist damit noch nicht sinnvoll in unserem Analysecode dokumentiert und lässt sich nicht einfach zu einem späteren Zeitpunkt erneut ausführen!
+
+2.  Schreibe nun in dein Skritp:
+
+    -   `2 + 2`
+
+    -   Beobachte zunächst: Passiert bereits etwas?
+
+    -   Code im Skript wird erst ausgeführt, wenn wir R dazu auffordern.
+
+    -   Setze den Cursor in die entsprechende Zeile und drücke: Ctrl + Enter (Windows) bzw. Cmd + Enter (Mac). Alternativ kannst du oben im Editor auf Run drücken.
+
+📌 Das Skript dokumentiert unseren Arbeitsschritt, die eigentliche Berechnung übernimmt R über die Konsole.
+
+## A3 - Pakete installieren & laden
+
+Bisher haben wir R vor allem als Taschenrechner genutzt und einfache Berechnungen durchgeführt.
+
+Im Laufe des Semesters werden wir jedoch viele weitere Werkzeuge brauchen - z.B. für Datenaufbereitung, Visualisierung und statistische Analysen. Diese zusätzlichen Werkzeuge werden in R über sogenannte Pakete bereitgestellt.
+
+### Was ist ein R-Paket?
+
+Ein Paket ist eine Sammlung von:
+
+-   zusätzlichen R-Funktionen,
+
+-   teilweise Datensätzen,
+
+-   Dokumentationen und Hilfeseiten.
+
+Ihr könnt euch Pakete vereinfacht wie **Erweiterungen für R** vorstellen.
+
+Ein besonders wichtiges Paketbündel für dieses Seminar ist das **tidyverse**. Es enthält mehrere Pakete (sogenanntes Meta-Paket), die uns später unter anderem bei Datenaufbereitung und Visualisierung helfen.
+
+![](../../images/tidyverse.png){fig-align="center" width="35%"}
+
+📌 **Merke:** Die grundlegende R-Installation stellt uns die Basis zur Verfügung. Über Pakete können wir R um zusätzliche Werkzeuge erweitern.
+
+### 🧭 1. Pakete installieren
+
+Bevor ein Paket verwendet werden kann, muss es zunächst auf dem Computer installiert werden.
+
+Das ist normalerweise nur einmal notwendig.
+
+Du kannst aber bereits installierte Pakete mithilfe von `update.packages()` regelmässig updaten, damit sie auf dem neusten Stand sind.
+
+Führe dazu diesen Code in der **Konsole** aus:
+
+```{r}
+#| eval: false
+#| echo: TRUE
+
+install.packages("tidyverse")
+```
+
+Je nach Computer und Internetverbindung kann die Installation einen Moment dauern.
+
+### 🧭 2. Pakete laden
+
+Ein installiertes Paket steht in R nicht automatisch in jeder Sitzung zur Verfügung. Nachdem ein Paket installiert wurde, müssen wir es in jeder neuen R-Sitzung zu Beginn laden.
+
+Da dieser Befehl bei jeder neuen Sitzung notwendig ist, gehört der Befehl direkt oben in unser Skript:
+
+```{r}
+#| echo: TRUE
+
+# Pakete laden
+library(tidyverse)
+```
+
+Führe die Zeile nun aus.
+
+📌 **Merke:** Pakete gehören an den Anfang des Skripts! Sie werden dort einmal zentral geladen und müssen nirgendwo sonst im Skript repetiert werden.
+
+## A4 - R als Taschenrechner: Operatoren kennenlernen
+
+Unsere Arbeitsumgebung ist nun eingerichtet. Als Nächstes lernen wir, wie wir R **einfache Rechenanweisungen** geben.
+
+R kann zunächst wie ein sehr leistungsfähiger Taschenrechner verwendet werden.
+
+### Arithmetische Operatoren
+
+Einige Operatoren kennst du bereits aus der Mathematik:
+
+| Zeichen | Bedeutung                   |
+|---------|-----------------------------|
+| \+      | Addition                    |
+| \-      | Subtraktion                 |
+| \*      | Multiplikation              |
+| /       | Division                    |
+| sqrt(x) | Quadratwurzel               |
+| abs(x)  | Betrag (absoluter Wert)     |
+| x %% y  | Modulo (x mod y) 5 %% 2 = 1 |
+| \^      | Potenz                      |
+
+📌 Wenn du die Funktionsweise eines Operators nachschlagen willst, kannst du dazu die Help-Funktion nutzen. Diese zeigt dir jeweils eine kurze Beschreibung, die Funktionsweise, die Argumente sowie Rechenbeispiele pro Operator bzw. Funktion an.
+
+#### 🧭 1. Berechnungen selbst vornehmen
+
+Schreibe die folgenden Aufgaben in dein Skript und führe sie anschliessend aus:
+
+1.  Addiere `123` und `456`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -350,21 +472,27 @@ Tipp: Pakete regelmässig updaten mit z.B. update.packages()
 :::
 ::::
 
-```         
-2.  `144*112`
-```
+2.  Subtrahiere `112` von `144`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-144*112
+144 - 112
 ```
 :::
 ::::
 
-```         
-3.  `10/3`
+3.  Multipliziere `24` mit `17`
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+24 * 17
 ```
+:::
+::::
+
+4.  Dividiere `10` durch `3`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -374,9 +502,7 @@ Tipp: Pakete regelmässig updaten mit z.B. update.packages()
 :::
 ::::
 
-```         
-4.  Quadriere 420
-```
+5.  Quadriere `420`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -386,9 +512,7 @@ Tipp: Pakete regelmässig updaten mit z.B. update.packages()
 :::
 ::::
 
-```         
-5.  Ziehe die Quadratwurzel aus 146 mit der Funktion `sqrt()`
-```
+6.  Ziehe die Quadratwurzel aus `146`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -398,9 +522,7 @@ sqrt(146)
 :::
 ::::
 
-```         
-6.  Berechne den Rest der Division 10/3 mit dem Modulo Operator: `%%`
-```
+7.  Berechne den Rest der Division `10/3` mit dem Modulo Operator: `%%`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -410,117 +532,471 @@ sqrt(146)
 :::
 ::::
 
-#### Arithmetische Operatoren und Funktionen in R, z.B.
+#### 🧭 **2. Klammern verändern Ergebnisse**
 
-| Zeichen | Bedeutung                   |
-|---------|-----------------------------|
-| \+      | Addition                    |
-| \-      | Substraktion                |
-| \*      | Multiplikation              |
-| /       | Division                    |
-| sqrt(x) | Quadratwurzel               |
-| abs(x)  | Betrag (absoluter Wert)     |
-| x %% y  | Modulo (x mod y) 5 %% 2 = 1 |
-| \^      | Potenz                      |
+Berechne einmal `2 + 3 * 4` und anschliessend `(2 + 3) * 4`
 
-### Erste Zuweisungen/Variablen definieren
+Was beobachtest du? Warum entstehen unterschiedliche Ergebnisse?
 
-1.  Erstelle eine Variable `x` und weise ihr mit dem Zuweisungsoperator `<-` den Wert 5 zu.
+::: {.callout-note collapse="true" title="Vertiefung"}
+Auch R beachtet mathematische Rechenregeln!
+
+Mit Klammern können wir explizit festlegen, welche Berechnung zuerst erfolgen soll.
+:::
+
+#### 🧭 **3. Eigene Berechnung**
+
+Erstelle selbst einen mathematischen Ausdruck, der:
+
+-   mindestens drei Zahlen,
+
+-   mindestens zwei verschiedene Operatoren
+
+-   und mindestens eine Klammer enthält.
+
+Tausche anschliessend mit einer Person neben dir: Kann die andere Person das Ergebnis vorhersagen, bevor ihr den Code ausführt?
+
+## A5 - Objekte erstellen & Werte zuweisen
+
+Bis jetzt haben wir Ergebnisse berechnet - aber wir haben sie nicht sinnvoll gespeichert.
+
+Bei einer Datenanalyse möchten wir Ergebnisse häufig später wiederverwenden. Dafür verwenden wir in R **Objekte.**
+
+### Was ist ein Objekt?
+
+Ein Objekt ist in R ein Name, unter dem wir Informationen speichern können.
+
+Stell dir ein Objekt wie eine beschriftete Box vor:
+
+-   die Beschriftung ist der Objektname,
+
+-   der Inhalt ist der gespeicherte Wert.
+
+Zum Beispiel:
+
+```{r}
+#| echo: TRUE
+
+alter <- 25
+```
+
+Hier wird der Wert `25` unter dem Namen `alter` gespeichert.
+
+Schau nun in deinem Environment nach. Ist dort ein neues Objekt erschienen?
+
+Der Operator `<-` heisst **Zuweisungsoperator**. Er weist also einem Objekt einen Wert zu.
+
+📌 **Merke: `<-`** zeigt von rechts nach links: Der Wert auf der rechten Seite wird unter dem Namen auf der linken Seite gespeichert.
+
+Danach können wir das Objekt jederzeit wiederverwenden:
+
+```{r}
+#| echo: TRUE
+
+alter
+```
+
+oder damit weiterrechnen:
+
+```{r}
+#| echo: TRUE
+
+alter + 5
+```
+
+#### 🧭 **1. Erstelle eigene Objekte**
+
+Bearbeite folgende Aufgabe in deinem Skript:
+
+1.  Erstelle ein Objekt `zahl_1` und speichere darin den Wert `20`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-x <- 5
+zahl_1 <- 20
 ```
 :::
 ::::
 
-2.  Weise der Variable `y` eine beliebige Zahl zu. Teile anschliessend `x` (aus Aufgabe 1) durch `y` und speichere das Ergebnis in der Variable `z`.
+2.  Erstelle `zahl_2` und speichere darin den Wert `4`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-y <- 10 # hier könntet ihr auch jede andere Ziffer wählen
-
-z <- x / y
+zahl_2 <- 4
 ```
 :::
 ::::
 
-3.  Schaue dir das Ergebnis in deinem Environment an. Lass dir das Ergebnis auch in der Konsole ausgeben. Das Environment findest du oben rechts, die Konsole ist unter deinem Skript.
+3.  Addiere beide Objekte und speichere das Ergebnis in einem neuen Objekt namens `summe`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-# z (hier über das # auskommentiert, da der Befehl nicht im Skript, sondern unten in der Konsole ausgeführt werden soll)
+summe <- zahl_1 + zahl_2
 ```
 :::
 ::::
 
-4.  Erstelle zwei Variablen: eine mit deinem Vornamen und eine mit deinem Nachnamen. Zeichenketten (character-Variablen) müssen in R in Anführungszeichen (`""`) gesetzt werden.
+4.  Teile `zahl_1` durch `zahl_2` und speichere das Ergebnis unter `quotient`
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-vorname <- "Lars"
-nachname <- "Schilling"
+quotient <- zahl_1/zahl_2
 ```
 :::
 ::::
 
-5.  Kombiniere deinen Vor- und Nachnamen mithilfe der Funktion `paste` zu deinem vollen Namen. Speichere das Ergebnis in der Variable `voller_name`.
+Am Ende sollten mindestens vier neue Objekte in deinem Environment sichtbar sein.
+
+#### 🧭 **2. Objekte können wiederverwendet werden**
+
+Ändere nun:
+
+```{r}
+#| echo: TRUE
+
+zahl_1 <- 40
+```
+
+und führe anschliessend erneut aus:
+
+```{r}
+#| echo: TRUE
+
+summe
+```
+
+Hat sich `summe` dadurch automatisch verändert? Warum bzw. warum nicht?
+
+Führe danach die Zeile erneut aus, mit der du `summe` berechnet hast. Was passiert jetzt?
+
+📌 **Merke:** R speichert in einem Objekt das Ergebnis zum Zeitpunkt der Zuweisung. Wenn sich zugrunde liegende Werte ändern, müssen davon abhängige Berechnungen erneut ausgeführt werden.
+
+Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfole von oben nach unten auszuführen.
+
+#### 🧭 **3. Objekte können auch Text speichern**
+
+Bisher haben wir in unseren Objekten vor allem Zahlen gespeichert. Objekte können aber auch andere Arten von Informationen enthalten, z.B. Text.
+
+Erstelle:
+
+```{r}
+#| echo: TRUE
+
+lieblingsfach <- "Psychologie"
+```
+
+Text muss in R in Anführungszeichen gesetzt werden, da R sonst versuchen würde, `Psychologie` als Namen eines bereits existierenden Objekts zu interpretieren.
+
+Führe anschliessend aus:
+
+```{r}
+#| echo: TRUE
+
+lieblingsfach
+```
+
+R gibt nun den gespeicherten Text aus.
+
+Welche unterschiedlichen Datentypen es in R genau gibt, schauen wir uns später noch systematisch an.
+
+#### 🧭 **4. Jetzt du**
+
+Erstelle zwei weitere Objekte:
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+vorname <- "..."
+nachname <- "..."
+```
+
+Setze passende Werte ein und gib beide Objekte anschliessend in der Konsole aus.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-voller_name <- paste(vorname, nachname)
+# Vorname erstellen & ausgeben lassen
+vorname <- "Laura"
+vorname
+
+# Nachname erstellen & ausgeben lassen
+nachname <- "Hirt"
+nachname
 ```
 :::
 ::::
 
-### Vektoren definieren
+#### ⭐ **Zusatz:**
 
-1.  Definiere einen Vektor `first_vector` mit den Zahlen 100, 80, 54 und 73. Verwende dazu die folgende Syntax: `first_vector <- c(...)`.
+Was passiert, wenn du versuchst, mit deinem Objekt `vorname` zu rechnen? Überlege, warum R diese Operation nicht sinnvoll ausführen kann.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = FALSE}
+vorname + 5
+```
+
+Wenn `vorname` Text enthält, führt die Berechnung zu einer Fehlermeldung.
+
+Der Grund dafür ist, dass `+` ein mathematischer Operator ist, der numerische Werte erwartet. Der Inhalt von `vorname` ist aber Text und keine Zahl. R kann die beiden Objekte deshalb nicht sinnvoll addieren.
+
+📌 **Merke:** Welche Operationen möglich sind, hängt davon ab, welche Art von Wert in einem Objekt gespeichert ist. Die verschiedenen Datentypen schauen wir uns später noch genauer an.
+:::
+::::
+
+## A6 - Funktionen & Argumente
+
+Mit Operatoren können wir einfache Berechnungen durchführen. Viele Aufgaben in R sind allerdings komplexer, weswegen wir **Funktionen** brauchen.
+
+### Was ist eine Funktion?
+
+Funktionen sind kleine, bereits vorbereitete Werkzeuge, die eine bestimmte Aufgabe für uns erledigen.
+
+Zum Beispiel kann eine Funktion:
+
+-   eine Quadratwurzel berechnen,
+
+-   einen Mittelwert bestimmen,
+
+-   Text verändern,
+
+-   ein Paket laden,
+
+-   oder einen Datensatz zusammenfassen.
+
+Eine Funktion besteht grundsätzlich aus einem Funktionsnamen und runden Klammern:
+
+```{r}
+#| echo: true
+#| eval: false
+
+function(...)
+```
+
+In die Klammern schreiben wir die Informationen, mit denen die Funktion arbeiten soll. Diese Informationen nennt man **Argumente**.
+
+Ein einfaches Beispiel:
+
+```{r}
+#| echo: true
+#| eval: false
+
+sqrt(144)
+```
+
+Hier ist `sqrt` der Funktionsname und `144` das Argument. Die Funktion `sqrt()` erhält also den Wert `144` und berechnet daraus die Quadratwurzel.
+
+📌 **Merke:** Eine Funktion ist ein Werkzeug. Die Argumente sagen der Funktion, womit oder wie sie arbeiten soll. Je nach Funktion können Argumente unterschiedlich aussehen. Manche sind Zahlen, manche Text und mache bereits vorhandene Objekte.
+
+### Ein nächster Schritt: mehrere Argumente
+
+Manche Funktionen benötigen oder erlauben mehrere Argumente.
+
+Zum Beispiel:
+
+```{r}
+#| echo: true
+#| eval: false
+
+round(3.14159, digits = 2)
+```
+
+#### 🧭 **Was verändert das Argument `digits`?**
+
+Passe den Wert des Arguments `digits` einmal an und beobachte, was sich dadurch verändert.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Das Argument `digits` beschreibt, auf wie viele Stellen die Zahl gerundet werden soll.
+:::
+::::
+
+### 🧭 Funktionen auf Objekte anwenden
+
+Funktionen können nicht nur direkt auf Werte, sondern auch auf bereits gespeicherte Objekte angewendet werden.
+
+Erstelle:
+
+```{r}
+#| echo: true
+#| eval: false
+
+negative_zahl <- -42
+```
+
+Nutze anschliessend eine Funktion, welche den absoluten Wert davon bestimmt und speichere das Ergebnis in dem Objekt `absolute_zahl`.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-first_vector <- c(100, 80, 54, 73)
+# Objekt definieren
+negative_zahl <- -42
+
+# Ergebnis speichern
+absolute_zahl <- abs(negative_zahl)
 ```
 :::
 ::::
 
-2.  Wende den Befehl `boxplot()` auf deinen Vektor an
+## A7 - Vektoren: mehrere Werte speichern
+
+Bisher haben wir in unseren Objekten meist nur einen einzelnen Wert gespeichert. In R möchten wir aber sehr oft mehrere zusammengehörige Werte gemeinsam speichern.
+
+Dafür verwenden wir sogenannte **Vektoren**.
+
+### Was ist ein Vektor?
+
+Ein Vektor ist eine geordnete Sammlung mehrerer Werte. Die Reihenfolge der Werte bleibt dabei erhalten, sodass wir später gezielt auf einzelne Elemente zugreifen oder Berechnungen auf alle Werte anwenden können.
+
+In R erstellen wir einen Vektor meistens mit der Funktion:
+
+```{r}
+#| echo: true
+#| eval: false
+
+c()
+```
+
+Das `c` steht für combine bzw. concatenate - also dafür, mehrere einzelne Werte zu einer gemeinsamen Struktur zusammenzufassen.
+
+Zum Beispiel können wir mehrere Altersangaben in einem Objekt speichern:
+
+```{r}
+#| echo: true
+#| eval: false
+
+alter <- c(22, 24, 27, 21, 25)
+```
+
+Das Objekt `alter` enthält nun nicht mehr nur einen Wert, sondern fünf Werte in einer festgelegten Reihenfolge.
+
+Wenn wir das Objekt ausgeben:
+
+```{r}
+#| echo: true
+
+alter
+```
+
+sehen wir alle enthaltenen Werte wieder.
+
+📌 **Merke:** Ein Vektor erlaubt uns, mehrere zusammengehörige Werte in einem einzigen Objekt zu speichern. Das ist in R besonders wichtig, weil wir später sehr häufig mit ganzen Reihen von Messwerten arbeiten werden.
+
+### 🧭 1. Eigene Vektoren erstellen
+
+Erstelle:
+
+1.  einen Vektor `scores` mit sieben beliebigen Testwerten (von 0 bis 100 mögliche Punkte)
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-boxplot(first_vector)
+
+# Es könnten auch andere beliebige Werte gewählt werden
+scores <- c(77, 54, 22, 71, 2, 47, 98)
 ```
 :::
 ::::
 
-3.  Berechne die Summe `sum()`und den Mittelwert `mean()` von deinem Vektor
+2.  einen Vektor `temperaturen` mit fünf beliebigen Temperaturwerten
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-sum(first_vector)
 
-mean(first_vector)
+# Auch hier könnten beliebige andere Werte gewählt werden
+temperaturen <- c(12.1, 23.4, 10.3, 8.9, 15.6)
 ```
 :::
 ::::
 
-4.  Multipliziere deinen Vektor mit `*2`
+3.  einen Vektor `namen` mit vier Vornamen
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-first_vector * 2
+
+# Beliebige Namen möglich
+namen <- c("Anna", "Ben", "Jana", "Elina")
+```
+
+Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
+:::
+::::
+
+4.  einen Vektor `bestanden` mit den Werten TRUE, FALSE, TRUE, TRUE
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Objekt definieren
+bestanden <- c(TRUE, FALSE, TRUE, TRUE)
+```
+
+Hier muss der Text nicht in " " geschreiben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
+:::
+::::
+
+### 🧭 2. Rechnen mit Vektoren
+
+Nachdem wir nun mehrere Werte gemeinsam in einem Vektor gespeichert haben, können wir diese auch als Ganzes untersuchen und verändern.
+
+Bearbeite die folgenden Aufgaben:
+
+1.  Finde selbstständig heraus, mit welcher R-Funktion du bestimmen kannst, wie viele Elemente im Vektor `temperaturen` vorhanden sind, den du vorhin erstellt hast.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Länge des Vektors temperaturen
+length(temperaturen)
 ```
 :::
 ::::
+
+2.  Addiere einmal den Wert `5` zu deinem `scores`-Vektor von vorhin. Was passiert dabei?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Addition von 5 zum Vektor scores
+scores + 5
+```
+:::
+
+Jedem einzelnen Wert des Vektors `scores` wird der Wert `5` addiert.
+::::
+
+3.  Multipliziere den Vektor `scores` nun mit dem Wert `5`. Was beobachtest du?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Multiplikation von scores mit 5
+scores * 5
+```
+:::
+
+Jeder einzelne Wert des Vektors `scores` wird mit `5` multipliziert.
+::::
+
+4.  Kannst du daraus eine generelle Regel ableiten, wie R bei mathematischen Operationen mit Vektoren vorgeht?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Viele mathematische Operationen werden in R automatisch **elementweise** auf einen ganzen Vektor angewendet. Die Operationen werden also auf sämtliche Bestandteile des Vektors einzeln angewendet.
+:::
+::::
+
+### 🧭 3. Einzelne Elemente eines Vektors auswählen
 
 Die wichtigsten Operatoren und Funktionen in R: <https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html>
 
