@@ -998,6 +998,93 @@ Viele mathematische Operationen werden in R automatisch **elementweise** auf ein
 
 ### 🧭 3. Einzelne Elemente eines Vektors auswählen
 
+Ein Vektor enthält mehrere Werte in einer bestimmten Reihenfolge. Manchmal möchten wir aber nicht mit dem gesamten Vektor arbeiten, sondern nur einzelne Elemente daraus auswählen.
+
+Dafür verwenden wir in R eckige Klammern:
+
+```{r}
+#| echo: true
+#| eval: false
+
+vektor[position]
+```
+
+Die Zahl in den Klammern gibt an, welches Element des Vektors ausgewählt werden soll.
+
+Bitte führe folgende Aufgaben aus:
+
+1.  Was passiert, wenn du `namen[3]` eingibst?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+namen[3]
+```
+
+Es wird das dritte Element des Vektors `namen` angezeigt. In deinem Fall wird dieses Ergebnis wahrscheinlich von unserem abweichen, weil du die Namen selbst bestimmen konntest.
+:::
+::::
+
+2.  Was musst du eingeben, um an den Wert `FALSE` des Vektors `bestanden` zu gelangen?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+bestanden[2]
+```
+
+Du musst den Wert `2` eingeben, da `FALSE` an zweiter Stelle des Vektors steht.
+:::
+::::
+
+3.  Findest du heraus, wie du dir in R gleichzeitig mehrere Positionen auf einmal ausgeben lassen kannst?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Nur ein mögliches Beispiel
+temperaturen[c(2,4)]
+```
+
+Du kannst wie bei der Erstellung von Vektoren auch mehrere Positionen mit der Funktion `c()` innerhalb der eckigen Klammern direkt gemeinsam ansteuern.
+:::
+::::
+
+### ⭐ 4. Zusatzaufgabe: Vektoren automatisch erzeugen
+
+Bisher haben wir Vektoren meist erstellt, indem wir jeden Wert einzeln in `c()` geschrieben haben.
+
+R kann regelmässige Zahlenfolgen oder Wiederholungen aber auch automatisch erzeugen.
+
+#### 1. Zahlenfolge mit `seq()`
+
+Finde zunächst mithilfe der R-Hilfe oder einer anderen Ressource heraus, wie die Funktion `seq()` funktioniert.
+
+Erstelle anschliessend einen Vektor:
+
+-   beginnend bei `0`,
+
+-   endend bei `100`,
+
+-   in Schritten von `10`.
+
+Speichere das Ergebnis unter einem sinnvollen Objektnamen.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# seq()-Vektor erstellen
+zehnerschritte <- seq(from = 0, to = 100, by = 10)
+```
+:::
+::::
+
+#### 2. Werte wiederholen mit `rep()`
+
 Die wichtigsten Operatoren und Funktionen in R: <https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html>
 
 #### Statistische Funktionen, die man auf Vektoren anwenden kann, z.B.
