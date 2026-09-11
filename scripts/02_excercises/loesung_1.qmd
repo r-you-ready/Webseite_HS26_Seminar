@@ -1000,7 +1000,7 @@ Viele mathematische Operationen werden in R automatisch **elementweise** auf ein
 
 Ein Vektor enthält mehrere Werte in einer bestimmten Reihenfolge. Manchmal möchten wir aber nicht mit dem gesamten Vektor arbeiten, sondern nur einzelne Elemente daraus auswählen.
 
-Dafür verwenden wir in R eckige Klammern:
+Dafür verwenden wir in R **eckige Klammern**:
 
 ```{r}
 #| echo: true
@@ -1085,594 +1085,1345 @@ zehnerschritte <- seq(from = 0, to = 100, by = 10)
 
 #### 2. Werte wiederholen mit `rep()`
 
-Die wichtigsten Operatoren und Funktionen in R: <https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html>
+Finde nun heraus, wie `rep()` verwendet wird.
 
-#### Statistische Funktionen, die man auf Vektoren anwenden kann, z.B.
-
-| Funktion              | Bedeutung                 |
-|-----------------------|---------------------------|
-| mean(x, na.rm =FALSE) | Mittelwert                |
-| sd(x)                 | Standardabweichung        |
-| var(x)                | Varianz                   |
-| median(x)             | Median                    |
-| sum(x)                | Summe                     |
-| min(x)                | Minimalwert               |
-| max(x)                | Maximalwert               |
-| range(x)              | Minimal - und Maximalwert |
-
-### Logische Operatoren
-
-1.  Teste, ob die Zahl 5 größer als 2 ist –\> TRUE or FALSE?
+Erstelle einen Vektor, in dem die Zahl `5` zehnmal vorkommt. Speichere auch diesen Vektor unter einem sinnvollen Namen.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
+
+# seq()-Vektor erstellen
+fuenf_zehnmal <- rep(5, times = 10)
+```
+:::
+::::
+
+## A8 - Grundlegende Datentypen
+
+Im letzten Abschnitt haben wir verschiedene Vektoren erstellt: manche enthielten Zahlen, andere Text oder logische Werte.
+
+R unterscheidet solche Werte nach ihrem **Datentyp**.
+
+Das ist wichtig, weil der Datentyp bestimmt, wie R einen Wert interpretiert und welche Operationen damit möglich sind.
+
+Zum Beispiel:
+
+-   Mit Zahlen können wir rechnen.
+
+-   Text können wir nicht einfach addieren oder multiplizieren.
+
+-   Logische Werte können Bedingungen wie `TRUE` oder `FALSE` ausdrücken.
+
+📌 **Merke:** Für R ist nicht nur wichtig, welcher Wert gespeichert ist, sondern auch, welcher Art dieser Wert ist.
+
+### Wichtige grundlegende Datentypen
+
+Für den Anfang interessieren uns vor allem drei grundlegende Typen:
+
+#### Numeric: Zahlen
+
+Numerische Werte sind Zahlen, mit denen wir rechnen können.
+
+```{r}
+#| echo: true
+#| eval: false
+
+numeric_vector <- c(1, 2.5, 4)
+```
+
+Dieser Vektor enthält drei Zahlen.
+
+#### Character: Text
+
+Text wird in R in Anführungszeichen geschrieben.
+
+```{r}
+#| echo: true
+#| eval: false
+
+character_vector <- c("Bern", "Basel", "Zürich")
+```
+
+Die einzelnen Werte sind hier keine Zahlen, sondern Text.
+
+#### Logical: logische Werte
+
+Logische Werte können nur zwei Zustände annehmen:
+
+`TRUE`
+
+`FALSE`
+
+Zum Beispiel:
+
+```{r}
+#| echo: true
+#| eval: false
+
+logical_vector <- c(TRUE, FALSE, TRUE)
+```
+
+Solche Werte entstehen später häufig, wenn wir Bedingungen überprüfen.
+
+### 🧭 1. Typen selbst untersuchen
+
+1.  Erstelle die drei Vektoren oben. Prüfe anschliessend:
+
+-   `class(numeric_vector)`
+
+-   `class(character_vector)`
+
+-   `class(logical_vector)`
+
+Welche Ausgabe erhältst du?
+
+2.  Probiere zusätzlich:
+
+-   `typeof(numeric_vector)`
+
+::: {.callout-note collapse="true" title="Hinweis"}
+Bei numerischen Daten kann R intern noch zwischen verschiedenen Zahlentypen unterscheiden, z.B. `integer` und `double`.
+
+Für den Moment ist vor allem wichtig: Zahl, Text und logischer Wert sind unterschiedliche Arten von Information.
+:::
+
+### 🧭 2. Was passiert beim Mischen?
+
+Erstelle:
+
+```{r}
+#| echo: true
+#| eval: false
+
+gemischt <- c(1, 2,"drei", 4)
+```
+
+Prüfe: `class(gemischt)`
+
+Was ist passiert?
+
+Prüfe zusätzlich `gemischt[1]` und `class(gemischt[1])`
+
+Warum behandelt R die ursprünglich eingegebene Zahl nun nicht mehr als Zahl?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Da ein einfacher Vektor nur einen gemeinsamen Datentyp enthalten kann, versucht R, alle Werte in einen Typ umzuwandeln.
+
+Da "drei" Text ist, werden auch die Zahlen als Text behandelt.
+
+Deshalb ist `class(gemischt)` gleich `"character"`.
+
+📌 **Merke:** Ein einfacher Vektor enthält nur einen gemeinsamen Datentyp. Werden unterschiedliche Typen kombiniert, versucht R, die Werte in einen gemeinsamen Typ umzuwandeln. Das nennt man Typumwandlung bzw. coercion.
+:::
+::::
+
+Wir haben nun gesehen, dass R neben Zahlen und Text auch logische Werte wie `TRUE` und `FALSE` kennt. Solche Werte müssen wir nicht immer selbst eingeben: Sie entstehen häufig automatisch, wenn wir R eine Bedingung oder Vergleichsfrage stellen.
+
+Als Nächstes schauen wir uns deshalb an, wie R Bedingungen überprüft und daraus logische Werte erzeugt.
+
+## A9 - Logische Operatoren: Bedingungen überprüfen
+
+Bisher haben wir gesehen, dass `TRUE` und `FALSE` einen eigenen Datentyp darstellen: **logical**. Solche logischen Werte entstehen in R sehr häufig dann, wenn wir eine Aussage überprüfen.
+
+Zum Beispiel können wir R fragen:
+
+Ist 5 grösser als 2?
+
+```{r}
+#| echo: true
+#| eval: true
+
 5 > 2
 ```
 
-TRUE, 5 ist grösser als 2.
-:::
-::::
+Oder: Ist 6 gleich 8?
 
-2.  Teste, ob 6 ungleich 8 ist –\> TRUE or FALSE?
+```{r}
+#| echo: true
+#| eval: true
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-6 != 8
+6 == 8
 ```
 
-TRUE, 6 und 8 sind ungleich.
+📌 **Merke:** Ein Vergleich in R liefert als Ergebnis normalerweise einen logischen Wert: `TRUE` oder `FALSE`.
+
+### Vergleichsoperatoren
+
+Für solche Vergleiche verwenden wir sogenannte Vergleichsoperatoren:
+
+| Operator | Bedeutung           |
+|----------|---------------------|
+| ==       | gleich              |
+| !=       | ungleich            |
+| \>       | grösser als         |
+| \<       | kleiner als         |
+| \>=      | grösser oder gleich |
+| \<=      | kleiner oder gleich |
+| \|       | Logisches Oder      |
+| &        | Logisches Und       |
+
+::: {.callout-important collapse="true" title="Wichtig"}
+`<-` und `==` haben unterschiedliche Aufgaben:
+
+`alter <- 24` bedeutet: Speichere `24` im Objekt `alter`.
+
+Dagegen bedeutet: `alter == 24`, dass geprüft werden soll, ob der Wert in `alter` gleich `24` ist.
+
+Der erste Ausdruck weist einen Wert zu, der zweite überprüft eine Bedingung.
 :::
-::::
 
-3.  Subtrahiere 80 von 50 und speichere das Ergebnis in einer Variable namens `diff_score`.
+### 🧭 1. Einfache Aussagen überprüfen
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-diff_score <- 50 - 80
-```
-:::
-::::
+Überlege dir bei jeder der folgenden Aussagen zuerst selbst, ob R `TRUE` oder `FALSE` ausgeben wird.
 
-4.  Berechne mit `abs()` den absoluten Wert von `diff_score`. Lasse dir diesen mit `print(diff_score)` in der Konsole ausgeben.
+Führe den Code erst danach bei dir aus und überprüfe deine Vermutung:
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-diff_score_abs <- abs(diff_score)
+```{r}
+#| echo: true
+#| eval: false
 
-# print(diff_score_abs) (hier erneut mit # auskommentiert, da der Befehl nicht im Skript, sondern in der Console ausgeführt werden soll)
-```
-:::
-::::
-
-#### Logische Operatoren, z.B.
-
-| Zeichen | Bedeutung      |
-|---------|----------------|
-| ==      | gleich         |
-| !=      | ungleich       |
-| \>      | grösser        |
-| \>=     | grösser gleich |
-| \<      | kleiner        |
-| \<=     | kleiner gleich |
-| \|      | Logisches Oder |
-| &       | Logisches Und  |
-
-## Nachvollziehbarkeit von Code
-
-### Kommentare
-
-Informative Kommentare im Code sind elementar für die Nachvollziehbarkeit.
-
-1.  Schreibe einen Kommentar, indem du ein `#` verwendest.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-# Hier ein Beispiel für einen Kommentar. Wie auch schon weiter oben mehrmals verwendet, hindert dieser die Lösungen daran, ausgeführt zu werden.
-```
-:::
-::::
-
-2.  Code, der nach einem `#` steht, wird nicht ausgeführt. Setze ein `#` vor eine Codezeile, führe sie aus und beobachte, was passiert.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-# 1 + 2
-```
-:::
-::::
-
-### Benennung von Variablen
-
-Es gibt verschiedene Konventionen wie man Variablen bennen kann:
-
-<https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#variablennamen>
-
-1.  Definiere eine neue Variable nach snake_case
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-neue_variable <- "snake_case"
-```
-:::
-::::
-
-2.  Definiere eine zweite Variable nach CamelCase
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-neueVariable <- "CamelCase"
-```
-:::
-::::
-
-## Für fortgeschrittene R-Nutzer:innen
-
-1.  Speichere die beiden höchsten Werte aus «first_vector» in einer neuen Variable ab.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-# Lösung mit Indexierung
-top_two <- sort(first_vector, decreasing = TRUE)[1:2]
-
-# Option mit head()
-top_two <- first_vector %>%
-  sort(decreasing = TRUE) %>%
-  head(2)
-```
-:::
-::::
-
-2.  Erstelle einen Vektor mit Werten von 0-1000 in 10er Schritten.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-vec_seq <- seq(from = 1, to = 1000, by = 10)
-```
-:::
-::::
-
-3.  Ziehe zufällig eine Zahl aus diesem Vektor
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-sample(vec_seq, 1)
-```
-:::
-::::
-
-4.  Generiere einen Vektor, der aus 50 Wiederholungen der Zahl 3 besteht.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-my_vector <- rep(3, times = 50)
-```
-:::
-::::
-
-Tipps zu diesen Aufgaben findest du bei Bedarf hier: <https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html> (Kapitel 2.1)
-
-## Datentypen
-
-1.  **numeric vectors:** werden in integer (ganze Zahlen) und double (reelle Zahlen) unterteilt, z.B.
-
-    `numerical_vector <- c(1, 2.5, 4)`
-
-2.  **character vectors:** bestehen aus Zeichen, welche von Anführungszeichen umgeben werden, z.B.
-
-    `text_vector <- c("Hello", "World")`
-
-3.  **logical vectors:** Elemente dieses Typs können nur 3 Werte annehmen: TRUE, FALSE oder NA
-
-    `log_vector <- c(TRUE, FALSE, TRUE)`
-
-Vektoren müssen aus denselbsten Elementen bestehen, d.h. z.B. numeric und character können nicht gemischt werden. Vektoren werden meist mit `c()` erstellt.
-
-# Zusätzliche Übungen (falls Zeit):
-
-ℹ️ **Hinweis:** Hilfestellungen zu den Übungen findest du [hier](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#datentypen).
-
-Nicht alle benötigten Funktionen sind explizit erwähnt. Nutze bei Bedarf eine Suchmaschine, um passende Befehle zu finden.
-
-**Überprüfen von Datentypen – palmerpenguins**
-
-Lade den öffentlich in R verfügbaren Datensatz *palmerpenguins* mit den folgenden Befehlen:
-
-``` r
-install.packages("palmerpenguins")   # nur einmal nötig 
+3 > 2
 ```
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-# install.packages("palmerpenguins")   # nur einmal nötig # führe diesen Code in der Console aus
+
+3 > 2
 ```
 :::
 ::::
 
-``` r
-library(palmerpenguins) 
-my_penguins <- penguins 
+```{r}
+#| echo: true
+#| eval: false
+
+17 == 16
 ```
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-library(palmerpenguins) 
-my_penguins <- penguins
+
+17 == 16
 ```
 :::
 ::::
 
-### Datensatz inspizieren
+```{r}
+#| echo: true
+#| eval: false
 
--   Wie viele Variablen (Spalten) sind enthalten?
+10 != 5
+```
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-ncol(my_penguins)
+
+10 != 5
 ```
 :::
 ::::
 
--   Wie viele Beobachtungen (Zeilen)?
+```{r}
+#| echo: true
+#| eval: false
+
+4 >= 4
+```
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-nrow(my_penguins)
+
+4 >= 4
 ```
 :::
 ::::
 
-### Überblick über den Datensatz
+```{r}
+#| echo: true
+#| eval: false
 
-Nutze verschiedene Befehle und vergleiche die Ergebnisse:
+3 < 1
+```
 
-Verwende die Hilfefunktion `?funktionsname` um dir zeigen zu lassen, welche Argumente die Funktionen benötigen.
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+3 < 1
+```
+:::
+::::
+
+```{r}
+#| echo: true
+#| eval: false
+
+3 & 4 == 3
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+3 & 4 == 3
+```
+:::
+::::
+
+```{r}
+#| echo: true
+#| eval: false
+
+3 | 4 == 3
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+3 | 4 == 3
+```
+:::
+::::
+
+### 🧭 2. Jetzt du
+
+Formuliere selbst in R die folgenden Fragen:
+
+1.  Ist `15` grösser als `10`?
+
+2.  Ist `20` kleiner oder gleich `20`?
+
+3.  Ist `7` ungleich `7`?
+
+4.  Ist `12` gleich `6 * 2`?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# 1. Frage
+15 > 10
+
+# 2. Frage
+20 <= 20
+
+# 3. Frage
+7 != 7
+
+# 4. Frage
+12 == 6 * 2
+```
+:::
+::::
+
+### 🧭 3. Bedingungen auf Objekte anwenden
+
+Vergleichsoperatoren können wir natürlich auch auf bereits gespeicherte Objekte anwenden.
+
+Erstelle zunächst:
+
+```{r}
+#| echo: true
+#| eval: false
+
+age <- 24
+```
+
+Schreibe anschliessend selbst den Code, um folgende Fragen zu beantworten:
+
+-   Ist `age` grösser als 18?
+
+-   Ist `age` genau 24?
+
+-   Ist `age` ungleich 30?
+
+-   Ist `age` kleiner oder gleich 20?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+age <- 24
+
+# Ist age grösser als 18?
+age > 18
+
+# Ist age genau 24?
+age == 24
+
+# Ist age ungleich 30?
+age != 30
+
+# Ist age kleiner oder gleich 20?
+age <= 20
+```
+:::
+::::
+
+### 🧭 4. Bedingungen auf ganze Vektoren anwenden
+
+Besonders nützlich werden logische Operatoren, wenn wir sie auf einen ganzen Vektor anwenden.
+
+Nutze wieder deinen bereits erstellten Vektor `scores`.
+
+Führe aus:
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores >= 70
+```
+
+**Beobachte genau**
+
+-   Wie viele Ergebnisse gibt R zurück?
+
+-   Warum erhältst du nicht nur ein einzelnes `TRUE` oder `FALSE`?
+
+-   Zu welchem Score gehört jedes Ergebnis?
+
+📌 **Merke:** Wie bei mathematischen Operatoren arbeitet R auch bei Vergleichen häufig elementweise. Für jedes Element des Vektors wird die Bedingung separat geprüft.
+
+### 🧭 5. Bedingungen kombinieren
+
+Manchmal reicht eine einzelne Bedingung nicht aus.
+
+Zum Beispiel möchten wir vielleicht wissen, welche Scores mindestens 70 und höchstens 85 sind.
+
+Dafür können wir Bedingungen miteinander verbinden.
+
+#### `&`: UND
+
+Bei `&` müssen beide Bedingungen gleichzeitig erfüllt sein.
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores >= 70 & scores <= 85
+```
+
+#### `|`: ODER
+
+Bei `|` muss mindestens eine der beiden Bedingungen erfüllt sein.
+
+Zum Beispiel:
+
+```{r}
+scores < 30 | scores > 90
+```
+
+Finde nun selbstständig in deinen Daten heraus:
+
+1.  Welche Scores liegen zwischen `50` und `80`?
+
+2.  Welche Scores liegen zwischen `75` und `90`?
+
+3.  Welche Scores sind kleiner als `25` oder grösser als `95`?
+
+4.  Welche Scores sind mindestens `50`, aber höchstens `75`?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Welche Scores liegen zwischen 50 und 80?
+scores >= 50 & scores <= 80
+
+# Welche Scores liegen zwischen 75 und 90?
+scores >= 75 & scores <= 90
+
+# Welche Scores sind kleiner als 25 oder grösser als 95?
+scores < 25 | scores > 95
+
+# Welche Scores sind mindestens 50, aber höchstens 75?
+scores >= 50 & scores <= 75
+```
+:::
+::::
+
+Wir können Vektoren jetzt erstellen, verändern und Bedingungen auf ihre Elemente anwenden.
+
+Bei numerischen Vektoren interessiert uns häufig zusätzlich, wie sich die enthaltenen Werte insgesamt beschreiben lassen.
+
+Als Nächstes lernen wir deshalb einige zentrale statistische Funktionen kennen.
+
+## A10 - Statistische Funktionen auf Vektoren
+
+Vektoren sind besonders wichtig, weil die Spalten unserer späteren Datensätze im Kern ebenfalls aus Vektoren bestehen.
+
+Nun können wir erste einfache Kennwerte berechnen.
+
+### 🧭 1. Funktionen selbst ausprobieren
+
+Nutze deine bereits erstellte Variable `scores` und berechne einmal folgende statistische Kennwerte. Schreibe den Code selbstständig in dein Skript und weise jedes Ergebnis jeweils einem sinnvoll benannten Objekt zu.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Mittelwert der Variable
+scores_mean <- mean(scores)
+scores_mean
+
+# Standardabweichung der Variable
+scores_sd <- sd(scores)
+scores_sd
+
+# Varianz der Variable
+scores_variance <- var(scores)
+scores_variance
+
+# Median der Variable
+scores_median <- median(scores)
+scores_median
+
+# Summe der Variable
+scores_sum <- sum(scores)
+scores_sum
+
+# Minimalwert der Variable
+scores_min <- min(scores)
+scores_min
+
+# Maximalwert der Variable
+scores_max <- max(scores)
+scores_max
+
+# Range der Variable
+scores_range <- range(scores)
+scores_range
+```
+:::
+::::
+
+#### Statistische Funktionen, die man auf Vektoren anwenden kann, z.B.
+
+| Funktion               | Bedeutung           |
+|------------------------|---------------------|
+| mean(x, na.rm = FALSE) | Mittelwert          |
+| sd(x)                  | Standardabweichung  |
+| var(x)                 | Varianz             |
+| median(x)              | Median              |
+| sum(x)                 | Summe               |
+| min(x)                 | Minimalwert         |
+| max(x)                 | Maximalwert         |
+| range(x)               | Minimum und Maximum |
+
+### ⭐ 2. Zusatzaufgabe: Funktionen kombinieren
+
+Versuche, die Differenz zwischen dem höchsten und niedrigsten Score zu berechnen. Du sollst dabei nicht die Werte selbst ausschreiben!
+
+Du darfst dafür mehrere Funktionen miteinander kombinieren.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+# Differenz aus höchstem und niedrigstem Score
+max(scores) - min(scores)
+
+# Alternative direkt über gespeicherte Objekte
+scores_max - scores_min
+```
+:::
+::::
+
+## ✅ Checkpoint: Ende Einheit 1
+
+Du hast inzwischen viele neue Konzepte kennengelernt. Es ist nicht das Ziel, alle Befehle auswendig zu kennen.
+
+Prüfe stattdessen, ob du die grundlegenden Ideen erklären kannst:
+
+-   Ich weiss, wann ein Paket installiert und wann es geladen werden muss.
+
+-   Ich kann einfache mathematische Operatoren in R verwenden.
+
+-   Ich kann Werte in Objekten speichern.
+
+-   Ich kann eine Funktion aufrufen und einfache Argumente verändern.
+
+-   Ich kann einen Vektor mit `c()` erstellen.
+
+-   Ich kenne den Unterschied zwischen numeric, character und logical.
+
+-   Ich kann einfache statistische Funktionen auf einen Vektor anwenden.
+
+-   Ich kann mit logischen Operatoren Bedingungen formulieren.
+
+-   Mein Code steht im Skript und ist gespeichert.
+
+### ⭐ Evtl. noch Zusatzübungen Einheit 1
+
+# Einheit 2: Von funktionierendem zu nachvollziehbarem Code
+
+In Einheit 1 ging es zunächst darum, R grundsätzlich bedienen zu können. In Einheit 2 verschiebt sich unser Fokus.
+
+Nun geht es nicht mehr nur um die Frage: **Funktioniert mein Code?**
+
+sondern zusätzlich um: **Kann ich später noch nachvollziehen, was ich getan habe - und kann eine andere Person meinen Code verstehen?**
+
+Das ist für unser Seminar zentral: Datenanalysen sollen nicht nur funktionieren, sondern transparent, nachvollziehbar und reproduzierbar sein.
+
+## B1 - Funktioniert mein Skript auch später noch?
+
+In Einheit 1 haben wir viele Objekte erstellt. Diese sind aktuell möglicherweise noch in deinem **Environment** gespeichert.
+
+Das kann jedoch täuschen: Ein Skript sollte nicht nur deshalb funktionieren, weil zufällig noch Objekte aus einer früheren Sitzung vorhanden sind.
+
+Deshalb testen wir jetzt: **Kann mein Skript meine Arbeit auch nach einem Neustart vollständig wiederherstellen?**
+
+### 🧭 1. Skript überprüfen und speichern
+
+Bevor du R neu startest, prüfe:
+
+-   Ist dein Skript gespeichert?
+
+-   Weisst du, wo die Datei liegt?
+
+-   Sind alle relevanten Befehle im Skript enthalten?
+
+-   Werden benötigte Pakete am Anfang des Skripts gespeichert?
+
+Speichere dein Skript anschliessend noch einmal.
+
+### 🧭 2. R neu starten
+
+Wähle in RStudio: **Session → Restart R**
+
+Beobachte dein Environment. Die Objekte, die du zuvor erstellt hast, sollten verschwunden sein. Dein gespeichertes Skript ist dagegen weiterhin vorhanden.
+
+📌 **Merke:** Das Environment gehört zur aktuellen R-Sitzung. Das gespeicherte Skript bleibt dagegen dauerhaft erhalten.
+
+### 🧭 3. Skript von oben bis unten erneut ausführen
+
+Führe dein Skript nun Schritt für Schritt von oben nach unten aus.
+
+Beobachte dabei:
+
+-   Werden alle benötigten Pakete geladen?
+
+-   Werden Objekte wieder erstellt?
+
+-   Treten Fehlermeldungen auf?
+
+-   Gibt es Stellen, an denen ein Objekt verwendet wird, bevor es erstellt wurde?
+
+❗Falls etwas nicht funktioniert, solltest du nicht sofort mehrere Stellen gleichzeitig verändern. Suche zunächst die erste Codezeile, bei der ein Problem auftritt.
+
+## B2 - Nachvollziehbarer Code: Struktur & Kommentare
+
+Ein Skript kann technisch korrekt funktionieren und trotzdem schwer verständlich sein.
+
+Vergleiche:
+
+```{r}
+#| echo: true
+#| eval: false
+
+x <- c(5, 8, 2, 9)
+
+mean(x)
+
+sd(x)
+
+y <- x > 5
+```
+
+mit:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Testwerte erstellen
+test_scores <- c(5, 8, 2, 9)
+
+# Deskriptiver Überblick über die Testwerte
+mean(test_scores)
+sd(test_scores)
+
+# Testwerte über 5 identifizieren
+scores_over_5 <- test_scores > 5
+```
+
+#### Übelege
+
+Welches Skript würdest du lieber wieder öffnen, wenn du es in zwei Monaten noch einmal brauchst?
+
+Warum?
+
+### Kommentare in R
+
+Kommentare beginnen mit:
+
+```{r}
+#| echo: true
+#| eval: false
+
+#
+```
+
+Alles, was hinter `#` steht, wird von R nicht als Code ausgeführt.
+
+#### Gute Kommentare erklären nicht nur was, sondern warum
+
+Weniger hilfreich:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Mittelwert
+mean(test_scores)
+```
+
+Hilfreicher:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Deskriptiver Überblick über die Verteilung der Testwerte: Mittelwert
+mean(test_scores)
+```
+
+Später können Kommentare z.B. erklären:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Kontrollgruppe entsprechend Analyseplan ausschliessen
+
+# Reverse-codiertes Item vor Berechnung des Skalenwerts umpolen
+```
+
+📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentschiedungen nachzuvollziehen.
+
+#### 🧭 Strukturiere dein Skript
+
+Ergänze in deinem bisherigen Skript eine Codezeile mit einem nützlichen Kommentar.
+
+## B3 - Gute Objektnamen: Code soll für Menschen lesbar sein
+
+Kommentare sind nur ein Teil von verständlichem Code.
+
+Auch die Namen unserer Objekte sollten möglichst verraten, was darin gespeichert ist.
+
+Vergleiche:
+
+```{r}
+#| echo: true
+#| eval: false
+
+x <- c(75, 82, 91)
+
+m <- mean(x)
+```
+
+mit:
+
+```{r}
+#| echo: true
+#| eval: false
+
+test_scores <- c(75, 82, 91)
+
+mean_test_scores <- mean(test_scores)
+```
+
+Welche Version lässt sich leicher verstehen, ohne dass du weiteren Kontext kennst?
+
+### Unser Standard: `snake_case`
+
+Im Seminar verwenden wir möglichst `snake_case`.
+
+Das bedeutet:
+
+-   Wörter werden mit Kleinbuchstaben geschrieben,
+
+-   mehrere Wörter werden mit `_` verbunden.
+
+Zum Beispiel:
+
+```{r}
+#| echo: true
+#| eval: false
+
+reaction_time
+feedback_group
+mean_score
+participant_id
+```
+
+### Gute Objektnamen sollten...
+
+-   beschreiben, was im Objekt enthalten ist,
+
+-   verständlich, aber nicht unnötig lang sein,
+
+-   keine Leerzeichen enthalten,
+
+-   möglichst keine Sonderzeichen enthalten,
+
+-   innerhalb eines Skripts konsistent verwendet werden.
+
+❗**Wichtig:** R unterscheidet Gross- und Kleinschreibung: `score` und `Score` sind zwei unterschiedliche Objekte.
+
+### 🧭 1. Objektnamen verbessern
+
+Die folgenden Namen sind nicht besonders hilfreich:
+
+```{r}
+#| echo: true
+#| eval: false
+
+mein wert
+TestNEU
+finalMean2
+A
+```
+
+Überlege dir für jeden Namen eine bessere Variante.
+
+Da wir nicht wissen, welchen Inhalt die Objekte besitzen, gibt es hier nicht nur eine richtige Lösung!
+
+### 🧭 2. Dein eigenes Skript prüfen
+
+Gehe nun dein bisheriges Skript durch.
+
+Prüfe:
+
+-   Gibt es Objekte wie `x`, `y` oder `z`?
+
+-   Kannst du aus jedem Objektnamen ungefähr erkennen, was darin gespeichert ist?
+
+-   Hast du unterschiedliche Benennungsstile verwendet?
+
+-   Gibt es Namen, die du heute selbst schon nicht mehr verstehst?
+
+Verbessere bei Bedarf mindestens drei Objektnamen.
+
+📌 **Merke:** Gute Namen machen Code nicht nur für andere verständlicher, sondern auch für dein zukünftiges Ich.
+
+## B4 - Fehlersuche: Error Hunt
+
+Fehler gehören zum Arbeiten mit R.
+
+Auch erfahrene R-Nutzer:innen produzieren regelmässig Fehlermeldungen, suchen nach Funktionen und müssen Code ausprobieren.
+
+Das Ziel ist deshalb nicht, keine Fehler zu machen, sondern systematisch herauszufinden, warum etwas nicht funktioniert.
+
+### Ein einfacher Ablauf für die Fehlersuche
+
+Wenn Code nicht funktioniert:
+
+1.  Code ausführen
+
+2.  Fehlermeldung lesen
+
+3.  Problem lokalisieren
+
+4.  Vermutung formulieren
+
+5.  möglichst nur eine Sache verändern
+
+6.  erneut testen
+
+❗**Wichtig:** Lies die Fehlermeldung zuerst genau durch, bevor du Code veränderst.
+
+### 🧭 Fehler finden, verstehen & beheben
+
+In den folgenden Codebeispielen steckt jeweils mindestens ein Problem.
+
+Für jede Aufgabe solltest du beantworten können:
+
+1.  Was passiert, wenn du den Code ausführst?
+
+2.  Wo liegt das Problem?
+
+3.  Wie kannst du den Code korrigieren?
+
+4.  Handelt es sich um einen echten Fehler - oder läuft der Code zwar, macht aber nicht das, was vermutlich beabsichtigt war?
+
+**Aufgaben:**
+
+1.  Führe den Code aus und beobachte genau die Konsole:
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores <- c(64, 72, 81, 90
+            
+mean(scores)
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+scores <- c(64, 72, 81, 90)
+
+mean(scores)
+```
+
+Bei der Erstellung des Vektors fehlt die schliessende Klammer. R betrachtet den Ausdruck deshalb zunächst als unvollständig.
+:::
+::::
+
+<br>
+
+2.  Der Vektor wurde erfolgreich erstellt, trotzdem funktioniert die Berechnung nicht:
+
+```{r}
+#| echo: true
+#| eval: false
+
+test_scores <- c(72, 85, 91, 68)
+            
+mean(Test_scores)
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+test_scores <- c(72, 85, 91, 68)
+
+mean(test_scores)
+```
+
+R unterscheidet Gross- und Kleinschreibung. `Test_scores` und `test_scores` sind zwei unterschiedliche Namen.
+:::
+::::
+
+<br>
+
+3.  Wo liegt hier das Problem:
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores_neu <- c(65, 72, "80", 91)
+
+mean(scores_neu)
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+scores_neu <- c(65, 72, 80, 91)
+
+mean(scores_neu)
+```
+
+Durch `"80"` wird der gesamte Vektor zu einem Character-Vektor. Die Anführungszeichen müssen entfernt werden, wenn tatsächlich die Zahl `80` gemeint ist.
+:::
+::::
+
+<br>
+
+4.  Mit dem folgenden Code sollen alle Scores identifiziert werden, die zwischen `60` und `80` liegen:
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores_60_80 <- c(45, 62, 74, 81, 59, 77, 93)
+
+scores_60_80 >= 60 | scores_60_80 <= 80
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+scores_60_80 <- c(45, 62, 74, 81, 59, 77, 93)
+
+scores_60_80 >= 60 & scores_60_80 <= 80
+```
+
+Gesucht sind Werte, die gleichzeitig mindestens `60` und höchstens `80` sind. Mit `|` reicht dagegen bereits eine der beiden Bedingungen. Dadurch werden wesentlich mehr Werte als `TRUE` markiert.
+:::
+::::
+
+<br>
+
+5.  Eine Person möchte prüfen, welche Scores genau `74` betragen und schreibt:
+
+```{r}
+#| echo: true
+#| eval: false
+
+scores <- c(45, 62, 74, 81, 59, 77, 93)
+
+scores <- 74
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+
+scores <- c(45, 62, 74, 81, 59, 77, 93)
+
+scores == 74
+```
+
+Durch `scores <- 74` wird der ursprüngliche Vektor überschrieben. Für einen Vergleich wird `==` benötigt. Dieser Fehler ist besonders problematisch, weil R keine Fehlermeldung erzeugt.
+:::
+::::
+
+## B5 - Hilfe finden: Nicht alles auswendig wissen
+
+Niemand kennt alle R-Funktionen, Argumente oder Fehlermeldungen auswendig.
+
+Eine zentrale Kompetenz im Umgang mit R ist deshalb: **wissen, wie man sich selbst weiterhilft!**
+
+Im Laufe des Seminars sollt ihr zunehmend selbstständig entschieden können:
+
+-   Wo kann ich nachschauen?
+
+-   Welche Informationen brauche ich?
+
+-   Wie überprüfe ich, ob eine gefundene Lösung sinnvoll ist?
+
+### Möglichkeit 1: R-Hilfe
+
+Für eine bekannte Funktion kannst du direkt eine Hilfeseite öffnen:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Option 1
+?mean
+
+# Option 2
+help(mean)
+```
+
+Öffne einmal selbst die Hilfe zu `mean()`.
+
+Finde heraus:
+
+-   Wie heisst das erste Argument?
+
+-   Welches Argument steuert den Umgang mit fehlenden Werten?
+
+-   Welchen Standardwert besitzt dieses Argument?
+
+### Möglichkeit 2: Help-Tab
+
+Suche im **Help-Tab** von RStudio nach `round()`.
+
+Finde heraus:
+
+-   Welche Argumente besitzt `round()`?
+
+-   Welches Argument davon haben wir bereits in Einheit 1 verwendet?
+
+### Möglichkeit 3: Kursmaterial & Cheat Sheets
+
+Nutze:
+
+-   Kurswebseite,
+
+-   Hands-on-Unterlagen,
+
+-   verlinkte Kapitel,
+
+-   Cheat Sheets.
+
+### Möglichkeit 4: Suchmaschine oder KI
+
+Auch Suchmaschinen oder KI können bei R-Problemen sehr hilfreich sein.
+
+❗ **Aber:** Übernimm gefundenen Code nicht einfach blind!
+
+Frage dich:
+
+-   Verstehe ich ungefähr, was der Code macht?
+
+-   Passt die Lösung zu meinem Problem?
+
+-   Funktionieren die verwendeten Funktionen tatsächlich in R?
+
+-   Kann ich das Ergebnis überprüfen?
+
+-   Verändert der Code meine Daten so, wie ich es erwarte?
+
+### 🧭 Recherche-Aufgabe
+
+Finde selbstständig heraus, was die folgenden Funktionen machen:
+
+-   `sort()`
+
+-   `unique()`
+
+-   `rev()`
+
+1.  Nutze dazu mindestens zwei unterschiedliche Hilfswege.
+
+2.  Beschreibe jede Funktion kurz in eigenen Worten.
+
+3.  Erstelle selbst einen geeigneten Vektor.
+
+4.  Wende alle drei Funktionen darauf an.
+
+    :::: {.content-visible when-meta="show_solutions"}
+    ::: {.callout-note collapse="true" title="Lösung"}
+    ```{r, include = TRUE, eval = TRUE}
+
+    # Es gibt viele mögliche Lösungen. Z.B. könntest du folgenden Vektor verwenden:
+    zahlen <- c(5, 2, 8, 5, 3, 8, 1)
+
+    # sort() sortiert die Werte eines Vektors der Grösse nach
+    sort(zahlen)
+
+    # unique() entfernt doppelt vorkommende Werte, behält aber die Reihenfolge ihres ersten Auftretens bei
+    unique(zahlen)
+
+    # rev() kehrt die ursprüngliche Reihenfolge der Elemente eines Vektors um
+    rev(zahlen)
+    ```
+
+    Durch `scores <- 74` wird der ursprüngliche Vektor überschrieben. Für einen Vergleich wird `==` benötigt. Dieser Fehler ist besonders problematisch, weil R keine Fehlermeldung erzeugt.
+    :::
+    ::::
+
+## B6 - Dein erster Datensatz: `palmerpenguins`
+
+Bisher haben wir hauptsächlich mit einzelnen Werten und Vektoren gearbeitet.
+
+Psychologische Forschungsdaten bestehen aber typischerweise aus:
+
+-   mehreren Beobachtungen,
+
+-   und mehreren Variablen.
+
+Diese werden häufig tabellarisch in einem **Data Frame** gespeichert. Heute schauen wir uns erstmals einen solchen Datensatz an.
+
+📌 **Wichtig:** Data Frames und ihre Struktur behandeln wir später im Seminar noch ausführlicher. Heute geht es zunächst darum, einen ersten Datensatz zu öffnen und zu erkunden.
+
+### 🧭 1. Paket installieren & laden
+
+Der Datensatz `penguins` befindet sich im Paket `palmerpenguins`. Falls das Paket noch nicht installiert ist, installiert du dieses in der Konsole einmalig und lädst das Paket anschliessend in deinem Skript.
+
+### 🧭 2. Den Datensatz erstmals anschauen
+
+Führe aus:
+
+```{r}
+#| echo: true
+#| eval: false
+
+penguins
+```
+
+Beobachte zunächst einfach die Ausgabe. Noch bevor wir weitere Funktionen verwenden:
+
+**Überlege**
+
+-   Was könnte eine Zeile darstellen?
+
+-   Was könnte eine Spalte darstellen?
+
+-   Welche Variablennamen erkennst du?
+
+-   Welche Variablen scheinen Zahlen zu enthalten?
+
+-   Welche scheinen Kategorien oder Text zu enthalten?
+
+Besprecht eure Vermutungen kurz zu zweit.
+
+### 🧭 3. Wie gross ist unser Datensatz?
+
+Finde heraus:
+
+-   Wie viele Zeilen besitzt `penguins`?
+
+-   Wie viele Spalten besitzt `penguins`?
+
+Nutze dazu die beiden Funktionen `nrow()` und `ncol()`. Speichere beide Ergebnisse anschliessend unter sinnvollen Objektnamen.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r, include = TRUE, eval = TRUE}
+# Anzahl Zeilen
+n_observations <- nrow(penguins)
+n_observations
+
+# Anzahl Spalten
+n_variables <- ncol(penguins)
+n_variables
+```
+:::
+::::
+
+### 🧭 4. Unterschiedliche Wege, einen Datensatz zu inspizieren
+
+R bietet verschiedene Funktionen an, um sich einen Datensatz anzusehen.
+
+Probiere nacheinander folgende Funktionen aus:
 
 -   `head()`
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-?head() # um die Hilfeseite zu öffnen
-head(my_penguins)
-```
-:::
-::::
-
 -   `glimpse()`
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-?glimpse() # um die Hilfeseite zu öffnen
-glimpse(my_penguins)
-```
-:::
-::::
 
 -   `str()`
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-?str() # um die Hilfeseite zu öffnen
-str(my_penguins)
-```
-:::
-::::
-
--   `penguins`
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-# ist keine Funktion sondern ein Datensatz und daher gibt es hierfür auch keine Hilfeseite
-penguins
-```
-:::
-::::
-
 -   `summary()`
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-?summary() # um die Hilfeseite zu öffnen
-summary(my_penguins)
-```
-:::
-::::
-
-👉 Was sind die Unterschiede zwischen den Befehlen?
-
-Alle der Befehle sind dafür geeignet, einen ersten schnellen Überblick über den Datensatz zu erhalten. `head()` gibt die ersten paar (Standardmässig 6) Zeilen des Datensatzes aus. `glimpse()` gibt für jede Spalte den Namen, Typ und ihren ersten Wert aus. `str()` gibt einen Überblick über die Dimensionen des Datensatzes, wie Anzahl an Spalten, Anzahl an Zeilen und über die Datentypen. `summary()` gibt eine statistische Zusammenfassung des Datensatzes, wie beispielsweise bei numerischen Variablen den minimalen Wert, maximalen Wert, Median und Mean oder bei faktoriellen Variablen die Anzahl an Faktorstufen und ihrer entsprechenden Häufigkeit. Mit `penguins` allein wird einfach das entsprechende Objekt aufgerufen (hier handelt es sich nicht um eine Funktion).
-
-### Datentypen überprüfen
-
--   Welchen Datentyp haben diese Variablen?
-
-    -   `island`
+Was sind die Unterschiede zwischen den Befehlen?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-class(my_penguins$island)
-```
+Alle der Befehle sind dafür geeignet, einen ersten schnellen Überblick über den Datensatz zu gewinnen.
+
+-   `head()` gibt die ersten paar (standardmässig 6) Zeilen des Datensatzes aus.
+
+-   `glimpse()` gibt für jede Spalte den Namen, Typ und ihren ersten Wert aus.
+
+-   `str()` gibt einen Überblick über die Dimensionen des Datensatzes, wie Anzahl an Spalten, Anzahl an Zeilen und Überblick über die Datentypen.
+
+-   `summary()` gibt eine statistische Zusammenfassung des Datensatzes, wie bspw. bei numerischen Variablen den minimalen Wert, maximalen Wert, Median und Mean oder bei Faktoren die Anzahl an Faktorstufen und ihre entsprechende Häufigkeit.
 :::
 ::::
 
-`island` hat den Datentyp *factor*.
+## B7 - Datentypen in echten Daten wiederfinden
 
-```         
--   `body_mass_g`
+In Einheit 1 haben wir `numeric`, `character` und `logical` kennengelernt.
+
+Nun schauen wir, welche Typen uns in einem echten Datensatz begegnen.
+
+### 🧭 1. Eine einzelne Variable auswählen
+
+Mit `$` können wir eine einzelne Spalte eines Data Frames über ihren Namen auswählen.
+
+Beispiel:
+
+```{r}
+#| echo: true
+#| eval: false
+
+penguins$body_mass_g
 ```
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-class(my_penguins$body_mass_g)
+### 🧭 2. Datentypen bestimmen
+
+Prüfe zunächst:
+
+```{r}
+#| echo: true
+#| eval: false
+
+class(penguins$body_mass_g)
 ```
-:::
-::::
 
-`body_mass_g`hat den Datentyp *integer*.
+Untersuche anschliessend selbstständig:
 
-```         
+-   `bill_length_mm`
+
 -   `species`
-```
+
+-   `island`
+
+-   `sex`
+
+-   `year`
+
+Welche Typen tauchen auf, die wir bisher noch nicht (ausführlich) behandelt haben?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
-class(my_penguins$species)
+# body_mass_g
+class(penguins$body_mass_g)
+
+# bill_length_mm
+class(penguins$bill_length_mm)
+
+# island
+class(penguins$island)
+
+# sex
+class(penguins$sex)
+
+# year
+class(penguins$year)
 ```
 :::
 ::::
 
-`species` hat den Datentyp *factor*.
+## B8 - Abschlussaufgabe: Alles zusammenbringen
 
-```         
-Tipp: Googeln
-```
+Zum Abschluss dieses Coding-Blocks sollt ihr mehrere bisher gelernte Konzepte selbstständig miteinander verbinden.
 
-::: {.callout-note collapse="true" title="Vertiefung"}
-Ihr hättet die Datentypen aus den vorherigen Aufgaben auch mit folgendem Code lösen können:
+Hier gibt es bewusst weniger genaue Codevorgaben.
 
-```{r, include = TRUE, eval = TRUE}
-typeof(my_penguins$island)
-typeof(my_penguins$body_mass_g)
-typeof(my_penguins$species)
-```
+🎯 **Ziel:** Nicht jede Funktion auswenig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
 
-Wie die Funktion `class()` lässt sich auch mit der Funktion `typeof()` der Datentyp einer Spalte abfragen. Allerdings unterscheiden sich die beiden Funktionen darin, **welche Information sie liefern**, und dementsprechend auch in ihren Ausgaben.
+<br>
 
-Die Funktion `class()` gibt an, **welcher Klasse ein Objekt in R zugeordnet ist** – also, wie es sich in Funktionen und Methoden verhalten soll. Beispiele für Klassen sind `numeric`, `character`, `factor` oder `data.frame`.
+Erstelle in deinem Skript einen neuen Abschnitt und benenne diesen passend.
 
-Die Funktion `typeof()` hingegen zeigt an, **welcher grundlegende Datentyp intern im Speicher verwendet wird**, um das Objekt zu repräsentieren. Für Objekte vom Typ `numeric` oder `character` liefern `class()` und `typeof()` in der Regel identische Ergebnisse. Bei einem `factor`-Objekt unterscheiden sich die Ausgaben jedoch: `class()` gibt `"factor"` zurück, während `typeof()` `"integer"` liefert, da Faktoren intern als Ganzzahlen mit zugehörigen Levels gespeichert werden. Wir empfehlen dir daher die Funktion `class` zu verwenden, da wir uns im Rahmen des Seminars dafür interessieren welcher Klasse ein Objekt in R zugeordnet ist. [Hier](https://mgimond.github.io/ES218/data_objects.html#:~:text=An%20R%20object's%20data%20type,not%20distinguish%20integers%20from%20doubles.) kannst du noch eine genauere Erklärung dazu finden welche grundlegende Datentypen im internen Speicher verwendet werden und wo der Unterschied herkommt.
-:::
+#### Aufgabe
 
-### Logisches Abfragen
+Arbeite mit dem Datensatz `penguins`.
 
--   Überprüfe, ob `bill_depth_mm` ein numerischer Vektor ist.
+**Vorbereitung**
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-is.numeric(my_penguins$bill_depth_mm)
-```
-:::
-::::
+1.  Stelle sicher, dass `palmerpenguins` am Anfang deines Skripts geladen wird.
 
--   Gib die Antwort als logischen Wert aus (`TRUE` oder `FALSE`) und speichere sie in einer neuen Variable.
+2.  Ergänze einen kurzen Kommentar, der erklärt, was du in diesem Abschnitt machst.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-species_numeric <- is.numeric(my_penguins$bill_depth_mm) # der genaue Name der Variable sollte im snake_case geschrieben sein und über den Inhalt informieren. Ansonsten ist er arbiträr
-```
-:::
-::::
+**Datensatz verstehen**
 
--   Prüfe anschliessend, ob diese neue Variable selbst ein logischer Vektor ist.
+3.  Bestimme die Anzahl an Beobachtungen und Variablen.
+4.  Speichere beide Ergebnisse unter sinnvollen Objektnamen.
+5.  Verwende eine geeignete Funktion, um dir einen ersten Überblick über den Datensatz zu verschaffen.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-is.logical(species_numeric) # hier müsst ihr als Argument natürlich den von euch eben vergebenen Variablennamen auswählen
-```
-:::
-::::
+**Eine Variable untersuchen**
 
-### 2) Simulation eines Münzwurf-Experiments
+6.  Wähle die Variable `body_mass_g` aus.
+7.  Speichere diese Variable unter dem Objekt `body_mass`.
+8.  Prüfe den Datentyp von `body_mass`.
 
--   In dieser Aufgabe simulieren wir ein einfaches Zufallsexperiment: den Wurf einer fairen Münze.
+**Deskriptive Statistik**
 
--   Wir definieren:
+9.  Berechne den Mittelwert von `body_mass`.
+    -   Was passiert?
+    -   Du wirst vermutlich `NA` erhalten.
+10. Versuche herauszufinden, warum R keinen Mittelwert berechnet.
+    -   Nutze dafür mindestens eine der in B5 besprochenen Hilfsstrategien.
+11. Finde heraus, mit welchem Argument von `mean()` fehlende Werte bei der Berechnung ignoriert werden können.
+12. Berechne anschliessend:
+    -   Mittelwert
+    -   Median
+    -   Standardabweichung
 
-    -   0 = Kopf
-    -   1 = Zahl
-    -   Bei einer fairen Münze ist die Wahrscheinlichkeit für Kopf und Zahl jeweils 50%.
+**Logische Abfragen**
 
-**1. Erstelle drei Vektoren:**
+13. Finde heraus, welche Werte von `body_mass` grösser als `5000` sind.
+14. Speichere das Ergebnis unter einem sinnvollen Objektnamen.
+15. Prüfe den Datentyp dieses neuen Objekts.
 
--   Simuliere mit Hilfe der Funtion `sample()` drei unterschiedliche Experimente:
+**Dokumentation**
 
-    a)  50 zufällige Münzwürfe
+16. Lies deinen gesamten Abschnitt noch einmal durch. Ergänze Kommentare so, dass eine andere Person nachvollziehen kann, was du machst und warum die einzelnen Schritte notwendig sind.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-set.seed(42) # Hiermit stellt ihr sicher, dass eure Ziehungen deterministisch randomisiert sind. Das heisst, die Ziehung selbst ist zwar zufällig. Der Mechanismus hinter dieser zufälligen Ziehung wird hiermit aber standardisiert. Hierdurch ist sichergestellt, dass meine und eure Ziehungen dieselben Werte erhalten.
+## 🎉 Gratulation: Du hast die ersten Übungen erfolgreich bearbeitet!
 
-coin_50 <- sample(c(0, 1), size = 50, replace = TRUE) # replace = TRUE sorgt dafür, dass die Ziehungen unabhängig voneinander sind, d.h. dass die gezogene Zahl wieder zurückgelegt wird und somit bei der nächsten Ziehung erneut gezogen werden könnte. Bei replace = FALSE würde die gezogene Zahl nicht zurückgelegt werden, was zu einer Abhängigkeit zwischen den Ziehungen führen würde.
-```
-:::
-::::
-
-```         
-b)  100 zufällige Münzwürfe
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-set.seed(42)
-
-coin_100 <- sample(c(0, 1), size = 100, replace = TRUE)
-```
-:::
-::::
-
-```         
-c)  1000 zufällige Münzwürfe
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-set.seed(42)
-
-coin_1000 <- sample(c(0, 1), size = 1000, replace = TRUE)
-```
-:::
-::::
-
--   Speichere die Ergebnisse jeweils in drei getrennten Variablen (z.B. coin_50, coin_100, coin_1000).
-
-👉 Tipp: Du möchtest zufällig aus den Werten 0 und 1 ziehen. Achte darauf, dass jede Ziehung unabhängig ist.
-
-**2. Inspiziere deine Vektoren:**
-
--   Untersuche jeden der drei Vektoren:
-
-    -   Berechne den Mittelwert mit `mean()`
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-mean(coin_50)
-mean(coin_100)
-mean(coin_1000)
-```
-:::
-::::
-
-```         
--   Berechne die Summe mit `sum()`
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-sum(coin_50)
-sum(coin_100)
-sum(coin_1000)
-```
-:::
-::::
-
-```         
--   Wie viele Einsen (Zahlen) wurden jeweils gezogen?
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-sum(coin_50) # da 1 für Zahl steht, entspricht die Summe der Anzahl an gezogenen Zahlen
-
-length(coin_50[coin_50 == 1]) # Alternativ: Das Argument coin_50 == 1 sorgt dafür, dass nur die Werte 1 in den neuen Vektor aufgenommen werden. Die Funktion length() fragt anschliessend die Anzahl an verbliebenen Elementen in diesem neuen Vektor ab
-
-sum(coin_100)
-length(coin_100[coin_100 == 1])
-sum(coin_1000)
-length(coin_1000[coin_1000 == 1])
-```
-:::
-::::
-
-👉 Tipp: Der Mittelwert eines 0/1-Vektors entspricht dem Anteil der Einsen.
-
-**3. Vergleich mit dem erwarteten Wert:**
-
--   Überlege dir: Wie gross ist der theoretisch erwartete Mittelwert bei einer fairen Münze? Warum?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Der erwartete Mittelwert bei einer fairen Münze beträgt 0.5, da die Wahrscheinlichkeit für Kopf (0) und Zahl (1) jeweils 50% beträgt. Das bedeutet, dass im Durchschnitt die Hälfte der Würfe auf Kopf und die andere Hälfte auf Zahl fallen sollte, was zu einem Mittelwert von 0.5 führt.
-:::
-::::
-
--   Berechne für jeden Vektor die Abweichung vom erwarteten Mittelwert.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-expected_mean <- 0.5
-
-abs(mean(coin_50) - expected_mean)
-abs(mean(coin_100) - expected_mean)
-abs(mean(coin_1000) - expected_mean)
-```
-:::
-::::
-
--   Speichere diese Abweichung jeweils in einer neuen Variable.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, include = TRUE, eval = TRUE}
-expected_mean <- 0.5
-
-deviation_50 <- abs(mean(coin_50) - expected_mean)
-deviation_100 <- abs(mean(coin_100) - expected_mean)
-deviation_1000 <- abs(mean(coin_1000) - expected_mean)
-```
-:::
-::::
-
-👉 Der erwartete Mittelwert entspricht der Wahrscheinlichkeit für "1".
-
-**4. Interpretation:**
-
--   Vergleiche die Abweichungen bei 50, 100 und 1000 Würfen. Was fällt dir auf?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Je mehr Würfe durchgeführt werden, desto näher kommt der Mittelwert an den erwarteten Wert von 0.5 heran.
-:::
-::::
-
--   Wird die Abweichung mit zunehmender Anzahl Würfe grösser oder kleiner?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Die Abweichung wird mit zunehmender Anzahl Würfe tendenziell kleiner, da die Ergebnisse sich dem erwarteten Mittelwert annähern.
-:::
-::::
-
--   Was könnte das mit dem Gesetz der grossen Zahlen zu tun haben?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Das Gesetz der grossen Zahlen besagt, dass bei einer zunehmenden Anzahl von unabhängigen und identisch verteilten Zufallsvariablen der Durchschnitt dieser Variablen gegen den erwarteten Wert konvergiert. In diesem Fall bedeutet das, dass je mehr Münzwürfe durchgeführt werden, desto näher wird der Mittelwert der Ergebnisse an den theoretischen Mittelwert von 0.5 herankommen.
-:::
-::::
-
-# Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! :-)
-
-Gib diesem einen Namen, der Maschinen und Mensch-lesbar ist, siehe Kapitel 6.1.3 hier: <https://r4ds.hadley.nz/workflow-scripts>
+Vergiss nicht, dein Skript abzuspeichern.
