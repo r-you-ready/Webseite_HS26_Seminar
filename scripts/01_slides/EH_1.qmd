@@ -103,7 +103,7 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 ## Tutor
 
 ::::: columns
-::: {.column width="70%"}
+::: {.column width="75%"}
 ### *Jan-Pierre Pahnke, BSc. Psychologie*
 
 -   Tutor R you Ready
@@ -117,8 +117,8 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 -   jan-pierre.pahnke\@unibe.ch
 :::
 
-::: {.column width="30%"}
-![](../../images/lars.jpg){fig-align="center" width="267"}
+::: {.column width="25%"}
+![](../../images/Jan_Pierre.png){fig-align="center" width="240"}
 :::
 :::::
 
@@ -360,7 +360,7 @@ Wir wollen euch einen stabilen Workflow und Werkzeugkasten geben, mit dem ihr ne
 
 ::::: columns
 ::: {.column width="50%"}
-#### 💬 Input (ca. 45 Minuten) 
+#### 💬 Input (ca. 45 Minuten)
 
 Einen Schritt im Forschungsprozess verstehen:
 
