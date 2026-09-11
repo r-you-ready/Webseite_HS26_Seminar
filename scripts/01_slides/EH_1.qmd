@@ -17,7 +17,7 @@ format:
     progress: true
     controls: true
     scrollable: true
-draft: true
+draft: false
 ---
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
