@@ -422,6 +422,7 @@ Da dieser Befehl bei jeder neuen Sitzung notwendig ist, gehört der Befehl direk
 
 ```{r}
 #| echo: TRUE
+#| message: false
 
 # Pakete laden
 library(tidyverse)
