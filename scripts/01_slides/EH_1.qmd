@@ -607,9 +607,7 @@ Heute geht es bewusst nur um die Grundlagen:
 
 **Wichtig:** Die Übungen müssen heute nicht fertig sein! Wir arbeiten immer 2 Wochen an denselben Übungen weiter.
 
--\> Die Übung ist auf der Webseite zu finden!
-
-Hier unbedingt noch Link zu Übung einfügen!!!!!
+-\> Die Übung ist auf der [Webseite](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/02_excercises/loesung_1.html) zu finden
 
 ::: notes
 Wichtig ist, dass niemand heute "R können" muss! Ziel ist es, dass R und RStudio heute bei allen installiert sind und laufen und RStudio am Ende der Sitzung weniger fremd aussieht als am Anfang.
