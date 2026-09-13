@@ -3,7 +3,7 @@ title: "About"
 author:
   - name: "Dr. Sandra Grinschgl"
   - name: "MSc. Laura Hirt"
-  - name: "BSc. Lars Schilling"
+  - name: "BSc. Jan-Pierre Pahnke"
 date: today
 format: html
 ---
@@ -15,7 +15,7 @@ Sollte deine Frage nicht beantwortet worden sein, dann wende dich gerne direkt a
 ::: clean-list
 <ul>
 
-<li>lars.schilling\@unibe.ch</li>
+<li>jan-pierre.pahnke\@unibe.ch</li>
 
 <li>laura.hirt\@unibe.ch</li>
 
