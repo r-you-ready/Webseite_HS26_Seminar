@@ -33,7 +33,7 @@ website:
         text: "Übungen zu den Einheiten"
         contents: 
           - href: scripts/02_excercises/loesung_1.qmd
-            text: "Hands on - Block 1 (Woche 1 - 2)"
+            text: "Hands-on 1 (Woche 1 - 2)"
       - href: hausuebungen.qmd
         text: "Hausübungen"
         contents:
