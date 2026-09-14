@@ -11,6 +11,16 @@ Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. S
 
 # Formelles
 
+## Bekommen wir für die Schlussabgabe einen neuen Datensatz, bei dem wir andere Sachen umbenennen müssen und es Fehlerwerte drin hat?
+
+Ja und ja. Wir werden in EH 12 näher darüber sprechen und ihr bekommt von uns eine Checkliste, der Dinge die ihr in euren individuellen, simulierten Datensätze überprüfen müsst. 
+
+
+## Wann erhalten wir etwa den finalen Datensatz, welchen wir dann für die Abschlussarbeit benötigen?
+
+Wir planen euch die individuellen, simulierten Datensätze mit EH 12 zu geben. 
+
+
 ## Darf mit generativer KI wie beispielsweise ChatGPT gearbeitet werden und wie ist das dann zu kennzeichnen?
 
 Wenn die generative KI lediglich zur Textkorrektur oder zur sprachlichen Verbesserung genutzt wird muss dies nicht angegeben werden. Wenn jedoch inhaltlich größere Teile direkt übernommen oder sich stark auf generierte Texte gestütz wird, dann muss die generative KI als Quelle gennant werden. Die Verantwortung für die Richtigkeit und Nachvollziehbarkeit der Inhalte liegt dabei immer bei der Person selbst. Tipps, wie die Verwendung von generativer KI bei Abschlussarbeiten angegeben werden kann, finden sich [hier](https://www.unibe.ch/universitaet/organisation/leitung_und_zentralbereich/vizerektorat_lehre/startseite_vizerektorat_lehre/faq_zur_verwendung_von_ki_gestuetzten_hilfsmitteln_in_der_lehre__vizerektorat_lehre_universitaet_bern/index_ger.html). Im Fall der Seminarabgabe wird am besten der Link zum Chat mit abgegeben.
@@ -22,6 +32,12 @@ Es gibt keine exakten Formatvorgaben für das Skript. Vielmehr gilt: Das Skript 
 ## Welche Stilvorgaben gibt es bei der Erstellung des Skripts zu beachten?
 
 Das Skript sollte sinnvolle Überschriften und eine sinnvolle Gliederung enthalten. Der Code sollte kommentiert sein, so dass die Auswahl von Funktionen und das Vorgehen begründet sind. Sofern LLMs oder andere externe Tools zur Hilfe herangezogen worden sind, muss dies angemerkt werden. Hierfür kann ggf. eine getrennte Kopie des Chatverlaufes eingereicht oder ein Link nach [APA-Guidelines](https://apastyle.apa.org/style-grammar-guidelines/references/examples) ergänzt werden.
+
+## Was ist damit gemeint, dass wir die Arbeit im APA Format gestalten müssen? Was genau alles sollen wir im APA Style machen? Einfach die Überschriften oder auch den Text?
+
+Wenn ihr im Text die Ergebnisse beschreibt, dann sollten diese möglichst dem APA Format entsprechen, z.B. statistische Kennwerte kursiv setzen, entsprechende Kommastellen etc. z.B.: t(51) = 4.59, _p_ = .002, _d_ = 0.12
+
+Die Tabelle oder Abbildung, die ihr erstellt, sollte auch möglichst den APA Richtlinien entsprechen (zb möglichst simpel gestalten).
 
 ## In welcher Sprache, Zeitform, Perspektive und in welchem Stil soll der Datenanalyseplan geschrieben werden?
 
@@ -38,6 +54,11 @@ Damit die Abgabe leichter kontrolliert werden kann, sollen die Warn- und Fehlerm
 ## Darf im Skript auch noch Code von Übungsaufgaben vorhanden sein?
 
 Hier gilt der Grundsatz: Euer Skript, wie auch alle anderen Unterlagen, sollten für fremde Wissenschaftler:innen der Psychologie ohne weiteres nachvollziehbar sein. Code, welcher nicht im Zusammenhang mit der Endabgabe steht - und dementsprechend auch nicht im Datenanalyseplan erwähnt wird – würde nur vom wesentlichen Ablenken und soll daher nicht im Skript vorhanden sein.
+
+## Bis wann kann man eine Fristverlängerung einreichen für die Abgabe der Abschlussabgabe?
+
+Bitte komm mit dieser Frage persönlich auf uns zu. 
+
 
 # Umfang
 
@@ -62,3 +83,38 @@ Nein, nur jene Resultate, die aufgrund des Codes exportiert werden, müssen in d
 Es werden keine inhaltlichen Interpretationen der Ergebnisse gefordert. Kurze Zusammenfassungen der Resultate direkt nach den jeweiligen Codechunks können jedoch das Verständnis erleichtern und illustrieren, dass die Analysen korrekt gelesen werden könnten.
 
 Zum Beispiel: *The one-way ANOVA indicated that there were no significant group differences in this working memory performance measure, F(2, 156) = 0.07, p = 0.929, η² \< 0.01.*
+
+# Inhalt
+
+## Ich habe leider nicht ganz verstanden, wie konkret wir jetzt den Datenanalyseplan anpassen müssen, damit dieser zu unserer Abgabe passt, bzw. was genau wir da machen müssen. Dasselbe trifft auf das Codebook zu. Auch hier bin ich mir sehr unsicher, wie dieses jetzt strukturiert werden soll, dass dieses zur Abgabe passt.
+
+Die Unsicherheit ist nachvollziehbar, da du Datenanalyseplan und Codebook ursprünglich für die **Originaldaten der Studie von Grinschgl et al. (2021)** erstellt hast. Für die Abschlussabgabe arbeitest du nun aber mit deinen **individuellen simulierten Rohdatensätzen**.
+
+Wichtig ist: du musst den Datenanalyseplan nicht komplett neu schreiben! Die inhaltliche Grundlage bleibt weiterhin die Originalstudie und an den Hypothesen sowie geplanten Analysen hat sich nichts verändert! Was sich geändert hat, ist die **konkrete Datengrundlage**. Deshalb musst du deinen Datenanalyseplan überall dort anpassen, wo die bisherige Formulierung noch von den Originaldaten ausgeht oder nicht mehr zu deinen simulierten Daten passt.
+
+Der Datenanalyseplan soll am Ende konsistent zur tatsächlichen Abgabe passen. Das bedeutet: Er soll nachvollziehbar beschreiben, mit welcher Datengrundlage du arbeitest, wie du mit dieser Datengrundlage umgehst und welche Analyseschritte du darauf anwenden willst. Besonders sorgfältig prüfen solltest du daher alle Abschnitte, die sich direkt auf die Daten beziehen, insbesondere **data access, data collection procedures, missing data, data exclusion und data identifiers**.
+
+Für das **Codebook** gilt dieselbe Grundidee: Es soll die Daten beschrieben, mit denen du in der Abschlussabgabe tatsächlich arbeitest. Wenn die simulierten Datensätze dieselben Variablen und dieselben Variablennamen enthalten wie die Originaldaten, müssen nur wenige Dinge angepasst werden. Wenn sich aber Variablennamen, Formate oder der Umgang mit fehlenden Werten unterscheiden, muss das Codebook entsprechend aktualisiert werden.
+
+Das Codebook soll also nicht einfach die Originaldaten dokumentieren, sondern deine aktuelle Datengrundlage. Eine andere Person sollte daraus nachvollziehen können, welche Variablen in deinen Datensätzen vorkommen, was diese Variablen bedeuten, wie sie codiert sind und wie sie in deiner Analyse verwendet werden.
+
+--\> Du verwendest also Datenanalyseplan und Codebook aus dem Semester als Grundlage, passt die aber an die simulierten Daten an. Der Datenanalyseplan beschreibt das geplante analytische Vorgehen auf Basis der neuen Datengrundlage. Das Codebook beschreibt die Variablen dieser neuen Datengrundlage. Beide Dokumente sollten am Ende konsistent mit deinen R-Skripten und deiner Abschlussabgabe sein.
+
+## Ich bin mir bei der finalen Abgabe nicht sicher, wie der vorprozessierte Datensatz ganz genau aussehen muss. Sollte der Datensatz so aussehen, wie der dat_full Datensatz?
+
+Ja, der finale vorprozessierte Datensatz **soll von seiner Struktur her analog zu dat_full** aufgebaut sein.
+
+Wichtig ist dabei die Unterscheidung zwischen **Struktur** und **konkreten Datenwerten**. Der Datensatz soll nicht dieselben Werte enthalten wie der ursprüngliche dat_full-Datensatz aus dem Semester. Das wäre auch nicht zu erwarten, weil du für die Abschlussabgabe mit deinen **individuell simulierten Rohdatensätzen** arbeitest. Diese simulierten Daten orientieren sich zwar an der Originalstudie, sind aber zufällig generierte Datensätze. Deshalb können sich konkrete Werte, Mittelwerte, Standardabweichungen, Signifikanzen und Effektstärken von den Originaldaten unterscheiden. Das ist kein Fehler, sondern eine erwartbare Eigenschaft der simulierten Daten.
+
+Was aber gleich bzw. vergleichbar sein soll, ist die **Funktion des Datensatzes**. Wie im Seminar behandelt, soll aus den sieben Rohdatensätzen ein kombinierter, aufbereiteter und analysefähiger Gesamtdatensatz entstehen. Im Semester hast du diesen Schritt mit den Originaldaten durchgeführt, für die Abschlussabgabe machst du denselben grundlegenden Verarbeitungsschritt nun mit deinen simulierten Rohdaten.
+
+Das bedeutet: Es geht nicht nur darum, die sieben Datensätze zusammenzuführen. Auch bei den simulierten Daten müssen die notwendigen Aufbereitungs- und Vorbereitungsschritte durchgeführt werden, damit der finale Datensatz für die Analysen verwendet werden kann. Dazu gehört bspw., dass benötigte Variablen gebildet werden (etwa Durchschnittswerte oder Skalenwerte), und dass Variablen bei Bedarf in den richtigen Wertebereich gebracht werden (z.B. durch eine Anpassung der Skalierung). Welche Punkte du bei der Datenaufbereitung insbesondere beachten sollst, ist in der [Checkliste](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/04_misc/checkliste_abschlussarbeit_FS26.html) zur Abschlussarbeit beschrieben.
+
+## Es gibt ja drei verschiedene Möglichkeiten von post-hoc t-Tests (Gruppenunterschiede innerhalb jedes Zeitpunkts, Zeitunterschiede innerhalb der Gruppen und direkter Vergleich der Veränderungen). Müssen wir alle drei t-Tests durchführen oder reicht es, wenn man sich für eine Art entscheidet?
+
+Die ersteren (Gruppenunterschiede innerhalb jedes Zeitpunkts) - denn diese werden auch in der Originalstudie berichtet
+
+## Ich habe nach dem merged im dat_full drei Variablen die alle eigentlich zu group gehören. Darf ich dann einfach group_all.x und group_all.y löschen und einfach nur group behalten oder verändert das etwas an der Datensatzstruktur? 
+
+kannst du löschen - das macht den Datensatz dann übersichtlicher.
+

@@ -20,7 +20,54 @@ penguins_filtered <- penguins |>
 Unabhängig von konkreten Fragen zu RStudio kann [hier](https://methodenlehre.github.io/einfuehrung-in-R/) noch einmal das Skript zur Einführung in R Studio von Andrew Ellis und Boris Mayer abgerufen werden.
 :::
 
-Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. Suche deine Frage am besten mit ctrl + F (MAC: Cmd +F) und dem passendsten Stichwort!
+[Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. Suche deine Frage am besten mit ctrl + F (MAC: Cmd +F) und dem passendsten Stichwort!]{style="color: red;"}
+
+# Workflow
+
+## Wenn ich im Rahmen meiner Masterarbeit einen riesigen Datensatz bekomme, dann wüsste ich immer noch nicht so recht, wo ich anfangen soll. Können wir vielleicht mal eine Checkliste oder so durchgehen, was meine ersten Schritte mit dem Datensatz sein sollten?
+
+Leider gibt es für diese Frage keine pauschale Antwort. Idealerweise hast du zu deinen Daten eine Präregistrierung oder einen Datenanalyseplan, wo die einzelnen Schritte beschrieben sind. Hier ein typisches Vorgehen:
+
+1.  Daten in R einlesen
+
+2.  Daten mergen & speichern (falls es mehrere Datensätze gibt)
+
+3.  Überblick verschaffen und Daten auf Plausibilität prüfen, z.B. Sind alle Variablen vorhanden? Hat der Datensatz die erwartete Anzahl an Zeilen?
+
+4.  Datensatz «verschönern», z.B. Variablennamen zu snake_case anpassen, Variablentypen ändern falls notwendig (numeric, character, factor)
+
+5.  Daten bereinigen, z.B. Personen, die nicht die Voraussetzungen erfüllen entfernen, doppelte Werte und/oder fehlende Werte ausschliessen --\> diese Ausschlusskriterien sollten vorab festgelegt werden
+
+6.  Neue Variablen berechnen: z.B. Mittelwerte von Fragebögen
+
+7.  Deskriptive Analysen durchführen
+
+8.  Daten visualisieren
+
+9.  Skalen überprüfen, z.B. Interne Konsistenz von Fragebögen testen
+
+10. Inferenzstatistische Analysen durchführen
+
+## Ich muss ehrlich sagen, dass ich vieles mit KI lösen muss, da ich mir die Codes selbst nicht herleiten kann. Vielleicht könnten wir deshalb nochmals anschauen, welche Überlegungen ich machen muss, um mir die richtigen Codes rauszusuchen (z.B. aus einem Cheatsheet) und wie ich weiss, welche Argumente jeweils in die Klammern kommen.
+
+Du musst Code nicht auswendig können. Entscheidend ist, dass du verstehst, welches Problem du lösen willst, und dann gezielt passende Funktionen auswählst und deren Argumente nachschaust. Dafür gibt es in R zu jeder Funktion eine eigene Hilfeseite mit Erklärungen und Beispielen.
+
+Es ist völlig normal, und auch für erfahrene Programmierer:innen üblich, Code nicht komplett auswendig zu können. Entscheidend ist nicht das Auswendiglernen einzelner Befehle, sondern das Verständnis für den Workflow: Was ist mein Ziel, welche Art von Operation brauche ich, und welches Werkzeug in R kann das leisten?
+
+Ein sinnvoller erster Schritt ist daher immer, das Problem inhaltlich zu klären. Sobald klar ist, welche Art von Aufgabe vorliegt, kann man gezielt im Cheatsheet oder in den Folien nach passenden Funktionen suchen. Die Cheatsheets sind genau dafür gedacht: Sie geben einen strukturierten Überblick über typische Befehle für häufige Ausgaben.
+
+Wenn man eine passende Funktion gefunden hat, stellt sich oft die Frage, welche Argumente benötigt werden. Hier ist die wichtigste Ressource die Hilfeseite in R selbst. Diese kann mit ?funktionsname oder help(funktionsname) aufgerufen werden. Dort ist genau dokumentiert, welche Argumente die Funktion erwartet, welche Standardwerte (Defaults) gelten, was die Funktion zurückgibt und wie sie anhand konkreter Beispiele korrekt verwendet wird. Diese Beispiele sind besonders hilfreich, weil sie zeigen, wie die Funktion in der Praxis eingesetzt wird. Es ist völlig legitim und sinnvoll, sich daran zu orientieren und sie auf die eigene Aufgabe anzupassen.
+
+Wichtig ist auch zu verstehen, dass in den Übungen und Hausaufgaben kein «verstecktes Wissen» erwartet wird. Es wird nur Code verlangt, der in der Vorlesung behandelt wurde und in den Folien nachgelesen werden kann. Die Übungen dienen genau dazu, diese Befehle einzuüben und ein Gefühl dafür zu entwickeln, wann welcher Schritt sinnvoll ist.
+
+Dabei ist es auch wichtig zu betonen, dass es in R oft mehrere Wege zum Ziel gibt. Unterschiedliche Lösungen sind in vielen Fällen möglich und teilweise auch eine Frage des persönlichen Stils. Für die Übungen ist jedoch entscheidend, dass eine nachvollziehbare und korrekte Lösung verwendet wird; nicht, dass alle möglichen Varianten bekannt sind.
+
+Die Verwendung von LLMs für Programmier-Aufgaben ist heutzutage normal und auch okay. Wichtig ist, dass du KI-generierten Code nachvollziehen und verifizieren kannst. Dafür empfehlen sich «Doppelchecks» mit den Cheatsheets und/oder der Hilfeseite in R.
+
+
+## Sollten Datensätze vor dem mergen erst aufbereinigt werden?
+
+Einige Schritte der Datenaufbereitung sollten vor dem Mergen durchgeführt werden, da das Zusammenführen der Datensätze sonst unnötig kompliziert werden kann. Beispielsweise können Duplikate oder fehlende Werte (NAs) beim Mergen zu Problemen führen und sollten daher idealerweise bereits vorher behandelt werden. Für viele andere Schritte, wie etwa Rekodierungen, spielt es hingegen keine Rolle, ob sie im einzelnen Datensatz oder erst im gemergten Datensatz durchgeführt werden. Es gibt dabei keine festgelegte Reihenfolge, die zwingend eingehalten werden muss. Ob das Vorgehen korrekt war, lässt sich abschliessend überprüfen, indem der gemergte Datensatz inspiziert und auf Plausibilität geprüft wird.
 
 # Daten einlesen
 
@@ -31,6 +78,36 @@ Der einfachste Weg, Daten zu laden, führt über das Environment oben rechts in 
 ::: callout-note
 Weiterführende Informationen und Beispiele können [hier](https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html#daten-importieren) nachgelesen werden.
 :::
+
+## Zum Teil ist das Einlesen immer noch ein Mysterium. Ab und zu funktioniert das Einlesen via Code, ab und zu nicht. Manchmal funktioniert auch Code, der in einer Übung noch funktioniert hat, eine Woche später plötzlich nicht mehr – ohne dass bewusst etwas geändert wurde. Wie kann man sicherstellen, dass das Einlesen zuverlässig funktioniert, auch bei Replikation durch andere?
+
+Probleme beim Einlesen von Daten hängen fast immer mit Dateipfaden und Arbeitsverzeichnissen zusammen. Der wichtigste Grundsatz für reproduzierbares Arbeiten ist daher: Arbeite immer innerhalb eines R-Projekts, verwende relative Pfade und öffne deine Skripte aus dem Projekt heraus.
+
+Dass also das Einlesen von Daten in R manchmal funktioniert und manchmal nicht, liegt in den meisten Fällen nicht am eigentlichen Code (z.B. read_csv()), sondern daran, dass R nicht mehr «weiss», wo sich die Datei befindet. Der zentrale Begriff hierbei ist das Working Directory, welches angibt, von welchem Ordner aus R relative Dateipfade interpretiert.
+
+Wenn eine Datei mit einem Befehl wie read_csv("data/raw/data.csv") eingelesen wird, geht R davon aus, dass es sich aktuell im richtigen Ausgangsordner befindet. Ist das Working Directory jedoch ein anderes, etwa weil das Skript aus einem anderen Ordner geöffnet wurde oder weil sich die Ordnerstruktur verändert hat, kann R die Datei nicht mehr finden, obwohl sich weder der Code noch die Datei selbst geändert haben.
+
+Um dieses Problem zu vermeiden, ist es zentral, mit R-Projekten zu arbeiten. Wenn ein Projekt verwendet und das Skript aus diesem Projekt heraus geöffnet wird, wird automatisch das Projektverzeichnis als Working Directory gesetzt. Dadurch bleiben alle relativen Pfade innerhalb dieses Projekts stabil und funktionieren unabhängig davon, auf welchem Computer oder zu welchem Zeitpunkt das Skript ausgeführt wird.
+
+Ein weiterer wichtiger Punkt ist die Verwendung von relativen statt absoluten Pfaden. Solange die Projektstruktur gleichbleibt, funktionieren relative Pfade zuverlässig; dies unabhängig vom Gerät oder Speicherort.
+
+Darüber hinaus ist es wichtig, dass der Code zum Einlesen der Daten im Skript selbst enthalten ist und nicht nur interaktiv in der Konsole ausgeführt wurde. Nur so kann eine andere Person (oder man selbst zu einem späteren Zeitpunkt) den gesamten Workflow nachvollziehen und reproduzieren.
+
+Komm auf uns zu, falls das Einlesen mal wieder nicht klappt – vielleicht können wir das Mysterium beseitigen 😊
+
+## Darf ich beim Importieren eines Datensatzes rechts unten auf file gehen, dann das dataset anklicken, dann auf «import dataset» klicken, den Code kopieren und Einfügen und dann diesen Code ausführen? Ihr habt den Weg Environment --\> import dataset gezeigt und das funktioniert bei mir nicht immer. Gibt es einen wichtigen Unterschied zwischen meinem und eurem Weg?
+
+Antwort: Grundsätzlich ist es völlig in Ordnung, wenn du den Weg über «File -\> Import Dataset» gehst, den generierten Code kopierst, in dein Skript einfügst und dann ausführst. Wichtig ist dabei vor allem, dass du den Code tatsächlich in deinem Skript speicherst und nicht nur über die Benutzeroberfläche arbeitest. Denn nur so bleibt dein Vorgehen nachvollziehbar und reproduzierbar.
+
+Der Weg über das Environment («Import Dataset») ist also keine Pflicht, sondern lediglich eine Alternative, um sich den passenden Import-Code automatisch generieren zu lassen. Wenn dieser Weg bei dir nicht zuverlässig funktioniert, ist es absolut legitim, den Import über das Menu zu machen und den Code zu übernehmen.
+
+Entscheidend ist nicht, wie du den Code erzeugst, sondern dass du den Code im Skript hast, ihn verstehst und ihn jederzeit wieder ausführen kannst.
+
+Langfristig ist es jedoch sinnvoll, sich mit den Importfunktionen (z.B. read_csv() oder read_excel() ) direkt vertraut zu machen und diese selbst zu schreiben. So wirst du unabhängiger von der Benutzeroberfläche und arbeitest effizienter.
+
+## Wie lese ich Datensätze ein, die auf dem Desktop gespeichert sind?
+
+Das funktioniert prinzipiell gleich wie wir es bereits gemacht haben. Du musst nur den Pfad anpassen, sodass dieser zu deinem Desktop navigiert, z.B.: read_csv("C:/Users/sg24a622/OneDrive - Universitaet Bern/Desktop/data.xlsx")
 
 ## Beim Einlesen des Datensatzes entsteht eine leere Zeile ganz links im Datensatz. Wie kann verhindert werden, dass diese entsteht?
 
@@ -46,15 +123,11 @@ readr::write_csv(data, "data.csv", row.names = FALSE)
 
 ```
 
-# automatisiert Daten einlesen
-
 ## Könnten wir noch automatisiertes Dateneinlesen behandeln?
 
 Wir werden das automatisierte Einlesen von mehreren Daten im Seminar leider nicht bearbeiten können, da dies zeitlich nicht reicht und auch zu anspruchsvoll wäre. Hier aber einige grundsätzliche Informationen:
 
-Beim automatisierten Einlesen mehrerer Dateien kann grundsätzlich zwischen zwei Varianten unterschieden werden:
-  1. Alle Dateien einlesen und in einer gemeinsamen Liste speichern
-  2. Jede Datei als separates Objekt im Environment speichern
+Beim automatisierten Einlesen mehrerer Dateien kann grundsätzlich zwischen zwei Varianten unterschieden werden: 1. Alle Dateien einlesen und in einer gemeinsamen Liste speichern 2. Jede Datei als separates Objekt im Environment speichern
 
 **Variante 1: Mehrere Dateien automatisiert einlesen und in einer Liste speichern**
 
@@ -96,7 +169,7 @@ names(data_list) <- tools::file_path_sans_ext(basename(files))
 data_list
 ```
 
-Es kann dann auf einzelne Datensätze in der Liste zugegriffen werden (z.B. data_list$studie1 oder data_list[[1]]).
+Es kann dann auf einzelne Datensätze in der Liste zugegriffen werden (z.B. data_list\$studie1 oder data_list\[\[1\]\]).
 
 ```{r}
 # 1) Alle CSV-Dateien im Ordner "data/" auflisten, gleiche Logik wie oben
@@ -125,36 +198,129 @@ for (i in seq_along(files)) {
   )
 }
 ```
+
 Es kann danach direkt wie gewohnt mit den einzelnen Datensätzen gearbeitet werden.
 
-# R-internes Hilfesystem
 
-## Wie kann ich mir erklären lassen, wofür ich eine Funktion gebrauchen kann? 
+## Wann benutzt man beim Speichern eines Datensatzes here::here()?
 
-In R gibt es eine eingebaute Hilfsfunktion, mit der du dir zu jeder Funktion eine ausführliche Beschreibung anzeigen lassen kannst.
-Dafür gibt es zwei einfache Wege:
-  
-  1. Über die Konsole: Du kannst in der Konsole ein Fragezeichen vor den       entsprechenden Funktionsnamen setzten und diesen Code ausführen:
-```{r}
-    ?mean
+here::here() kann immer dann verwendet werden, wenn Dateien innerhalb eines Projekts gespeichert oder geladen werden sollen. Es ist eine einfache Möglichkeit, relative Pfade zu erstellen, die unabhängig davon funktionieren, von wo aus das Skript ausgeführt wird.
+
+Beim Speichern oder Einlesen von Dateien in R ist nicht nur der Befehl selbst wichtig (z.B. write_csv() oder read_csv()), sondern vor allem der Dateipfad. Genau hier entstehen viele Probleme, insbesondere wenn Skripte später erneut ausgeführt oder von anderen Personen verwendet werden. Die Funktion here::here() hilft dabei, solche Probleme zu vermeiden, indem sie Pfade relativ zum Projektordner erstellt.
+
+Damit ist here::here() eine von mehreren Möglichkeiten, relative Pfade zu setzen; also Pfade, die nicht vom konkreten Speicherort auf dem Computer abhängen, sondern von der Struktur des Projekts. Ein Beispiel:
+
+```{r, eval=FALSE}
+write_csv(dat, here::here("data", "processed", "dat_clean.csv"))
 ```
-     Dadurch öffnet sich automatisch die passende Hilfeseite im Help-Tab.
 
-![](../../images/faq_rstudio_help_questionmark.jpg)
+Hier wird die Datei im Ordner data/processed/ innerhalb des Projekts gespeichert; unabhängig davon, auf welchem Computer oder an welchem Speicherort das Projekt liegt.
 
-![](../../images/faq_rstudio_help_searchbar.jpg)
+Der grosse Vorteil ist die Reproduzierbarkeit: Solange die Ordnerstruktur gleichbleibt und das Skript aus dem Projekt heraus geöffnet wird, funktioniert dieser Pfad immer zuverlässig. Wichtig dabei ist, dass here::here() nur dann korrekt funktioniert, wenn das Skript aus dem R-Projekt heraus geöffnet wird! Nur dann erkennt R automatisch den Projektordner als Ausgangspunkt aller Pfade.
 
-  2. Über den Help-Tab: Du kannst auch direkt im Help-Fenster nach einer       Funktion suchen.
-  
-Wie kannst du die Hilfeseite lesen, die sich anschliessend öffnet?
 
-Die Hilfeseiten sämtlicher Funktionen sind immer sehr ähnlich aufgebaut und enthalten mehrere wichtige Abschnitte:
+## Für mich ist bei den Aufgaben noch nicht immer klar, wann man mit welchem Datensatz weiterarbeiten muss (z.B. in der aktuellen Hausübung) oder wie man das aus der Aufgabe herauslesen kann.
 
-![](../../images/faq_rstudio_help_helppage1.jpg)
-![](../../images/faq_rstudio_help_helppage2.jpg)
+In den Übungen und Hausübungen ist immer angegeben, welcher Datensatz verwendet werden soll (aber wir werden uns bemühen das noch deutlicher zu machen!). Häufig arbeitet ihr mit dem Datensatz dat_full, der im Verlauf des Semesters schrittweise erweitert wird. Wenn ein anderer Datensatz benötigt wird, wird das jeweils erwähnt und zusätzlich über einen Download-Button bereitgestellt (wie z.B. bei der letzten R Hausübung).
 
-  
-  
+
+# Daten aufbereiten
+
+Frage: Allgemein fällt es mir noch etwas schwer, die einzelnen Schritte der Datenaufbereitung in eine sinnvolle Reihenfolge zu bringen, also z.B. wann man zuerst filtert, Variablen berechnet, fehlende Werte prüft oder Daten umformt.
+
+Antwort: Eine sinnvolle Datenaufbereitung folgt meistens der Logik: - Daten importieren; - Überblick gewinnen; - Daten bereinigen; - fehlende Werte prüfen; - neue Variablen berechnen; - Daten ggf. umformen (z.B. Wide und Long Format); - Datensätze final prüfen; - Datenqualität analysieren; - Daten visualisieren; - Daten analysieren.
+
+Die genaue Reihenfolge hängt zwar vom Datensatz und der Fragestellung ab, aber wichtig ist: Man sollte nicht sofort mit Analysen oder komplexen Transformationen beginnen, sondern zuerst sicherstellen, dass man den Datensatz versteht und dass die Variablen korrekt vorliegen.
+
+Datenaufbereitung ist kein einzelner Schritt, sondern ein Prozess! Ziel ist es, aus Rohdaten einen Datensatz zu erzeugen, der für die geplante Analyse geeignet, nachvollziehbar und möglichst fehlerfrei ist.
+
+Am Anfang steht immer der Datenimport. Hier werden die Rohdaten in R eingelesen. Direkt nach dem Import sollte man den Datensatz nicht sofort verändern, sondern sich zunächst einen Überblick verschaffen: Welche Variablen gibt es? Wie viele Fälle enthält der Datensatz? Welche Datentypen haben die Variablen? Gibt es auffällige Werte, leere Spalten oder unerwartete Kodierungen? Dieser erste Überblick ist wichtig, weil spätere Schritte sonst auf falschen Annahmen beruhen können.
+
+Danach folgt meist eine erste technische Bereinigung. Dazu gehört bspw. das Vereinheitlichen von Variablennamen, die Behebung offensichtlicher Importprobleme oder die Entfernung nicht benötigter Hilfsspalten. Auch das Umkodieren versteckter fehlender Werte gehört hierher: Wurden fehlende Werte etwa als 999, -999 oder leere Strings gespeichert, sollten sie möglichst früh in echte NA-Werte umgewandelt werden.
+
+Abschliessend sollten fehlende Werte systematisch geprüft werden. Dabei geht es zunächst darum, wo Werte fehlen: insgesamt, pro Variable oder vielleicht nur bei bestimmten Gruppen. Danach sollte überlegt werden, warum diese Werte fehlen könnten. Dieser Schritt sollte relativ früh erfolgen, weil fehlende Werte viele spätere Entscheidungen beeinflussen.
+
+Erst wenn der Datensatz grundsätzlich verstanden und bereinigt ist, werden Variablen in passende Datentypen überführt. Numerische Variablen sollten tatsächlich numerisch sein, kategoriale Variablen sollten häufig als Faktoren vorliegen, und Zeichenvariablen als solche erkannt werden. Dieser Schritt ist wichtig, weil viele Funktionen in R unterschiedlich reagieren, je nachdem, ob eine Variable numerisch, kategorial oder als Text gespeichert ist.
+
+Danach folgt häufig die inhaltliche Umkodierung oder Berechnung neuer Variablen. Hier werden z.B. Summenwerte, Mittelwerte, Differenzwerte, Gruppenvariablen oder z-standardisierte Variablen erstellt. Dieser Schritt sollte erst erfolgen, wenn klar ist, dass die zugrunde liegenden Variablen korrekt bereinigt und kodiert sind. Sonst berechnet man neue Variablen auf Basis fehlerhafter Ausgangswerte.
+
+Das Filtern von Fällen kann an unterschiedlichen Stellen sinnvoll sein. Offensichtlich unbrauchbare Fälle oder Testpersonen, die gar nicht zur Zielgruppe gehören, können früh ausgeschlossen werden. Analysespezifische Filter (z.B. nur vollständige Fälle für eine bestimmte Auswertung) sollten dagegen eher später und bewusst gesetzt werden. Wichtig ist dabei, Filter immer transparent zu dokumentieren, weil sie direkt beeinflussen, welche Personen oder Beobachtungen in die Analyse eingehen.
+
+Die Umformung von Wide zu Long (oder umgekehrt) erfolgt meist dann, wenn klar ist, welche Variablen analysiert werden sollen und welche Datenstruktur die Analyse benötigt. Wenn bspw. mehrere Messzeitpunkte pro Person analysiert werden sollen, wird der Datensatz ins Long-Format gebracht. Diese Umformung sollte nicht ganz am Anfang «blind» erfolgen, sondern dann, wenn man verstanden hat, welche Spalten zusammengehören und welche Information durch die Umformung neu als Variable abgebildet werden soll.
+
+Ganz am Ende steht die abschliessende Plausibilitätsprüfung. Man prüft also noch einmal: Stimmen die Fallzahlen? Sind die Variablen korrekt kodiert? Gibt es unerwartete fehlende Werte? Haben neu berechnete Variablen plausible Wertebereiche? Sieht der Datensatz so aus, wie er für die Analyse aussehen soll? Erst danach sollte mit den eigentlichen statistischen Analysen begonnen werden.
+
+## Beim Umgang mit fehlenden Werten ist mir noch nicht ganz klar, wie man entscheidet, ob fehlende Werte einfach ausgeschlossen, ersetzt oder genauer analysiert werden sollten. Ich würde gerne besser verstehen, welche Auswirkungen das hat.
+
+Der Umgang mit fehlenden Werten hängt immer davon ab, warum Werte fehlen und welche Fragestellung verfolgt wird. Erst wenn verstanden ist, ob fehlende Werte zufällig oder systematisch auftreten, kann entschieden werden, ob sie entfernt, ersetzt oder genauer untersucht werden sollten.
+
+Der zentrale Punkt beim Umgang mit fehlenden Werten ist, dass sie nicht einfach nur ein technisches Problem darstellen, sondern ein inhaltliches und statistisches Problem. Fehlende Werte können nämlich die Ergebnisse einer Analyse verzerren; insbesondere dann, wenn sie nicht zufällig entstehen. Deshalb sollte man fehlende Werte immer in einem ersten Schritt analysieren und verstehen, bevor man sie behandelt. In der Statistik wird dabei zwischen drei grundlegenden Formen unterschieden:
+
+-   Wenn Werte komplett zufällig fehlen (MCAR), besteht kein Zusammenhang mit anderen Variablen oder den fehlenden Werten selbst. Ein Beispiel wäre ein technischer Ausfall eines Messgeräts. In diesem Fall ist es meist unproblematisch, Fälle mit fehlenden Werten zu entfernen, da keine systematische Verzerrung zu erwarten ist.
+
+-   Anders ist die Situation, wenn fehlende Werte mit anderen beobachteten Variablen zusammenhängen (MAR). Beispielsweise könnte es sein, dass jüngere Personen eine bestimmte Frage häufiger überspringen. Hier ist das Fehlen bereits strukturiert, auch wenn es nicht direkt vom fehlenden Wert selbst abhängt. Werden solche Fälle einfach entfernt, kann das dazu führen, dass bestimmte Gruppen im Datensatz unterrepräsentiert sind.
+
+-   Besonders kritisch ist der Fall, dass fehlende Werte direkt mit dem fehlenden Wert selbst zusammenhängen (MNAR). Ein klassisches Beispiel wäre, dass Personen mit hoher Ausprägung eines Merkmals (z.B. Angst) eine Studie abbrechen. In diesem Fall gehen systematisch genau die Werte verloren, die für die Analyse besonders relevant wären. Ein einfaches Entfernen dieser Fälle würde die Ergebnisse stark verzerren.
+
+Vor diesem Hintergrund wird deutlich, dass die Entscheidung über den Umgang mit fehlenden Werten keine rein technische ist, sondern immer von der Datenstruktur und der Forschungsfrage abhängt.
+
+Wenn fehlende Werte nur in geringem Umfang auftreten und plausibel zufällig sind, kann es sinnvoll sein, diese Fälle zu entfernen. Dies ist die einfachste Vorgehensweise und wird von vielen statistischen Verfahren direkt umgesetzt. Allerdings geht dabei immer ein Teil der Daten verloren, was die Aussagekraft der Analyse verringern kann.
+
+Eine alternative Strategie besteht darin, fehlende Werte zu ersetzen (Imputation). Dabei werden fehlende Werte durch geschätzte Werte ergänzt, beispielsweise durch den Mittelwert oder komplexere Verfahren wie Regression oder Multiple Imputation. Der Vorteil liegt darin, dass der Datensatz vollständig bleibt. Allerdings basiert diese Vorgehensweise immer auf Annahmen, und insbesondere einfache Methoden können die Varianz unterschätzen und Zusammenhänge verzerren.
+
+In vielen Fällen ist es zudem sinnvoll, fehlende Werte nicht nur zu behandeln, sondern aktiv zu analysieren. Das bedeutet, zu prüfen, ob systematische Muster vorliegen und ob das Fehlen selbst bereits eine relevante Information darstellt.
+
+Zusammenfassend lässt sich sagen, dass der Umgang mit fehlenden Werten immer einem dreistufigen Verfahren folgt: Zuerst müssen fehlende Werte identifiziert werden, anschliessend sollte ihre Entstehung bestmöglich verstanden werden, und erst darauf aufbauend kann eine geeignete Behandlungsstrategie gewählt werden. Der entscheidende Schritt ist dabei das Verständnis der Ursache, da hiervon abhängt, ob eine Analyse unverzerrt möglich ist.
+
+Idealerweise macht man sich schon vor einer Datenerhebung Gedanken darüber wie fehlende Werte entstehen könnten und beschreibt schon in einer Präregistrierung wie mit diesen umgegangen wird.
+
+## Wieso müssen Daten überhaupt vom wide-Format ins long-Format transformiert werden?
+
+Viele Funktionen in R sind so konzipiert, dass sie mit long-Daten arbeiten. Das long-Format erleichtert vor allem die Handhabung von Messwiederholungen oder anderweitig inhaltlich gruppierten Daten. Wenn jede Zeile eine eigene Messung darstellt, können einfacher zur Messung passende Gruppierungen vorgenommen werden.
+
+## Wie funktioniert die Umwandlung eines wide-Datensatzes hin zu einem long-Datensatz und welche Argumente beinhaltet die hierfür angewendete Funktion `pivot_longer()`?
+
+::: callout-important
+Über die Syntax `?Funktionsname()` kann die Dokumentation einer Funktion aufgerufen werden. Dort ist beschrieben, welche Argumente die Funktion erwartet, welche Default-Einstellungen gelten und welche Ausgabe erzeugt wird.
+:::
+
+Wie schon in der Frage erwähnt, die passende Funktion zur Umwandlung eines Datensatzes vom wide-Format in das long-Format erfolgt anhand der Funktion `pivot_longer()`. Die Funktion nimmt als die ersten beiden Argumente den Datensatz (`data`) und die Spalten, welche transformiert werden sollen (`cols`). Mit den anderen beiden Argumenten werden die Namen bestimmt, welche die Spalten haben sollen, in welcher die früheren Spaltenüberschriften (`names_to = "name"`) und die Werte (`values_to = "value"`) eingetragen werden.
+
+```{r}
+#| echo: true
+#| eval: false
+
+data_long <- data_wide |> 
+  pivot_longer(
+    cols = c(Spalte1, Spalte2, Spalte3), 
+    names_to = "Hier kommt der Name der Spalte rein, in welcher die früheren Spaltenüberschriften abgelegt sind", 
+    values_to = "Hier kommt der Name der Spalte rein, in welcher die Werte der entsprechenden früheren Spalten abgelegt sind"
+  )
+
+```
+
+::: callout-note
+Weitere Informationen und Beispiele finden sich [hier](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html).
+:::
+
+## Bei der Umformung von Wide- zu Long-Format verstehe ich grundsätzlich den Code, aber ich bin noch unsicher, wann ein Long-Datensatz für eine Analyse wirklich notwendig ist und woran ich erkenne, was wann besser geeignet ist.
+
+Antwort: Ob ein Datensatz im Wide- oder Long-Format vorliegen sollte, hängt davon ab, wie die Daten analysiert werden sollen. Insbesondere dann, wenn mehrere Messungen pro Person vorliegen (und diese in einer Analyse verglichen werden sollen), ist das Long-Format meist notwendig, da viele statistische Verfahren und Funktionen in R davon ausgehen, dass jede Zeile eine einzelne Beobachtung darstellt.
+
+Der Unterschied zwischen Wide- und Long-Format betrifft zunächst nur die Struktur der Daten, nicht ihren Inhalt. Beide Formate enthalten die gleichen Informationen, organisieren diese jedoch auf unterschiedliche Weise. Im Wide-Format entspricht eine Zeile typischerweise einer Person, während verschiedene Messungen (etwa zu unterschiedlichen Zeitpunkten) in separaten Spalten gespeichert sind. Dieses Format ist oft intuitiv und übersichtlich, insbesondere wenn man sich einen ersten Eindruck vom Datensatz verschaffen möchte.
+
+Im Long-Format wird diese Struktur gewissermassen «aufgelöst». Hier entspricht jede Zeile einer einzelnen Messung, und zusätzliche Variablen geben an, zu welcher Person und zu welchem Messzeitpunkt diese Beobachtung gehört. Dadurch entsteht eine Datenstruktur, in der jede Zeile genau eine Beobachtung repräsentiert.
+
+Entscheidend ist nun, dass viele Auswertungsmethoden nicht mit «nebeneinanderliegenden» Within-Subjects Messungen arbeiten können, sondern darauf angewiesen sind, dass Messungen untereinander organisiert sind. Dies wird besonders deutlich bei Messwiederholungen, also wenn mehrere Werte pro Person vorliegen, etwa zu verschiedenen Zeitpunkten oder unter unterschiedlichen Bedingungen. Im Wide-Format sind diese Messungen auf mehrere Spalten verteilt, was es erschwert, systematisch über diese Dimensionen hinweg zu analysieren. Im Long-Format hingegen kann beispielsweise eine Variable «Messzeitpunkt» direkt in Analysen einbezogen werden, wodurch sich Veränderungen über die Zeit oder Unterschiede zwischen Bedingungen deutlich einfacher untersuchen lassen.
+
+Vor diesem Hintergrund lässt sich die Entscheidung für ein bestimmtes Datenformat gut über die Art der Variablen treffen, die in der Analyse verwendet werden.\[SG2.1\] Eine hilfreiche Unterscheidung ist dabei die zwischen Between- und Within-Variablen:
+
+-   Wenn in einer Analyse ausschliesslich Between-Variablen vorkommen, also jede Person genau eine Ausprägung pro Variable hat (z.B. Geschlecht, Gruppe), kann der Datensatz problemlos im Wide-Format vorliegen. In diesem Fall entspricht jede Zeile einer Person, und es gibt keine mehrfachen Messungen pro Einheit.
+
+-   Sobald jedoch mindestens eine Within-Variable vorliegt, also mehrere Messungen pro Person (etwa über verschiedene Zeitpunkte, Bedingungen oder Items hinweg), ist in der Regel das Long-Format notwendig. Der Grund ist, dass viele Analysen davon ausgehen, dass jede einzelne Messung als eigene Beobachtung vorliegt. Im Long-Format können diese Messungen dann über eine zusätzliche Variable (z.B. «Zeitpunkt» oder «Bedingung») systematisch analysiert werden.
+
+In der praktischen Arbeit ergibt sich daraus häufig folgendes Vorgehen: Daten liegen oft zunächst im Wide-Format vor, da sie so einfacher erhoben oder gespeichert werden können. Für viele Messwiederholungs-Analysen insbesondere bei mehreren Messungen pro person) werden sie dann jedoch ins Long-Format überführt, da dieses besser mit den Anforderungen statistischer Verfahren und Datenmanipulation in R übereinstimmt. Je nach Analysemethode, wird dann der Wide (between-subjects Analysen) oder Long Datensatz (within-subjects Analysen) verwendet.
+
 # Spezifische Argumente
 
 ## Wofür stehen die zusätzlichen Argumente wie `escape_double` oder `trim_ws` beim Einlesen von Dateien?
@@ -228,7 +394,33 @@ mean(x)
 mean(x, na.rm = TRUE)
 ```
 
-# Funktionsweise bestimmter einzelner Funktionen
+# Funktionsweise bestimmter Funktionen
+
+## Wie kann ich mir erklären lassen, wofür ich eine Funktion gebrauchen kann?
+
+In R gibt es eine eingebaute Hilfsfunktion, mit der du dir zu jeder Funktion eine ausführliche Beschreibung anzeigen lassen kannst. Dafür gibt es zwei einfache Wege:
+
+1.  Über die Konsole: Du kannst in der Konsole ein Fragezeichen vor den entsprechenden Funktionsnamen setzten und diesen Code ausführen:
+
+```{r}
+    ?mean
+```
+
+```         
+ Dadurch öffnet sich automatisch die passende Hilfeseite im Help-Tab.
+```
+
+![](../../images/faq_rstudio_help_questionmark.jpg)
+
+![](../../images/faq_rstudio_help_searchbar.jpg)
+
+2.  Über den Help-Tab: Du kannst auch direkt im Help-Fenster nach einer Funktion suchen.
+
+Wie kannst du die Hilfeseite lesen, die sich anschliessend öffnet?
+
+Die Hilfeseiten sämtlicher Funktionen sind immer sehr ähnlich aufgebaut und enthalten mehrere wichtige Abschnitte:
+
+![](../../images/faq_rstudio_help_helppage1.jpg) ![](../../images/faq_rstudio_help_helppage2.jpg)
 
 ## Wie funktioniert die Funktion `group_by()`?
 
@@ -305,9 +497,9 @@ data |>
 
 ```
 
-::: callout-note
-Die Pipe Operatoren unterscheiden sich nur geringfügig und die Unterschiede sind für den Rahmen des Seminars nicht relevant, können jedoch [hier](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe) nachgelesen werden.
-:::
+Die beiden Pipe-Operatoren |> (Base R) und %>% (Tidyverse) funktionieren in den meisten Fällen gleich: Sie leiten das Ergebnis eines Befehls in den nächsten weiter. Für das Seminar ist der Unterschied nicht entscheidend; empfohlen wird |>, da es Teil von Base R ist und immer verfügbar ist.
+Für Informationen zur Unterscheidung der Pipe Operatoren, siehe https://r4ds.hadley.nz/data-transform.html#sec-the-pipe, Kapitel 3.4.
+
 
 ## Wie funktioniert die `t.test()`-Funktion?
 
@@ -333,7 +525,9 @@ t.test(x = data$Wert[data$Gruppe == "A"],
 
 ## Was ist der Unterschied zwischen `cbind()` und den `xy_join()`-Funktionen?
 
-Die Funktion `cbind()` kann man sich wie „Kleber“ vorstellen. Die Datensätze werden ohne Berücksichtigung der Reihenfolgen der Zeilen aneinandergeklebt. Hierdurch könnten im zusammengefügten Datensatz Werte derselben Zeile von verschiedenen Versuchspersonen stammen. Mit der Funktion `xy_join()` wird vor dem Zusammenfügen der beiden Datensätze die Reihenfolge der Zeilen über beide Datensätze hinweg kontrolliert und angeglichen. Hierfür wird jene Spalte verwendet, die im Argument `xy_join(data, by = „…“)` genannt wurde. Damit wird sichergestellt, dass im resultierenden Datensatz Werte derselben Zeile auch von einer einzelnen Versuchsperson stammen.
+Die Funktion `cbind()` kann man sich wie „Kleber“ vorstellen. Die Datensätze werden spaltenweise aneinandergeklebt. Dabei wird jedoch nicht berücksichtigt, dass die Versuchspersonen in Datensatz A anders angeordnet sein können als die Versuchspersonen in Datensatz B! Hierdurch könnten im zusammengefügten Datensatz Werte derselben Zeile von verschiedenen Versuchspersonen stammen.
+
+Mit der Funktion `xy_join()` wird vor dem Zusammenfügen der beiden Datensätze die Reihenfolge der Zeilen über beide Datensätze hinweg kontrolliert und angeglichen. Hierfür wird jene Spalte verwendet, die im Argument `xy_join(data, by = „…“)` genannt wurde. Damit wird sichergestellt, dass im resultierenden Datensatz Werte derselben Zeile auch von einer einzelnen Versuchsperson stammen.
 
 ## Was ist der Unterschied zwischen `inner_join()`, `left_join()`, `right_join()`, `full_join()`?
 
@@ -343,13 +537,35 @@ Die Funktionen unterscheiden sich dahingehend, was von den beiden Datensätzen n
 Eine ausführlichere Beschreibung zu dem Thema findet sich auch noch mal [hier](https://r4ds.hadley.nz/joins.html#how-do-joins-work) unter Kapitel 19.4. [Hier](https://psu-psychology.github.io/r-bootcamp-2019/talks/joins_tutorial_bnj.html#mutating_joins:_inner,_left,_right,_full) sind animierte Abbildungen zu den Funktionsweisen.
 :::
 
-## Was ist der Unterschied zwischen `as_factor()` und `as.factor()`?
+## Was ist der Unterschied zwischen `factor()`, `as_factor()` und `as.factor()`?
 
 ::: callout-important
 Über die Syntax `?Funktionsname()` kann die Dokumentation einer Funktion aufgerufen werden. Dort ist beschrieben, welche Argumente die Funktion erwartet, welche Default-Einstellungen gelten und welche Ausgabe erzeugt wird. Hierüber lassen sich auch Unterschiede zwischen ähnlichen Funktionen feststellen.
 :::
 
-Beide Funktionen formatieren Werte einer Spalte hin zu Faktoren. `as.factor()` ist in Base R vorhanden und erstellt die Faktoren anhand des Alphabets. `as_factor()` stammt aus dem Tidyverse, kann bereits in SPSS-Dateien enthaltene Faktorisierungen auslesen und erstellt neue Faktoren anhand der Auftrittsreihenfolge im Vektor.
+Mit `factor()` aus Base R hat man die volle Kontrolle: Es kann selbst festgelegt werden, welche Levels existieren und in welcher Reihenfolge diese stehen. Beispiel zur Demonstration:
+
+```{r}
+# Beispiel-Datensatz
+zufriedenheit <- c("mittel", "hoch", "niedrig", "hoch", "mittel")
+
+# Standard: automatische (alphabetische) Reihenfolge
+zufriedenheit_factor_auto <- as.factor(zufriedenheit)
+levels(zufriedenheit_factor_auto)
+# Ergebnis: "hoch" "mittel" "niedrig"
+
+# Mit factor(): Reihenfolge bewusst festlegen
+zufriedenheit_factor_geordnet <- factor(
+   zufriedenheit,
+              levels = c("niedrig", "mittel", "hoch"),
+              ordered = TRUE
+           )
+
+levels(zufriedenheit_factor_geordnet)
+# Ergebnis: "niedrig" "mittel" "hoch"
+```
+
+Sowohl `as.factor()` als auch `as_factor()` formatieren Werte einer Spalte hin zu Faktoren. `as.factor()` ist in Base R vorhanden und erstellt die Faktoren mit alphabetisch sortierten levels. `as_factor()` stammt aus dem Tidyverse, kann bereits in SPSS-Dateien enthaltene Faktorisierungen auslesen und erstellt neue Faktoren anhand der Auftrittsreihenfolge im Vektor. `as_factor()` eignet sich also für importierte Daten.
 
 ## Wann verwendet man welche der `xy_join()`-Funktionen und anhand welcher Variable sollen Datensätze zusammengefügt werden?
 
@@ -374,7 +590,6 @@ Visualisierungen finden sich [hier](https://www.andrewheiss.com/blog/2024/04/04/
 `mean(df$V1)` berechnet den Mittelwert einer einzelnen Spalte über alle Zeilen hinweg und entspricht dem Mittelwert einer Variable über alle Personen.
 
 `rowMeans()` eignet sich daher insbesondere zur Berechnung von Skalenwerten, während `mean()` für Durchschnittswerte über das gesamte Sample verwendet wird.
-
 
 | V1  | V2  | V3  |
 |-----|-----|-----|
@@ -449,6 +664,31 @@ attributes(penguins$species)
 
 # Working Directory/Pfade/Ordnersystem
 
+## Ich bin nun zwar in der Lage, in einem Project zu arbeiten. Aber was das genau ist und was genau alles in ein Project gehört habe ich irgendwie immer noch nicht ganz verstanden. Können wir das nochmals kurz anschauen?
+
+Ein **R-Projekt** ist eine klar abgegrenzte Arbeitsumgebung in RStudio. Du kannst es dir wie einen gemeinsamen Rahmen für alles vorstellen, was zu einer bestimmten Analyse, Übung, Seminararbeit oder Forschungsarbeit gehört. In ein R-Projekt gehört grundsätzlich alles, was notwendig ist, um eine Analyse nachvollziehbar durchzuführen: also z.B. Daten, Code, Ergebnisse, Berichte und weitere relevante Materialien.
+
+Technisch erkennst du ein R-Projekt an einer Datei mit der Endung .Rproj. In unserem Fall ist das die Datei ryouready.Rproj. Diese Datei liegt auf der obersten Ebene unseres Projektordners. Wenn du diese Datei öffnest, öffnest du nicht einfach nur eine einzelne Datei, sondern das gesamte Projekt in RStudio. RStudio weiss dann, dass dieser Ordner der zentrale Ausgangspunkt für unsere Arbeit ist.
+Wenn ein R-Projekt geöffnet wird, setzt RStudio automatisch das **Working Directory** auf den Ordner, in dem die .Rproj-Datei liegt. Das Working Directory ist der Ort, von dem aus R nach Dateien sucht und an dem R neue Dateien speichert, wenn kein anderer Speicherort angegeben wird.
+In unserem Projekt ist also der Ordner mit der Datei ryouready.Rproj der zentrale Projektordner. Alle Unterordner wie code, data, methods, preregistration und reports sind Teil dieses Projekts. Sie enthalten unterschiedliche Bestandteile der Arbeit, gehören aber logisch zur gleichen Analyseumgebung.
+
+Der wichtigste Vorteil eines R-Projekts ist, dass die Analyse einen festen Ausgangspunkt bekommt. Dadurch ist klar geregelt, wo die Dateien und der Code liegen, wo Ergebnisse gespeichert werden und welche Dateien überhaupt zur Analyse gehören. Das macht die Arbeit deutlich übersichtlicher. Gerade wenn ein Projekt über mehrere Wochen oder Monate läuft, ist es sonst schnell schwierig nachzuvollziehen, welche Datei wofür verwendet wurde.
+Ein weiterer grosser Vorteil ist, dass R-Projekte das Arbeiten mit **relativen Pfaden** ermöglichen. Ein relativer Pfad beschreibt den Weg zu einer Datei immer ausgehend vom Projektordner. Dadurch musst du keine absoluten Pfade verwenden, die nur auf deinem eigenen Computer funktionieren. Stattdessen kann sich der Code auf die Struktur innerhalb des Projekts beziehen.
+Das macht den Code stabiler und übertragbarer. Wenn eine andere Person denselben Projektordner öffnet und die Struktur gleichbleibt, kann derselbe relative Pfad innerhalb der Projektstruktur verwendet werden. Dadurch wird die Analyse besser reproduzierbar.
+
+
+## Warum sind Ordnerstruktur und die Organisation von Projekten, Daten und Skripten nochmal wichtig?
+
+Antwort: Eine strukturierte Organisation von Ordnern, Daten und Skripten ist ein zentraler Bestandteil guter wissenschaftlicher Praxis und besonders wichtig bei der Arbeit mit R-Projekten. Der Hauptgrund dafür ist, dass Datenanalysen in der Regel aus vielen einzelnen Schritten bestehen: Daten werden eingelesen, bereinigt, analysiert und Ergebnisse werden gespeichert. Ohne eine klare Struktur wird es schnell schwierig nachzuvollziehen, wo sich welche Daten befinden und welche Version aktuell ist.
+
+Eine gute Ordnerstruktur hilft dabei, diese einzelnen Bestandteile klar zu trennen. Typischerweise werden beispielsweise Rohdaten, aufbereitete Daten, Skripte und Ergebnisse in unterschiedlichen Ordnern gespeichert. Dadurch ist sofort ersichtlich, welche Dateien wofür verwendet werden, und es wird verhindert, dass Daten versehentlich überschrieben oder verändert werden. Gleichzeitig erleichtert dies das gezielte Arbeiten, da benötigte Dateien schnell gefunden werden können.
+
+Ein weiterer zentraler Vorteil ist die Reproduzierbarkeit: Wenn Daten und Skripte sauber organisiert sind, können Analysen jederzeit nachvollzogen und erneut ausgeführt werden; auch von anderen Personen.
+
+Für die praktische Umsetzung bedeutet das, dass man von Beginn an eine klare Struktur im Projekt anlegt, konsistente Dateinamen verwendet und alle relevanten Dateien innerhalb eines R-Projektes organisiert. Dadurch kann auch mit relativen Pfaden gearbeitet werden, was den Code robuster und leichter übertragbar macht.
+
+👉 Einen konkreten Vorschlag für eine solche Struktur sowie weiterführende Hinweise haben wir in den Folien von Einheit 3 besprochen. Dort wird insbesondere auch der Standard PsychDS vorgestellt, an dem wir uns im Seminar orientieren.
+
 ## Wie sieht die ideale Ordnerstruktur aus?
 
 Grundsätzlich gilt: Alle **Rohdaten** werden im **raw/**-Ordner gespeichert (und **niemals überschrieben**). Diese Daten werden dann im *processing*-Skript bereinigt und verarbeitet. Die verarbeiteten Datensaetze werden anschliessend mit `write.csv()` im **processed/**-Ordner gespeichert.
@@ -481,37 +721,6 @@ Das Anlegen eines Projekts ist insbesondere dann sinnvoll, wenn mit mehreren Skr
 ## Wie speichert und lädt man R-Projekte richtig, damit nichts verloren oder ungewollt verändert wird?
 
 Am besten werden alle Skripte, welche Teil des Projektes sein, neben oder unter der Projektdatei im Ordnersystem gespeichert. Beim Öffnen des Projektes in RStudio wird automatisch das working directory (Arbeitsspeicher des Skripts) auf den Ordner gesetzt, in welchem sich die Projektdatei befindet. Im Skript selbst sollten dann alle geladenen und abgespeicherten Dateien als relative Pfade zu diesem working directory / Ordner der Projektdatei angegeben werden.
-
-# Long/Wide-Format
-
-## Wieso müssen Daten überhaupt vom wide-Format ins long-Format transformiert werden?
-
-Viele Funktionen in R sind so konzipiert, dass sie mit long-Daten arbeiten. Das long-Format erleichtert vor allem die Handhabung von Messwiederholungen oder anderweitig inhaltlich gruppierten Daten. Wenn jede Zeile eine eigene Messung darstellt, können einfacher zur Messung passende Gruppierungen vorgenommen werden.
-
-## Wie funktioniert die Umwandlung eines wide-Datensatzes hin zu einem long-Datensatz und welche Argumente beinhaltet die hierfür angewendete Funktion `pivot_longer()`?
-
-::: callout-important
-Über die Syntax `?Funktionsname()` kann die Dokumentation einer Funktion aufgerufen werden. Dort ist beschrieben, welche Argumente die Funktion erwartet, welche Default-Einstellungen gelten und welche Ausgabe erzeugt wird.
-:::
-
-Wie schon in der Frage erwähnt, die passende Funktion zur Umwandlung eines Datensatzes vom wide-Format in das long-Format erfolgt anhand der Funktion `pivot_longer()`. Die Funktion nimmt als die ersten beiden Argumente den Datensatz (`data`) und die Spalten, welche transformiert werden sollen (`cols`). Mit den anderen beiden Argumenten werden die Namen bestimmt, welche die Spalten haben sollen, in welcher die früheren Spaltenüberschriften (`names_to = "name"`) und die Werte (`values_to = "value"`) eingetragen werden.
-
-```{r}
-#| echo: true
-#| eval: false
-
-data_long <- data_wide |> 
-  pivot_longer(
-    cols = c(Spalte1, Spalte2, Spalte3), 
-    names_to = "Hier kommt der Name der Spalte rein, in welcher die früheren Spaltenüberschriften abgelegt sind", 
-    values_to = "Hier kommt der Name der Spalte rein, in welcher die Werte der entsprechenden früheren Spalten abgelegt sind"
-  )
-
-```
-
-::: callout-note
-Weitere Informationen und Beispiele finden sich [hier](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html).
-:::
 
 # Visualisierungen/APA
 
@@ -650,9 +859,15 @@ data_reversed <- data_numeric |>
 
 ```
 
-## Sollten Datensätze vor dem mergen erst aufbereinigt werden?
+## Ich bin mir noch nicht ganz sicher, ob ich das Mergen verstanden habe. Evtl. dort noch einmal aufzeigen, wofür das genau ist?
 
-Einige Schritte der Datenaufbereitung sollten vor dem Mergen durchgeführt werden, da das Zusammenführen der Datensätze sonst unnötig kompliziert werden kann. Beispielsweise können Duplikate oder fehlende Werte (NAs) beim Mergen zu Problemen führen und sollten daher idealerweise bereits vorher behandelt werden. Für viele andere Schritte, wie etwa Rekodierungen, spielt es hingegen keine Rolle, ob sie im einzelnen Datensatz oder erst im gemergten Datensatz durchgeführt werden. Es gibt dabei keine festgelegte Reihenfolge, die zwingend eingehalten werden muss. Ob das Vorgehen korrekt war, lässt sich abschliessend überprüfen, indem der gemergte Datensatz inspiziert und auf Plausibilität geprüft wird.
+Das Zusammenführen (Mergen) von Datensätzen ist ein zentraler Schritt in der Datenanalyse, da relevante Informationen oft nicht in einem einzigen Datensatz vorliegen, sondern auf mehrere Dateien verteilt sind. Ziel des Mergens ist es, diese Informationen sinnvoll zu kombinieren, sodass alle benötigten Variablen gemeinsam analysiert werden können.
+
+Ein typisches Beispiel ist, dass in einem Datensatz Leistungsdaten von Studierenden enthalten sind, während ein anderer Datensatz zusätzliche Informationen wie Alter oder Geschlecht beinhaltet. Erst wenn diese beiden Datensätze zusammengeführt werden, können Zusammenhänge zwischen diesen Variablen untersucht werden.
+
+In Block 2 der Übungen haben wir diesen grundlegenden Zweck bereits besprochen und auch zwei zentrale Methoden kennengelernt: cbind() und full_join(). Dabei ist es wichtig zu verstehen, dass beide Funktionen Datensätze unterschiedlich zusammenführen --\> siehe FAQ-Eintrag "Unterschied zwischen cbind() und den xy_join()-Funktionen"
+
+Insgesamt dient das Mergen also dazu, verteilte Informationen zusammenzuführen und damit die Grundlage für weiterführende Analysen zu schaffen.
 
 ## Wie kann ich nachhaltige Anpassungen an Variablen im Datensatz vornehmen?
 
@@ -676,15 +891,13 @@ penguins <- penguins |>
   mutate(mean_bill_length = mean(bill_length_mm, na.rm = TRUE))
 ```
 
-## Wann müssen Variablen, welche inhaltlich Faktoren sind, auch explizit zu solchen transformiert werden?
+## Was ist ein Faktor und wann sollte eine Variable in einen Faktor umgewandelt werden?
 
-Viele Transformationen sind notwendig, weil statistische Funktionen bestimmte Datentypen voraussetzen. Die ANOVA etwa benötigt Faktoren, wenn Gruppen verglichen werden sollen, damit R die Gruppen-Variable als kategorial erkennt. Solche Transformationen sind also Teil der korrekten Vorbereitung der Daten.
+Ein Faktor ist ein Datentyp für kategoriale Variablen (z.B. Experimentalgruppen, Geschlecht, Studienfach). Faktoren haben also diskrete Ausprägungen (Levels). Obwohl die Bezeichnung "Faktor" das vielleicht suggeriert, haben Faktoren aber keine mathematische Bedeutung und somit nichts mit Multiplikation zu tun.
+
+Das Umwandeln in einen Faktor ist wichtig, weil viele Funktionen in R erkennen müssen, dass es sich um eine kategoriale Variable handelt. Wenn eine Variable nicht als Faktor vorliegt, interpretiert R sie womöglich falsch (z.B. als numerische Variable), was zu fehlerhaften Analysen führen kann. So muss beispielsweise bei einer ANOVA die Gruppenvariable ein Faktor sein, damit R weiss, dass diese Variable die Gruppen definiert, die vergleichen werden sollen. Ohne Faktor würde R die Variable ggf. als Zahl behandeln und Unterschiede falsch interpretieren.
 
 Es ist eine gute Faustregel, Variablen in Faktoren umzuwandeln, wenn sie klar kategoriale Gruppen darstellen – zum Beispiel eine Gruppenzugehörigkeit wie “above”, “below” oder “control”.
-
-## Was genau machen die Funktionen aus dem Package `styler`?
-
-Die Funktionen aus dem Package `styler` helfen dabei, den Code einheitlich und lesbar zu formatieren. Sie passen Einrückungen, Leerzeichen, Zeilenumbrüche und andere Formatierungsaspekte an. [Hier](https://styler.r-lib.org/) befindet sich eine Anleitung und Demo zu dem Package.
 
 # Komplexere Berechnungen
 
@@ -716,6 +929,18 @@ Eine mixed-ANOVA besteht aus der Varianzerklärung aufgrund unterschiedlicher Gr
 Inhalte zu ANOVAs mit Messwiederholung oder Mixed-ANOVAs können zusätzlich über die Materialien aus [Statistik IV von Boris Mayer und Stefan Thoma](https://methodenlehre.github.io/statistik-IV/) vertieft werden.
 :::
 
+## Ich habe teils Mühe zu kontrollieren, ob meine Codes wirklich das gemacht haben, was ich wollte. Also wenn keine Fehlermeldung kommt, der Code ausgeführt wird (z.B. Datensätze mergen) und ich dann kontrollieren will, ob ich nun auch wirklich das gemacht habe, was ich tun sollte oder den falschen Code genommen habe. Ich frage mich, ob es irgendwelche allgemeinen Tricks gibt, um Outputs, resp. Datensätze auf Plausibilität zu überprüfen?
+
+Ein wichtiger erster Schritt beginnt dabei bereits vor dem Ausführen des Codes: Es ist sinnvoll, sich bewusst zu überlegen, was genau man erwartet. Wie sollte der Datensatz nach der Funktion bzw. dem Befehl aussehen? Wie viele Beobachtungen sollten vorhanden sein? Welche Variablen sollten neu hinzukommen? Code sollte also nicht «einfach ausprobiert» werden, sondern immer mit einer klaren Erwartung verbunden sein, die anschliessend überprüft wird.
+
+Nach der Ausführung kann man den Datensatz gezielt inspizieren, z.B. mit Funktionen wie head(), view() oder str(). So lässt sich schnell überprüfen, ob die erwarteten Variablen vorhanden sind und ob die Struktur plausibel ist. Ebenso ist es hilfreich, die Anzahl der Beobachtungen vor und nach einer Operation zu vergleichen (z.B. mit nrow() ), um sicherzustellen, dass keine unerwarteten Fälle verloren gegangen oder hinzugekommen sind.
+
+Gerade beim Mergen ist es sinnvoll zu prüfen, ob die Zusammenführung korrekt funktioniert hat. Dazu kann man beispielsweise kontrollieren, ob die Schlüsselvariable wie erwartet übereinstimmt oder ob ungewöhnlich viele fehlende Werte (NA) entstanden sind, was auf Probleme beim Zusammenführen hindeuten kann.
+
+Zusätzlich kann es hilfreich sein, Code in ein LLM (z.B. ein KI-Tool) einzufügen und sich erklären zu lassen, was genau dieser Code macht. Diese Erklärung kann dann mit den eigenen Erwartungen abgeglichen werden. Stimmen beide überein, ist das ein gutes Zeichen; gibt es Abweichungen, lohnt es sich, den Code nochmals kritisch zu prüfen.
+
+Allgemein gilt: Ergebnisse sollten immer auch inhaltlich hinterfragt werden. Wirkt das Ergebnis logisch? Passen die Werte zu dem, was man erwartet hätte? Ein kurzer Blick auf Verteilungen oder einfache Zusammenfassungen (z.B. mit summary() ) kann oft schon Hinweise auf mögliche Fehler geben. Wenn man Berechnungen durchführt (z.B. Mittelwert über Fragebogenitems), kann es auch helfen dies für einzelne Versuchspersonen händisch nachzurechnen, um zu sehen ob es richtig durchgeführt wurde.
+
 # Quarto-Einstellungen
 
 ## Wie stellt man ein, dass in Markdown oder Quarto der Output meines Codes unterbunden wird?
@@ -728,6 +953,19 @@ Es kann entweder im ersten Chunk des Dokuments als globale Einstellung `knitr::o
 # Hierdurch würde der Code dann zusätzlich auch nicht mehr angezeigt werden
 # #| echo: FALSE
 ```
+
+## Welche Basic-Einstellungen gehören in den YAML-Header in einem Quarto-Skript?
+
+Antwort: Der YAML-Header steht ganz oben im Quarto-Dokument und legt fest, wie das Dokument gerendert werden soll. Minimal braucht man vor allem Angaben wie title und format. Zusätzlich sind Angaben wie author, date und globale Ausführungsoptionen unter execute sehr hilfreich.
+
+Die Angaben im YAML-Header steuern nicht den Inhalt selbst, sondern die Art, wie Quarto das Dokument verarbeitet und ausgibt. Besonders wichtig ist dabei die Option format, weil sie bestimmt, ob aus dem Quarto-Skript z.B. eine HTML-Datei, ein Word-Dokument oder ein PDF erstellt wird. Für das korrekte Rendern ist also vor allem entscheidend, dass Quarto weiss, welches Ausgabeformat erzeugt werden soll.
+
+Neben dem Format sind title, author und date typische Basisangaben. Sie sind nicht immer technisch zwingend notwendig, aber sehr hilfreich, weil sie im gerenderten Dokument sichtbar machen, worum es geht und von wem das Dokument stammt. Dies stärkt auch die Reproduzierbarkeit!
+
+Wenn globale Einstellungen für alle Code-Chunks gelten sollen, verwendet man im YAML-Header den Bereich execute. Dort kann man festlegen, ob Code, Warnmeldungen oder Ausgaben im gerenderten Dokument erscheinen sollen. Das ist praktisch, weil man solche Optionen dann nicht in jedem einzelnen Code-Chunk wiederholen muss. Quarto dokumentiert diese Ausführungsoptionen als globale Optionen im YAML-Header; einzelne Code-Chunks können sie bei Bedarf trotzdem überschreiben.
+
+Darüber hinaus gibt es sehr viele weitere optionale Einstellungen, z.B. für Inhaltsverzeichnisse, nummerierte Überschriften, Themes, Code-Folding, Tabellen, Abbildungen oder Layout. Diese Optionen sind nützlich, aber nicht alle für den Einstieg nötig. Für den Anfang reicht es völlig, den YAML-Header als Ort für die zentralen Dokumenteinstellungen zu verstehen: Titel, Autor:in, Datum, Ausgabeformat und globale Code-Optionen.
+
 
 ## Wie kann ich einstellen, dass Quarto beim Rendern neben der Zieldatei keine weiteren erstellt?
 
@@ -753,3 +991,15 @@ quarto render meinDokument.qmd --embed-resources
 ```
 
 Hierbei muss natürlich noch der Dateiname des .qmd-file entsprechend angepasst werden. Weitere Informationen gibt es [hier](https://quarto.org/docs/reference/formats/html.html) (am besten auf der Seite selbst noch nach dem Begriff embed-resources suchen).
+
+# Erweiterte Tools (LLMs, Codestyler...)
+
+## Die Thematik mit den LLMs ging mir ein bisschen zu schnell, aber soweit ich dies verstanden habe, ist es nur eine Möglichkeit, diese anzuwenden und keine Pflicht.
+
+Die Nutzung von LLMs (z.B. KI-Tools in R) ist im Seminar selbstverständlich keine Pflicht. Wir haben diese Thematik aufgegriffen, um einen Einblick in mögliche Anwendungen zu geben und zu zeigen, wie solche Tools direkt in R eingesetzt werden können, etwa zur Unterstützung beim Schreiben oder Verstehen von Code. Die gezeigten Beispiele dienen dabei ausschliesslich der Demonstration. Entscheidend ist, dass die Inhalte verstanden und eigenständig angewendet werden können; unabhängig davon, ob solche Tools genutzt werden oder nicht.
+
+Informationen zur Integration und Installation der verschiedenen Tools in R-Studio findest du auf der Webseite unter den Links und Ressourcen.
+
+## Was genau machen die Funktionen aus dem Package `styler`?
+
+Die Funktionen aus dem Package `styler` helfen dabei, den Code einheitlich und lesbar zu formatieren. Sie passen Einrückungen, Leerzeichen, Zeilenumbrüche und andere Formatierungsaspekte an. [Hier](https://styler.r-lib.org/) befindet sich eine Anleitung und Demo zu dem Package.

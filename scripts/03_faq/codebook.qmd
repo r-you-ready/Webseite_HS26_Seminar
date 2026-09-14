@@ -7,7 +7,19 @@ format: html
 Unabhängig von den konkreten Fragen und Antworten gilt: Das Codebook soll es fremden Wissenschaftler:innen aus der Psychologie ermöglichen die Studie und die Datenanalyse ohne weiteren Aufwand nachvollziehen zu können. Dafür sollte vor allem anderen auf die Vollständigkeit und Genauigkeit der Angaben geachtet werden.
 :::
 
-Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. Suche deine Frage am besten mit ctrl + F (MAC: Cmd +F) und dem passendesten Stichwort!
+[Die Gliederung mit Überschriften dient uns bei der Erstellung als Übersicht. Suche deine Frage am besten mit ctrl + F (MAC: Cmd +F) und dem passendesten Stichwort!]{style="color: red;"}
+
+# Formelles
+
+## Ich bin etwas verwirrt, in welcher Sprache wir das verfassen sollten. Die Beschreibung auf Seite 1 habe ich wie in der Prereg auf Deutsch gemacht, bin auf Seite 2 dann aber auf Englisch gewechselt. Wie einheitlich muss das sein?
+
+Für das Seminar nicht so schlimm wenn es verschiedene Sprachen sind. Ideal wäre aber alles einheitlich in einer Sprache zu halten.
+
+## Werden für das Codebook Musterlösungen zur Verfügung gestellt?
+
+Nein, orientiert euch daher besonders an den Anforderungen der Aufgabe. Relevante Informationen findet ihr in der Studie von Grinschgl et al. (2020) und dem Dokument Informationen_zu_Daten.xlsx.  Diese Quellen helfen euch insbesondere bei Variablenbedeutungen, Codierungen und Hintergrundinformationen zum Datensatz.
+
+Bei Unklarheiten zu einzelnen Variablen oder Codierungen könnt ihr euch jederzeit an uns wenden.
 
 # Umfang
 

@@ -131,6 +131,15 @@ Das generalisierte und partielle η² sind beides Masse, welche den Anteil an er
 Weiterführende Informationen finden sich [hier](https://matheguru.com/stochastik/effektstarke.html).
 :::
 
+## Inwiefern sind die Annahmen und Voraussetzungen wie Varianzhomogenität tatsächlich relevant? Was ist die Konsequenz davon, wenn diese nicht gegeben sind?
+
+Grundsätzlich sind Annahmen und Voraussetzungen statistischer Verfahren wichtig, weil sie beeinflussen, wie zuverlässig die Ergebnisse interpretiert werden können. Wie stark dieser Einfluss aber ist (und dementsprechend auch, welche Konsequenz eine Voraussetzungsverletzung hat), hängt von mehreren Komponenten ab, wie etwa dem Studiendesign, dem Analyseverfahren und der Stichprobengrösse. Es gibt hier also leider keine pauschale Antwort. 
+
+Im Rahmen dieser Abschlussabgabe musst du die Voraussetzungen **nicht zwingend testen**. Du bist also frei zu entscheiden, ob du Voraussetzungstests durchführen möchtest oder nicht. Wenn du dich entscheidest, die Voraussetzungen **nicht** zu testen, ist das für diese Abgabe in Ordnung.
+*
+Wenn du dich aber entscheidest, Voraussetzungen zu testen, muss dieses Vorgehen im **Datenanalyseplan** beschrieben sein. Zudem musst du dann auch entsprechend auf die Ergebnisse reagieren: Wenn eine Voraussetzung nicht erfüllt ist, sollte das nicht ignoriert werden, sondern im weiteren Vorgehen berücksichtigt werden, z.B. durch ein passendes alternatives Verfahren.
+
+
 ## Wozu muss Sphärizität gegeben sein und wie kann man diese testen?
 
 Unter Sphärizität versteht man die Annahme, dass bei Messwiederholungen die Differenzen von zwei beliebigen Messwiederholungen ähnliche Varianzen aufweisen. Dies kann mit dem Mauchly-Test geprüft werden. Laut Nullhypothese sind die entsprechenden Varianzen gleich, laut Alternativhypothese sind die entsprechenden Varianzen unterschiedlich. Dementsprechend spricht ein signifikanter Mauchly-Test für eine Verletzung der Sphärizitätsannahme. In diesem Fall kann auf die Greenhouse-Geisser Korrektur zurückgegriffen werden.
@@ -196,3 +205,11 @@ dat_full_below_above$group_all <- as.factor(dat_full_below_above$group_all)
 t.test(pre4 ~ group_all, data = dat_full_below_above, var.equal = TRUE)
 effsize::cohen.d(pre4 ~ group_all, data = dat_full_below_above)
 ```
+
+## Mir ist unklar, wie die Berechnung von Cohen’s d bei der 2x3 Mixed ANOVA in R genau funktioniert.
+
+Für die 2x3 Mixed ANOVA wird Cohen’s d nicht für die gesamte ANOVA als Ganzes berechnet. Für den allgemeinen ANOVA-Effekt verwendet man typischerweise Effektstärken wie η² oder partial ηp².
+
+Cohen’s d wird hier nur für die **konkreten paarweisen Vergleiche** berechnet, also für die **post-hoc Tests**. Das bedeutet: Wenn du nach der Mixed ANOVA bestimmte Gruppen, Bedingungen oder Zeitpunkte miteinander vergleichst, kannst du für genau diese Vergleiche Cohen’s d angeben.
+
+Zuerst prüfst du also mit der 2x3 Mixed ANOVA, ob es insgesamt Hinweise auf Unterschiede gibt, z.B. einen Haupteffekt oder eine Interaktion. Wenn anschliessend relevante post-hoc Vergleiche durchgeführt werden, wird für diese einzelnen Vergleiche zusätzlich Cohen’s d berechnet. Wie Berechnung von Cohen’s d funktioniert hier gleich wie bei normalen t-Tests. 
