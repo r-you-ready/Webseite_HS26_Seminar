@@ -63,7 +63,7 @@ Für dieses Seminar benötigt ihr R und RStudio. Dabei handelt es sich um zwei u
 
 -   **RStudio** ist die Benutzeroberfläche bzw. Arbeitsumgebung, über die wir mit R arbeiten. RStudio hilft uns dabei,
 
-    -   Code zu schrieben und zu speichern,
+    -   Code zu schreiben und zu speichern,
 
     -   Dateien und Datensätze zu verwalten,
 
@@ -359,7 +359,7 @@ Im Skript schreiben und speichern wir Code, den wir:
 
     -   Aber: Der Befehl ist damit noch nicht sinnvoll in unserem Analysecode dokumentiert und lässt sich nicht einfach zu einem späteren Zeitpunkt erneut ausführen!
 
-2.  Schreibe nun in dein Skritp:
+2.  Schreibe nun in dein Skript:
 
     -   `2 + 2`
 
@@ -864,7 +864,6 @@ Zum Beispiel können wir mehrere Altersangaben in einem Objekt speichern:
 
 ```{r}
 #| echo: true
-#| eval: false
 
 alter <- c(22, 24, 27, 21, 25)
 ```
@@ -1095,6 +1094,17 @@ fuenf_zehnmal <- rep(5, times = 10)
 ```
 :::
 ::::
+
+### ⭐  5 Zusatzaufgabe:
+
+Erkläre, warum der folgende Code negative Werte ausgibt.
+
+```{r}
+#| echo: true
+some_numbers <-- c(22, 24, 27, 25)
+some_numbers
+```
+
 
 ## A8 - Grundlegende Datentypen
 
