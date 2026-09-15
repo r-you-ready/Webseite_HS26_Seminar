@@ -481,6 +481,8 @@ Bei Problemen die ihr nicht lösen könnt und keine Ressourcen findet, könnt ih
 
 -   Reproduzierbare Datenaufbereitung und Analyse mit Quarto
 
+-   Hier Korrektheit auch bewertungsrelevant
+
 **Abgabe:** Datenanalyseplan, Codebook, Datenfiles, Analyseskripte nach vorgegebener Ordnerstruktur
 
 **Deadline: 10.01.2027**
