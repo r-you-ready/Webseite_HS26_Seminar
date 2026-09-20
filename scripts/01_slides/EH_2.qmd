@@ -143,7 +143,9 @@ Euer Peer-Pair darf auch darüber hinaus eure feste Ansprechperson sein. Ihr kö
 Was jedoch wichtig ist, ist, dass die Abschlussarbeit eine Einzelleistung ist und individuell bewertet wird!
 :::
 
-# Warum Open Science?
+------------------------------------------------------------------------
+
+## Warum Open Science? {.transition-slide}
 
 <br>
 
