@@ -125,6 +125,8 @@ Hier die beiden Graphiken des Peer-Pairing aus der Bedarfsanalyse nebeneinander 
 
 ## Peer-Pairing: Feedback & Austausch
 
+<br>
+
 **Wofür:** Gegenseitiges Feedback bei ausgewählten Aufgaben; weiterer Austausch und gegenseitige Unterstützung nach Bedarf.
 
 **Vorgehen:** Bis Sonntag, 27.09. in ILIAS (Forum 2.Sitzung) beide Namen eurer 2er-Gruppe eintragen. Ein Eintrag pro Gruppe reicht.
@@ -143,9 +145,7 @@ Euer Peer-Pair darf auch darüber hinaus eure feste Ansprechperson sein. Ihr kö
 Was jedoch wichtig ist, ist, dass die Abschlussarbeit eine Einzelleistung ist und individuell bewertet wird!
 :::
 
-------------------------------------------------------------------------
-
-## Warum Open Science? {.transition-slide}
+# Warum Open Science? {.transition-slide}
 
 <br>
 
@@ -208,7 +208,7 @@ Bem nicht als alleinigen Ursprung der Replikationskrise darstellen. Eher als bes
 
 -   Replizierbarkeit = neue Daten, gleiche Methode, ähnliche Ergebnisse.
 
---\> Aufgrund von Bem haben sich Forschende das Ziel gesetzt, die Replizierbarkeit von etablierten Befunden zu prüfen.
+-\> Aufgrund von Bem haben sich Forschende das Ziel gesetzt, die Replizierbarkeit von etablierten Befunden zu prüfen.
 :::
 
 ------------------------------------------------------------------------
@@ -254,71 +254,109 @@ Gemeinsames Projekt von 270 Forschenden
 
 ![Schönbrodt, 2023; Hofer, 2024](../../images/EH_2_files/repli_4.png){fig-align="center"}
 
-\*Bei Wirtschaft geht es um Reproduzierbarkeit.
-
-Siehe auch: <https://www.youtube.com/watch?v=FpCrY7x5nEE&ab_channel=TED-Ed>
-
 ------------------------------------------------------------------------
 
 ## Warum?
 
 ::: notes
-Sammlung im Plenum von möglichen Gründen für diese Replikationskrise
+Als kurze Denkpause nutzen.
+
+Fragen: Wie kann es dazu kommen, dass publizierte Befunde bei erneuter Untersuchung so viel weniger stabil ausfallen?
 :::
 
 ------------------------------------------------------------------------
 
-## Gründe für die Replikationskrise, z. B.:
+## Gründe für die Replikationskrise
 
--   **Akademisches Umfeld:**
+<br>
 
-    -   Quantität \> Qualität
+:::::: columns
+::: {.column width="33%"}
+**System & Publikation**
 
-    -   "publish or perish"
+Anreizstrukturen
 
-    ![](images/clipboard-135693405.png){width="113"}
+"publish or perish"
 
--   **Questionable Research Practices, z.B.:**
+Publication Bias
 
-    -   Selektive Berichterstattung -\> 63.4% Lebenzeit-Prävalenz (John et al., 2012)
-
-    -   Optionales Stoppen –\> 55.9% Lebenszeit-Prävalenz
-
-    -   Salami Slicing
-
-    -   *p*-hacking -\> 22.0% Lebenszeit Prävalenz
-
-    -   Extremfall: Betrug
-
-------------------------------------------------------------------------
-
-## Gründe für die Replikationskrise, z. B.:
-
--   **Biases:**
-
-    -   Small Study Bias
-
-    -   Confirmation Bias
-
-    -   Publication Bias & File Drawer Problem
-
-"If you torture data long enough, it will confess to anything" - Ronald Coase
-
-(Spielt natürlich auch eine Rolle: Versuchsmethoden und Zufallsbefunde)
-
-::: notes
-![](images/clipboard-2570322157.png)
+Präfarenz für Neues
 :::
 
+::: {.column width="33%"}
+**Studiendesign & Analyse**
+
+kleines N / geringe Power
+
+viele plausible Analysewege
+
+optional stopping
+
+multiple Tests
+:::
+
+::: {.column width="33%"}
+**Berichten & Interpretieren**
+
+selektive Berichterstattung
+
+HARKing
+
+Confirmation Bias
+
+p-hacking
+:::
+::::::
+
+<br>
+
+Meist gibt es **nicht den einen Grund** - mehrere Faktoren greifen ineinander.
+
 ------------------------------------------------------------------------
 
-## Gründe für die Replikationskrise:
+## Von Entscheidungsspeilräumen bis zu wissenschaftlichem Fehlverhalten
 
-Chambers, C. (2017). The seven deadly sins of psychology: A manifesto for reforming the culture of scientific practice. Princeton University Press. <https://doi.org/10.1515/9781400884940>
+<br>
+
+:::::: columns
+::: {.column width="33%"}
+**Legitime Forschungsentscheidungen**
+
+Mehrere fachlich vertretbare Möglichkeiten
+
+*z.B. Transformation, Ausschlussregel, Modellwahl*
+
+→ dokumentieren & begründen
+:::
+
+::: {.column width="33%"}
+**Fragwürdige Forschungspraktiken**
+
+Entscheidungen können Evidenz verzerren
+
+*z.B. selektive Berichterstattung, HARKing, p-hacking*
+
+→ erhöhtes Verzerrungsrisiko
+:::
+
+::: {.column width="33%"}
+**Wissenschaftliches Fehlverhalten**
+
+Absichtlicher Verstoss gegen wissenschaftliche Standards
+
+*z.B. Fabrikation, Falsifikation, Manipulation*
+
+→ schwerwiegender Regelverstoss
+:::
+::::::
+
+<br>
+
+Nicht jede analytische Flexibilität ist problematisch - entscheidend sind Transparenz, Begründung und Dokumentation.
 
 ------------------------------------------------------------------------
 
-## Aktuelle Fälle:
+## **Extrembeispiele wissenschaftlichen Fehlverhaltens**
 
 [**Top German psychologist fabricated data, investigation finds**](https://www.science.org/content/article/top-german-psychologist-fabricated-data-investigation-finds)
 
@@ -333,197 +371,179 @@ Chambers, C. (2017). The seven deadly sins of psychology: A manifesto for reform
 -   Eine Untersuchung legt nahe, dass eine einflussreiche Alzheimer-Studie von 2006 manipulierte Bilder enthielt, was Zweifel an jahrelanger Forschung und der wissenschaftlichen Integrität aufwirft.
 
 ::: notes
-Aktueller Stand:
+Solche Fälle sind Extrembeispiele. Sie erklären die Replikationskrise nicht allein.
 
-Hans-Ulrich Wittchen ist wegen Datenfälschung bei einer großen Studie angeklagt; sein Vertrag an der LMU wurde suspendiert, weitere Ermittlungen laufen.
-
-Francesca Gino Harvard entließ sie 2025 und entzog ihr die Tenure wegen nachgewiesenem Forschungs­fehlverhalten; ihre Klagen gegen Harvard laufen, Teile davon wurden bereits abgewiesen.
-
-Sylvain Lesné Sein zentraler Alzheimer-Artikel von 2006 wurde 2024 aus Nature zurückgezogen; er trat 2025 von seiner Professur in Minnesota zurück, Untersuchungen dauern an. Seine Forschung beinflusste grosse teile des Forschungsbereiches und ist eines der meistzitierten Papers die bis heute retracted wurden.
-:::
-
-------------------------------------------------------------------------
-
-## Retraction Watch Leaderboard
-
-![](images/RetractionWatch.png){fig-align="center"}
-
-::: notes
-An Stelle 8 ist Diederik Stapel - bekannter Fall aus der Psychologie
-
-Wall of Shame der Wissenschaftler
+Sie zeigen aber, warum Transparenz, Dokumentation und Überprüfbarkeit zentrale Bestandteile guter Forschung sind.
 :::
 
 ------------------------------------------------------------------------
 
 ## THE END IS NEAR
 
-![Bild generiert von ChatGPT Image Generator](../../images/EH_2_files/the_end_is_near.png){width="450"}
+![](../../images/EH_2_files/the_end_is_near.png){width="450"}
 
 ::: incremental
 -   **Oder?**
+
+-   Die Replikationskrise zeigt nicht nur Probleme - sie hat auch zu zahlreichen Reformen geführt.
 
 -   *„Science is never perfect, but what this crisis has shown is that there is never a shortage of scientists who will keep trying to make it better.”* (Maki Naro)
 :::
 
 ------------------------------------------------------------------------
 
-## Lösungsansätze - Open Science statt Closed Research
+## Lösungsansätze - Open Science
 
 ![](../../images/EH_2_files/lösungsansätze.png){fig-align="center"}
 
-Auch wichtig: Registered Reports und Replikations/Reproduzierbarkeitsstudien; Open Acces Publikationen, Open Peer Review, Educational Practices
+<br>
 
-------------------------------------------------------------------------
-
-## Lösungsansätze - Open Science (2)
-
-Präregistrierung
-
--   Festlegung der zentralen Aspekte der Studie (z.B. Hypothesen, Stichprobe, Analyse) vor ihrer Umsetzung (d.h. **vor der Datenerhebung**)
-
--   ::: {style="color:red"}
-    Auch möglich **vor der Datenanalyse** —\> Datenanalyseplan
-    :::
-
--   Präregistrierung wird veröffentlicht, erhält einen Zeitstempel und ist schreibgeschützt
-
-    -   www.osf.io
-    -   [Verschiedene Templates](https://help.osf.io/article/229-select-a-registration-template)
-
--   In der Medizin längst Standard (Clinical Trial Registration)
-
-    ::: notes
-    ![](images/clipboard-1386508449.png)
-    :::
-
-------------------------------------------------------------------------
-
-## Lösungsansätze - Open Science (2)
-
-Open Material, Data & Code
-
--   **Open Material:** Untersuchungsmaterial (Fragebogen, Stimuli, usw.) wird online zur Verfügung gestellt
-
--   **Open Data:** Daten werden in **anonymisierter** Form veröffentlicht
-
--   **Open Code:** Reproduzierbare Analyseskripte und **Codebooks** werden zur Verfügung gestellt
-
-Badges: [![](../../images/EH_2_files/badges.jpg){width="320"}](www.osf.io)
-
-::: {style="color: red"}
-Erlaubt Ergebnisse zu überprüfen; erhöht die Glaubwürdigkeit an Forschung; stärkt die gefundenen Ergebnisse
-:::
-
-------------------------------------------------------------------------
-
-## Lösungsansätze - Open Science (3)
-
--   Preprints:
-
-    -   Version des Manuskripts vor Peer-Review
-
-    -   Postprint: Version des Manuskripts nach Peer Review.
-
-        ![](../../images/EH_2_files/psycarchx.png){width="200"}
-
-------------------------------------------------------------------------
-
-## Open Science = Gute wissenschaftliche Praxis
-
-![Stefan et al. (2023)](../../images/EH_2_files/researchpractices.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## Weitere Ressourcen:
-
--   Pennington, C. R. (2023). A student’s guide to open science: Using the replication crisis to reform psychology. McGraw Hill​.
-
--   Open Science an der Universität Bern: <https://www.ub.unibe.ch/service/open_science/index_ger.html> ​
-
--   Blogs über aktuelle Themen: <https://datacolada.org>
-
--   Journal Club: <https://reproducibilitea.org>
-
--   Comic: <https://thenib.com/repeat-after-me/?utm_campaign=web-share-links&utm_medium=social&utm_source=link>
-
--   Lehrveranstaltungen der Abteilung „Psychologie der Digitalisierung“- Meta-Wissenschaft <https://www.dig.psy.unibe.ch/studium/lehrveranstaltungen/index_ger.html>
-
--   „Spellchecker“ für Statistik <https://michelenuijten.shinyapps.io/statcheck-web/>
-
-------------------------------------------------------------------------
-
-## Was bedeutet dies nun für uns?
-
--   Festhalten der Analysen in Datenanalyseplänen -\> reproduzierbare und vertrauenswürdige Forschung!
-
--   Analyse reproduzierbar gestalten ➡️ durch Kommentierung von Code, Codebook etc.
-
--   Idealerweise: auch bei der Masterarbeit Präregistrierung oder Datenanalyseplan etc. (Unterstützung dafür bietet auch die Methodensprechstunde bei Laura)
-
--   Regt eure Betreuer:innen an!
-
-![](../../images/EH_2_files/open_science.png){fig-align="center" width="304"}
-
-------------------------------------------------------------------------
-
-## Präregistrierung/Datenanalysepläne
-
--   Vorteile, u.a.:
-
-    -   kann davor festhalten, was ich erwarte und wie ich es analysiere = erhöhte Transparenz
-
-    -   verringerte Möglichkeiten von p-hacking, HARKing, und Biases
-
-    -   z.B. Stichprobengröße wird festgeschrieben und muss begründet werden
-
-    -   Unterscheidung konfirmatorischer und explorativer Forschung
-
-        -   konfirmatorisch: eine vorab festgelegte Theorie & Hypothese testen
-
-        -   explorativ: neue Zusammenhänge/Unterschiede entdecken; keine Annahmen vorab
-
-    **"Its a plan, not a prison" (Pennington, 2023)**
-
-------------------------------------------------------------------------
-
-## Konzeptionelle Kompetenz: Was muss ich warum bei der Datenaufbereitung tun?
-
--   **Welche Hypothesen möchte ich testen?**
-
--   Stichprobe (inkl. Poweranalyse)
-
--   Berechnung der abhängigen Variablen
-
--   Datenausschluss
-
--   Umgang mit fehlenden Daten, Umgang mit Ausreissern
-
--   **Wie (d.h. mit welchem statistischen Modell) teste ich meine Hypothesen?**\
-    Welche **Voraussetzungen** sind dabei zu beachten und wie gehe ich bei Verletzungen dieser vor?\
-    Welche **Inferenz-Kriterien** ziehe ich heran?
-
--   ➡️ Verringerung der "Researcher Degrees of Freedom"
-
--   ➡️ Wichtig für alle empirischen Arbeiten! Wenn man diese Punkte vor der Datenerhebung gut durchdenkt, spart man sich bei der Analyse viel Aufwand.
-
--   ➡️Greift auf eure Statistik-Kenntnisse und die Unterlagen aus dem Bachelor zurück!
-
-------------------------------------------------------------------------
-
-## Präregistrierung/Datenanalysepläne
-
-**Nachteile?**
+Open Science ist kein einzelnes Tool, sondern ein Bündel von Praktiken für transparentere und überprüfbarere Forschung.
 
 ::: notes
--   Keine Garantie für Qualität
+Die detaillierten Folien aus dem letzten Semester streichen und hier einfach mündlich einordnen.
 
--   Ist auch "hackable" –\> PARKing (Preregisitreing after Results are known)
+**Präregistrierung:** Die zentralen Aspekte der Studie (Hypothesen, Stichprobe, Analysemethoden) werden vor der Durchführung der Studie festgelegt. Dies ist auch erst vor der Datenanalyse möglich, dass Datenanalyseplan.
+
+Präregistrierung wird veröffentlicht, erhält einen Zeitstempel und ist schreibgeschützt.
+
+-   www.osf.io
+-   [Verschiedene Templates](https://help.osf.io/article/229-select-a-registration-template)
+
+**Open Material, Data & Code:** Untersuchungsmaterial (Fragebogen, Stimuli, etc.) wird online zur Verfügung gestellt. Die Daten werden in anonymisierter Form veröffentlicht. Reproduzierbare Analyseskripte und Codebooks werden zur Verfügung gestellt.
+
+**Preprints:** Version des Manuskripts vor Peer-Review, Postprint Version des Manuskripts nach Peer-Review.
+
+-\> Diese Schritte erlauben, Ergebnisse zu überprüfen, erhöhen die Glaubwürdigkeit in Forschung und stärken die gefunden Ergebnisse.
 :::
 
 ------------------------------------------------------------------------
 
-## Grundlegender Artikel: Grinschgl et al. (2020)
+## Fokus heute: Entscheidungen vor der Analyse festhalten
+
+**Präregistrierung**
+
+-   Zentrale Entscheidungen einer Studie werden festgehalten, bevor sie umgesetzt bzw. anhand der Ergebnisse angepasst werden können.
+
+-   Z.B. Hypothesen, Stichprobe, Ausschlussregeln, Analysen.
+
+-   Erfolgt vor der Datenerhebung.
+
+**Datenanalyseplan**
+
+-   Bei bereits bestehenden Daten.
+
+-   Analyseentscheidungen können vor der geplanten Analyse dokumentiert werden.
+
+::: notes
+Hier unbedingt differenzieren: Wie erstellen keine echte Präregistrierung, weil wir das Paper und auch die Resultate bereits kennen. Die Daten wurden bereits erhoben und liegen vor.
+
+Unser Datenanalyseplan ist eine Rekonstruktion und Planung einer Reanalyse.
+:::
+
+------------------------------------------------------------------------
+
+## Was bedeutet das nun für uns?
+
+![](../../images/Datenanalyseplan.png){width="450"}
+
+Ein Datenanalyseplan beschreibt möglichst konkret, welche Daten und Variablen wir benötigen, wie wir mit ihnen umgehen und mit welchen Analysen wir unsere Forschungsfragen beantworten wollen.
+
+------------------------------------------------------------------------
+
+## Warum diese Arbeit jetzt - und nicht erst beim Analysieren?
+
+-   **Orientierung:** Was will ich eigentlich beantworten?
+
+-   **Unklarheiten früh erkennen:** Welche Informationen fehlen noch?
+
+-   **Weniger spontane Entscheidungen:** Weniger Raum für ergebnisgetriebene Anpassungen.
+
+-   **Fahrplan für den Code:** Welche Schritte muss mein R-Skript später enthalten?
+
+-   **Kommunikaiton:** Andere können mein Vorgehen verstehen.
+
+-   **Reproduzierbarkeit:** Entscheidungen bleiben nachvollziehbar.
+
+<br>
+
+**Ein guter Analyseplan kostet zunächst Zeit - und spart später sehr viel Zeit!**
+
+::: notes
+Wenn man diese Punkte vor der Datenerhebung gut durchdenkt, spart man sich bei der Analyse viel Aufwand und reduziert die Mehrheit der Probleme!
+:::
+
+------------------------------------------------------------------------
+
+## Datenanalyseplan als Brücke zwischen Theorie und Code
+
+![<br>](../../images/Plan_als_Verbindung.png){width="450"}
+
+**Der Plan sagt uns nicht nur, welchen Code wir brauchen, sondern *warum* wir ihn brauchen.**
+
+------------------------------------------------------------------------
+
+## Was gehört in einen Datenanalyseplan?
+
+Welche Entscheidungen müssen wir festhalten?
+
+<br>
+
+::::::: columns
+::: {.column width="25%"}
+**1) Forschungsziel**
+
+-   Kurzbeschreibung
+
+-   Forschungsfragen
+
+-   Hypothesen
+
+-   explorative Fragestellungen
+:::
+
+::: {.column width="25%"}
+**2) Daten**
+
+-   Datenzugang
+
+-   Stichprobe & Datenerhebung
+
+-   Vorkenntnisse zu den Daten
+:::
+
+::: {.column width="25%"}
+**3) Aufbereitung**
+
+-   UVs & AVs
+
+-   Missing Data
+
+-   Ausschlussregeln
+
+-   berechnete Variablen
+:::
+
+::: {.column width="25%"}
+**4) Analysen**
+
+-   statistische Modelle
+
+-   Interaktionen & Post-hoc Tests
+
+-   Inferenzkriterien
+
+-   Effektstärken
+:::
+:::::::
+
+<br>
+
+**Diese Entscheidungen werden später zu konkreten Arbeitsschritten in R.**
+
+------------------------------------------------------------------------
+
+## Unser Forschungsprojekt: Grinschgl et al. (2020)
 
 ***From metacognitive beliefs to strategy selection: does fake performance feedback influence cognitive offloading?***
 
@@ -635,6 +655,24 @@ Hier kurz demonstrieren, wo sie die entsprechenden Daten finden auf Ilias im zip
     -   Sprechstunde Lars
 -   Hands-On Übungen fertig machen (Musterlösungen nächste Woche)
 -   Peer-Pairings melden, **Deadline 01.03.2026**
+
+------------------------------------------------------------------------
+
+## Weitere Ressourcen:
+
+-   Pennington, C. R. (2023). A student’s guide to open science: Using the replication crisis to reform psychology. McGraw Hill​.
+
+-   Open Science an der Universität Bern: <https://www.ub.unibe.ch/service/open_science/index_ger.html> ​
+
+-   Blogs über aktuelle Themen: <https://datacolada.org>
+
+-   Journal Club: <https://reproducibilitea.org>
+
+-   Comic: <https://thenib.com/repeat-after-me/?utm_campaign=web-share-links&utm_medium=social&utm_source=link>
+
+-   Lehrveranstaltungen der Abteilung „Psychologie der Digitalisierung“- Meta-Wissenschaft <https://www.dig.psy.unibe.ch/studium/lehrveranstaltungen/index_ger.html>
+
+-   „Spellchecker“ für Statistik <https://michelenuijten.shinyapps.io/statcheck-web/>
 
 ------------------------------------------------------------------------
 
