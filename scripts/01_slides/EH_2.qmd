@@ -1,6 +1,6 @@
 ---
 title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 2"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,231 +21,165 @@ draft: true
 
 ## R u Ready? Reprodzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**2. Einheit**, 25.02.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**2. Einheit**, 23.09.2026
 
 ![](images/ryouready_logo.png){fig-align="center" width="306"}
 
-::: notes
-Check Ilias Forum - frage wer weiss wo R u Ready Logo herkommt
-:::
+Hier evtl. noch einen Untertitel einfügen in den Foliensatz:
+
+EH2 - Planen: Open Science & Datenanalyseplan
 
 ------------------------------------------------------------------------
 
-## Syllabus
+## Semesterplan
 
 ::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
 ```{=html}
 <embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
+    src="../../PDFs/Semesterplan_HS26.pdf#view=FitH&navpanes=0&toolbar=0"
     type="application/pdf"
     style="width:100%; height:220vh; border:0; display:block; background:white;"
   >
 ```
 :::
 
+------------------------------------------------------------------------
+
+## Wo befinden wir uns?
+
+**ORIENTIEREN -\> PLANEN**
+
+<br>
+
+![](../../images/Workflow_EH2.png){width="65%" fig-align="center"}
+
+<br>
+
+Heute bewegen wir uns von der inhaltlichen Orientierung zur konkreten Analyseplanung.
+
 ::: notes
-Gibt es Fragen, die sich nach letzter Woche aufgetan haben?
+ORIENTIEREN
+
+Was untersucht die Studie? Welche Forschungsfragen und Hypothesen gibt es?
+
+PLANEN
+
+Welche Daten, Variablen und Analysen brauchen wir, um diese Fragen zu beantworten?
+
+Bevor wir eine Analyse planen können, müssen wir verstehen, was überhaupt untersucht werden soll.
+
+Explizit sagen, dass sie das Paper bisher nur überflogen haben. Die Orientierungsphase ist deshalb nicht abgeschlossen. Heute wird das Paper mit einem neuen Zweck gelesen: nicht nur "Was steht drin?", sondern "Welche Informationen brauche ich für meine spätere Analyse?".
 :::
+
+------------------------------------------------------------------------
+
+## Heute
+
+**Wie planen wir eine Datenanalyse so, dass unsere Entscheidungen nachvollziehbar und reproduzierbar sind?**
+
+<br>
+
+**WARUM?**
+
+Warum sollten Analyseentscheidungen möglichst früh festgehalten werden?
+
+**WAS?**
+
+Was sind Open Science, Präregistrierung und Datenanalyseplan?
+
+**WIE?**
+
+Wie erstellt ihr den Datenanalyseplan für unser Seminarprojekt?
+
+------------------------------------------------------------------------
+
+Hier vielleicht noch eine Folie mit den konkreten Punkten, die wir heute behandeln werden.
+
+Konkrete Inhalte heute mit Punkteliste
 
 ------------------------------------------------------------------------
 
 ## Ergebnisse der Bedarfsanalyse (1)
 
-***Wie würdest du aktuell deine R-Kenntnisse einschätzen?***
+**Was würdest du gerne in diesem Methodenseminar lernen?**
 
-**12:15 (*N* = 19)**
+Hier sollen die zentralen genannten Punkte der Bedarfsanalyse betreffend dieser Frage zusammengefasst werden!
 
-![](../../images/EH_2_files/Bedarfsanalyse/R_Kenntnisse_1215.png){fig-align="left" width="600"}
+Dies erfolgt am Montag, wenn die Ergebnisse vorliegen.
 
-**16:15 (*N* = 19)**
+Wenn möglich hier aus den genannten Punkte die Verbindung zwischen "Warum" und "Wie" mit dem Datenanalyseplan herstellen.
 
-![](../../images/EH_2_files/Bedarfsanalyse/R_Kenntnisse_1615.png){fig-align="left" width="600"}
+::: notes
+Die Studierenden darauf hinweisen, dass Feedback gerne erwünscht ist! Sie können uns jederzeit rückmelden, wie gut es uns gelingt, unser Programm auf ihre Bedürfnisse und Wünsche abzustimmen.
+:::
 
 ------------------------------------------------------------------------
 
 ## Ergebnisse der Bedarfsanalyse (2)
 
-***Wie häufig hast du R bisher verwendet?***
+**Peer-Pairing**
 
-**12:15**
-
-![](../../images/EH_2_files/Bedarfsanalyse/R_oft_1215.png)
+Hier die beiden Graphiken des Peer-Pairing aus der Bedarfsanalyse nebeneinander einfügen (also 10:15 und 16:15 Resultate nebeneninander).
 
 ------------------------------------------------------------------------
 
-***Wie häufig hast du R bisher verwendet?***
+## Peer-Pairing: Feedback & Austausch
 
-**16:15**
+**Wofür:** Gegenseitiges Feedback bei ausgewählten Aufgaben; weiterer Austausch und gegenseitige Unterstützung nach Bedarf.
 
-![](../../images/EH_2_files/Bedarfsanalyse/R_oft_1615.png)
+**Vorgehen:** Bis Sonntag, 27.09. in ILIAS (Forum 2.Sitzung) beide Namen eurer 2er-Gruppe eintragen. Ein Eintrag pro Gruppe reicht.
 
-------------------------------------------------------------------------
+Wer sich bis Sonntag nicht eingetragen hat, wird von uns zufällig einer 2er-Gruppe zugeteilt.
 
-## Ergebnisse der Bedarfsanalyse (3)
-
-**Wie sicher fühlst du dich im Umgang mit den folgenden Themen?**
-
-**12:15**
-
-![](../../images/EH_2_files/Bedarfsanalyse/R_sicher_1215.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-**Wie sicher fühlst du dich im Umgang mit den folgenden Themen?**
-
-**16:15**
-
-![](../../images/EH_2_files/Bedarfsanalyse/R_sicher_1615.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## Ergebnisse der Bedarfsanalyse (4)
-
-**Welche weiteren Schritte bereiten dir Schwierigkeiten in R?**
-
--   Grundlegende Schritte und Befehle über eine Veranstaltung hinaus behalten
-
--   Wissen, in welchem Fall welcher Code relevant ist (Wann brauche ich was?)
-
--   Der Weg vom Datensatz zur Analyse
-
--   R immer nur punktuell für spezifische Analysen verwendet
-
--   Nicht wissen, was Code macht und warum
-
--   Einlesen, Aufbereiten & Interpretieren von Daten
-
--   Ganzheitliches Verständnis von Code -\> Reihenfolge von Argumenten in Befehlen
-
--   Verständnis & Beheben von Fehlermeldungen
+[![](../../images/EH_2_files/teamwork.jpg){fig-align="center"}](https://img.freepik.com/vektoren-kostenlos/partner-die-grosse-puzzleteile-halten_74855-5278.jpg)
 
 ::: notes
-Unsicherheit welche Pakete für welche Analysen
+Ihr arbeitet während des Semesters in einer festen 2er-Gruppe zusammen.
 
-Oft nur codes kopieren, mühe logik oder reihenfolge nachzuvollziehen
+Während des Semesters gebt ihr euch dreimal gegenseitig bewertetes Feedback zu einer bestimmten zuvor abgegebenen Hausübung.
 
-Unsicherheit welche schritte nötig sind, (umwandenlen und strukturieren von daten)
+Euer Peer-Pair darf auch darüber hinaus eure feste Ansprechperson sein. Ihr könnt Fragen gemeinsam besprechen, Lösungen vergleichen, euch zusätzliches Feedback geben oder euch bei Unsicherheiten unterstützen. Ihr dürft euch also deutlich öfter als dreimal austauschen, müsst dies aber nicht!
 
-Auswahl passender Tests
+Was jedoch wichtig ist, ist, dass die Abschlussarbeit eine Einzelleistung ist und individuell bewertet wird!
+:::
 
---\> Allgemeine Überforderung, stark auf extrene Hilfe angewiesen.
+# Warum Open Science?
+
+<br>
+
+**Die Replikationskrise als Motivation**
+
+------------------------------------------------------------------------
+
+## Interaktiver Einsteig: Menti
+
+**Wann vertraut ihr einer wissenschaftlichen Studie?**
+
+<br>
+
+![](../../images/Menti_EH2.png){fig-align="center" width="403"}
+
+::: notes
+Was braucht es aus eurer Sicht, damit wissenschaftliche Ergebnisse nachvollziehbar und überprüfbar sind? Wann vertraut ihr einer Studie?
+
+Woran würdet ihr erkennen, dass ein Forschungsergebnis vertrauenswürdig und nachvollziehbar zustande gekommen ist?
+
+**Überleitung:** Viele dieser Punkte werden uns heute wieder begegnen. Bevor wir uns anschauen, welche Lösungen die Forschung dafür entwickelt hat, schauen wir uns zunächst an, warum diese Fragen überhaupt so wichtig geworden sind.
 :::
 
 ------------------------------------------------------------------------
 
-## Ergebnisse der Bedarfsanalyse (5)
-
-**Bei welchen Schritten in R fühlst du dich sicher, wenn du auch daran denkst, die im Bachelor erworbenen Unterlagen zu Hilfe zu ziehen?**
-
--   Basics (z.B. Vektoren zuweisen)
-
--   Datenimport & -aufbereitung
-
--   Deskriptive Statistiken & einfache Analysen
-
--   Visualisierung mit ggplot2
-
--   Vorgegebene Analysen mit bereits aufbereiteten Daten
-
--   Interpretation von Output einfacher Modelle
-
--   Allgemeine Unsicherheit ➡️ mit Unterlagen, KI, oder Schritt für Schritt Anweisungen funktioniert bereits einiges
-
-::: notes
-Wir werden versuchen unser "Programm" auf eure Needs abzustimmen - bitte gebt uns laufend Feedback dazu.
-:::
-
-------------------------------------------------------------------------
-
-## Ergebnisse der Bedarfsanalyse (6)
-
-**Was würdest du gerne in diesem Methodenseminar lernen?**
-
--   Grundlagen und Verständnis festigen ➡️ Sicherheit gewinnen
-
--   Vom ursprünglichen Datensatz zum fertigen Analyse-Skript
-
-    -   Import, Aufbereitung, Analyse & Interpretation
-
-    -   Wann brauche ich welche Tests ➡️ Leider kann keine grundlegende Statistik-Auffrischung angeboten werden, aber kommt bei Fragen auf uns zu!
-
-    -   Was hoffentlich hilft: Strukturiertes Vorgehen z.B. Datenanalyseplan.
-
--   Visualisierung und Dokumentation
-
--   Eigenständiger werden & Problemlöseskills (Routine erlangen)
-
--   Motivation und Sicherheit!
-
-    ::: notes
-    Unser Motto: Üben, üben, üben
-    :::
-
-------------------------------------------------------------------------
-
-## Ergebnisse der Bedarfsanalyse (7)
-
-**Welche Unterstützung um die Datenaufbereitung und -analyse in R würdest du dir innerhalb dieses Seminars wünschen?**
-
--   offene Fehlerkultur
-
--   Schritt-für-Schritt-Anleitungen im individuellen Tempo ➡️ **Musterlösungen**
-
--   Üben und Praxis ➡️ **Hands-on!**
-
--   Niederschwellige Hilfe ➡️ **Tutor, Sprechstunden**
-
--   Verknüpfung von „Warum“ und „Wie“ ➡️ **konzeptionelle und praktische Kompetenz**
-
-------------------------------------------------------------------------
-
-## Peer-Pairing:
-
-**12:15**
-
-![](../../images/EH_2_files/Bedarfsanalyse/Peers_1215.png){width="350"}
-
-**16:15**
-
-![](../../images/EH_2_files/Bedarfsanalyse/Peers_1615.png){width="350"}
-
-------------------------------------------------------------------------
-
-## Peer-Pairing:
-
--   Wofür: Feedback bei ausgewählten Einheiten, und sonstiges gegenseitiges Unterstützen wenn erwünscht
-
--   Vorgehen: Melden bis **Sonntag, 01.03.** **(ILIAS Forum**, siehe EH2) mit Namen des 2er Teams
-
--   Ansonsten: Zufällige Zuteilung am Montag - Kennenlernen in der nächsten Einheit \<3
-
-[![Illustration von Freepik](../../images/EH_2_files/teamwork.jpg){fig-align="center"}](https://img.freepik.com/vektoren-kostenlos/partner-die-grosse-puzzleteile-halten_74855-5278.jpg)
-
-------------------------------------------------------------------------
-
-## Open Science - Menti
-
-![](../../images/Menti.png){fig-align="center" width="403"}
-
-::: notes
-Was verbindest du mit Open Science?
-
-Menti nach Vormittagseinheit zurücksetzen
-:::
-
-------------------------------------------------------------------------
-
-## Replikationskrise
+## Replikationskrise: Prominenter Ausgangspunkt
 
 ::::: columns
 ::: {.column width="70%"}
--   Ausgangspunkt: 9 Studien, die darauf hinweisen, dass Personen «in die Zukunft sehen können» (Bem , 2011)
+-   Ausgangspunkt: 9 Studien, die darauf hinweisen, dass Personen «in die Zukunft sehen können» (Bem, 2011)
 
 -   Etablierte psychologische Messmethoden (z.B. Priming)
 
 -   Ein Ergebnis: Primes, die nach der Antwort präsentiert werden, beeinflussen Bewertung der Antwort
 
--   Starke Kritik v.a. was Methodik betrifft; gerade kontroverse,„unwahrscheinliche“ Hypothesen sollten durch strikte, konfirmatorische Analysen überprüft werden (Francis, 2012; LeBel & Peters, 2011; Wagenmakers et al., 2011)
+-   Starke Kritik, v.a. was Methodik betrifft; gerade kontroverse, „unwahrscheinliche“ Hypothesen sollten durch strikte, konfirmatorische Analysen überprüft werden (Francis, 2012; LeBel & Peters, 2011; Wagenmakers et al., 2011)
 
 -   Diverse gescheiterte Replikationsversuche (Galak et al., 2012; Ritchie et al., 2012; Robinson, 2011)
 :::
@@ -256,12 +190,14 @@ Menti nach Vormittagseinheit zurücksetzen
 :::::
 
 ::: notes
-Weitere studien von bem unter anderem: erotic image detection –\> teilnehmende errieten die position von erotischen bildern signifikant öfter hinter einem vorhang - bevor die bilder überhaupt positioniert wurden.
+Hier noch Notizen einfügen:
+
+Bem nicht als alleinigen Ursprung der Replikationskrise darstellen. Eher als besonders absurder Fall, der als Katalysator für eine schon länger vorhandene Methodendiskussion diente.
 :::
 
 ------------------------------------------------------------------------
 
-## Replizierbarkeit und Reproduzierbarkeit
+## Replizierbarkeit & Reproduzierbarkeit
 
 ![Schönbrodt, 2023](../../images/EH_2_files/reproducibility.png){fig-align="center"}
 
@@ -275,9 +211,13 @@ Weitere studien von bem unter anderem: erotic image detection –\> teilnehmende
 
 ------------------------------------------------------------------------
 
-## Open Science Collaboration (2015)
+## Wie gross ist das Problem?
 
-Gemeinsames Projekt von 270 Autor:innen, mit dem Ziel, 100 Studien aus drei verschiedenen Journals zu replizieren.
+**Open Science Collaboration (2015)**
+
+Gemeinsames Projekt von 270 Forschenden
+
+**Ziel:** systematische Replikation 100 publizierter Studien aus 3 anerkannten Journals
 
 ![](../../images/EH_2_files/repli_1.png){fig-align="center" width="400"}
 
@@ -286,7 +226,7 @@ Gemeinsames Projekt von 270 Autor:innen, mit dem Ziel, 100 Studien aus drei vers
 ## Open Science Collaboration (2015)
 
 -   ::: {style="color: green"}
-    Signifikante Ergebnisse in den Original-Studien: **97%**
+    **97% der Originalstudien berichteten ein statistisch signifikantes Ergebnis.**
     :::
 
 -   Wie viel % der Effekte liessen sich replizieren - was glaubt ihr?
@@ -300,7 +240,7 @@ Gemeinsames Projekt von 270 Autor:innen, mit dem Ziel, 100 Studien aus drei vers
 :::: incremental
 ::: {style="color:red"}
 -   Signifikante Ergebnisse in den Replikationsstudien: **36%**
--   Ausserdem sind die Effektgrössen in den Replikationsstudien im Schnitt halb so gross!
+-   Auch sind die beobachteten Effektgrössen in den Replikationsstudien im Schnitt halb so gross!
 
 ![](../../images/EH_2_files/repli_3.png){fig-align="center" width="400"}
 :::
@@ -347,7 +287,7 @@ Sammlung im Plenum von möglichen Gründen für diese Replikationskrise
     -   *p*-hacking -\> 22.0% Lebenszeit Prävalenz
 
     -   Extremfall: Betrug
-    
+
 ------------------------------------------------------------------------
 
 ## Gründe für die Replikationskrise, z. B.:

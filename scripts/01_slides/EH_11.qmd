@@ -544,7 +544,7 @@ Damit wir eine lineare Regression sinnvoll interpretieren können:
 ### **Nützliche Funktionen für Regressionen und verwandte Analysen in R**
 
 | Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
+|----|----|
 | `lm(y ~ x)` | Einfache lineare Regression mit einer abhängigen Variablen *y* und einem Prädiktor *x*. |
 | `lm(y ~ x1 + x2)` | Multiple Regression mit einer abhängigen Variablen *y* und zwei Prädiktoren *x1* und *x2*. |
 | `summary()` | Gibt die Ergebnisse der Regressionsanalyse für ein Regressionsmodell aus. |
@@ -553,7 +553,7 @@ Damit wir eine lineare Regression sinnvoll interpretieren können:
 ------------------------------------------------------------------------
 
 | Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
+|----|----|
 | `fitted()` | Vorhergesagte Werte des Regressionsmodells. |
 | `resid()` | Residuen des Regressionsmodells. |
 | `predict()` | Vorhergesagte Werte für neue Werte der Prädiktorvariablen. |
