@@ -109,7 +109,19 @@ Die Studierenden darauf hinweisen, dass Feedback gerne erwünscht ist! Sie könn
 
 **Peer-Pairing**
 
-Hier die beiden Graphiken des Peer-Pairing aus der Bedarfsanalyse nebeneinander einfügen (also 10:15 und 16:15 Resultate nebeneninander). Orientierung an den Folien von letzem Semester.
+::::: columns
+::: {.column width="50%"}
+**10:15 (n = 23)**
+
+![](../../images/peer_pair_1015.png){fig-align="right"}
+:::
+
+::: {.column width="50%"}
+**16:15 (n = 17)**
+
+![](../../images/peer_pair_1615.png){fig-align="right"}
+:::
+:::::
 
 ------------------------------------------------------------------------
 
