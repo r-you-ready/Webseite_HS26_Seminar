@@ -547,19 +547,67 @@ Welche Entscheidungen müssen wir festhalten?
 
 ***From metacognitive beliefs to strategy selection: does fake performance feedback influence cognitive offloading?***
 
--   3 Gruppen und mehrere Messzeitpunkte
+-   3 Feedbackgruppen
 
--   between-within Design
+-   N = 159 valide Datensätze
 
--   Hauptanalysen: ANOVAs und t-Tests
+![](../../images/Design_Studie.png){width="450"}
 
--   Verschiedene AVs (z.B. cognitive offloading, Arbeitsgedächtnisfähigkeiten, Selbsteinschätzung)
+------------------------------------------------------------------------
 
--   Präregistriert auf OSF <https://osf.io/9hpz5>
+## Studiendesign: Wie lief die Studie ab?
 
-    -   ::: {style="color: red"}
-        ACHTUNG: Kein optimales Beispiel, an manchen Stellen zu knapp!
-        :::
+<br>
+
+![](../../images/Studiendesign.png){width="450"}
+
+------------------------------------------------------------------------
+
+## Paper + Präregistrierung
+
+Zwei Informationsquellen, die herangezogen werden können:
+
+::::: columns
+::: {.column width="50%"}
+**Paper** 📄
+
+Was wurde begründet, durchgeführt & berichtet?
+
+-   theoretischer Hintergrund
+
+-   Studiendesign & Ablauf
+
+-   Operationalisierung der Variablen
+
+-   berichtete Analysen
+
+-   Ergebnisse
+
+-   zusätzliche explorative Analysen
+
+→ zeigt, was tatsächlich im Artikel dargestellt wurde
+:::
+
+::: {.column width="50%"}
+**Präregistrierung** 📋
+
+Was war vor der Datenerhebung bereits festgelegt?
+
+-   Forschungsfragen & Hypothesen
+
+-   Stichprobengrösse
+
+-   Ausschlusskriterien
+
+-   unabhängige & abhängige Variablen
+
+-   geplanter Analyseplan
+
+-   Präregistirert auf OSF <https://osf.io/9hpz5>
+
+→ ACHTUNG: Kein optimales Beispiel, an manchen Stellen zu knapp!
+:::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -578,20 +626,6 @@ Hier kurz demonstrieren, wo sie die entsprechenden Daten finden auf Ilias im zip
 ------------------------------------------------------------------------
 
 ## Datenanalyseplan - (Modifizierte) Fragen
-
--   Titel
--   Kurzbeschreibung der Studie
--   Forschungsfragen
--   Hypothesen & explorative Fragestellungen
--   Datenzugang
--   Datenerhebung
--   Unabhängige Variablen
--   Abhängige Variablen
--   Fehlende Daten
--   Datenausschluss
--   Vorkenntnisse zu den Daten
--   Statistische Modelle
--   Inferenz-Kriterien
 
 **Diese Fragen sind für die Analysen von Grinschgl et al, (2020) zu beantworten –\> erste HÜ**
 

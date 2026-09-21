@@ -3,7 +3,7 @@ title: "Hausübung: Datenanalyseplan (Reanalyse)"
 format: html
 ---
 
-Im Methodenseminar **„R you Ready? Reproduzierbare Datenaufbereitung und –analyse in R“ (FS 2026)** erstellt ihr einen Datenanalyseplan zur Reanalyse einer bereits publizierten Studie.
+Im Methodenseminar **„R you Ready? Reproduzierbare Datenaufbereitung und –analyse in R“ (HS 2026)** erstellt ihr einen Datenanalyseplan zur Reanalyse einer bereits publizierten Studie.
 
 Ihr arbeitet mit der Studie von **Grinschgl et al. (2020)**. Diese Studie wurde bereits durchgeführt und veröffentlicht. Die Originaldaten liegen vor. (Später erhaltet ihr zusätzlich simulierte Datensätze zur gleichen Studie für euer Abschlussprojekt).
 
@@ -87,15 +87,15 @@ Eine aussenstehende Person sollte euren Plan lesen und exakt verstehen können, 
 
 ## Phase 1: Reanalyse der Originalstudie
 
-**Abgabe: 11.03.2026 (4 Punkte)**
+**Abgabe: 07.10.2026 (4 Punkte)**
 
-Bis zum 11.03.2026 erstellt ihr einen Datenanalyseplan auf Basis:
+Bis zum 07.10.2026 erstellt ihr einen Datenanalyseplan auf Basis:
 
 -   der publizierten Studie\
 -   der dort beschriebenen Daten\
 -   der berichteten Analysen
 
-Ab dem 11.03.2026 erhaltet ihr:
+Ab dem 07.10.2026 erhaltet ihr:
 
 -   eine Musterlösung\
 -   Peer-Feedback von eurer/eurem Partner:in (4 Punkte)
