@@ -38,7 +38,7 @@ website:
         text: "Hausübungen"
         contents:
           - href: scripts/02_excercises/datenanalyseplan.qmd
-          - text: "Datenanalyseplan (07.10.26)"
+            text: "Datenanalyseplan (07.10.26)"
       - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
         text: "Wettbewerb: R-Cheatsheet"
       - href: scripts/04_misc/muddiest_points.qmd
