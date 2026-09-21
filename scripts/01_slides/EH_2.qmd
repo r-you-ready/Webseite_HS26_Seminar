@@ -77,21 +77,15 @@ Explizit sagen, dass sie das Paper bisher nur überflogen haben. Die Orientierun
 
 **WARUM?**
 
-Warum sollten Analyseentscheidungen möglichst früh festgehalten werden?
+Replikationskrise → Warum Transparenz und Planung wichtig sind
 
 **WAS?**
 
-Was sind Open Science, Präregistrierung und Datenanalyseplan?
+Open Science → Präregistrierung → Datenanalyseplan
 
 **WIE?**
 
-Wie erstellt ihr den Datenanalyseplan für unser Seminarprojekt?
-
-------------------------------------------------------------------------
-
-Hier vielleicht noch eine Folie mit den konkreten Punkten, die wir heute behandeln werden.
-
-Konkrete Inhalte heute mit Punkteliste
+Grinschgl et al. verstehen → Reanalyse planen → Datenanalyseplan erstellen
 
 ------------------------------------------------------------------------
 
@@ -425,6 +419,8 @@ Präregistrierung wird veröffentlicht, erhält einen Zeitstempel und ist schrei
 
 -   Erfolgt vor der Datenerhebung.
 
+-   "It's a plan, not a prison".
+
 **Datenanalyseplan**
 
 -   Bei bereits bestehenden Daten.
@@ -457,7 +453,7 @@ Ein Datenanalyseplan beschreibt möglichst konkret, welche Daten und Variablen w
 
 -   **Fahrplan für den Code:** Welche Schritte muss mein R-Skript später enthalten?
 
--   **Kommunikaiton:** Andere können mein Vorgehen verstehen.
+-   **Kommunikation:** Andere können mein Vorgehen verstehen.
 
 -   **Reproduzierbarkeit:** Entscheidungen bleiben nachvollziehbar.
 
@@ -561,7 +557,7 @@ Welche Entscheidungen müssen wir festhalten?
 
 ## Paper + Präregistrierung
 
-Zwei Informationsquellen, die herangezogen werden können:
+Zwei Informationsquellen, die herangezogen werden sollen:
 
 ::::: columns
 ::: {.column width="50%"}
@@ -703,43 +699,35 @@ Wir übersetzen Informationen aus **Paper + Präregistrierung** in einen konkret
 
 <br>
 
-Wir wissen zunehmend nicht nur, was untersucht wurde - sondern auch, welche Schritte wir brauchen, um die Analysen später nachvollziehen zu können.
+Wir wissen jetzt nicht nur, was untersucht wurde, sondern auch, wie wir die späteren Analysen planen.
 
 ------------------------------------------------------------------------
 
 ## Aufträge & Hausübungen
 
-<br>
+**Peer-Pairing (bis Sonntag, 27.09.)**
 
-**Peer-Pairing**
-
-📌 bis Sonntag, 27.09.
-
--   2er-Gruppe in ILIAS-Forum eintragen
-
--   ein Eintrag pro Gruppe reicht
+-   2er-Gruppe in ILIAS-Forum eintragen (1x pro Gruppe)
 
 -   übrige Studierende werden zufällig zugeteilt
 
-<br>
+**Datenanalyseplan (bis Mittwoch, 07.10.)**
 
-**Datenanalyseplan**
+-   📖 Paper gründlich lesen
 
-📖 Paper gründlich lesen
+-   🔎 Präregistrierung ansehen
 
-🔎 Präregistrierung ansehen
-
-📝 mit dem Datenanalyseplan beginnen
-
-**Abgabe:** Mittwoch, 07.10. (via ILIAS)
-
-<br>
+-   📝 mit dem Datenanalyseplan beginnen
 
 **Coding**
 
-💻 Hands-on Block 1 fertig bearbeiten
+-   💻 Hands-on Block 1 fertig bearbeiten
 
-Musterlösungen ab 30.09. verfügbar & als Download
+-   Musterlösungen & Download ab 30.09. verfügbar
+
+**Nächste Woche**
+
+ORGANISIEREN: Projektstruktur, Codebook und Rohdaten der Originalstudie
 
 ------------------------------------------------------------------------
 
