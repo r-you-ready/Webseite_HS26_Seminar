@@ -25,10 +25,6 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 
 ![](images/ryouready_logo.png){fig-align="center" width="306"}
 
-Hier evtl. noch einen Untertitel einfügen in den Foliensatz:
-
-EH2 - Planen: Open Science & Datenanalyseplan
-
 ------------------------------------------------------------------------
 
 ## Semesterplan
@@ -119,7 +115,7 @@ Die Studierenden darauf hinweisen, dass Feedback gerne erwünscht ist! Sie könn
 
 **Peer-Pairing**
 
-Hier die beiden Graphiken des Peer-Pairing aus der Bedarfsanalyse nebeneinander einfügen (also 10:15 und 16:15 Resultate nebeneninander).
+Hier die beiden Graphiken des Peer-Pairing aus der Bedarfsanalyse nebeneinander einfügen (also 10:15 und 16:15 Resultate nebeneninander). Orientierung an den Folien von letzem Semester.
 
 ------------------------------------------------------------------------
 
@@ -613,88 +609,141 @@ Was war vor der Datenerhebung bereits festgelegt?
 
 ## Euer Datenanalyseplan
 
-## Datenanalyseplan
+<br>
 
--   Secondary Data Analyses Preregistration (<https://osf.io/x4gzt/>[)](https://help.osf.io/article/229-select-a-registration-template)){.uri}
+### Ihr erstellt einen Plan dafür, wie ihr die publizierten Analysen von Grinschgl et al. (2020) reproduzieren würdet.
 
--   Basierend auf Van den Akker et al. (2021) -\> siehe Paper für eine Anleitung & Youtube Video <https://www.youtube.com/watch?v=fqvJx2_V3zY>
+<br>
 
--   Leichte Modifikationen für unser Seminar; Vorlage auf ILIAS unter «Abschlussprojekt» -\> ZIP-Ordner
+**Ihr plant keine neue Studie, sondern rekonstruiert die publizierten Analysen nachvollziehbar.**
 
-::: notes
-Hier kurz demonstrieren, wo sie die entsprechenden Daten finden auf Ilias im zip-Ordner
-:::
+**Ziel:** Die Informationen aus Paper und Präregistrierung so zusammenführen, dass daraus ein konkreter und nachvollziehbarer Analysefahrplan wird.
 
 ------------------------------------------------------------------------
 
-## Datenanalyseplan - (Modifizierte) Fragen
+## Vorhandene Materialien (1)
 
-**Diese Fragen sind für die Analysen von Grinschgl et al, (2020) zu beantworten –\> erste HÜ**
+Alle relevanten Dokumente finden sich auf ILIAS im ZIP-Ordner des Abschlussprojekts:
 
-------------------------------------------------------------------------
+<br>
 
-## Datenanalyseplan - Aufgabenstellung
+1.  ***Grinschgl et al. (2020):*** **Originalversion (ohne Kommentare)**
 
--   Datenanalyseplan für Reproduzierung der Analysen von Grinschgl et al. (2020) erstellen (bis EH 4) ➡️4 Punkte
+-   Primäre wissenschaftliche Grundlage
 
-    -   Paper befindet sich ohne und mit Hinweisen auf ILIAS (Ordner «Abschlussprojekt» ➡️ Zip Ordner)
+-   Hier findet sich die Mehrheit der benötigten Informationen
 
-    -   Kann auf Deutsch oder Englisch erstellt werden
+<br>
 
-    -   Nicht nur Kopie der Textteile aus dem Paper, sondern in eigene Worte fassen
+2.  ***Grinschgl et al. (2020):*** **Version mit Kommentaren**
 
-    -   Es gibt nicht die EINE richtige Lösung
+-   Enthält Hinweise, zu welchen Fragen des Datenanalyseplans bestimmte Textstellen gehören
 
-    -   Einfach mal probieren! Korrektheit zweitrangig!
-
--   Musterlösung & Peer-Review (Zwischen EH 4-5) ➡️ 4 Punkte
-
--   Abschlussarbeit: überarbeiteten Datenanalyseplan mit abgeben (Basis: Simulierte Daten) ➡️ Teil der 54 Punkte (Abschlussarbeit)
-
--   FAQ anschauen, Ilias Forum für neue Fragen nutzen
+-   Auch Hinweis zu einer Analyse (Offloading strategies), die nicht repliziert werden muss!
 
 ------------------------------------------------------------------------
 
-## Fragen, Wünsche, Anregungen
+## Vorhandene Materialien (2)
 
-## ![Illustration von svstudioart/Freepik](../../images/EH_2_files/fragen.png){fig-align="center" width="345"}
+Alle relevanten Dokumente finden sich auf ILIAS im ZIP-Ordner des Abschlussprojekts:
+
+<br>
+
+3.  **Präregistrierung zur Studie (OSF)**
+
+-   Enthält zusätzliche Informationen, die nicht in der Studie enthalten sind
+
+<br>
+
+4.  **Vorlage für den Datenanalyseplan (nach *van den Akker et al., 2021)***
+
+-   Verbindliche Struktur eures Dokuments
+
+-   Kommentare & Anleitungen nicht entfernen, sondern nur die grauen Felder mit den passenden Informationen ergänzen
+
+-   Führt euch Schritt für Schritt durch den Plan
+
+-   Einige Felder lassen mehr Spielraum als andere. Es gibt deshalb nicht die eine perfekte Formulierung!
+
+-   Daumenregel: So lang wie nötig, so kurz wie möglich. Eine andere Person sollte den Analyseplan ohne weitere Informaitonen nachvollziehen und umsetzen können.
 
 ------------------------------------------------------------------------
 
-## **Hands On! Block 1 fortsetzen**
+## Offene Fragen?
+
+![](../../images/EH_2_files/fragen.png){width="450" fig-align="center"}
+
+------------------------------------------------------------------------
+
+## **Hands-on Block 1 fortsetzen**
+
+[Link zu den Übungen](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/02_excercises/loesung_1.html)
 
 ------------------------------------------------------------------------
 
 ## **Heute haben wir:**
 
--   Den Ursprung und Gründe der Replikationskrise kennengelernt
+<br>
 
--   Das Verbessern psychologischer Forschung mittels Open Science Praktiken diskutiert
+**WARUM?**
 
--   Das Konzept der Präregistrierung und des Datenanalyseplans kennengelernt
+Wissenschaftliche Analysen enthalten viele Entscheidungen.
 
--   Weitere Hands-On Übungen zu R Basics bearbeitet
+Transparenz darüber erhöht Nachvollziehbarkeit und Überprüfbarkeit.
 
-------------------------------------------------------------------------
+**WAS?**
 
-## Hausübungen:
+Open Science bietet verschiedene Werkzeuge dafür.
 
--   Paper lesen (r_you_ready/Grinschgl2020/reports)
--   Datenanalyseplan auf Basis des Papers erstellen
-    -   Abgabe via ILIAS, **Deadline: 11.03.2026**
-    -   Weiterleiten an Peer-Partner (EH4)
--   Unterstützende Dokumente:
-    -   Artikel Van den Akker et al. (2021)
-    -   Forum & Peer Pairing (ab EH3)
-    -   FAQ
-    -   Fragen zur nächsten Einheit mitbringen
-    -   Sprechstunde Lars
--   Hands-On Übungen fertig machen (Musterlösungen nächste Woche)
--   Peer-Pairings melden, **Deadline 01.03.2026**
+Unser heutiger Schwerpunkt: **Präregistrierung & Datenanalyseplan.**
+
+**WIE?**
+
+Wir übersetzen Informationen aus **Paper + Präregistrierung** in einen konkreten Plan für unsere spätere Analyse.
+
+<br>
+
+Wir wissen zunehmend nicht nur, was untersucht wurde - sondern auch, welche Schritte wir brauchen, um die Analysen später nachvollziehen zu können.
 
 ------------------------------------------------------------------------
 
-## Weitere Ressourcen:
+## Aufträge & Hausübungen
+
+<br>
+
+**Peer-Pairing**
+
+📌 bis Sonntag, 27.09.
+
+-   2er-Gruppe in ILIAS-Forum eintragen
+
+-   ein Eintrag pro Gruppe reicht
+
+-   übrige Studierende werden zufällig zugeteilt
+
+<br>
+
+**Datenanalyseplan**
+
+📖 Paper gründlich lesen
+
+🔎 Präregistrierung ansehen
+
+📝 mit dem Datenanalyseplan beginnen
+
+**Abgabe:** Mittwoch, 07.10. (via ILIAS)
+
+<br>
+
+**Coding**
+
+💻 Hands-on Block 1 fertig bearbeiten
+
+Musterlösungen ab 30.09. verfügbar & als Download
+
+------------------------------------------------------------------------
+
+## Weitere Ressourcen: mehr zu Open Science
 
 -   Pennington, C. R. (2023). A student’s guide to open science: Using the replication crisis to reform psychology. McGraw Hill​.
 
@@ -745,5 +794,3 @@ Stefan, A. M., Schönbrodt, F., & Schiestel, L. (2023). *An introduction to Open
 Wagenmakers, E.-J., Wetzels, R., Borsboom, D., & van der Maas, H. L. J. (2011). Why psychologists must change the way they analyze their data: The case of psi: Comment on Bem (2011). *Journal of Personality and Social Psychology, 100*(3), 426–432. <https://doi.org/10.1037/a0022790>
 
 Van Den Akker, O. R., Weston, S., Campbell, L., Chopik, B., Damian, R., Davis-Kean, P., Hall, A., Kosie, J., Kruse, E., Olsen, J., Ritchie, S., Valentine, K., Van ’T Veer, A., & Bakker, M. (2021). Preregistration of secondary data analysis: A template and tutorial. *Meta-Psychology, 5*. <https://doi.org/10.15626/MP.2020.2625>
-
-------------------------------------------------------------------------
