@@ -7,26 +7,134 @@ Zu Beginn und am Ende des Semesters führen wir eine kurze Bedarfsanalyse durch.
 
 Die Befragung wird am Ende des Semesters erneut durchgeführt. Dadurch könnt ihr eure Einschätzungen zu Beginn und am Ende des Semesters miteinander vergleichen und nachvollziehen, in welchen Bereichen ihr im Verlauf des Seminars mehr Sicherheit gewonnen, neue Kenntnisse erworben oder euch intensiver mit bestimmten Themen auseinandergesetzt habt.
 
-Die folgenden Ergebnisse geben einen Überblick über den Ausgangspunkt zu Beginn des Semesters. An der Befragung nahmen in der Seminargruppe von **10:15-12:00 Uhr 23 Studierende** und in der Seminargruppe von **16:15-18:00 Uhr 17 Studiernde** teil. Prozentangaben werden jeweils innerhalb der entsprechenden Seminargruppe berechnet.
+Die folgenden Ergebnisse geben einen Überblick über den Ausgangspunkt zu Beginn des Semesters. An der Befragung nahmen in der Seminargruppe von **10:15-12:00 Uhr 23 Studierende** und in der Seminargruppe von **16:15-18:00 Uhr 17 Studiernde** teil.
 
-### Bisherige Erfahrung mit R
+### 1. Bisherige Erfahrung mit R
 
 Zu Beginn des Seminars wollten wir zunächst wissen, welche Erfahrungen ihr bisher mit R gesammelt habt. Dazu habt ihr eure aktuellen R-Kenntnisse eingeschätzt und angegeben, wie häufig und in welchen Kontexten ihr R bisher verwendet habt. Ausserdem haben wir euch gefragt, mit welchen R-Paketen ihr bereits gearbeitet habt.
 
-**Wie würdest du aktuell deine R-Kenntnisse einschätzen?**
+#### **Wie würdest du aktuell deine R-Kenntnisse einschätzen?**
 
 ::::: columns
 ::: {.column width="50%"}
 **10:15**
 
-![](../../images/R_Kenntnisse_1015.png){fig-align="center"}
+![](../../images/R_Kenntnisse_1015.png){width="85%" fig-align="left"}
 :::
 
 ::: {.column width="50%"}
 **16:15**
 
-![](../../images/R_Kenntnisse_1615.png){fig-align="center"}
+![](../../images/R_Kenntnisse_1615.png){width="85%" fig-align="left"}
 :::
 :::::
 
-![](../../images/R_Kenntnisse_Legende.png){fig-align="center"}
+![](../../images/R_Kenntnisse_Legende.png){width="65%" fig-align="left"}
+
+#### **Wie häufig hast du R bisher verwendet?**
+
+::::: columns
+::: {.column width="50%"}
+**10:15**
+
+![](../../images/Verwendung_R_1015.png){width="85%" fig-align="left"}
+:::
+
+::: {.column width="50%"}
+**16:15**
+
+![](../../images/Verwendung_R_1615.png){width="85%" fig-align="left"}
+:::
+:::::
+
+![](../../images/Verwendung_R_Legende.png){width="55%" fig-align="left"}
+
+#### **In welchen Lehrveranstaltungen hast du R bereits verwendet?**
+
+Die Freitextantworten wurden thematisch zusammengefasst. Mehrere Nennungen innerhalb einer Antwort konnten dabei unterschiedlichen Kategorien zugeordnet werden; pro Kategorie wurde jede Person höchstens einmal gezählt.
+
+![](../../images/Verwendung_Lehrveranstaltungen.png){width="65%" fig-align="left"}
+
+#### **Hast du R auch schon ausserhalb von Lehrveranstaltungen verwendet?**
+
+::::: columns
+::: {.column width="50%"}
+**10:15**
+
+![](../../images/R_ausserhalb_1015.png){width="85%" fig-align="left"}
+:::
+
+::: {.column width="50%"}
+**16:15**
+
+![](../../images/R_ausserhalb_1615.png){width="85%" fig-align="left"}
+:::
+:::::
+
+#### **Welche R-Pakete hast du bereits verwendet?**
+
+::::: columns
+::: {.column width="50%"}
+**10:15**
+
+![](../../images/R_Pakete_1015.png){width="85%" fig-align="left"}
+:::
+
+::: {.column width="50%"}
+**16:15**
+
+![](../../images/R_Pakete_1615.png){width="85%" fig-align="left"}
+:::
+:::::
+
+![](../../images/R_Pakete_Legende.png){width="35%" fig-align="left"}
+
+Zusätzlich zu den vorgegebenen Antwortoptionen wurden in den Freitextangaben weitere bereits verwendete R-Pakete genannt: `lme4`, `lmerTest`, `sjPlot`, `emmeans`, `naniar` und `patchwork`.
+
+### 2. Sicherheit bei zentralen Arbeitsschritten
+
+#### **Wie sicher fühlst du dich im Umgang mit den folgenden Themen?**
+
+Die Studierenden sollten einschätzen, wie sicher sie sich im Umgang mit verschiedenen Bereichen der Datenaufbereitung und -analyse in R fühlen. Dazu bewerteten sie jeden Themenbereich auf einer Skala von 1 (sehr unsicher) bis 5 (sehr sicher).
+
+::::: columns
+::: {.column width="50%"}
+**10:15**
+
+![](../../images/Sicherheit_1015.png){width="85%" fig-align="left"}
+:::
+
+::: {.column width="50%"}
+**16:15**
+
+![](../../images/Sicherheit_1615.png){width="85%" fig-align="left"}
+:::
+:::::
+
+![](../../images/Sicherheit_Legende.png){width="12%" fig-align="left"}
+
+#### **Was gelingt bereits gut?**
+
+In einer offenen Frage konnten die Studierenden zusätzlich angeben, bei welchen Schritten sie sich sicher fühlen, wenn sie auch auf bereits vorhandene Unterlagen zurückgreifen können. Besonders häufig wurden grundlegende Arbeitsschritte wie das Einlesen von Daten, einfache Berechnungen und Befehle, einfache statistische Analysen sowie Visualisierungen genannt. Mehrere Antworten zeigen zugleich, dass diese Sicherheit häufig noch an Hilfsmittel wie Unterlagen, Cheatsheets oder vorgegebene Abläufe geknüpft ist.
+
+### 3. Wo liegen aktuell Schwierigkeiten?
+
+#### **Welche weiteren Schritte bereiten dir Schwierigkeiten in R?**
+
+In einer offenen Frage konnten die Studierenden beschreiben, welche Aspekte der Arbeit mit R ihnen aktuell noch Schwierigkeiten bereiten. Die Antworten wurden thematisch zusammengefasst. Eine Antwort konnte dabei mehreren Themenbereichen zugeordnet werden.
+
+| Themenbereich | Wiederkehrende Schwierigkeiten |
+|------------------------------------|------------------------------------|
+| **Selbstständiges Arbeiten** | Ohne konkrete Anleitung beginnen, eigene Lösungswege entwickeln und nach einem gescheiterten Versuch selbstständig weiterarbeiten |
+| **Überblick über den Analyseprozess** | Wissen, welche Schritte notwendig sind, in welcher Reihenfolge sie durchgeführt werden und weshalb sie benötigt werden |
+| **Datenaufbereitung und -organisation** | Daten einlesen, sinnvoll strukturieren und aufbereiten sowie mit fehlenden Werten, Faktoren, Pfaden und der Ablage von Dateien umgehen |
+| **Statistische Analysen** | Eine passende Analyse für eine Fragestellung auswählen und diese anschliessend selbstständig in R umsetzen |
+| **Fehlermeldungen und Debugging** | Fehlermeldungen verstehen, deren Ursache systematisch suchen und geeignete Lösungswege finden |
+| **R-Code und grundlegendes Verständnis** | Funktionen und Syntax verstehen, längere Befehle nachvollziehen und wissen, was einzelne Schritte im Code bewirken |
+| **Visualisierung und Ergebnisdarstellung** | Geeignete Visualisierungen erstellen und einschätzen, wie Grafiken und Ergebnisse sinnvoll dargestellt werden können |
+
+Über beide Seminargruppen hinweg zeigt sich insbesondere, dass viele Schwierigkeiten mit dem **selbstständigen Arbeiten** zusammenhängen. Mehrere Studierende beschreiben, dass sie vorgegebene Schritte, vorhandenen Code oder ausführliche Anleitungen grundsätzlich nachvollziehen können, sich jedoch unsicher fühlen, wenn sie selbst entscheiden müssen, **wie sie eine Aufgabe beginnen, welche Schritte notwendig sind und wie sie bei Problemen weiter vorgehen können**.
+
+::: {.callout-note title="Zentrale Beobachtung"}
+Ein wichtiges Anliegen für das Seminar ist damit der Übergang vom Arbeiten nach einer vorgegebenen Anleitung hin zu einem zunehmend selbstständigen Vorgehen: Die Studierenden sollen nicht nur einzelne R-Befehle anwenden können, sondern auch verstehen, **was sie wann und warum tun und wie sie bei Schwierigkeiten eigenständig weiterkommen können**.
+:::
