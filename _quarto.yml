@@ -41,6 +41,11 @@ website:
             text: "Datenanalyseplan (07.10.26)"
       - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
         text: "Wettbewerb: R-Cheatsheet"
+      - href: scripts/04_misc/Bedarfsanalyse.qmd
+        text: "Resultate Bedarfsanalyse"
+        contents:
+          - href: scripts/04_misc/Bedarfsanalyse_Semesterstart.qmd
+            text: "Semesterbeginn"
       - href: scripts/04_misc/muddiest_points.qmd
         text: "Muddiest Points"
         contents:

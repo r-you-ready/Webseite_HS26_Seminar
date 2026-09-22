@@ -124,7 +124,7 @@ In einer offenen Frage konnten die Studierenden zusätzlich angeben, bei welchen
 In einer offenen Frage konnten die Studierenden beschreiben, welche Aspekte der Arbeit mit R ihnen aktuell noch Schwierigkeiten bereiten. Die Antworten wurden thematisch zusammengefasst. Eine Antwort konnte dabei mehreren Themenbereichen zugeordnet werden.
 
 | Themenbereich | Wiederkehrende Schwierigkeiten |
-|------------------------------------|------------------------------------|
+|----|----|
 | **Selbstständiges Arbeiten** | Ohne konkrete Anleitung beginnen, eigene Lösungswege entwickeln und nach einem gescheiterten Versuch selbstständig weiterarbeiten |
 | **Überblick über den Analyseprozess** | Wissen, welche Schritte notwendig sind, in welcher Reihenfolge sie durchgeführt werden und weshalb sie benötigt werden |
 | **Datenaufbereitung und -organisation** | Daten einlesen, sinnvoll strukturieren und aufbereiten sowie mit fehlenden Werten, Faktoren, Pfaden und der Ablage von Dateien umgehen |
@@ -138,3 +138,57 @@ In einer offenen Frage konnten die Studierenden beschreiben, welche Aspekte der 
 ::: {.callout-note title="Zentrale Beobachtung"}
 Ein wichtiges Anliegen für das Seminar ist damit der Übergang vom Arbeiten nach einer vorgegebenen Anleitung hin zu einem zunehmend selbstständigen Vorgehen: Die Studierenden sollen nicht nur einzelne R-Befehle anwenden können, sondern auch verstehen, **was sie wann und warum tun und wie sie bei Schwierigkeiten eigenständig weiterkommen können**.
 :::
+
+### 4. Was wünschen sich die Studierenden vom Seminar und allgemein vom Studium?
+
+Die Studierenden konnten in mehreren offenen Fragen beschreiben, was sie im Methodenseminar lernen möchten, bei welchen Aspekten sie sich Unterstützung wünschen und welche Angebote ihnen auch über das Seminar hinaus helfen würden. Die Freitextantworten wurden thematisch zusammengefasst. Eine Antwort konnte dabei mehreren Themenbereichen zugeordnet werden.
+
+#### **Was würdest du gerne in diesem Methodenseminar lernen?**
+
+Über beide Seminargruppen hinweg zeigt sich ein sehr ähnliches Bild. Im Vordergrund steht weniger der Wunsch nach möglichst vielen einzelnen Funktionen oder statistischen Verfahren, sondern vielmehr danach, R grundlegend zu verstehen und zunehmend selbstständig damit arbeiten zu können.
+
+| Zentrales Lernziel | Was sich die Studierenden wünschen |
+|----|----|
+| **Mehr Sicherheit im Umgang mit R** | Sich im Programm besser zurechtfinden, weniger unsicher oder überfordert fühlen und R auch bei zukünftigen Projekten sicherer einsetzen können |
+| **Grundlagen festigen** | Zentrale Konzepte und Befehle auffrischen, die Funktionsweise von R besser verstehen und ein solides Grundgerüst aufbauen |
+| **Den gesamten Analyseprozess verstehen** | Nachvollziehen, welche Schritte von den Rohdaten bis zur fertigen Auswertung notwendig sind, in welcher Reihenfolge sie erfolgen und warum sie durchgeführt werden |
+| **Selbstständiger arbeiten** | Auch ohne vorgegebenes „Rezept“ wissen, wie eine Aufgabe begonnen werden kann, welche Schritte notwendig sind und wie bei Problemen weitergearbeitet werden kann |
+| **Daten aufbereiten und organisieren** | Daten einlesen, strukturieren, bereinigen und so vorbereiten, dass sie sinnvoll analysiert werden können |
+| **Analysen auswählen und durchführen** | Verstehen, welche Analyse zu einer Fragestellung passt, und grundlegende statistische Verfahren selbstständig in R umsetzen können |
+| **Ergebnisse darstellen** | Grafiken erstellen, Skripte übersichtlich gestalten und Ergebnisse nachvollziehbar aufbereiten |
+| **Vorbereitung auf zukünftige Arbeiten** | Die erworbenen Kenntnisse insbesondere für Bachelor-, Master- oder andere Forschungsarbeiten nutzen können |
+
+Besonders deutlich wird der Wunsch nach einem **zusammenhängenden Verständnis des gesamten Arbeitsprozesses**. Die Studierenden möchten nicht nur lernen, welchen Code sie eingeben müssen, sondern verstehen, was sie tun, warum sie es tun und wie die einzelnen Schritte miteinander zusammenhängen.
+
+#### Bei welchen Aspekte der Datenaufbereitung und -analyse in R wünschst du dir innerhalb dieses Seminars Unterstützung?
+
+Auch bei dieser Frage stehen grundlegende und prozessorientierte Themen im Vordergrund. Unterstützung wird insbesondere bei folgenden Bereichen gewünscht:
+
+-   **Datenaufbereitung:** Daten importieren, strukturieren, bereinigen und zwischen unterschiedlichen Datenformaten arbeiten.
+-   **Planung und Ablauf einer Analyse:** Wissen, wie man beginnt, welche Schritte aufeinander folgen und wie man von einer Fragestellung beziehungsweise einem Analyseplan zur konkreten Umsetzung gelangt.
+-   **Auswahl und Umsetzung statistischer Analysen:** Passende Verfahren auswählen, Analysen in R durchführen und deren Ergebnisse interpretieren.
+-   **Verständnis der einzelnen Schritte:** Nicht nur Code ausführen, sondern nachvollziehen, weshalb bestimmte Entscheidungen getroffen und bestimmte Funktionen verwendet werden.
+-   **Fehlermeldungen und Probleme lösen:** Fehler verstehen und geeignete Lösungswege finden.
+-   **Visualisierung und Ergebnisdarstellung:** Daten mit `ggplot2` darstellen und Ergebnisse übersichtlich aufbereiten.
+-   **Reproduzierbares Arbeiten:** Quarto beziehungsweise R Markdown, Analysepläne oder Präregistrierungen, Codebücher und Forschungsdatenmanagement kennenlernen.
+-   **Vorbereitung auf eigene Forschungsprojekte:** Einen Arbeitsablauf kennenlernen, der später auf Bachelor- oder Masterarbeiten übertragen werden kann.
+
+Einzelne Studierende nannten darüber hinaus spezifischere Themen wie Modellvergleiche, komplexere Analyseverfahren oder besondere statistische Methoden. Insgesamt überwiegt jedoch klar der Wunsch, zunächst die Grundlagen und den allgemeinen Analyseprozess sicher zu beherrschen.
+
+::: {.callout-note title="Zentrales Anliegen"}
+Viele Antworten lassen sich auf ein gemeinsames Ziel zurückführen: Die Studierenden möchten nicht nur einzelne Befehle oder Analysen kennenlernen, sondern einen **roten Faden für die Arbeit mit Daten in R** entwickeln. Sie möchten wissen, wie sie von einer Fragestellung und einem Datensatz schrittweise zu einer nachvollziehbaren Analyse und Darstellung der Ergebnisse gelangen.
+:::
+
+#### Welche Art von Unterstützung wünschst du dir ausserhalb dieses Seminars bei der Datenaufbereitung und -analyse mit R?
+
+Auch über das Seminar hinaus wünschen sich viele Studierende Möglichkeiten, ihr Wissen weiter anzuwenden, aufzufrischen und bei konkreten Problemen Unterstützung zu erhalten. Wiederkehrend genannt wurden insbesondere:
+
+| Gewünschte Unterstützung | Beispiele aus den Antworten |
+|----|----|
+| **Ansprechpersonen und Beratungsangebote** | Eine leicht zugängliche Stelle, bei der Fragen zu eigenen Analysen oder Forschungsarbeiten besprochen werden können |
+| **Leitfäden und Nachschlagewerke** | Kurze Übersichten, verständliche Skripte oder Guides, auf die auch bei späteren Projekten zurückgegriffen werden kann |
+| **Mehr praktische Übungsmöglichkeiten** | Konkrete Übungsbeispiele, praktische R-Anwendungen und zusätzliche Materialien zum selbstständigen Üben |
+| **Kontinuierliche Anwendung von R** | R stärker und regelmässiger in Lehrveranstaltungen einsetzen, damit erworbene Kenntnisse nicht zwischen einzelnen Kursen wieder verloren gehen |
+| **Schrittweise und verständliche Erklärungen** | Genügend Zeit für grundlegende Themen sowie Erklärungen, die nicht nur zeigen, wie etwas gemacht wird, sondern auch warum |
+| **Unterstützung bei eigenen Forschungsarbeiten** | Fragen zu Bachelor- oder Masterarbeiten mit erfahrenen Personen besprechen und bei konkreten Analyseproblemen Unterstützung erhalten |
+| **Auffrischungs- und Vertiefungsangebote** | Freiwillige Grundlagen- oder Fortgeschrittenenkurse sowie Möglichkeiten, Kenntnisse zu einem späteren Zeitpunkt wieder aufzufrischen |

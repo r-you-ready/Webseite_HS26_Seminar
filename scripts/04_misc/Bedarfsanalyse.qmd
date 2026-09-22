@@ -1,0 +1,7 @@
+---
+title: "Bedarfsanalyse"
+format: html
+editor: visual
+---
+
+Hier werden die Resultate der Bedarfsanalyse zu Beginn und Ende des Semesters hochgeladen.
