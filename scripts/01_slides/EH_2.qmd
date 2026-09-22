@@ -1,5 +1,5 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 2"
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 2"
 author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
@@ -16,10 +16,10 @@ format:
     progress: true
     controls: true
     embed-resources: true
-draft: true
+draft: false
 ---
 
-## R u Ready? Reprodzierbare Datenaufbereitung und -analyse mit R
+## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
 HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**2. Einheit**, 23.09.2026
 
@@ -93,11 +93,9 @@ Grinschgl et al. verstehen → Reanalyse planen → Datenanalyseplan erstellen
 
 **Was würdest du gerne in diesem Methodenseminar lernen?**
 
-Hier sollen die zentralen genannten Punkte der Bedarfsanalyse betreffend dieser Frage zusammengefasst werden!
+[Link zu den detaillierten Resultaten der Bedarfsanalyse](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/04_misc/Bedarfsanalyse_Semesterstart.html)
 
-Dies erfolgt am Montag, wenn die Ergebnisse vorliegen.
-
-Wenn möglich hier aus den genannten Punkte die Verbindung zwischen "Warum" und "Wie" mit dem Datenanalyseplan herstellen.
+![](../../images/Bedarfsanalyse.png){width="85%" fig-align="center"}
 
 ::: notes
 Die Studierenden darauf hinweisen, dass Feedback gerne erwünscht ist! Sie können uns jederzeit rückmelden, wie gut es uns gelingt, unser Programm auf ihre Bedürfnisse und Wünsche abzustimmen.
@@ -131,7 +129,7 @@ Die Studierenden darauf hinweisen, dass Feedback gerne erwünscht ist! Sie könn
 
 **Wofür:** Gegenseitiges Feedback bei ausgewählten Aufgaben; weiterer Austausch und gegenseitige Unterstützung nach Bedarf.
 
-**Vorgehen:** Bis Sonntag, 27.09. in ILIAS (Forum 2.Sitzung) beide Namen eurer 2er-Gruppe eintragen. Ein Eintrag pro Gruppe reicht.
+**Vorgehen:** Bis Sonntag, 27.09. in ILIAS (Forum 2. Sitzung) beide Namen eurer 2er-Gruppe eintragen. Ein Eintrag pro Gruppe reicht.
 
 Wer sich bis Sonntag nicht eingetragen hat, wird von uns zufällig einer 2er-Gruppe zugeteilt.
 
@@ -282,7 +280,7 @@ Anreizstrukturen
 
 Publication Bias
 
-Präfarenz für Neues
+Präferenz für Neues
 :::
 
 ::: {.column width="33%"}
@@ -405,7 +403,7 @@ Open Science ist kein einzelnes Tool, sondern ein Bündel von Praktiken für tra
 ::: notes
 Die detaillierten Folien aus dem letzten Semester streichen und hier einfach mündlich einordnen.
 
-**Präregistrierung:** Die zentralen Aspekte der Studie (Hypothesen, Stichprobe, Analysemethoden) werden vor der Durchführung der Studie festgelegt. Dies ist auch erst vor der Datenanalyse möglich, dass Datenanalyseplan.
+**Präregistrierung:** Die zentralen Aspekte der Studie (Hypothesen, Stichprobe, Analysemethoden) werden vor der Durchführung der Studie festgelegt. Dies ist auch erst vor der Datenanalyse möglich, dann Datenanalyseplan.
 
 Präregistrierung wird veröffentlicht, erhält einen Zeitstempel und ist schreibgeschützt.
 
@@ -440,7 +438,7 @@ Präregistrierung wird veröffentlicht, erhält einen Zeitstempel und ist schrei
 -   Analyseentscheidungen können vor der geplanten Analyse dokumentiert werden.
 
 ::: notes
-Hier unbedingt differenzieren: Wie erstellen keine echte Präregistrierung, weil wir das Paper und auch die Resultate bereits kennen. Die Daten wurden bereits erhoben und liegen vor.
+Hier unbedingt differenzieren: Wir erstellen keine echte Präregistrierung, weil wir das Paper und auch die Resultate bereits kennen. Die Daten wurden bereits erhoben und liegen vor.
 
 Unser Datenanalyseplan ist eine Rekonstruktion und Planung einer Reanalyse.
 :::
@@ -607,7 +605,7 @@ Was war vor der Datenerhebung bereits festgelegt?
 
 -   geplanter Analyseplan
 
--   Präregistirert auf OSF <https://osf.io/9hpz5>
+-   Präregistriert auf OSF <https://osf.io/9hpz5>
 
 → ACHTUNG: Kein optimales Beispiel, an manchen Stellen zu knapp!
 :::
@@ -673,7 +671,7 @@ Alle relevanten Dokumente finden sich auf ILIAS im ZIP-Ordner des Abschlussproje
 
 -   Einige Felder lassen mehr Spielraum als andere. Es gibt deshalb nicht die eine perfekte Formulierung!
 
--   Daumenregel: So lang wie nötig, so kurz wie möglich. Eine andere Person sollte den Analyseplan ohne weitere Informaitonen nachvollziehen und umsetzen können.
+-   Daumenregel: So lang wie nötig, so kurz wie möglich. Eine andere Person sollte den Analyseplan ohne weitere Informationen nachvollziehen und umsetzen können.
 
 ------------------------------------------------------------------------
 
@@ -773,7 +771,7 @@ Grinschgl, S., Meyerhoff, H. S., Schwan, S., & Papenmeier, F. (2021). From metac
 
 Hofer, G. (2024, April 23). *Open Science* \[Course presentation\]. University of Graz.
 
-John LK, Loewenstein G, Prelec D (2012). Measuring the prevalence of questionable research practices with incentives for truth telling. Psychol Sci. 2012 May 1;23(5):524-32. <https://doi.org/10.1177/0956797611430953.>
+John LK, Loewenstein G, Prelec D (2012). Measuring the prevalence of questionable research practices with incentives for truth telling. Psychol Sci. 2012 May 1;23(5):524-32. [https://doi.org/10.1177/0956797611430953](https://doi.org/10.1177/0956797611430953.){.uri}
 
 LeBel, E. P., & Peters, K. R. (2011). Fearing the future of empirical psychology: Bem’s (2011) evidence of psi as a case study of deficiencies in modal research practice. *Review of General Psychology, 15*(4), 371–379. <https://doi.org/10.1037/a0025172>
 
