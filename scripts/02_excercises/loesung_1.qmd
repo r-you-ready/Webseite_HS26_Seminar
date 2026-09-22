@@ -19,7 +19,11 @@ Bei Bedarf finden sich hier nochmal die Slides zur EH1:
 
 Und hier nochmal die Slides zur EH2:
 
-Wird kurz vor der Einheit 2 hochgeladen
+::: {=html}
+<iframe src="../01_slides/EH_2.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 1.5rem 0;">
+
+</iframe>
+:::
 
 ## 🧭 Wo befinden wir uns?
 
@@ -1095,7 +1099,7 @@ fuenf_zehnmal <- rep(5, times = 10)
 :::
 ::::
 
-### ⭐  5 Zusatzaufgabe:
+### ⭐ 5 Zusatzaufgabe:
 
 Erkläre, warum der folgende Code negative Werte ausgibt.
 
@@ -1104,7 +1108,6 @@ Erkläre, warum der folgende Code negative Werte ausgibt.
 some_numbers <-- c(22, 24, 27, 25)
 some_numbers
 ```
-
 
 ## A8 - Grundlegende Datentypen
 
