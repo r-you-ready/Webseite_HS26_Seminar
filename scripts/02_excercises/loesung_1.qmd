@@ -1679,8 +1679,6 @@ Prüfe stattdessen, ob du die grundlegenden Ideen erklären kannst:
 
 -   Mein Code steht im Skript und ist gespeichert.
 
-### ⭐ Evtl. noch Zusatzübungen Einheit 1
-
 # Einheit 2: Von funktionierendem zu nachvollziehbarem Code
 
 In Einheit 1 ging es zunächst darum, R grundsätzlich bedienen zu können. In Einheit 2 verschiebt sich unser Fokus.
@@ -2216,8 +2214,6 @@ Finde selbstständig heraus, was die folgenden Funktionen machen:
     # rev() kehrt die ursprüngliche Reihenfolge der Elemente eines Vektors um
     rev(zahlen)
     ```
-
-    Durch `scores <- 74` wird der ursprüngliche Vektor überschrieben. Für einen Vergleich wird `==` benötigt. Dieser Fehler ist besonders problematisch, weil R keine Fehlermeldung erzeugt.
     :::
     ::::
 
@@ -2312,7 +2308,7 @@ Alle der Befehle sind dafür geeignet, einen ersten schnellen Überblick über d
 
 -   `head()` gibt die ersten paar (standardmässig 6) Zeilen des Datensatzes aus.
 
--   `glimpse()` gibt für jede Spalte den Namen, Typ und ihren ersten Wert aus.
+-   `glimpse()` gibt für jede Spalte den Namen, Typ und ihre ersten Werte aus.
 
 -   `str()` gibt einen Überblick über die Dimensionen des Datensatzes, wie Anzahl an Spalten, Anzahl an Zeilen und Überblick über die Datentypen.
 
@@ -2372,6 +2368,9 @@ class(penguins$body_mass_g)
 
 # bill_length_mm
 class(penguins$bill_length_mm)
+
+# species
+class(penguins$species)
 
 # island
 class(penguins$island)
@@ -2468,7 +2467,7 @@ Mit `nrow()` bestimmen wir die Anzahl der Zeilen und damit die Anzahl der Beobac
 nrow(penguins)
 ncol(penguins)
 
-# Der Datensatz verfügt über 8 Variablen und 333 Beobachtungen.
+# Der Datensatz verfügt über 8 Variablen und 344 Beobachtungen.
 ```
 
 **Schritt 4: Ergebnisse speichern**
@@ -2520,7 +2519,7 @@ Mit `class()` können wir überprüfen, welchen Datentyp unser neues Objekt besi
 ```{r, include = TRUE, eval = TRUE}
 class(body_mass)
 
-# Die Ausgabe zeigt uns, dass body_mass numerische Werte enthält.
+# Die Ausgabe "integer" zeigt uns, dass body_mass ganzzahlige numerische Werte enthält.
 ```
 
 **Schritt 9: Mittelwert berechnen**
@@ -2619,7 +2618,7 @@ Das Objekt `body_mass_over_5000` enthält momentan einfach jeweils, ob ein Wert 
 sum(body_mass_over_5000, na.rm = TRUE)
 
 # TRUE wird intern als 1 gespeichert, FALSE als 0. Deswegen entspricht die Summe einfach
-# dem Anteil der TRUE-Antworten.
+# der Anzahl der TRUE-Antworten.
 ```
 :::
 ::::
