@@ -840,6 +840,8 @@ negative_zahl <- -42
 # Ergebnis speichern
 absolute_zahl <- abs(negative_zahl)
 ```
+
+Die Funktion `abs()` liefert den absoluten Wert von Objekten.
 :::
 ::::
 
@@ -1108,6 +1110,12 @@ Erkläre, warum der folgende Code negative Werte ausgibt.
 some_numbers <-- c(22, 24, 27, 25)
 some_numbers
 ```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Der Code gibt negative Werte aus, weil wir vor den Code, der den Vektor erstellt, ein Minuszeichen geschrieben haben. Dieses Minuszeichen bewirkt, dass alle Zahlen des Vektors mit -1 multipliziert werden. Gemein ist nur, dass man dieses Minuszeichen schlecht sieht. Es gehört nämlich scheinbar zum Zuweisungsoperator "\<-". Aber "\<--" wird von R eben nicht einfach als Zuweisungsoperator interpretiert, sondern als ein Zuweisungsoperator "\<-" gefolgt vom Minuszeichen "-".
+:::
+::::
 
 ## A8 - Grundlegende Datentypen
 
@@ -2433,6 +2441,188 @@ Arbeite mit dem Datensatz `penguins`.
 **Dokumentation**
 
 16. Lies deinen gesamten Abschnitt noch einmal durch. Ergänze Kommentare so, dass eine andere Person nachvollziehen kann, was du machst und warum die einzelnen Schritte notwendig sind.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+**Schritt 1: Paket laden**
+
+Zu Beginn stellen wir sicher, dass das Paket `palmerpenguins` geladen ist. Dadurch steht uns der Datensatz `penguins` zur Verfügung.
+
+```{r, include = TRUE, eval = TRUE}
+library(palmerpenguins)
+```
+
+**Schritt 2: Abschnitt dokumentieren**
+
+Mit Kommentaren können wir festhalten, was ein Abschnitt unseres Skripts macht. Kommentare beginnen mit `#` und werden nicht ausgeführt.
+
+```{r, include = TRUE, eval = TRUE}
+# Abschlussaufgabe: Datensatz penguins untersuchen
+```
+
+**Schritt 3: Anzahl Beobachtungen und Variablen bestimmen**
+
+Mit `nrow()` bestimmen wir die Anzahl der Zeilen und damit die Anzahl der Beobachtungen. Mit `ncol()` bestimmen wir die Anzahl der Spalten bzw. Variablen.
+
+```{r, include = TRUE, eval = TRUE}
+nrow(penguins)
+ncol(penguins)
+
+# Der Datensatz verfügt über 8 Variablen und 333 Beobachtungen.
+```
+
+**Schritt 4: Ergebnisse speichern**
+
+Damit wir die beiden Ergebnisse später erneut verwenden können, speichern wir sie unter sinnvollen Objektnamen.
+
+```{r, include = TRUE, eval = TRUE}
+# Ergebnisse speichern
+n_observations <- nrow(penguins)
+n_variables <- ncol(penguins)
+
+# Ergebnisse ausgeben lassen
+n_observations
+n_variables
+```
+
+**Schritt 5: Einen ersten Überblick über den Datensatz erhalten**
+
+Für einen ersten Überblick können verschiedene Funktionen verwendet werden. `summary()` ist hier bspw. geeignet, da sie für jede Variable eine Zusammenfassung ausgibt.
+
+```{r, include = TRUE, eval = TRUE}
+summary(penguins)
+```
+
+**Schritt 6: Variable `body_mass_g` auswählen**
+
+Mit `$` können wir eine einzelne Variable aus einem Data Frame auswählen.
+
+Damit greifen wir auf die Variable `body_mass_g` aus dem Datensatz `penguins` zu.
+
+```{r, include = TRUE, eval = TRUE}
+penguins$body_mass_g
+```
+
+**Schritt 7: Variable als neues Objekt speichern**
+
+Die ausgewählte Variable speichern wir nun unter dem Namen `body_mass`.
+
+`body_mass` enthält damit die Werte der Variable `body_mass_g`.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass <- penguins$body_mass_g
+```
+
+**Schritt 8: Datentyp prüfen**
+
+Mit `class()` können wir überprüfen, welchen Datentyp unser neues Objekt besitzt.
+
+```{r, include = TRUE, eval = TRUE}
+class(body_mass)
+
+# Die Ausgabe zeigt uns, dass body_mass numerische Werte enthält.
+```
+
+**Schritt 9: Mittelwert berechnen**
+
+Nun versuchen wir zunächst, den Mittelwert wie gewohnt mit `mean()` zu berechnen.
+
+Als Ergebnis erhalten wir `NA`. R kann den Mittelwert also in dieser Form nicht berechnen.
+
+```{r, include = TRUE, eval = TRUE}
+mean(body_mass)
+```
+
+**Schritt 10: Herausfinden, weshalb `NA` entsteht**
+
+Nun müssen wir herausfinden, weshalb `mean()` kein numerisches Ergebnis liefert. Eine Möglichkeit ist, uns die Variable mit `summary()` genauer anzusehen.
+
+Die fehlenden Werte erklären das Problem: Wenn in einem Vektor fehlende Werte vorhanden sind, liefert `mean()` standardmässig ebenfalls `NA`.
+
+Alternativ könnten wir, wie in B5 besprochen, beispielsweise die R-Hilfe zu `mean()` öffnen.
+
+```{r, include = TRUE, eval = TRUE}
+summary(body_mass)
+
+# In der Ausgabe sehen wir, dass body_mass fehlende Werte (NA) enthält.
+```
+
+**Schritt 11: Umgang mit fehlenden Werten herausfinden**
+
+In der Hilfe zu `mean()` finden wir das Argument `na.rm`.
+
+Mit `na.rm = TRUE` teilen wir R mit, dass fehlende Werte vor der Berechnung entfernt bzw. ignoriert werden sollen.
+
+Der Mittelwert lässt sich deshalb folgendermassen berechnen:
+
+```{r, include = TRUE, eval = TRUE}
+mean(body_mass, na.rm = TRUE)
+```
+
+**Schritt 12: Mittelwert, Median und Standardabweichung berechnen**
+
+Dasselbe Prinzip können wir auch für die weiteren Kennwerte verwenden.
+
+```{r, include = TRUE, eval = TRUE}
+# mean() berechnet den Mittelwert
+mean(body_mass, na.rm = TRUE)
+
+# median() berechnet den Median
+median(body_mass, na.rm = TRUE)
+
+# sd() berechnet die Standardabweichung
+sd(body_mass, na.rm = TRUE)
+```
+
+**Schritt 13: Werte grösser als 5000 finden**
+
+Mit einem logischen Vergleich können wir für jeden Wert überprüfen, ob er grösser als `5000` ist.
+
+R prüft dabei jeden einzelnen Wert von `body_mass`.
+
+-   `TRUE` bedeutet: Der Wert ist grösser als 5000.
+
+-   `FALSE` bedeutet: Der Wert ist nicht grösser als 5000.
+
+-   `NA` bedeuetet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass > 5000
+```
+
+**Schritt 14: Ergebnis unter einem sinnvollen Objektnamen speichern**
+
+Das Ergebnis des Vergleichs speichern wir nun in einem neuen Objekt.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass_over_5000 <- body_mass > 5000
+
+# Ergebnis ausgeben lassen
+body_mass_over_5000
+```
+
+**Schritt 15: Datentyp des neuen Objekts prüfen**
+
+Mit `class()` überprüfen wir erneut den Datentyp.
+
+Das Ergebnis ist `logical`, da das Objekt hauptsächlich aus den logischen Werten `TRUE` und `FALSE` besteht.
+
+```{r, include = TRUE, eval = TRUE}
+class(body_mass_over_5000)
+```
+
+**Zusatz: Wie viele Werte über 5000 existieren?**
+
+Das Objekt `body_mass_over_5000` enthält momentan einfach jeweils, ob ein Wert unter oder über 5000 war. Wenn wir nun auf einem Blick prüfen wollen, wie viele der 344 beobachteten Penguine einen Wert über 5000 haben, können wir folgenden Code verwenden:
+
+```{r, include = TRUE, eval = TRUE}
+sum(body_mass_over_5000, na.rm = TRUE)
+
+# TRUE wird intern als 1 gespeichert, FALSE als 0. Deswegen entspricht die Summe einfach
+# dem Anteil der TRUE-Antworten.
+```
+:::
+::::
 
 ## 🎉 Gratulation: Du hast die ersten Übungen erfolgreich bearbeitet!
 
