@@ -107,9 +107,9 @@ Bitte prüfe jetzt:
 
 -   RStudio ist nicht stark veraltet
 
-Ihr benötigt nicht zwingend die allerneuste Version von R und RStudio.
+Ihr benötigt nicht zwingend die allerneueste Version von R und RStudio.
 
-Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, indealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
+Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, idealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
 
 Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
@@ -119,7 +119,7 @@ Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
 -   Code verhält sich anders als in unseren Übungen,
 
--   oder Fehlermeldugen entstehen aufgrund von Versionsunterschieden.
+-   oder Fehlermeldungen entstehen aufgrund von Versionsunterschieden.
 
 ### Welche Version habe ich?
 
@@ -179,7 +179,7 @@ Für das Seminar ist es wichtig, dass ihr zunächst grob wisst:
 
 Bevor wir beginnen, nehmen wir einige Grundeinstellungen in RStudio vor. Diese Einstellungen müssen normalerweise nur einmal vorgenommen werden und erleichtern uns später das reproduzierbare Arbeiten.
 
-Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General`so ein wie auf dem folgenden Bild:
+Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General` so ein wie auf dem folgenden Bild:
 
 ![](../../images/Global_Options.png){fig-align="center"}
 
@@ -675,7 +675,7 @@ Führe danach die Zeile erneut aus, mit der du `summe` berechnet hast. Was passi
 
 📌 **Merke:** R speichert in einem Objekt das Ergebnis zum Zeitpunkt der Zuweisung. Wenn sich zugrunde liegende Werte ändern, müssen davon abhängige Berechnungen erneut ausgeführt werden.
 
-Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfole von oben nach unten auszuführen.
+Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfolge von oben nach unten auszuführen.
 
 #### 🧭 **3. Objekte können auch Text speichern**
 
@@ -926,7 +926,7 @@ temperaturen <- c(12.1, 23.4, 10.3, 8.9, 15.6)
 namen <- c("Anna", "Ben", "Jana", "Elina")
 ```
 
-Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
+Hier ist es wichtig, dass die Namen mit " " geschrieben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
 :::
 ::::
 
@@ -940,7 +940,7 @@ Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Te
 bestanden <- c(TRUE, FALSE, TRUE, TRUE)
 ```
 
-Hier muss der Text nicht in " " geschreiben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
+Hier muss der Text nicht in " " geschrieben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
 :::
 ::::
 
@@ -1095,7 +1095,7 @@ Erstelle einen Vektor, in dem die Zahl `5` zehnmal vorkommt. Speichere auch dies
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
 
-# seq()-Vektor erstellen
+# rep()-Vektor erstellen
 fuenf_zehnmal <- rep(5, times = 10)
 ```
 :::
@@ -1707,7 +1707,7 @@ Bevor du R neu startest, prüfe:
 
 -   Sind alle relevanten Befehle im Skript enthalten?
 
--   Werden benötigte Pakete am Anfang des Skripts gespeichert?
+-   Werden benötigte Pakete am Anfang des Skripts geladen?
 
 Speichere dein Skript anschliessend noch einmal.
 
@@ -1771,7 +1771,7 @@ sd(test_scores)
 scores_over_5 <- test_scores > 5
 ```
 
-#### Übelege
+#### Überlege
 
 Welches Skript würdest du lieber wieder öffnen, wenn du es in zwei Monaten noch einmal brauchst?
 
@@ -1823,7 +1823,7 @@ Später können Kommentare z.B. erklären:
 # Reverse-codiertes Item vor Berechnung des Skalenwerts umpolen
 ```
 
-📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentschiedungen nachzuvollziehen.
+📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentscheidungen nachzuvollziehen.
 
 #### 🧭 Strukturiere dein Skript
 
@@ -1857,7 +1857,7 @@ test_scores <- c(75, 82, 91)
 mean_test_scores <- mean(test_scores)
 ```
 
-Welche Version lässt sich leicher verstehen, ohne dass du weiteren Kontext kennst?
+Welche Version lässt sich leichter verstehen, ohne dass du weiteren Kontext kennst?
 
 ### Unser Standard: `snake_case`
 
@@ -2107,7 +2107,7 @@ Niemand kennt alle R-Funktionen, Argumente oder Fehlermeldungen auswendig.
 
 Eine zentrale Kompetenz im Umgang mit R ist deshalb: **wissen, wie man sich selbst weiterhilft!**
 
-Im Laufe des Seminars sollt ihr zunehmend selbstständig entschieden können:
+Im Laufe des Seminars sollt ihr zunehmend selbstständig entscheiden können:
 
 -   Wo kann ich nachschauen?
 
@@ -2390,7 +2390,7 @@ Zum Abschluss dieses Coding-Blocks sollt ihr mehrere bisher gelernte Konzepte se
 
 Hier gibt es bewusst weniger genaue Codevorgaben.
 
-🎯 **Ziel:** Nicht jede Funktion auswenig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
+🎯 **Ziel:** Nicht jede Funktion auswendig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
 
 <br>
 
@@ -2583,7 +2583,7 @@ R prüft dabei jeden einzelnen Wert von `body_mass`.
 
 -   `FALSE` bedeutet: Der Wert ist nicht grösser als 5000.
 
--   `NA` bedeuetet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
+-   `NA` bedeutet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
 
 ```{r, include = TRUE, eval = TRUE}
 body_mass > 5000
