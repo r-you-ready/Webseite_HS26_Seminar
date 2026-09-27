@@ -1,6 +1,6 @@
 ---
 title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 3"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,49 +21,82 @@ draft: true
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**3. Einheit**, 04.03.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**3. Einheit**, 30.09.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ------------------------------------------------------------------------
 
-## Fragen zum Datenanalyseplan:
+## Fragen zum Datenanalyseplan?
 
-![](../../images/EH_2_files/fragen.png)
+![](../../images/EH_2_files/fragen.png){fig-align="center" width="306"}
 
 ::: notes
-jetzt auch auf Homepage unter "Hausübungen" ergänzt
+Hier den Studierenden Platz lassen, um offene Fragen zum Datenanalyseplan zu stellen.
+
+Evtl. anmerken, dass die Instruktionen auf der Vorlage noch etwas überarbeitet wurden. Erneuter Download evtl. nötig.
+
+Auch aufzeigen, dass auf der Homepage die detaillierten Instruktionen zu finden sind.
+
+Auch sagen, dass auf ILIAS der Abgabeordner eingerichtet ist und Abgaben auch vorher schon möglich sind.
 :::
 
 ------------------------------------------------------------------------
 
-## Fragen zu den Hands On Übungen der ersten beiden Wochen?
+## Fragen zu Hands-on Block 1?
 
 -   Was hat euch Schwierigkeiten bereitet?
 
--   Welche Übungen sollen wir gemeinsam live durchgehen?
+-   Welche Aufgabe sollen wir gemeinsam anschauen?
 
 -   Gibt es noch Unklarheiten?
 
--   **Musterlösungen online für Block 1!**
+-   **Musterlösungen ab jetzt online.**
 
     ::: notes
-    zeigen:\
-    R Oberfläche
+    Kurz auf Webseite die Musterlösungen zeigen.
 
-    Erklärung zu Paketen\
-    \
-    Variable zuweisen mit \<- und nicht =\
-    Vektoren mit c() für combine\
-    3 Arten von Vektoren
+    Auch zeigen, wie sie diese herunterladen können.
     :::
 
 ------------------------------------------------------------------------
 
-## Heute:
+## Peer-Pairings 10:15
+
+Liste auch auf ILIAS
+
+![](../../images/Namensliste_1015.png)
+
+::: notes
+Hier seht ihr die Gruppenzuteilung für das Peer-Feedback.
+
+Jeweils auch die Email-Adresse angegeben, da ihr eure Abgaben einerseits auf ILIAS hochladet und andererseits diese eurem Peer-Partner oder eurer Peer-Partnerin auch per Mail zukommen lasst.
+
+Da wir hier eine ungrade Anzahl an Personen sind, gibt es eine Dreiergruppe.
+:::
+
+------------------------------------------------------------------------
+
+## Peer-Pairings 16:15
+
+Liste auch auf ILIAS
+
+![](../../images/Namensliste_1615.png)
+
+::: notes
+Damit sind nun die organisatorischen Punkte geklärt. Wir gehen nun zurück zu unserem Forschungsprojekt.
+:::
+
+------------------------------------------------------------------------
+
+## Semesterplan
+
+Wird evtl. noch angepasst und aktualisiert!
 
 ::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
 ```{=html}
 <embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
+    src="../../PDFs/Semesterplan_HS26.pdf#view=FitH&navpanes=0&toolbar=0"
     type="application/pdf"
     style="width:100%; height:220vh; border:0; display:block; background:white;"
   >
@@ -72,52 +105,117 @@ jetzt auch auf Homepage unter "Hausübungen" ergänzt
 
 ------------------------------------------------------------------------
 
-## Peer-Pairings
+## Wo befinden wir uns?
 
-**12.15 (Liste auch auf Ilias)**
+**PLANEN -\> ORGANISIEREN**
 
-![](../../images/Peer_Gruppe_1215.png)
+<br>
+
+![](../../images/Workflow_EH3.png){width="65%" fig-align="center"}
+
+<br>
+
+Heute schaffen wir die Struktur, in der wir unser Forschungsprojekt reproduzierbar bearbeiten können.
 
 ::: notes
-Liste zeigen, Namen aufrufen und zusammensetzen lassen - zumindest später bei Hands On wenn sie wollen
+Auch heute möchte ich uns zunächst im Gesamtprozess verorten. In der ersten Einheit haben wir uns orientiert und unser Forschungsprojekt kennengelernt. Letzte Woche haben wir geplant: Welche Fragen wollen wir beantworten, welche Variablen brauchen wir und welche Analysen sind dafür vorgesehen?
+
+Jetzt gehen wir einen Schritt weiter. Bevor wir anfangen können, die Rohdaten tatsächlich zu bearbeiten, müssen wir dafür sorgen, dass Daten, Code und Dokumentation sinnvoll organisiert sind. Wir wechseln deshalb heute in die Phase ORGANISIEREN.
+
+Das klingt vielleicht zunächst weniger spannend als Daten zu analysieren - ist aber die Voraussetzung dafür, dass wir später überhaupt nachvollziehen können, was wir mit unseren Daten gemacht haben.
 :::
 
 ------------------------------------------------------------------------
 
-## Peer-Pairings
+## Heute
 
-**16.15 (Liste auch auf Ilias)**
+**Wie organisieren wir ein Forschungsprojekt so, dass Daten, Code und Entscheidungen nachvollziehbar und reproduzierbar bleiben?**
 
-![](../../images/Peer_Gruppe_1615.png)
+<br>
+
+**WARUM?**
+
+Forschungsdatenmanagement → Warum gute Organisation Teil guter Forschung ist
+
+**WIE ORGANISIEREN?**
+
+FAIR → Psych-DS → unser vorbereitetes Forschungsprojekt
+
+**WIE DOKUMENTIEREN?**
+
+R-Projekt & Quarto → Processing und Analysis reproduzierbar festhalten
+
+**WAS BESCHREIBEN?**
+
+Codebook → Daten und Variablen verständlich dokumentieren
+
+------------------------------------------------------------------------
+
+## Vom Analyseplan zum arbeitsfähigen Forschungsprojekt
+
+**Der Plan steht - aber damit können wir noch keine Analyse ausführen.**
+
+<br>
+
+:::::: columns
+::: {.column width="33%"}
+📄 **Datenanalyseplan**
+:::
+
+::: {.column width="33%"}
+**Brückenbausteine**
+
+-   📁 Projektstruktur
+
+-   📦 Daten
+
+-   📝 Dokumentation
+
+-   💻 Code
+:::
+
+::: {.column width="33%"}
+📊 **Reproduzierbares Ergebnis**
+:::
+::::::
+
+<br>
+
+**Erst wenn diese vier Dinge zusammenspielen, wird aus einem Plan ein ausführbares und reproduzierbares Projekt.**
 
 ::: notes
-Liste zeigen, Namen aufrufen und zusammensetzen lassen
+Letzte Woche haben wir mit dem Datenanalyseplan sehr präzise festgelegt, was wir untersuchen wollen, welche Variablen wir brauchen, wie wir sie aufbereiten möchten und welche Analysen wir rechnen wollen.
+
+Aber ein guter Analyseplan ist noch keine ausführbare Analyse.
+
+Zwischen Plan und Ergebnis liegt noch ein ganzes Stück Arbeit. Wir brauchen erstens eine klare Projektstruktur, zweitens die eigentlichen Daten, drittens eine saubere Dokumentation und viertens reproduzierbaren Code.
+
+Und entschiedend ist: Diese vier Dinge dürfen nicht nebeneinander her existieren, sondern müssen zusammenpassen.
+
+Genau diese Verbindung schauen wir uns heute an. Und genau darum geht es beim Forschungsdatenmanagement.
 :::
 
 ------------------------------------------------------------------------
 
-## Forschungsdatenmanagement:
+## Forschungsdatenmanagement
 
-***Planung, Organisation, Speicherung, Dokumentation und Archivierung von Daten während des gesamten Forschungsprozesses***
+***Planung, Organisation, Speicherung, Dokumentation und Archivierung von Daten über den gesamten Forschungsprozess***
+
+<br>
 
 ::::: columns
 ::: {.column width="70%"}
-### *Warum Datenmanagement?*:
+**Ziele von Datenmanagement:**
 
--   Datenflut in der Forschung
--   Risiken ohne gutes Management (z.B. keine Möglichkeit zur Replikation & Reproduktion)
+-   Qualität sichern
 
-### Ziele von Datenmanagement:
+-   Nachvollziehbarkeit ermöglichen
 
--   Qualitätssicherung
+-   Datenverlust und Fehlversionen vermeiden
 
--   Sicherheit/Datenschutz & Ethik
+-   Reproduzierbarkeit & Wiederverwendung ermöglichen
 
--   Reproduzierbarkeit
-
--   Nachhaltigkeit und Transparenz
-
-    **-\> gute wissenschaftliche Praxis**
+    -\> gute wissenschaftliche Praxis
 :::
 
 ::: {.column width="30%"}
@@ -125,155 +223,305 @@ Liste zeigen, Namen aufrufen und zusammensetzen lassen
 :::
 :::::
 
+<br>
+
+**Gutes Datenmanagement macht den Forschungsprozess nachvollziehbar - nicht nur die Endergebnisse.**
+
 ::: notes
-Link zu letzter Einheit - Forschungsdatenmanagement gehört zu guter wissenschaftlicher Praxis
+Forschungsdatenmanagement klingt zunächst etwas administrativ. Gemeint ist aber etwas sehr Praktisches: Wie gehen wir über den gesamten Forschungsprozess hinweg mit unseren Daten um? Wo liegen sie? Welche Version ist aktuell? Was wurde verändert? Wie dokumentieren wir diese Veränderungen? Und kann jemand anderes später noch nachvollziehen, wie wir von den Rohdaten zu unseren Ergebnissen gekommen sind?
+
+Genau deshalb geht es nicht nur ums Abspeichern von Dateien. Gutes Datenmanagement hilft uns, Qualität zu sichern, Entscheidungen nachvollziehbar zu machen und den gesamten Prozess reproduzierbar zu halten.
 :::
 
 ------------------------------------------------------------------------
 
-## Forschungsdatenmanagement (2)
+## FAIR: eine Leitidee für gut nutzbare Forschungsdaten
 
-:::::: columns
-::: {.column width="70%"}
-### **Standards & Vorgaben:**
+::::: columns
+::: {.column width="55%"}
+**FAIR bedeutet:**
 
--   FAIR Prinzipien
+-   **F:** Daten und Metadaten sollen auffindbar sein
 
--   Data Management Plan (SNF)
+-   **A:** sie sollen zugänglich sein
 
--   Förderorganisationen & Journals
+-   **I:** sie sollen mit anderen Systemen und Standards zusammenarbeiten können
 
-**Praktische Umsetzung:**
-
--   Ordnerstrukturen & Versionierung
-
--   Dokumentation (README, Codebooks)
-
--   Offene Dateiformate
+-   **R:** sie sollen verständlich dokumentiert und wiederverwendbar sein
 :::
 
-:::: {.column width="30%"}
+::: {.column width="45%"}
 ![](../../images/FAIR.jpg){fig-alt="https://www.go-fair.org/fair-principles/" width="100%"}
-
-::: notes
-### **F – auffindbar** (aus Wikipedia: <https://de.wikipedia.org/wiki/FAIR-Prinzipien>)
-
-\[[Bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&veaction=edit&section=2 "Abschnitt bearbeiten: F – auffindbar") \| [Quelltext bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&action=edit&section=2 "Quellcode des Abschnitts bearbeiten: F – auffindbar")\]
-
--   F1 (Meta-)Daten sind mit einem weltweit eindeutigen und dauerhaften [persistent identifier](https://de.wikipedia.org/wiki/Identifikator#Persistenz "Identifikator") versehen.
-
--   F2 (Meta-)Daten werden mit umfangreichen [Metadaten](https://de.wikipedia.org/wiki/Metadaten "Metadaten") beschrieben.
-
--   F3 (Meta-)Daten sind in einer durchsuchbaren Ressource registriert oder indiziert.
-
--   F4 (Meta-)Daten enthalten eine klare und eindeutige Identifizierung der Daten, die sie beschreiben.
-
-### **A – zugänglich**
-
-\[[Bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&veaction=edit&section=3 "Abschnitt bearbeiten: A – zugänglich") \| [Quelltext bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&action=edit&section=3 "Quellcode des Abschnitts bearbeiten: A – zugänglich")\]
-
--   A1 (Meta-)Daten können anhand ihrer Identifizierung über ein standardisiertes Kommunikationsprotokoll abgerufen werden.
-
-    -   A1.1 das Protokoll ist offen, frei und universell implementierbar.
-
-    -   A1.2 das Protokoll ermöglicht bei Bedarf ein Authentifizierungs- und Autorisierungsverfahren.
-
--   A2 – (Meta-)Daten sind zugänglich, auch wenn die Daten nicht mehr verfügbar sind.
-
-### **I – interoperabel**
-
-\[[Bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&veaction=edit&section=4 "Abschnitt bearbeiten: I – interoperabel") \| [Quelltext bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&action=edit&section=4 "Quellcode des Abschnitts bearbeiten: I – interoperabel")\]
-
--   I1 (Meta-)Daten verwenden eine formale, zugängliche, gemeinsame und weithin anwendbare Sprache zur Wissensdarstellung.
-
--   I2 (Meta-)Daten verwenden Vokabulare, die den FAIR-Grundsätzen entsprechen.
-
--   I3 (Meta-)Daten enthalten qualifizierte Verweise auf andere (Meta-)Daten.
-
-### **R – wiederverwendbar**
-
-\[[Bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&veaction=edit&section=5 "Abschnitt bearbeiten: R – wiederverwendbar") \| [Quelltext bearbeiten](https://de.wikipedia.org/w/index.php?title=FAIR-Prinzipien&action=edit&section=5 "Quellcode des Abschnitts bearbeiten: R – wiederverwendbar")\]
-
--   R1 (Meta-)Daten haben mehrere genaue und relevante Attribute.
-
-    -   R1.1 (Meta-)Daten werden mit einer klaren und zugänglichen Datennutzungslizenz freigegeben.
-
-    -   R1.2 (Meta-)Daten sind mit ihrer Herkunft verbunden.
-
-    -   R1.3 (Meta-)Daten entsprechen den für den Bereich relevanten Gemeinschaftsstandards.
 :::
-::::
-::::::
+:::::
 
-------------------------------------------------------------------------
+<br>
 
-## Ordnerstrukturen: Psych-DS
-
--   Standard für die Organisation von Daten, Skripten und weiteren Studiendokumenten
-
-    ![](../../images/PsychDS.png)
-
-**Ein Standard von vielen Möglichen**
-
-[Psych-DS](https://psychds-docs.readthedocs.io/en/latest/guides/1_getting_started/)
+**Für unser Seminar:** Wir übernehmen vor allem die Grundidee - klare Struktur, gute Dokumentation und nachvollziehbarer Code.
 
 ::: notes
-Hier auch Ordner und Files, die wir für unsere Zwecke nicht verwenden werden. Z.B. Github Files, sind zwar gut für Version Control und ein wichtiges Tool, aber würde den Rahmen sprengen.
+Ein sehr verbreitetes Leitprinzip für Forschungsdaten sind die sogenannten FAIR-Prinzipien. FAIR steht für Findable, Accessible, Interoperable und Reusable.
+
+Wir müssen heute nicht die einzelnen formalen Unterregeln lernen. Für uns ist vor allem die Grundidee wichtig: Forschungsdaten sollten so organisiert und dokumentiert sein, dass sie gefunden, verstanden und später wiederverwendet werden können.
+
+Und genau das setzen wir in unserem Projekt praktisch um: durch eine klare Ordnerstruktur, nachvollziehbare Dokumentation und reproduzierbaren Code.
+
+**Übergang:** FAIR sagt uns also eher, welche Eigenschaften gut organisierte Forschungsdaten haben sollten. Die nächste Frage ist: Wie kann so eine Struktur in einem psychologischen Forschungsprojekt konkret aussehen? Dafür schauen wir uns jetzt Psych-DS an.
 :::
 
 ------------------------------------------------------------------------
 
-## Psych-DS für unsere Zwecke:
+## Psych-DS: Struktur für Forschungsprojekte
 
--   Leicht abgeändertes Format für unser Seminar
+**FAIR beschreibt Prinzipien, Psych-DS macht die Organisation konkret.**
 
-    -   Macht es leichter für uns, die Abgaben zu kontrollieren
+<br>
 
--   Hilft euch, eine übersichtliche Ordnerstruktur zu behalten
+::::: columns
+::: {.column width="50%"}
+-   Standardisierte Projektstruktur
 
-    --\> Ordner "R_You_Ready"
+-   Daten, Code und Dokumentation erhalten feste Orte
 
-------------------------------------------------------------------------
+-   erleichtert Zusammenarbeit und Reproduzierbarkeit
+:::
 
-## Psych-DS: Wichtigste Grundsätze
+::: {.column width="50%"}
+![](../../images/PsychDS.png)
+:::
+:::::
 
--   Datensätze nur in "data".
+<br>
 
-    -   Die Rohdatenfiles werden nicht bearbeitet!
+**Ein Standard von mehreren möglichen Standards.**
 
-    -   Aufbereitete Datensätze -\> data/processed
+::: notes
+FAIR hat uns gerade eher beschrieben, welche Eigenschaften gut organisierte Forschungsdaten haben sollten. Es sagt uns aber noch nicht konkret, wie ein Forschungsprojekt auf unserem Computer aussehen soll.
 
--   Codebook in Ordner "data"
+Genau hier wird Psych-DS konkreter. Psych-DS schlägt für pschologische Forschungsprojekte eine standardisierte Struktur vor, in der Daten, Code und weitere Studiendokumente feste Orte bekommen.
 
--   Datenanalyseplan in "preregistration"
+Dadurch muss man nicht bei jedem Projekt neu entscheiden, wo etwas gespeichert wird, und auch andere Personen können sich leichter orientieren.
 
--   Skripte in "code"
+Wichtig ist aber: Psych-DS ist nicht die einzig mögliche richtige Struktur. Es ist ein Standard von mehreren möglichen Standards. Für unser Seminar verwenden wir eine leicht angepasste Version davon.
 
-    -   Aufbereitungsschritte im Skript "processing"
-
-    -   Analyse (mit den aufbereiteten Datensätzen) im Skript "analysis"
-
--   Keine Redundanzen!
-
-    -   Keine redundanten Dateien
-
-    -   Skripte: Keine redundanten Pakete (nur Pakete laden, die auch verwendet werden), Aufarbeitungsschritte & Analysen.
-
-    ::: notes
-    Bewertungsrelevant für die Abschlussarbeit
-    :::
+-\> Und wie sieht diese angepasste Version konkret aus? Genau das schauen wir uns jetzt in eurem tatsächlichen Projekt an.
+:::
 
 ------------------------------------------------------------------------
 
-## Psychdsish
+## Für unser Seminar: Die Projektstruktur ist bereits vorgegeben
 
--   **📦 Packages** welche helfen sollen, Psych-DS Struktur & Stylevorgaben leichter einzuhalten.
+**Ihr müsst die Struktur nicht selbst erstellen - ihr müsst lernen, sie korrekt zu nutzen.**
 
--   Für Masterarbeiten: [Psychdsish](https://github.com/ianhussey/psychdsish?tab=readme-ov-file)
+<br>
 
-    Funktionen wie: `create_project_skeleton()`, `check_unused_objects()`, `validator()`
+::::: columns
+::: {.column width="50%"}
+#### **Wir stellen bereit**
 
--   **🥅 Ziel**: Einhaltung von Standards erleichtern
+📁 **Projektgerüst:** R-Projekt & Psych-DS-Ordnerstruktur
+
+📦 **Daten & Metadaten:** Rohdaten, Dateninformationen, Codebook-Vorlage
+
+📄 **Forschungsdokumente:** Paper, Präregisitrierung, unterstützende Dokumente
+
+💻 **Arbeitsvorlagen:** `processing.qmd` & `analysis.qmd`
+:::
+
+::: {.column width="50%"}
+#### **Eure Aufgabe**
+
+**Orientieren:** wissen, wo was hingehört
+
+**Sauber arbeiten:** Rohdaten unverändert lassen und Dateien am vorgesehenen Ort verwenden
+
+**Dokumentieren:** Daten und Verarbeitung nachvollziehbar beschreiben
+
+**Reproduzierbar arbeiten:** den Weg von den Rohdaten bis zum Ergebnis durch Code abbilden
+:::
+:::::
+
+::: notes
+Bevor wir uns diese Struktur gleich konkret anschauen, ist mir eine Sache wichtig: ihr müsst dieses Projektgerüst nicht selbst erstellen.
+
+Ihr habt von uns ein vorbereitetes R-Projekt mit einer klaren Ordnerstruktur, den Rohdaten, den benötigten Studiendokumenten, einer Codebook-Vorlage und bereits angelegten Quarto-Dateien für Datenaufbereitung und -analyse erhalten.
+
+Die eigentliche Kompetenz besteht also nicht darin, Ordner anzulegen. Ihr sollt verstehen, warum diese Struktur so aufgebaut ist und lernen, sie konsequent zu nutzen.
+:::
+
+------------------------------------------------------------------------
+
+## Live-Tour: Unser Forschungsprojekt
+
+<br>
+
+![](../../images/Live_Demo.png)
+
+::: notes
+**Schritt 1: Das Projekt über .Rproj öffnen**
+
+Zunächst den entpackten Ordner zeigen und dann das Projekt öffnen.
+
+Dadurch öffnet sich R-Studio. Kurz oben rechts zeigen, dass das Projekt geöffnet ist.
+
+Sagen: Wenn ihr mit diesem Projekt arbeitet, öffnet ihr nicht einfach irgendwo RStudio und such anschliessend nach euren Dateien. Ihr startet über diese .Rproj-Datei. Damit weiss RStudio, zu welchem Projekt unsere Daten, unser Code und unsere Dokumente gehören.
+
+Was ein r-Projekt genau macht und warum uns das bei Dateipfaden hilft, schauen wir uns gleich noch genauer an.
+
+**Schritt 2: Zuerst die oberste Ebene zeigen**
+
+Sagen: Hier sehen wir jetzt die Psych-DS-Logik, die wir gerade abstarkt kennengelernt haben, in unserem tatsächlichen Projekt. Unterschiedliche Arten von Projektbestandteilen bekommen unterschiedliche Orte.
+
+Einzelne Ordner wie "methods" werden für unser Seminar keine zentrale Rolle spielen. Wir konzentrieren uns auf diejenigen Bereiche, mit denen wir tatsächlich arbeiten.
+
+**Schritt 3 - `reports`: Woher kommt unsere Forschungsfrage**
+
+Sagen: Hierdrin liegen die beiden Paper-Versionen. Diese kennen wir bereits aus den ersten beiden Terminen. Von hier kommen unsere Forschungsfragen, das Studiendesign und ein grosser Teil der Informationen darüber, was überhaupt erhoben wurde.
+
+Das ist also eine unserer inhaltlichen Informationsquellen.
+
+**Schritt 4 - `preregistration`: Von der Forschungsfrage zum Plan**
+
+Sagen: Direkt daneben liegt die Planungsebene. Hier finden wir die ursprüngliche Präregistrierung und die Vorlage für den Datenanalyseplan, mit dem ihr gerade arbeitet.
+
+**Schritt 5 - `data`: der wichtigste Teil der heutigen Tour**
+
+Sagen: Dieser Ordner wird uns in den nächsten Wochen sehr häufig beschäftigen. Und hier sehr ihr bereits eine wichtige Trennung.
+
+**data/raw**
+
+Hier liegen die sieben ursprünglichen Rohdatensätze der Studie. Genau diese Dateien sind unser Ausgangspunkt.
+
+Wichtig: Diese Dateien werden von uns nicht manuell verändert! Wenn später eine Variable umbenannt, rekodiert oder berechnet werden muss, öffnen wir nicht Excel und speichern eine veränderte Version über die Rohdatei. Die Veränderung wird durch Code dokumentiert.
+
+**data/processed**
+
+Sagen: Dieser Ordner ist momentan noch leer. Das ist kein Fehler!
+
+Hier werden später Datensätze landen, die wir aus den Rohdaten reproduzierbar erzeugt haben.
+
+raw bekommt ihr also als Ausgangsmaterial, processed erzeugt ihr selbst durch Code.
+
+**data/outputs**
+
+Sagen: Noch weiter hinten im Prozess liegen die Outputs. Wenn wir später Abbildungen oder andere Ergebnisse erzeugen und abspeichern, haben auch diese ihren festen Ort.
+
+Heute sind diese Ordner natürlich noch leer, da wir ja noch nichts analysiert haben.
+
+**data/Excel-Dateien**
+
+Sagen: Neben den Daten liegen hier zwei Dokumente, die uns helfen, die Daten zu verstehen und zu dokumentieren.
+
+-   Informationen_zu_Daten.xlsx: Diese Datei enthält zusätzliche Informationen zu den bereitgestellten Daten. Sie wird eine wichtige Informationsquelle sein, wenn wir später verstehen wollen, was bestimmte Variablen bedeuten.
+
+-   Codebook: Und hier liegt bereits eure Codebook-Vorlage. Auch diese müsst ihr nicht selbst strukturieren. Ihr werdet sie mit den Informationen über unseren späteren dat_full füllen.
+
+-   Auf das Codebook kommen wir heute noch ausführlicher zurück.
+
+**Schritt 6 - `code`: Hier entsteht der reproduzierbare Weg**
+
+Sagen: Jetzt kommen wir zu einem besonders wichtigen Teil. Hier liegt unser Code.
+
+Ihr seht, dass bereits zwei Dateien vorbereitet sind: processing und analysis.
+
+-   Im processing dokumentieren wir später alles, was aus unseren Rohdaten analysebereite Daten macht. Also etwa Importieren, Zusammenführen, Rekodieren, Skalen berechnen oder Daten umstrukturieren.
+
+-   In analysis arbeiten wir später mit den fertigen Daten und erzeugen daraus Deskriptivstatistiken, Abbildungen und statistische Analysen.
+
+-   Warum diese Dateien .qmd statt .R heissen, schauen wir uns gleich beim Thema Quarto genauer an.
+
+**Schritt 7: Unterstützende Dokumente nur kurz zeigen**
+
+Sagen: Ausserhalb des eigentlichen Forschungsprojekts haben wir euch zusätzlich unterstützende Materialien bereitgestellt. Diese gehören nicht zum Datensatz oder zur Analyse selbst, sondern sind Hilfsmittel.
+:::
+
+------------------------------------------------------------------------
+
+## Unser Projekt auf einen Blick
+
+<br>
+
+![](../../images/Baumstruktur_Projekt.png)
+
+**Planung →** **Daten** → **Verarbeitung** → **Analyse** → **Ergebnisse**
+
+------------------------------------------------------------------------
+
+## Von R-Skripten zu reproduzierbaren Analysen
+
+::::: columns
+::: {.column width="50%"}
+**Bisher: `.R`**
+
+![](../../images/Demo_R_Skript.png)
+:::
+
+::: {.column width="50%"}
+**Ab jetzt: `.qmd`**
+
+![](../../images/Demo_Quarto.png)
+:::
+:::::
+
+<br>
+
+**Quarto verbindet Text, Code und Ergebnisse**
+
+::: notes
+In den ersten beiden Wochen haben wir bewusst mit einfachen R-Skripten gearbeitet, damit wir uns zunächst auf die Grundlagen des Codierens konzentrieren konnten. Für unser eigentliches Forschungsprojekt brauchen wir nun aber mehr als bloss Code. Wir wollen gleichzeitig dokumentieren, was wir tun, warum wir es tun und welche Ergebnisse dabei entstehen. Deshalb verwenden wir von nund an Quarto-Dokumente anstelle von einfachen R-Skripten.
+
+Quarto ist kein neues Statistikprogramm. Wir programmieren weiterhin in R. Quarto ist vielmehr das Dokument, in dem wir Erklärung, Code und Ergebnisse zusammenbringen.
+
+Die praktische Bedienung über wir im Hands-on.
+:::
+
+------------------------------------------------------------------------
+
+## Zwei Quarto-Dateien, zwei Aufgaben
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+`processing.qmd`
+
+*Rohdaten →* *analysebereite Daten*
+
+-   importieren
+
+-   zusammenführen
+
+-   bereinigen
+
+-   Variablen erzeugen
+
+-   umstrukturieren
+
+-   prüfen
+:::
+
+::: {.column width="50%"}
+`analysis.qmd`
+
+*analysebereite Daten → Ergebnisse*
+
+-   beschreiben
+
+-   visualisieren
+
+-   statistisch analysieren
+
+-   Ergebnisse ausgeben
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Ein Datensatz erklärt sich nicht selbst
+
+Ab hier muss der Foliensatz noch überarbeitet werden.
+
+Wird am Montag gemacht.
 
 ------------------------------------------------------------------------
 
