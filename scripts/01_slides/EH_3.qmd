@@ -487,17 +487,19 @@ Die praktische Bedienung über wir im Hands-on.
 
 *Rohdaten →* *analysebereite Daten*
 
--   importieren
+-   Import
 
--   zusammenführen
+-   Merge
 
--   bereinigen
+-   Bereinigung
 
 -   Variablen erzeugen
 
--   umstrukturieren
+-   Recoding
 
--   prüfen
+-   Transformationen
+
+-   Speichern verarbeiteter Daten
 :::
 
 ::: {.column width="50%"}
@@ -505,13 +507,19 @@ Die praktische Bedienung über wir im Hands-on.
 
 *analysebereite Daten → Ergebnisse*
 
--   beschreiben
+-   Deskriptivstatistik
 
--   visualisieren
+-   Tabellen
 
--   statistisch analysieren
+-   Visualisierungen
 
--   Ergebnisse ausgeben
+-   Korrelation/Regression
+
+-   t-Test
+
+-   ANOVA
+
+-   Interpretation
 :::
 :::::
 
@@ -519,173 +527,139 @@ Die praktische Bedienung über wir im Hands-on.
 
 ## Ein Datensatz erklärt sich nicht selbst
 
-Ab hier muss der Foliensatz noch überarbeitet werden.
+<br>
 
-Wird am Montag gemacht.
+![](../../images/Codebook_Grundlage.png){fig-align="center" width="306"}
 
-------------------------------------------------------------------------
+<br>
 
-## Wiederholung: Benennung von Variablen etc. in R
-
--   Namen können aus Buchstaben, Zahlen und Zeichen (\_ oder .) bestehen
-
--   Er muss mit Buchstaben begonnen werden und darf keine Leerzeichen beinhalten
-
--   Sonderzeichen und Grossbuchstaben sollten vermieden werden; keine Namen verwenden, die schon an Funktionen vergeben sind (z.B. `mean()`, `data()`)
-
--   Empfehlung für leserlichen Code: **snake_case**
-
--   Name soll Variable inhaltlich bestmöglich beschreiben
-
--   Reproduzierbarkeit: „clarity instead of brevity“
-
--   Benennung am besten in Englisch, um internationalen Standards zu folgen
-
--   Kommentierung von R-Code mit \#
-
-    -   Text nach \# wird ignoriert (für 1 Zeile)
-
-    -   Neue Zeilen müssen wieder mit \# beginnen
-
-    -   Alternative: R Notebooks, Markdown oder Quarto –\> EH5
-
-------------------------------------------------------------------------
-
-## Weitere Style Konventionen:
-
--   Leerzeichen:
-
-    -   Vor und nach mathematischen Operatoren: `2+2` vs `2 + 2`
-
-    -   Vor und nach Zuweisungen: `x<-sum(1+2)` vs `x <- sum(1 + 2)`
-
-    -   Aber nicht vor und nach sich öffnenden oder schliessenden Klammern oder Anführungszeichen
-
-    -   Nach Kommas (aber nicht davor)
-
-    -   Weitere Leerzeichen erlaubt, wenn die Leserlichkeit erhöht wird (z.B. bei Einrückungen)
-
--   Verwendung des Pipe Operators (`%>%` oder **`|>`** ) –\> Erklärung folgt in kommenden Wochen!
-
--   Zeilenumbrüche für langen Code verwenden
-
-    ```{r eval=FALSE, echo=TRUE}
-
-
-    this_is_a_very_long_function_name <- (something = "this", requires = "many", arguments = "long words and sentences") #–> bad
-
-    this_is_a_very_long_function_name <- (something = "this", 
-                                          requires = "many", 
-                                          arguments = "long words and sentences") #–> good
-    ```
-
--   **👗**`styler`: Funktion, die Code automatisch in dieses Format bringt. 👉 Hands On!
-
-------------------------------------------------------------------------
-
-## Weitere Style Konventionen:
-
-📖 **Lesbarkeit für Menschen und Maschine**
-
-🧑‍💻 **Für Menschen:** Verwende aussagekräftige Dateinamen, die klar beschreiben, was in der Datei enthalten ist.
-
-💻 **Für Maschinen:** Vermeide Leerzeichen, Sonderzeichen und Symbole in Dateinamen – bleibe bei Buchstaben, Zahlen und Unterstrichen.
-
-🔢 **Struktur:** Benenne Dateien so, dass sie auch mit der Standard-Sortierung von Ordnern sinnvoll angeordnet werden. Ein bewährter Ansatz ist, mit Zahlen zu beginnen, um eine logische Reihenfolge abzubilden.
-
-z.B.
-
-01_processing
-
-02_descriptive_analyses
-
-03_inferential_analyses
-
-------------------------------------------------------------------------
-
-## Codebook
-
--   Naive Personen sollen Datensatz nachvollziehen können (Reproduzierbarkeit!)
-
--   Beinhaltet eine Liste und Beschreibung aller Variablen, z.B.
-
-    -   Wie wurde die Variable erhoben (z.B. aus welchem Fragebogen)?
-
-    -   Wie wurde die Variable berechnet (z.B. Summenscore, Mittelwert)?
-
-    -   Welche Werte kann die Variable annehmen (theoretisches Minimum und Maximum)?
-
-------------------------------------------------------------------------
-
-## Wichtige Grundsätze für das Codebook
-
--   Am besten für Rohdaten als auch weiter-verarbeitete Daten
-
-<!-- -->
-
--   Variablennamen in Codebook sollen identisch zu Variablennamen in Datensatz sein
-
-<!-- -->
-
--   Variable muss ausführlich genug beschrieben sein, sodass andere Personen sie nachvollziehen können
-
-------------------------------------------------------------------------
-
-## Codebook: Vorlage
-
--   Kann in verschiedenen Formaten erstellt werden (Word, Excel, etc.)
-
--   Excel-Vorlage für das Seminar (siehe ZIP-Datei Abschlussprojekt)
-
--   Beispiel: "Example_Codebook" - Ordner
-
--   Für weitere Anleitungen siehe "Guideline Codebook"
-
-Siehe auch: Pennington (2023)
+**Was bedeuten diese Variablen? Welche Werte können sie annehmen? Wie wurden sie erhoben oder berechnet?**
 
 ::: notes
-Buch von Pennington kann man bei Bedarf in Bib oder bei Sandra ausborgen
+Wenn ich euch nur eine CSV-Datei mit diesen Spalten gebe, könnt ihr manche Dinge vielleicht erraten.
+
+Aber welche Werte sind erlaubt? Was bedeutet eine 0 oder eine 4? Wurde etwas umgepolt?
+
+Ein Wert trägt seine Bedeutung nicht automatisch in sich. Genau deshalb brauchen Daten Metadaten.
 :::
 
 ------------------------------------------------------------------------
 
-## Rohdaten für Grinschgl et al. (2020)
+## Codebook übersetzt Daten in Bedeutung
 
--   Bereits vorhanden in euren Ordnern (r_you_ready)
+**Ein Wert allein ist noch keine verständliche Information.**
 
--   Wir mergen diese heute oder in EH4 zu einem vollständigen Datensatz –\> **dat_full**
+<br>
 
-    ![](../../images/EH3/Rohdaten.png){width="145"}
+::::: columns
+::: {.column width="50%"}
+**Was sehen wir im Datensatz?**
+
+-   Was ist `question9?`
+
+-   Was bedeutet der Wert `2`?
+
+![](../../images/Codebook_Darstellung.png){fig-align="left" width="82%"}
+:::
+
+::: {.column width="50%"}
+**Das Codebook**
+
+-   Strukturierte Dokumentation der Variablen
+
+-   Pro Variable eine Zeile
+
+<br>
+
+![](../../images/Codebook_Visualisierung.png){fig-align="left" width="85%"}
+:::
+:::::
+
+::: notes
+Das Codebook ist gewissermassen der Übersetzungsschlüssel zwischen einer Spalte im Datensatz und ihrer wissenschaftlichen Bedeutung.
+
+Ziel ist, dass jemand, der nicht bei der Datenerhabung dabei war, nachvollziehen kann, was eine Variable bedeutet und wie sie codiert wurde.
+:::
 
 ------------------------------------------------------------------------
 
-## Codebook
+## Codebook: unsere Vorlage
 
--   Notwendig für „gemergten“ Datensatz „dat_full“
+::::: columns
+::: {.column width="50%"}
+-   Notwendig für "gemergten" Datensatz `dat_full` (wird in Hands-on 2 erstellt)
 
--   Vorlage ist auf Englisch, kann aber auch auf Deutsch ausgefüllt werden (selbes gilt für Datenanalyseplan)
+-   Variable muss ausführlich genug beschrieben sein, sodass andere Personen sie nachvollziehen können
 
--   Basierend auf Horstmann et al. (2020)
+-   Variablennamen im Codebook = Variablennamen im Datensatz
 
--   Abgabe bis EH6 (25.03.) über ILIAS und via Email an Peer-Partner:in
+-   Vorlage auf Englisch, kann aber auch auf Deutsch ausgefüllt werden (analog zu Datenanalyseplan)
 
--   Danach Peer Feedback
+-   Demo & Guidelines in "unterstützende Dokumente"
+:::
 
-    ::: notes
-    Idealerweise Codebook auch für Rohdaten, aber für das Seminar nur für dat_full
-    :::
+::: {.column width="50%"}
+<br>
+
+<br>
+
+![](../../images/Vorlage_Codebook.png){fig-align="center" width="85%"}
+:::
+:::::
+
+<br>
+
+**Demonstration & Erklärung in EH4**
 
 ------------------------------------------------------------------------
 
-## Reproduzierbare Auswertung (R-Skripte): Grundsätze
+## Ein Codebook entsteht aus mehreren Informationsquellen
 
--   Digitale Rohdaten
+<br>
 
--   Skripte (processing & analyses) sollen den gesamten Weg von den Rohdaten bis hin zu den Ergebnissen dokumentieren
+![](../../images/Informationen_Codebook.png){fig-align="center" width="85%"}
 
--   Wenn man euren Code auf den Rohdaten laufen lässt, sollte man (fehlerfrei) zu den Ergebnissen kommen
+::: notes
+Ihr werdet relativ schnell merken, dass man das Codebook nicht einfach aus einer einzelnen Datei kopieren kann. Man muss Informationen aus mehreren Quellen zusammenführen und prüfen.
+:::
 
--   Skripte sind kommentiert und sinnvoll gegliedert
+------------------------------------------------------------------------
+
+## Unser Codebook bezieht sich auf `dat_full`
+
+::::: columns
+::: {.column width="50%"}
+-   7 Rohdatensätze
+
+-   Hands-on 2 & EH4: Importieren + Zusammenführen
+
+-   `dat_full`
+
+-   Codebook
+:::
+
+::: {.column width="50%"}
+![](../../images/EH3/Rohdaten.png){fig-align="center" width="20%"}
+:::
+:::::
+
+**Abgabe Codebook: 21.10.**
+
+-\> Wichitg: Mehrere Anpassungen im Semester!
+
+::: notes
+Heute können wir das Codebook bereits kennenlernen und mit den vorhandenen Informationen arbeiten. Fertigstellen können wir es aber erst sinnvoll, wenn wir wissen, wie unser zusammengeführter Datensatz tatsächlich aussieht.
+
+Deshalb ist der nächste Schritt zwingend: Aus den sieben Rohdateien müssen wir einen zusammengesetzten Datensatz erzeugen.
+
+Auch wichtig ist, dass das Codebook im Verlauf des Semesters mehrmals noch aktualisiert werden muss, wenn bspw. neue Variablen erzeugt oder rekodiert werden.
+:::
+
+------------------------------------------------------------------------
+
+## 
+
+Ab hier noch zu überarbeiten!
 
 ------------------------------------------------------------------------
 
