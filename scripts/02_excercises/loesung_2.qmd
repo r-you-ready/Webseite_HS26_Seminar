@@ -1,19 +1,17 @@
 ---
-title: "Hands On – Coding Basics (Einheiten 3 und 4)"
+title: "Hands-on Block 2: Vom Quarto-Dokument zu dat_full (Einheiten 3 & 4)"
 filters:
   - conditional_content
 show_solutions: false
 format:
   html:
     code-tools: false
-draft: true
+draft: false
 ---
 
 ```{r, include = FALSE}
 library(tidyverse)
 ```
-
-# Lösung - Laden, mergen und Syntax (Einheiten 3 und 4)
 
 Bei Bedarf finden sich hier nochmal die Slides zu Einheit 3:
 
@@ -31,147 +29,969 @@ Und hier die Slides zu Einheit 4:
 </iframe>
 :::
 
-# Lernziele dieses Hands-On-Blocks
+## 🧭 Wo befinden wir uns?
 
-✅Projekte kennenlernen & verstehen
+**Projektphase: ORGANISIEREN → AUFBEREITEN**
 
-✅Unterschied zwischen relativen und absoluten Pfaden verstehen
+In Einheit 3 habt ihr kennengelernt, wie unser Forschungsprojekt organisiert ist und warum wir Processing, Analysis und Codebook voneinander unterscheiden.
 
-✅Datensätze in R importieren, inspizieren und speichern
+In diesem Hands-on setzen wir diese Struktur nun praktisch um:
 
-✅Datensätze mit `cbind()` und `full_join()` mergen und Vor- und Nachteile reflektieren
+**Teil 1 - ORGANISIEREN:**
 
-✅Funktionen und ihre Argumente (inkl. Defaults) nutzen
+Wir lernen Quarto kennen, richten unsere beiden Abgabedokumente ein und lernen, mit R-Projekten und reproduzierbaren Dateipfaden zu arbeiten.
 
-✅Style Conventions umsetzen
+**Teil 2 - AUFBEREITEN:**
 
-# Projekte und Pfade
+Wir lesen die sieben Rohdatensätze ein, führen sie über eine eindeutige Schlüsselvariable zusammen, prüfen das Ergebnis und speichern `dat_full` reproduzierbar ab.
 
-### Was sind R-Projekte?
+## 🎯 Ziel dieses Blocks
 
-👉 [Kapitel 6.2 in R for Data Science](https://r4ds.hadley.nz/workflow-scripts.html#projects)
+Am Ende sollt ihr:
 
-Ein **R-Projekt** ist eine Projektdatei mit der Endung (`.Rproj`), die du in RStudio anlegst oder öffnest.\
+-   Quarto-Dokumente erstellen, bearbeiten und rendern können,
 
-Wenn du ein Projekt öffnest, passiert Folgendes automatisch:
+-   Visual und Source Editor unterscheiden können,
 
--   RStudio setzt das **Working Directory (Arbeitsverzeichnis)** auf den Ordner, in dem die `.Rproj`-Datei liegt.\
--   Alle Dateien, Skripte, Daten und Ergebnisse, die du in diesem Ordner ablegst, gehören logisch zu diesem Projekt.\
--   Du arbeitest in einer klar definierten, geschlossenen Umgebung.\
--   Du kannst entweder ein neues Projekt erstellen oder ein bestehendes Projekt öffnen.\
+-   den YAML-Header und zentrale globale Einstellungen verstehen,
 
-Du kannst dir ein Projekt wie einen **Container** für ein Forschungsprojekt vorstellen. Alles, was zu einer Analyse gehört, liegt gebündelt an einem Ort.
+-   Überschriften, Text, Kommentare, Code-Chunks und Inline-Code einsetzen können,
 
-Das ist besonders wichtig für:
+-   wissen, wozu ein R-Projekt dient und wie ihr das richtige Projekt öffnet,
 
-```         
-- Seminararbeiten
-- Reanalysen
-- Masterarbeiten
-- Kollaborative Projekte
+-   absolute und relative Pfade unterscheiden können,
+
+-   verstehen, warum relative Pfade die Zusammenarbeit erleichtern,
+
+-   `here()` zur robusten Adressierung von Dateien verwenden können,
+
+-   CSV- und Excel-Dateien reproduzierbar importieren,
+
+-   Delimiter erkennen und korrekt angeben,
+
+-   erklären können, warum `cbind()` für unsere Rohdaten problematisch ist,
+
+-   Schlüsselvariablen verstehen und `full_join()` korrekt verwenden,
+
+-   einen Merge systematisch überprüfen,
+
+-   `dat_full` im richtigen Ordner speichern,
+
+-   und den vollständigen Processing-Workflow durch Rendern erneut ausführen können.
+
+**Am Ende dieses Blocks gilt:**
+
+Die Rohdaten bleiben unverändert. `processing.qmd` dokumentiert den Weg zu `dat_full`. `dat_full.csv` liegt unter `data/processed/`.
+
+## 🗺️ Unser Weg durch Hands-on 2
+
+| Schritt | Wo arbeitet ihr? | Was entsteht? |
+|------------------------|------------------------|------------------------|
+| 1\) Quarto kennenlernen | `quarto_uebung.qmd` | Übungsdokument |
+| 2\) Abgabedokumente vorbereiten | `processing.qmd` & `analysis.qmd` | korrekte YAML-Header |
+| 3\) R-Projekt verstehen | `Grinschgl2020` | korrekter Projektkontext |
+| 4\) Pfade verstehen | Übung/Projekt | reproduzierbare Dateiadressierung |
+| 5\) Rohdaten importieren | `processing.qmd` | 7 Datenobjekte |
+| 6\) Merge verstehen | Konsole + `processing.qmd` | `dat_full` |
+| 7\) Merge prüfen | `processing.qmd` | validierter `dat_full` |
+| 8\) Ergebnis speichern | `processing.qmd` | `data/processed/dat_full.csv` |
+| 9\) Workflow prüfen | `processing.qmd` | reproduzierbarer Render |
+| 10\) Codebook verbinden | Codebook-Vorlage | Beginn der Datendokumentation |
+
+# Teil 1: ORGANISIEREN
+
+## A0 - Quarto kennenlernen
+
+### Warum wechseln wir jetzt zu Quarto?
+
+In den ersten beiden Einheiten habt ihr mit klassischen R-Skripten (`.R`) gearbeitet. Das war ideal, um zunächst die Grundlagen von R kennenzulernen.
+
+Für unser Forschungsprojekt wollen wir nun aber nicht nur Code speichern. Wir möchten auch dokumentieren:
+
+-   **was** wir tun,
+
+-   **warum** wir einen Schritt durchführen,
+
+-   und **welche Ergebnisse** dabei entstehen.
+
+Dafür verwenden wir ab jetzt **Quarto-Dokumente (`.qmd`).**
+
+Quarto verbindet: **Text + Code + Ergebnisse** in einem Dokument.
+
+📌 **Merke:** Quarto ist keine neue Programmiersprache und ersetzt R nicht. Wir programmieren weiterhin in R. Quarto ist die Umgebung, in der wir Code, Dokumentation und Resultate zusammenführen.
+
+## A1 - Dein erstes Quarto-Dokument
+
+Bevor wir unsere eigentlichen Projektdokumente bearbeiten, erstellen wir zunächst eine kleine Übungsdatei.
+
+### 🧭 Aufgabe: Neues Quarto-Dokument erstellen
+
+Erstelle in RStudio ein neues Quarto-Dokument:
+
+**File → New File** → **Quarto Document**
+
+Wähle zunächst:
+
+-   Titel: `Meine Quarto-Übung`
+
+-   Format: HTML
+
+Speichere die Dateil als: `quarto_uebung.qmd` im Ordner `R_You_Ready`.
+
+## A2 - Visual Editor und Source Editor
+
+Quarto bietet zwei Ansichten derselben Datei.
+
+### Visual Editor
+
+Der **Visual Editor** funktioniert ähnlich wie eine klassische Textverarbeitung:
+
+-   Überschriften werden direkt als Überschriften dargestellt,
+
+-   Fettdruck wird hervorgehoben,
+
+-   Listen sehen wie Listen aus,
+
+-   Code-Chunks werden als separate Codebereiche dargestellt.
+
+**Für den Einstieg empfehlen wir euch, hauptsächlich im Visual Editor zu arbeiten.**
+
+### Source Editor
+
+Der **Source Editor** zeigt die zugrunde liegende Quarto-/Markdown-Syntax.
+
+Dort sieht man beispielsweise:
+
+![](../../images/Source_Editor.png){fig-align="center" width="35%"}
+
+Beide Ansichten bearbeiten dieselbe `.qmd`-Datei.
+
+### 🧭 Aufgabe
+
+1.  Wechsle vom **Visual Editor** in den **Source Editor**.
+
+2.  Wechsle wieder zurück.
+
+3.  Schreibe im Visual Editor den Satz: Mein erstes Quarto-Dokument.
+
+4.  Wechsel erneut in den Source Editor.
+
+**Überlege:** Hat sich der Inhalt verändert, oder nur die Darstellung?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Es verändert sich nur die Darstellung. Visual und Source Editor sind zwei verschiedene Ansichten derselben Sache.
+:::
+::::
+
+## A3 - Das wichtigste Prinzip: Text und Code sind getrennt
+
+Hier liegt ein zentraler Unterschied zu euren bisherigen R-Skripten.
+
+### **In einem `.R`-Skript**
+
+Fast alles wird als R-Code interpretiert. Wenn ihr normalen Text schreiben wollt, verwendet ihr einen Kommentar:
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+# Jetzt berechnen wir den Mittelwert
+werte <- c(2, 4, 6, 8)
+mean(werte)
 ```
 
-#### Warum sollte man mit Projekten arbeiten?
+### **In einem Quarto-Dokument**
 
-Viele typische Probleme in R entstehen dadurch, dass kein Projekt verwendet wird:
+Alles ausserhalb eines Code-Chunks ist zunächst normaler Text. Wir brauchen also kein `#` mehr als Kommentarzeichen.
 
--   Das Working Directory ist falsch gesetzt.
+R-Code gehört dagegen in einen **R-Code-Chunk**.
+
+## A4 - Text verwenden, um ein Dokument zu strukturieren
+
+Quarto erlaubt uns, nicht nur Code auszuführen, sondern den gesamten Workflow verständlich zu gliedern.
+
+Typische Textelemente sind:
+
+-   Überschriften
+
+-   normaler Text
+
+-   **dick hervorgehobener Text**
+
+-   *kursiver Text*
+
+-   Aufzählungen,
+
+-   nummerierte Listen
+
+-   und Links.
+
+Im Visual Editor könnt ihr diese Formatierungen weitgehend über die Oberfläche auswählen.
+
+![](../../images/Quarto_Formatierungen.png){fig-align="center" width="35%"}
+
+### 🧭 Aufgabe: Ein kleines Dokument strukturieren
+
+Erstelle in `quarto_uebung.qmd` folgende Struktur:
+
+**Überschrift Ebene 1**
+
+`Meine Quarto-Übung`
+
+Darunter einen kurzen Satz: In diesem Dokument lerne ich die wichtigsten Bestandteile von Quarto kennen.
+
+**Überschrift Ebene 2**
+
+`Erste Berechnung`
+
+Darunter: Im folgenden Beispiel berechne ich den Mittelwert von vier Zahlen.
+
+Formatiere zusätzlich:
+
+-   ein Wort **fett**
+
+-   und ein Wort *kursiv.*
+
+## A5 - R-Code in Quarto: Code-Chunks
+
+Normaler Text ausserhalb eines Code-Chunks wird in Quarto nicht als R-Code ausgeführt.
+
+Wenn wir R-Code verwenden wollen, schreiben wir ihn in einen **R-Code-Chunk**. Ein Code-Chunk ist also ein eigener Bereich innerhalb des Quarto-Dokuments, in dem R-Befehle ausgeführt werden. Das `{r}` sagt Quarto, dass der Code in diesem Chunk mit R ausgeführt werden soll.
+
+### Einen neuen R-Code-Chunk einfügen
+
+Dafür gibt es mehrere Möglichkeiten:
+
+**Über das Menü:**
+
+`Code → Insert Chunk`
+
+**Über den Visual Editor:**
+
+`Insert → Executable Cell → R`
+
+**Tastenkombination:**
+
+`Option + Command + I` (Mac)
+
+`Ctrl + Alt + I` (Windows/Linux)
+
+📌 **Tipp:** Gewöhne dir Tastenkombinationen an. Im Laufe des Semesters wirst du sehr häufig neue Code-Chunks einfügen.
+
+### 🧭 Aufgabe
+
+Füge unter deiner Überschrift **Erste Berechnung** selbst einen neuen R-Code-Chunk ein.
+
+Verwende dafür entweder die Menüoption oder die Tastenkombination für dein Betriebssystem.
+
+Schreibe anschliessend:
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+werte <- c(2, 4, 6, 8)
+mean(werte)
+```
+
+Führe den Chunk aus. Dazu kannst du im Chunk selbst den grünen Pfeil klicken (Run Current Chunk).
+
+**Beobachte**
+
+-   Wird `werte` im Environment erzeugt?
+
+-   Welches Ergebnis liefert `mean(werte)`?
+
+## A6 - Der YAML-Header: Einstellungen für das ganze Dokument
+
+Nun schauen wir uns den Bereich **ganz oben** in unserem Quarto-Dokument an.
+
+Zwischen zwei Linien aus `---` befindet sich der sogenannte **YAML-Header**.
+
+Beispiel:
+
+![](../../images/YAML_Beispiel.png){fig-align="center" width="45%"}
+
+### Wofür ist der YAML-Header da?
+
+Der YAML-Header enthält **globale Einstellungen**. Das bedeutet, dass diese Einstellungen das gesamte Dokument betreffen.
+
+### Die wichtigsten Einstellungen für uns
+
+| Einstellung    | Bedeutung                          |
+|----------------|------------------------------------|
+| `title`        | Titel des Dokuments                |
+| `author`       | Autor:in                           |
+| `date`         | Datum                              |
+| `format`       | Ausgabeformat                      |
+| `theme`        | Erscheinungsbild                   |
+| `toc`          | Inhaltsverzeichnis anzeigen?       |
+| `toc-location` | Position des Inhaltsverzeichnisses |
+| `warning`      | Warnmeldungen im Output anzeigen?  |
+| `message`      | Meldungen im Output anzeigen?      |
+
+### Ein wichtiger Punkt: Einrückungen
+
+YAML verwendet **Einrückungen**, um zu erkennen, welche Einstellungen zusammengehören.
+
+⚠️ YAML reagiert empfindlich auf falsche Einrückungen. Wenn Quarto bereits beim Rendern den Header beanstandet, überprüft zuerst die Einrückung!
+
+## A7 - Den YAML-Header selbst verändern
+
+### 🧭 Aufgabe
+
+Passe deinen YAML-Header so an, dass:
+
+-   dein eigener Name als Autor:in erschein,
+
+-   das Datum automatisch auf heute gesetzt wird,
+
+-   das Dokument als HTML ausgegeben wird,
+
+-   ein Inhaltsverzeichnis vorhanden ist,
+
+-   das Inhaltsverzeichnis links erscheint,
+
+-   Warnungen angezeigt werden,
+
+-   Meldungen angezeigt werden.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+![](../../images/YAML_Solution.png){fig-align="center" width="45%"}
+:::
+::::
+
+💡 **Globale Einstellung = für das gesamte Dokument**
+
+Wenn im YAML-Header etwas steht, gilt diese Einstellung grundsätzlich für alle Code-Chunks im Dokument.
+
+Genau das unterscheidet YAML von den Einstellungen, die wir im nächsten Schritt für einen einzelnen Chunk vornehmen.
+
+## A8 - Einstellungen für einzelne Code-Chunks
+
+Manchmal soll eine Einstellung nicht für das gesamte Dokument gelten, sondern nur für einen bestimmten Code-Chunk.
+
+Dafür gibt es **Chunk-Optionen**.
+
+Beispiel:
+
+![](../../images/Code_Chunk.png){fig-align="center" width="60%"}
+
+Die Zeilen mit `#|` sind keine normalen R-Kommentare, sondern Quarto-Einstellungen für diesen Chunk.
+
+### Die wichtigsten Optionen
+
+| Option    | Frage                                                |
+|-----------|------------------------------------------------------|
+| `label`   | Wie heisst dieser Chunk?                             |
+| `echo`    | Soll der Code im gerenderten Dokument sichtbar sein? |
+| `eval`    | Soll der Code überhaupt ausgeführt werden?           |
+| `include` | Soll dieser Chunk im Output enthalten sein?          |
+
+📌 **Merke:**
+
+YAML = global
+
+Chunk-Optionen = lokal
+
+## A9 - Inline-Code: R-Ergebnisse direkt im Text
+
+Bisher haben wir zwei Arten von Inhalt kennengelernt:
+
+-   **normalen Text**
+
+-   **R-Code in Code-Chunks**
+
+Quarto erlaubt zusätzlich, kleine R-Ergebnisse direkt inerhalb eines Satzes auszuführen. Das nennt man **Inline-Code**.
+
+Du kannst Inline-Code aktivieren, indem du im Visual Editor das entsprechende Element markierst und dann Command + D (Mac) oder Ctrl + D (Windows/Linux) drückst.
+
+Alternativ kannst du auch oben in der Leiste das `</>`-Symbol (direkt neben dem Kursiv-Symbol) drücken.
+
+### 🧭 Aufgabe
+
+1.  **Zuerst ein Objekt erzeugen**
+
+Erzeuge zunächst in einem normalen R-Code-Chunk:
+
+```{r, eval=TRUE, echo=TRUE}
+
+datum <- Sys.Date()
+```
+
+Führe den Chunk aus.
+
+2.  **Inline-Code im Visual Editor einfügen**
+
+Schreibe anschliessend im normalen Text: Dieses Dokument wurde zuletzt am `datum` bearbeitet.
+
+Rendere das Dokument später.
+
+Statt des Codes soll im gerenderten Text das tatsächliche Datum erscheinen.
+
+### Ein zweites Beispiel
+
+Wenn:
+
+```{r, eval=TRUE, echo=TRUE}
+
+werte <- c(2, 4, 6, 8)
+mittelwert <- mean(werte)
+```
+
+berechnet wurde, könntest du schreiben:
+
+Der Mittelwert beträgt `mittelwert`.
+
+### Warum ist das nützlich?
+
+Wenn sich die Daten ändern, aktualisiert sich beim erneuten Rendern auch automatisch der Wert im Text. Du kannst damit also vermeiden, Ergebnisse manuell aus R in einen Text zu kopieren!
+
+## A10 - Rendern: aus `.qmd` wird ein vollständiges Dokument
+
+Jetzt haben wir genug Bausteine kennengelernt, um zu verstehen, was **Rendern** eigentlich bedeutet.
+
+Beim Rendern verarbeitet Quarto:
+
+1.  den YAML-Header,
+
+2.  den normalen Text,
+
+3.  die Code-Chunks,
+
+4.  die erzeugten Ergebnisse,
+
+5.  Inline-Code
+
+und erstellt daraus das gewünschte Ausgabeformat.
+
+### 🧭 Aufgabe: Dein erstes vollständiges Render
+
+Bevor du renderst:
+
+1.  Speichere `quarto_uebung.qmd`
+
+2.  Kontrolliere deinen YAML-Header
+
+3.  Kontrolliere, dass benötigte Objekte vor ihrer Verwendung erzeugt werden
+
+Dann:
+
+**Render**
+
+## A11 - Rendern als Reproduzierbarkeitsprüfung
+
+Wenn ihr während der Arbeit einzelne Code-Chunks ausführt, kann euer Dokument funktionieren, obwohl wichtige Schritte gar nicht im Dokument enthalten sind.
+
+**Warum?**
+
+Weil im Environment möglicherweise noch Objekte aus früheren Arbeitsschritten liegen.
+
+Stellt euch zum Beispiel vor, dort existiert bereits `dat_full`, weil ihr diesen gestern erzeugt habt. Nun verwendet ihr heute irgendwo in eurem Dokument:
+
+```{r, echo=TRUE, eval=FALSE}
+summary(dat_full)
+```
+
+Der Code funktioniert - obwohl im Dokument vielleicht nirgendwo steht, wie `dat_full` überhaupt erzeugt wurde oder eingelesen wurde.
+
+Für euch sieht zunächst alles korrekt aus.
+
+Eine andere Person hat dieses Objekt aber nicht im Environment. Und auch ihr selbst habt es nach einem Neustart von R nicht mehr automatisch zur Verfügung.
+
+**Deshalb ist Rendern nicht nur eine Möglichkeit, ein schönes Dokument zu erzeugen. Rendern ist gleichzeitig eine Prüfung, ob euer Workflow wirklich vollständig und reproduzierbar ist.**
+
+Beim Rendern muss Quarto das Dokument in der vorhergesehenen Reihenfolge ausführen können:
+
+**Pakete laden** → **Daten einlesen** → **Objekte erzeugen** → **Daten verarbeiten** → **Ergebnisse berechnen**
+
+Fehlt ein notwendiger Schritt oder steht an der falschen Stelle, kann das Dokument nicht vollständig ausgeführt werden.
+
+## A12 - Andere Ausgabeformate
+
+Quarto kann unterschiedliche Outputformate erzeugen.
+
+Zum Beispiel:
+
+-   html
+
+-   docx
+
+-   pdf
+
+Welches Format verwendet wird, wird grundsätzlich im YAML-Header festgelegt.
+
+Für unser Seminar ist zunächst vor allem **HTML** relevant.
+
+### ⭐ Zusatzaufgabe
+
+Ändere testweise das Format von `html` auf `docx` und rendere dein Übungsdokument als Word-Datei.
+
+Stelle danach wieder auf das für unser Seminar vorgesehene Format zurück.
+
+## A13 - Übertragung auf unser Forschungsprojekt
+
+Jetzt ist die allgemeine Quarto-Einführung abgeschlossen.
+
+Ihr habt in einer ungefährlichen Übungsdatei gelernt:
+
+-   Visual und Source zu unterscheiden,
+
+-   normalen Text zu schreiben,
+
+-   ein Dokument mit Überschriften zu strukturieren,
+
+-   R-Code in Chunks auszuführen,
+
+-   globale Einstellungen im YAML festzulegen,
+
+-   lokale Chunk-Einstellungen zu verwenden,
+
+-   Inline-Code einzubauen,
+
+-   und ein vollständiges Dokument zu rendern.
+
+Jetzt übertragen wir das auf die Dateien, mit denen wir während des Semesters tatsächlich arbeiten.
+
+### 🔄 Wechsel der Arbeitsdatei
+
+Schliesse `quarto_uebung.qmd` und öffne im Forschungsprojekt:
+
+-   `Grinschgl2020/code/processing.qmd`
+
+-   `Grinschgl2020/code/analysis.qmd`
+
+## A14 - Unsere beiden Abgabedokumente vorbereiten
+
+### 🧭 Aufgabe
+
+Öffne beide Dokumente.
+
+Ihr werdet feststellen, dass die Grundstruktur bereits vorbereitet ist.
+
+**Anpassungen vornehmen**
+
+Passe in beiden YAML-Headern an:
+
+`author`: dein Name
+
+`warning: true`
+
+`message: true`
+
+Die übrigen vorbereiteten Einstellungen lässt du bestehen.
+
+Speichere beide Dateien.
+
+## B0 - R-Projekte: ein gemeinsamer Rahmen für unser Forschungsprojekt
+
+Wir haben nun Quarto-Dokumente kennengelernt. Diese Dokumente sollen später aber nicht isoliert irgendwo auf unserem Computer liegen.
+
+Zu unserem Forschungsprojekt gehören viele unterschiedliche Bestandteile:
+
+-   Rohdaten,
+
+-   verarbeitete Daten,
+
+-   `processing.qmd`,
+
+-   `analysis.qmd`,
+
+-   Codebook,
+
+-   Datenanalyseplan,
+
+-   Paper,
+
+-   später auch Ergebnisse und Abbildungen.
+
+Damit RStudio weiss, welche Dateien zusammen zu einem Projekt gehören und von welchem Ausgangspunkt wir arbeiten, verwenden wir ein **R-Projekt**.
+
+### Was ist ein R-Projekt?
+
+Ein R-Projekt wird durch eine Datei mit der Endung `.Rproj` gekennzeichnet.
+
+In unserem Fall: `ryouready.Rproj`
+
+Ihr könnt euch ein R-Projekt wie einen **Container für ein Forschungsprojekt** vorstellen:
+
+![](../../images/Container.png){fig-align="center" width="65%"}
+
+Alles innerhalb dieses Projektordners gehört logisch zu derselben Analyse.
+
+📌 **Wichtig:** Die `.Rproj`-Datei enthält nicht eure Daten oder euren Code. Sie sorgt dafür, dass RStudio den gesamten Ordner als zusammengehöriges Projekt behandelt.
+
+### Was passiert, wenn wir ein R-Projekt öffnen?
+
+Wenn ihr `ryouready.Rproj` öffnet, passiert unter anderem Folgendes:
+
+-   **RStudio öffnet den passenden Projektkontext:** Ihr arbeitet nun nicht einfach "irgendwo in RStudio", sondern innerhalb des Projekts `Grinschgl2020`.
+
+-   **Der Projektordner wird zum gemeinsamen Ausgangspunkt:** RStudio setzt das Working Directory auf den Ordner, in dem die `.Rproj`-Datei liegt. Dokumente können also dann direkt von hier aus adressiert werden, sodass nicht der vollständige Pfad auf unserem eigenen Computer angegeben werden muss. Genau diese Idee wird im nächsten Abschnitt bei absoluten und relativen Pfaden wichtig.
+
+-   **Alle Projektbestandteile bleiben logisch zusammen:** Daten, Code und Dokumentation befinden sich innerhalb derselben Projektstruktur. Das erleichtert die Orientierung, Zusammenarbeit, Weitergabe des Projekts und reproduzierbare Analysen.
+
+### Warum ist das sinnvoll?
+
+Ohne einen klaren Projektkontext entstehen schnell typische Probleme:
+
+-   R sucht Dateien im falschen Ordner.
+
 -   Skripte funktionieren nur auf dem eigenen Laptop.
--   Dateien werden an unterschiedlichen Orten gespeichert -\> kein nachvollziehbares Forschungsdatenmanagement.
--   Analysen sind schwer reproduzierbar.
 
-R-Projekte verhindern genau diese Probleme.
+-   Daten und Code liegen an verschiedenen Orten.
 
-#### Woran erkennst du, ob ein Projekt geöffnet ist?
+-   absolute Dateipfade werden verwendet.
 
-Oben rechts in RStudio siehst du den Namen des aktuellen Projekts.
+-   andere Personen können den Code bei sich nicht direkt ausführen.
 
-In diesem Screenshot ist noch kein Projekt geöffnet (Project: (None)). Wenn ein Projekt aktiv ist, wird dort der entsprechende Projektname angezeigt.
+Mit einem R-Projekt gibt es dagegen einen **gemeinsamen Ausgangspunkt**.
+
+## B1 - Unser bereitsgestelltes Projekt öffnen
+
+Für dieses Seminar müsst ihr **kein neues R-Projekt erstellen**.
+
+Das Projekt wurde bereits vorbereitet und befindet sich im Ordner: `R_You_Ready/Grinschgl2020/`.
+
+### 🧭 Aufgabe: Projekt korrekt öffnen
+
+1.  Speichere offene Dateien und schliesse RStudio vollständig.
+
+2.  Navigiere auf deinem Computer zum Ordner `Grinschgl2020`.
+
+3.  Öffne die Datei `ryouready.Rproj`.
+
+4.  Kontrolliere anschliessend in RStudio, ob das richtige Projekt aktiv ist.
+
+Je nach RStudio-Version wird der Projektname beispielsweise oben rechts oder in der Titelleiste angezeigt.
+
+In diesem Screenshot ist noch kein Projekt geöffnet. Wenn ein Projekt aktiv ist, wird dort der entsprechende Projektname angezeigt.
 
 ![](../../images/EH3/Project.png)
 
-**Übung:**
-
-Im ZIP-Ordner zum Abschlussprojekt, den ihr von ILIAS heruntergeladen habt (inklusive Datenanalyseplan und Codebook), haben wir für euch bereits eine `.Rproj`-Datei angelegt. Diese befindet sich im Ordner *Grinschgl2020*.
-
-1.  Öffne diese Datei.
-2.  Überprüfe oben rechts in RStudio, ob das richtige Projekt aktiv ist.
-3.  Schliesse RStudio und öffne es erneut über die `.Rproj`-Datei.
-
-👉 Gewöhne dir an, Analysen immer über die Projektdatei zu starten.
+#### 🛠️ Probleme beim Öffnen des Projekts?
 
 ::: {.callout-note collapse="true" title="Bei Fehlermeldungen:"}
-„Achtung! Bei Mac-User:innen kann es zu Problemen mit den Berechtigungen kommen. Falls dir beim Öffnen diese Fehlermeldung angezeigt wird:“
+Achtung! Bei Mac-User:innen kann es zu Problemen mit den Berechtigungen kommen. Falls dir beim Öffnen diese Fehlermeldung angezeigt wird:
 
 ![](../../images/hands_on_2/error_project.png)
 
-Die Lösung besteht darin, die Berechtigungen für den Ordner anzupassen. Dafür gehst du auf den ‚r_you_ready‘-Ordner und öffnest das Menü mit ‚Get Info‘.
+besteht die Lösung darin, die Berechtigungen für den Ordner anzupassen. Dafür gehst du auf den r_you_ready-Ordner und öffnest das Menü mit Get Info.
 
 ![](../../images/hands_on_2/help_error_project.png)
 
-Die Berechtigungen passt du an, indem du auf das Schloss unten rechts klickst, dein Passwort eingibst und bei deinem Account ‚Read & Write‘ auswählst. Anschliessend klickst du auf die drei Punkte im Kreis und führst ‚Apply to enclosed items…‘ aus. Danach solltest du die vollen Berechtigungen haben.
+Die Berechtigungen passt du an, indem du auf das Schloss unten rechts klickst, dein Passwort eingibst und bei deinem Account "Read & Write" auswählst. Anschliessend klickst du auf die drei Punkte im Kreis und führst "Apply to enclosed items…" aus. Danach solltest du die vollen Berechtigungen haben.
 :::
 
-**Eigenes Projekt erstellen**
+### 🧭 Aufgabe: Kontrolliere zusätzlich das Working Directory
 
-Wenn du zukünftig ein eigenes Projekt anlegen möchtest (z.B. für deine Masterarbeit): 👉[Kapitel 6.2 in R for Data Science](https://r4ds.hadley.nz/workflow-scripts.html#projects)
+Führe in der Konsole aus: `getwd()`.
 
-------------------------------------------------------------------------
+Dieser Befehl bedeutet **get working directory** und zeigt, von welchem Ordner R momentan ausgeht.
 
-### Absolute vs. relative Pfade
+### Warum öffnen wir das Projekt immer auf diese Weise?
 
-Wenn du in R eine Datei einliest, musst du angeben, **wo** diese Datei liegt.
+Gewöhne dir für dieses Seminar folgende Reihenfolge an:
 
-Diesen "Weg" zur Datei nennt man einen **Pfad**.
+1.  Projekt über `.Rproj` öffnen
 
-Dabei unterscheidet man zwei Arten von Pfaden:
+2.  dann `processing.qmd` oder `analysis.qmd` öffnen
 
-#### Absolute Pfade
+3.  dann mit den Daten arbeiten
 
--   Ein **absoluter Pfad** beschreibt den vollständigen Weg zu einer Datei, ausgehend vom Wurzelverzeichnis *deines* Computers.
+Nicht: RStudio öffnen → irgendwelche Dateien zusammensuchen → Working Directory manuell verändern.
 
-    🔴 Nachteil: Sie sind oft sehr lang und funktionieren nur auf deinem Rechner.
+Das schafft jedes Mal denselben Ausgangspunkt.
 
-    -   Beispiel (Windows):\
-        `C:\Users\maxmustermann\Dokumente\r_you_ready\Grinschgl2020\data\raw\Beispieldatei.csv`
+### ✅ Mini-Checkpoint
 
-Wenn jemand anderes dieses Skript ausführt, wird dieser Pfad nicht existieren.
+Bevor du weiterarbeitest, solltest du beantworten können:
 
-#### Relative Pfade
+-   Ist `Grinschgl2020` als Projekt geöffnet?
 
--   Ein **relativer Pfad** beschreibt den Weg zu einer Datei ausgehend vom *aktuellen Arbeitsverzeichnis*.
+-   Wo liegt die `.Rproj`-Datei?
 
--   Wenn du mit einem R-Projekt arbeitest, ist das Working Directory automatisch der Projektordner.
+-   Was zeigt `getwd()`?
 
-    🟢 Vorteil: Sie sind kürzer, übersichtlicher und funktionieren auf jedem Rechner, solange die Projektstruktur gleich bleibt.
+-   Warum ist der Projektordner unser gemeinsamer Ausgangspunkt?
 
-    -   Beispiel:
+Wenn das klar ist, bist du bereit für den nächsten Schritt:
 
-        -   Projektordner = *Grinschgl2020*
-        -   Datei liegt in *data/raw/Beispieldatei.csv*
-        -   relativer Pfad:
+**Wie adressieren wir Dateien innerhalb dieses Projekts?**
 
-        ```         
-        data/raw/Beispieldatei.csv              # relativer Pfad
+## C0 - Dateipfade: Wie findet R unsere Dateien?
 
-        read_csv("data/raw/Beispieldatei.csv")  # Einlesen der Datei in R
-        ```
+Wir haben im vorherigen Abschnitt gesehen, dass unser R-Projekt uns einen gemeinsamen Projektkontext gibt.
 
-Solange die Projektstruktur gleich bleibt, funktioniert dieser Code auf jedem Computer.
+Nun stellt sich die nächste Frage:
 
-#### Warum ist das wichtig?
+**Wie sagen wir R, wo innerhalb unseren Computers oder Projekts eine bestimmte Datei liegt?**
 
-In der wissenschaftlichen Praxis sollen Analysen:
+Dafür verwenden wir Dateipfade. Ein Pfad beschreibt den Weg zu einer Datei oder einem Ordner.
 
-```         
-- nachvollziehbar
-- überprüfbar
-- reproduzierbar
+Dabei unterscheiden wir zwischen:
+
+-   **absoluten Pfaden**
+
+-   **relativen Pfaden**
+
+### Absolute Pfade: der vollständige Weg auf deinem Computer
+
+Ein absoluter Pfad beginnt ganz oben im Dateisystem deines Computers und beschreibt den vollständigen Weg bis zur Datei.
+
+**Beispiel auf macOS**
+
+`/Users/max/Documents/R_You_Ready/Grinschgl2020/data/raw/data_mmq.csv`
+
+**Beispiel auf Windows**
+
+`C:\Users\maxmustermann\Dokumente\r_you_ready\Grinschgl2020\data\raw\Beispieldatei.csv`
+
+Beide Pfade enthalten nicht nur die Struktur unseres Forschungsprojekts, sondern auch Informationen über den jeweiligen Computer:
+
+-   Betriebssystem
+
+-   Benutzername
+
+-   Speicherort des Projekts
+
+-   Ordnerstruktur ausserhalb des Projekts
+
+### Warum ist das problematisch?
+
+Angenommen, Max speichert das Projekt unter:
+
+`/Users/max/Documents/R_You_Ready/`
+
+Anna dagegen unter:
+
+`C:\Users\Anna\Desktop\R_You_Ready\`
+
+Der absolute Pfad von Max exisitert auf Annas Computer nicht.
+
+Ein Skript kann deshalb bei Max funktionieren, bei Anna aber bereits beim Einlesen der ersten Datei scheitern.
+
+Das erschwert die Zusammenarbeit, die Weitergabe von Projekten und die Reproduzierbarkeit.
+
+📌 **Für reproduzierbare Forschungsprojekte vermeiden wir deshalb computerspezifische absolute Pfade.**
+
+### Relative Pfade: vom aktuellen Ausgangspunkt zur Datei
+
+Ein relativer Pfad enthält nicht den vollständigen Speicherort auf einem Computer.
+
+Stattdessen beschreibt er, wie ich von meinem aktuellen Ausgangspunkt zur gewünschten Datei komme.
+
+Wenn unser Ausgangspunkt `Grinschgl2020` ist, lautet der Weg zu `data_mmq.csv`:
+
+`data/raw/data_mmq.csv`
+
+Das bedeutet:
+
+![](../../images/Relativer_Pfad.png){fig-align="center" width="65%"}
+
+Der computerspezifische Teil davor ist nicht mehr Bestandteil unseres Codes.
+
+### Verbindung zum Working Directory
+
+Im vorherigen Abschnitt habt ihr mit `getwd()` kontrolliert, welches **Working Directory** R aktuell verwendet.
+
+Ein relativer Pfad wird von diesem Ausgangspunkt aus interpretiert.
+
+📌 **Merke:** Ein relativer Pfad braucht immer einen gemeinsamen Ausgangspunkt. Das ist genau der Grund, warum R-Projekte und relative Pfade so gut zusammenpassen.
+
+## C1 - Relative Pfade hängen vom Ausgangspunkt ab
+
+Hier kommt eine wichtige Besonderheit:
+
+**Ein relativer Pfad ist immer relativ zum aktuellen Working Directory.**
+
+Der Pfad:
+
+`data/raw/data_mmq.csv`
+
+funktioniert also nur dann direkt, wenn unser Ausgangspunkt hier liegt:
+
+`Grinschgl2020/`
+
+<br>
+
+Aber was passiert, wenn unser Ausgangspunkt stattdessen hier liegt:
+
+![](../../images/Relativer_Pfad_Problem.png){fig-align="center" width="65%"}
+
+Von `code/` aus exisitiert `data/raw/data_mmq.csv` nicht.
+
+R würde innerhalb von `code/` nach einem Unterordner `data/` suchen. Diesen Ordner gibt es aber nicht.
+
+### Warum ist das für Quarto wichtig?
+
+Beim interaktiven Arbeiten nach dem Öffnen unseres R-Projekts zeigt `getwd()` typischerweise auf:
+
+`Grinschgl2020/`
+
+<br>
+
+Unser `processing.qmd` liegt aber hier:
+
+`Grinschgl2020/code/processing.qmd`
+
+<br>
+
+Beim **Rendern** eines Quarto-Dokuments wird Code standardmässig ausgehend vom Verzeichnis der jeweiligen `.qmd`-Datei ausgeführt. Für `processing.qmd` kann der Ausgangspunkt beim Rendern deshalb `code/` sein.
+
+**Das bedeutet:**
+
+Während des interaktiven Arbeites könnte funktionieren:
+
+```{r, eval=FALSE, echo=TRUE}
+read_csv("data/raw/data_mmq.csv")
 ```
 
-sein.
+weil der Ausgangspunkt gerade `Grinschgl2020/` ist.
 
-Absolute Pfade verhindern dies; relative Pfade ermöglichen es.
+Beim Rendern könnte derselbse Pfad scheitern, weil Quarto nun von `Grinschgl2020/code/` ausgeht.
+
+⚠️ **Das ist besonders gefährlich:** Code kann beim Arbeiten funktionieren, aber beim Rendern plötzlich nicht mehr.
+
+Genau das möchten wir vermeiden.
+
+## C2 - Möglichkeit 1: In der Ordnerstruktur nach oben gehen
+
+Relative Pfade können auch angeben, dass wir zunächst eine Ebene **nach oben** wechseln wollen.
+
+Dafür verwenden wir: `..`
+
+`..` bedeutet: Gehe einen Ordner nach oben.
+
+Wenn unser Ausgangspunkt `code/` ist, können wir schreiben:
+
+`../data/raw/data_mmq.csv`
+
+Das bedeutet Schritt für Schritt:
+
+![](../../images/Relativer_Pfad_Ebene.png){fig-align="center" width="65%"}
+
+### 🧭 Aufgabe: Einen relativen Pfad zusammensetzen
+
+Angenommen, dein aktueller Ausgangspunkt ist:
+
+`Grinschgl2020/code/`
+
+Wie lautet der relative Pfad zu:
+
+`Grinschgl2020/data/raw/data_pct.csv`
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+`../data/raw/data_pct.csv`
+:::
+::::
+
+### Aber hier entsteht ein neues Problem
+
+Nun hätten wir abhängig vom aktuellen Ausgangspunkt unterschiedliche Pfade.
+
+**Wenn wir von der Projektwurzel starten:**
+
+`data/raw/data_mmq.csv`
+
+**Wenn wir aus `/code` starten:**
+
+`../data/raw/data_mmq.csv`
+
+<br>
+
+Das funktioniert zwar technisch. Aber jetzt muss unser Code ständig wissen, von welchem Ordner aus er gerade ausgeführt wird.
+
+Gerade bei Quarto-Dokumenten kann das schnell unübersichtlich werden.
+
+Wir möchten deshalb eine robustere Lösung.
+
+## C3 - Möglichkeit 2: `here()`
+
+Genau dafür können wir das Paket `here` verwenden.
+
+Die Grundidee ist sehr einfach: `here()` sucht die Wurzel unseres Projekts und baut den Pfad immer von dort aus auf.
+
+In unserem Projekt erkennt `here()` unter anderem die vorhandene `Rproj`-Datei und kann dadurch `Grinschgl2020` als Projektwurzel bestimmen.
+
+### Einen Pfad mit `here()` erzeugen
+
+Nun können wir von dieser Projektwurzel aus den Weg zur Datei angeben:
+
+```{r, echo=TRUE, eval=FALSE}
+here::here(
+  "data",
+  "raw",
+  "data_mmq.csv"
+)
+```
+
+`here()` kümmert sich darum, wo das Projekt auf dem jeweiligen Computer tatsächlich gespeichert ist.
+
+### Warum ist `here()` für unser Seminar besonders sinnvoll?
+
+Im Gegensatz zu einem relativen Pfad ist diese Version immer relativ zur Projektwurzel. Sie funktioniert also unabhängig davon, ob der Code aus `code/` heraus ausgeführt wird. Sie ist damit also besonders praktisch beim Rendern von Quarto-Dokumenten.
+
+### 🧭 Aufgabe: Pfade mit `here()` bauen
+
+Erzeuge mit `here()` einmal Pfade zu den folgenden beiden Dateien:
+
+-   data_pct.csv
+
+-   data_ratings.xlsx
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+```{r echo=TRUE, eval=FALSE}
+# data_pct.csv
+here::here(
+  "data",
+  "raw",
+  "data_pct.csv"
+)
+
+# data_ratings.xlsx
+here::here(
+  "data",
+  "raw",
+  "data_ratings.xlsx"
+)
+```
+:::
+::::
+
+## ✅ Checkpoint - Ende des EH3-Teils
+
+Bis hierhin solltest du:
+
+-   Quarto praktisch verwenden können,
+
+-   `processing.qmd` und `analysis.qmd` vorbereitet haben,
+
+-   das richtige R-Projekt geöffnet haben,
+
+-   wissen, was die Projektwurzel ist,
+
+-   und absolute von relativen Pfaden unterscheiden können.
+
+**Noch wurde kein Rohdatensatz verändert.**
+
+`data/processed/` darf weiterhin leer sein.
+
+## 🚦Ab hier: Inhalte zu EH4
+
+Die folgenden Aufgaben führen zum ersten tatsächlichen Processing-Schritt.
+
+Wenn ihr diesen Hands-on unmittelbar nach EH3 bearbeitet, könnt ihr hier stoppen.
+
+Wenn ihr schneller seid, dürft ihr selbstverständlich weiterarbeiten. Die folgenden Abschnitte enthalten die notwendigen Erklärungen; die zugrunde liegenden Konzepte greifen wir in EH4 zusätzlich gemeinsam auf.
+
+# Teil 2: AUFBEREITEN
+
+## D0 - Daten importieren: vom File zum R-Objekt
 
 # Daten importieren und exportieren
 

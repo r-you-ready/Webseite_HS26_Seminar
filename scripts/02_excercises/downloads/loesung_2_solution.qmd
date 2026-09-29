@@ -1,19 +1,17 @@
 ---
-title: "Hands On – Coding Basics (Einheiten 3 und 4)"
+title: "Hands-on Block 2: Vom Quarto-Dokument zu dat_full (Einheiten 3 & 4)"
 filters:
   - conditional_content
 show_solutions: false
 format:
   html:
     code-tools: false
-draft: true
+draft: false
 ---
 
 ```{r, include = FALSE}
 library(tidyverse)
 ```
-
-# Lösung - Laden, mergen und Syntax (Einheiten 3 und 4)
 
 Bei Bedarf finden sich hier nochmal die Slides zu Einheit 3:
 
@@ -31,7 +29,419 @@ Und hier die Slides zu Einheit 4:
 </iframe>
 :::
 
-# Lernziele dieses Hands-On-Blocks
+## 🧭 Wo befinden wir uns?
+
+**Projektphase: ORGANISIEREN → AUFBEREITEN**
+
+In Einheit 3 habt ihr kennengelernt, wie unser Forschungsprojekt organisiert ist und warum wir Processing, Analysis und Codebook voneinander unterscheiden.
+
+In diesem Hands-on setzen wir diese Struktur nun praktisch um:
+
+**Teil 1 - ORGANISIEREN:**
+
+Wir lernen Quarto kennen, richten unsere beiden Abgabedokumente ein und lernen, mit R-Projekten und reproduzierbaren Dateipfaden zu arbeiten.
+
+**Teil 2 - AUFBEREITEN:**
+
+Wir lesen die sieben Rohdatensätze ein, führen sie über eine eindeutige Schlüsselvariable zusammen, prüfen das Ergebnis und speichern `dat_full` reproduzierbar ab.
+
+## 🎯 Ziel dieses Blocks
+
+Am Ende sollt ihr:
+
+-   Quarto-Dokumente erstellen, bearbeiten und rendern können,
+
+-   Visual und Source Editor unterscheiden können,
+
+-   den YAML-Header und zentrale globale Einstellungen verstehen,
+
+-   Überschriften, Text, Kommentare, Code-Chunks und Inline-Code einsetzen können,
+
+-   wissen, wozu ein R-Projekt dient und wie ihr das richtige Projekt öffnet,
+
+-   absolute und relative Pfade unterscheiden können,
+
+-   verstehen, warum relative Pfade die Zusammenarbeit erleichtern,
+
+-   `here()` zur robusten Adressierung von Dateien verwenden können,
+
+-   CSV- und Excel-Dateien reproduzierbar importieren,
+
+-   Delimiter erkennen und korrekt angeben,
+
+-   erklären können, warum `cbind()` für unsere Rohdaten problematisch ist,
+
+-   Schlüsselvariablen verstehen und `full_join()` korrekt verwenden,
+
+-   einen Merge systematisch überprüfen,
+
+-   `dat_full` im richtigen Ordner speichern,
+
+-   und den vollständigen Processing-Workflow durch Rendern erneut ausführen können.
+
+**Am Ende dieses Blocks gilt:**
+
+Die Rohdaten bleiben unverändert. `processing.qmd` dokumentiert den Weg zu `dat_full`. `dat_full.csv` liegt unter `data/processed/`.
+
+## 🗺️ Unser Weg durch Hands-on 2
+
+| Schritt | Wo arbeitet ihr? | Was entsteht? |
+|------------------------|------------------------|------------------------|
+| 1\) Quarto kennenlernen | `quarto_uebung.qmd` | Übungsdokument |
+| 2\) Abgabedokumente vorbereiten | `processing.qmd` & `analysis.qmd` | korrekte YAML-Header |
+| 3\) R-Projekt verstehen | `Grinschgl2020` | korrekter Projektkontext |
+| 4\) Pfade verstehen | Übung/Projekt | reproduzierbare Dateiadressierung |
+| 5\) Rohdaten importieren | `processing.qmd` | 7 Datenobjekte |
+| 6\) Merge verstehen | Konsole + `processing.qmd` | `dat_full` |
+| 7\) Merge prüfen | `processing.qmd` | validierter `dat_full` |
+| 8\) Ergebnis speichern | `processing.qmd` | `data/processed/dat_full.csv` |
+| 9\) Workflow prüfen | `processing.qmd` | reproduzierbarer Render |
+| 10\) Codebook verbinden | Codebook-Vorlage | Beginn der Datendokumentation |
+
+# Teil 1: ORGANISIEREN
+
+## A0 - Quarto kennenlernen
+
+### Warum wechseln wir jetzt zu Quarto?
+
+In den ersten beiden Einheiten habt ihr mit klassischen R-Skripten (`.R`) gearbeitet. Das war ideal, um zunächst die Grundlagen von R kennenzulernen.
+
+Für unser Forschungsprojekt wollen wir nun aber nicht nur Code speichern. Wir möchten auch dokumentieren:
+
+-   **was** wir tun,
+
+-   **warum** wir einen Schritt durchführen,
+
+-   und **welche Ergebnisse** dabei entstehen.
+
+Dafür verwenden wir ab jetzt **Quarto-Dokumente (`.qmd`).**
+
+Quarto verbindet: **Text + Code + Ergebnisse** in einem Dokument.
+
+📌 **Merke:** Quarto ist keine neue Programmiersprache und ersetzt R nicht. Wir programmieren weiterhin in R. Quarto ist die Umgebung, in der wir Code, Dokumentation und Resultate zusammenführen.
+
+## A1 - Dein erstes Quarto-Dokument
+
+Bevor wir unsere eigentlichen Projektdokumente bearbeiten, erstellen wir zunächst eine kleine Übungsdatei.
+
+### 🧭 Aufgabe: Neues Quarto-Dokument erstellen
+
+Erstelle in RStudio ein neues Quarto-Dokument:
+
+**File → New File** → **Quarto Document**
+
+Wähle zunächst:
+
+-   Titel: `Meine Quarto-Übung`
+
+-   Format: HTML
+
+Speichere die Dateil als: `quarto_uebung.qmd` im Ordner `R_You_Ready`.
+
+## A2 - Visual Editor und Source Editor
+
+Quarto bietet zwei Ansichten derselben Datei.
+
+### Visual Editor
+
+Der **Visual Editor** funktioniert ähnlich wie eine klassische Textverarbeitung:
+
+-   Überschriften werden direkt als Überschriften dargestellt,
+
+-   Fettdruck wird hervorgehoben,
+
+-   Listen sehen wie Listen aus,
+
+-   Code-Chunks werden als separate Codebereiche dargestellt.
+
+**Für den Einstieg empfehlen wir euch, hauptsächlich im Visual Editor zu arbeiten.**
+
+### Source Editor
+
+Der **Source Editor** zeigt die zugrunde liegende Quarto-/Markdown-Syntax.
+
+Dort sieht man beispielsweise:
+
+![](../../images/Source_Editor.png){fig-align="center" width="35%"}
+
+Beide Ansichten bearbeiten dieselbe `.qmd`-Datei.
+
+### 🧭 Aufgabe
+
+1.  Wechsle vom **Visual Editor** in den **Source Editor**.
+
+2.  Wechsle wieder zurück.
+
+3.  Schreibe im Visual Editor den Satz: Mein erstes Quarto-Dokument.
+
+4.  Wechsel erneut in den Source Editor.
+
+**Überlege:** Hat sich der Inhalt verändert, oder nur die Darstellung?
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Es verändert sich nur die Darstellung. Visual und Source Editor sind zwei verschiedene Ansichten derselben Sache.
+:::
+::::
+
+## A3 - Das wichtigste Prinzip: Text und Code sind getrennt
+
+Hier liegt ein zentraler Unterschied zu euren bisherigen R-Skripten.
+
+### **In einem `.R`-Skript**
+
+Fast alles wird als R-Code interpretiert. Wenn ihr normalen Text schreiben wollt, verwendet ihr einen Kommentar:
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+# Jetzt berechnen wir den Mittelwert
+werte <- c(2, 4, 6, 8)
+mean(werte)
+```
+
+### **In einem Quarto-Dokument**
+
+Alles ausserhalb eines Code-Chunks ist zunächst normaler Text. Wir brauchen also kein `#` mehr als Kommentarzeichen.
+
+R-Code gehört dagegen in einen **R-Code-Chunk**.
+
+## A4 - Text verwenden, um ein Dokument zu strukturieren
+
+Quarto erlaubt uns, nicht nur Code auszuführen, sondern den gesamten Workflow verständlich zu gliedern.
+
+Typische Textelemente sind:
+
+-   Überschriften
+
+-   normaler Text
+
+-   **dick hervorgehobener Text**
+
+-   *kursiver Text*
+
+-   Aufzählungen,
+
+-   nummerierte Listen
+
+-   und Links.
+
+Im Visual Editor könnt ihr diese Formatierungen weitgehend über die Oberfläche auswählen.
+
+![](../../images/Quarto_Formatierungen.png){fig-align="center" width="35%"}
+
+### 🧭 Aufgabe: Ein kleines Dokument strukturieren
+
+Erstelle in `quarto_uebung.qmd` folgende Struktur:
+
+**Überschrift Ebene 1**
+
+`Meine Quarto-Übung`
+
+Darunter einen kurzen Satz: In diesem Dokument lerne ich die wichtigsten Bestandteile von Quarto kennen.
+
+**Überschrift Ebene 2**
+
+`Erste Berechnung`
+
+Darunter: Im folgenden Beispiel berechne ich den Mittelwert von vier Zahlen.
+
+Formatiere zusätzlich:
+
+-   ein Wort **fett**
+
+-   und ein Wort *kursiv.*
+
+## A5 - R-Code in Quarto: Code-Chunks
+
+Normaler Text ausserhalb eines Code-Chunks wird in Quarto nicht als R-Code ausgeführt.
+
+Wenn wir R-Code verwenden wollen, schreiben wir ihn in einen **R-Code-Chunk**. Ein Code-Chunk ist also ein eigener Bereich innerhalb des Quarto-Dokuments, in dem R-Befehle ausgeführt werden. Das `{r}` sagt Quarto, dass der Code in diesem Chunk mit R ausgeführt werden soll.
+
+### Einen neuen R-Code-Chunk einfügen
+
+Dafür gibt es mehrere Möglichkeiten:
+
+**Über das Menü:**
+
+`Code → Insert Chunk`
+
+**Über den Visual Editor:**
+
+`Insert → Executable Cell → R`
+
+**Tastenkombination:**
+
+`Option + Command + I` (Mac)
+
+`Ctrl + Alt + I` (Windows/Linux)
+
+📌 **Tipp:** Gewöhne dir Tastenkombinationen an. Im Laufe des Semesters wirst du sehr häufig neue Code-Chunks einfügen.
+
+### 🧭 Aufgabe
+
+Füge unter deiner Überschrift **Erste Berechnung** selbst einen neuen R-Code-Chunk ein.
+
+Verwende dafür entweder die Menüoption oder die Tastenkombination für dein Betriebssystem.
+
+Schreibe anschliessend:
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+werte <- c(2, 4, 6, 8)
+mean(werte)
+```
+
+Führe den Chunk aus. Dazu kannst du im Chunk selbst den grünen Pfeil klicken (Run Current Chunk).
+
+**Beobachte**
+
+-   Wird `werte` im Environment erzeugt?
+
+-   Welches Ergebnis liefert `mean(werte)`?
+
+## A6 - Der YAML-Header: Einstellungen für das ganze Dokument
+
+Nun schauen wir uns den Bereich **ganz oben** in unserem Quarto-Dokument an.
+
+Zwischen zwei Linien aus `---` befindet sich der sogenannte **YAML-Header**.
+
+Beispiel:
+
+![](../../images/YAML_Beispiel.png){fig-align="center" width="45%"}
+
+### Wofür ist der YAML-Header da?
+
+Der YAML-Header enthält **globale Einstellungen**. Das bedeutet, dass diese Einstellungen das gesamte Dokument betreffen.
+
+### Die wichtigsten Einstellungen für uns
+
+| Einstellung    | Bedeutung                          |
+|----------------|------------------------------------|
+| `title`        | Titel des Dokuments                |
+| `author`       | Autor:in                           |
+| `date`         | Datum                              |
+| `format`       | Ausgabeformat                      |
+| `theme`        | Erscheinungsbild                   |
+| `toc`          | Inhaltsverzeichnis anzeigen?       |
+| `toc-location` | Position des Inhaltsverzeichnisses |
+| `warning`      | Warnmeldungen im Output anzeigen?  |
+| `message`      | Meldungen im Output anzeigen?      |
+
+### Ein wichtiger Punkt: Einrückungen
+
+YAML verwendet **Einrückungen**, um zu erkennen, welche Einstellungen zusammengehören.
+
+⚠️ YAML reagiert empfindlich auf falsche Einrückungen. Wenn Quarto bereits beim Rendern den Header beanstandet, überprüft zuerst die Einrückung!
+
+## A7 - Den YAML-Header selbst verändern
+
+### 🧭 Aufgabe
+
+Passe deinen YAML-Header so an, dass:
+
+-   dein eigener Name als Autor:in erschein,
+
+-   das Datum automatisch auf heute gesetzt wird,
+
+-   das Dokument als HTML ausgegeben wird,
+
+-   ein Inhaltsverzeichnis vorhanden ist,
+
+-   das Inhaltsverzeichnis links erscheint,
+
+-   Warnungen angezeigt werden,
+
+-   Meldungen angezeigt werden.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+![](../../images/YAML_Solution.png){fig-align="center" width="45%"}
+:::
+::::
+
+💡 **Globale Einstellung = für das gesamte Dokument**
+
+Wenn im YAML-Header etwas steht, gilt diese Einstellung grundsätzlich für alle Code-Chunks im Dokument.
+
+Genau das unterscheidet YAML von den Einstellungen, die wir im nächsten Schritt für einen einzelnen Chunk vornehmen.
+
+## A8 - Einstellungen für einzelne Code-Chunks
+
+Manchmal soll eine Einstellung nicht für das gesamte Dokument gelten, sondern nur für einen bestimmten Code-Chunk.
+
+Dafür gibt es **Chunk-Optionen**.
+
+Beispiel:
+
+![](../../images/Code_Chunk.png){fig-align="center" width="60%"}
+
+Die Zeilen mit `#|` sind keine normalen R-Kommentare, sondern Quarto-Einstellungen für diesen Chunk.
+
+### Die wichtigsten Optionen
+
+| Option    | Frage                                                |
+|-----------|------------------------------------------------------|
+| `label`   | Wie heisst dieser Chunk?                             |
+| `echo`    | Soll der Code im gerenderten Dokument sichtbar sein? |
+| `eval`    | Soll der Code überhaupt ausgeführt werden?           |
+| `include` | Soll dieser Chunk im Output enthalten sein?          |
+
+📌 **Merke:**
+
+YAML = global
+
+Chunk-Optionen = lokal
+
+## A9 - Inline-Code: R-Ergebnisse direkt im Text
+
+Bisher haben wir zwei Arten von Inhalt kennengelernt:
+
+-   **normalen Text**
+
+-   **R-Code in Code-Chunks**
+
+Quarto erlaubt zusätzlich, kleine R-Ergebnisse direkt inerhalb eines Satzes auszuführen. Das nennt man **Inline-Code**.
+
+### 🧭 Aufgabe
+
+1.  **Zuerst ein Objekt erzeugen**
+
+Erzeuge zunächst in einem normalen R-Code-Chunk:
+
+```{r, eval=TRUE, echo=TRUE}
+
+datum <- Sys.Date()
+```
+
+Führe den Chunk aus.
+
+2.  **Inline-Code im Visual Editor einfügen**
+
+Schreibe anschliessend im normalen Text: Dieses Dokument wurde zuletzt am `datum` bearbeitet.
+
+Rendere das Dokument später.
+
+Statt des Codes soll im gerenderten Text das tatsächliche Datum erscheinen.
+
+### Ein zweites Beispiel
+
+Wenn:
+
+```{r, eval=TRUE, echo=TRUE}
+
+werte <- c(2, 4, 6, 8)
+mittelwert <- mean(werte)
+```
+
+berechnet wurde, könntest du schreiben:
+
+Der Mittelwert beträgt `mittelwert`.
+
+## Lernziele dieses Hands-On-Blocks
 
 ✅Projekte kennenlernen & verstehen
 

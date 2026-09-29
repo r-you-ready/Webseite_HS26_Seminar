@@ -2,13 +2,10 @@
 title: "Hands-on Block 1: Vom ersten R-Skript zum nachvollziehbaren Workflow (Einheiten 1 & 2)"
 filters:
   - conditional_content
-show_solutions: true
+show_solutions: false
 format:
   html:
-    code-tools:
-       source: downloads/loesung_1_solution.qmd
-       toggle: false
-       caption: "Download der Lösungsdatei"
+    code-tools: false
 draft: false
 ---
 
@@ -110,9 +107,9 @@ Bitte prüfe jetzt:
 
 -   RStudio ist nicht stark veraltet
 
-Ihr benötigt nicht zwingend die allerneueste Version von R und RStudio.
+Ihr benötigt nicht zwingend die allerneuste Version von R und RStudio.
 
-Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, idealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
+Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, indealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
 
 Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
@@ -122,7 +119,7 @@ Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
 -   Code verhält sich anders als in unseren Übungen,
 
--   oder Fehlermeldungen entstehen aufgrund von Versionsunterschieden.
+-   oder Fehlermeldugen entstehen aufgrund von Versionsunterschieden.
 
 ### Welche Version habe ich?
 
@@ -182,7 +179,7 @@ Für das Seminar ist es wichtig, dass ihr zunächst grob wisst:
 
 Bevor wir beginnen, nehmen wir einige Grundeinstellungen in RStudio vor. Diese Einstellungen müssen normalerweise nur einmal vorgenommen werden und erleichtern uns später das reproduzierbare Arbeiten.
 
-Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General` so ein wie auf dem folgenden Bild:
+Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General`so ein wie auf dem folgenden Bild:
 
 ![](../../images/Global_Options.png){fig-align="center"}
 
@@ -678,7 +675,7 @@ Führe danach die Zeile erneut aus, mit der du `summe` berechnet hast. Was passi
 
 📌 **Merke:** R speichert in einem Objekt das Ergebnis zum Zeitpunkt der Zuweisung. Wenn sich zugrunde liegende Werte ändern, müssen davon abhängige Berechnungen erneut ausgeführt werden.
 
-Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfolge von oben nach unten auszuführen.
+Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfole von oben nach unten auszuführen.
 
 #### 🧭 **3. Objekte können auch Text speichern**
 
@@ -929,7 +926,7 @@ temperaturen <- c(12.1, 23.4, 10.3, 8.9, 15.6)
 namen <- c("Anna", "Ben", "Jana", "Elina")
 ```
 
-Hier ist es wichtig, dass die Namen mit " " geschrieben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
+Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
 :::
 ::::
 
@@ -943,7 +940,7 @@ Hier ist es wichtig, dass die Namen mit " " geschrieben werden, da es sich um Te
 bestanden <- c(TRUE, FALSE, TRUE, TRUE)
 ```
 
-Hier muss der Text nicht in " " geschrieben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
+Hier muss der Text nicht in " " geschreiben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
 :::
 ::::
 
@@ -1098,7 +1095,7 @@ Erstelle einen Vektor, in dem die Zahl `5` zehnmal vorkommt. Speichere auch dies
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
 
-# rep()-Vektor erstellen
+# seq()-Vektor erstellen
 fuenf_zehnmal <- rep(5, times = 10)
 ```
 :::
@@ -1682,6 +1679,8 @@ Prüfe stattdessen, ob du die grundlegenden Ideen erklären kannst:
 
 -   Mein Code steht im Skript und ist gespeichert.
 
+### ⭐ Evtl. noch Zusatzübungen Einheit 1
+
 # Einheit 2: Von funktionierendem zu nachvollziehbarem Code
 
 In Einheit 1 ging es zunächst darum, R grundsätzlich bedienen zu können. In Einheit 2 verschiebt sich unser Fokus.
@@ -1710,7 +1709,7 @@ Bevor du R neu startest, prüfe:
 
 -   Sind alle relevanten Befehle im Skript enthalten?
 
--   Werden benötigte Pakete am Anfang des Skripts geladen?
+-   Werden benötigte Pakete am Anfang des Skripts gespeichert?
 
 Speichere dein Skript anschliessend noch einmal.
 
@@ -1774,7 +1773,7 @@ sd(test_scores)
 scores_over_5 <- test_scores > 5
 ```
 
-#### Überlege
+#### Übelege
 
 Welches Skript würdest du lieber wieder öffnen, wenn du es in zwei Monaten noch einmal brauchst?
 
@@ -1826,7 +1825,7 @@ Später können Kommentare z.B. erklären:
 # Reverse-codiertes Item vor Berechnung des Skalenwerts umpolen
 ```
 
-📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentscheidungen nachzuvollziehen.
+📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentschiedungen nachzuvollziehen.
 
 #### 🧭 Strukturiere dein Skript
 
@@ -1860,7 +1859,7 @@ test_scores <- c(75, 82, 91)
 mean_test_scores <- mean(test_scores)
 ```
 
-Welche Version lässt sich leichter verstehen, ohne dass du weiteren Kontext kennst?
+Welche Version lässt sich leicher verstehen, ohne dass du weiteren Kontext kennst?
 
 ### Unser Standard: `snake_case`
 
@@ -2110,7 +2109,7 @@ Niemand kennt alle R-Funktionen, Argumente oder Fehlermeldungen auswendig.
 
 Eine zentrale Kompetenz im Umgang mit R ist deshalb: **wissen, wie man sich selbst weiterhilft!**
 
-Im Laufe des Seminars sollt ihr zunehmend selbstständig entscheiden können:
+Im Laufe des Seminars sollt ihr zunehmend selbstständig entschieden können:
 
 -   Wo kann ich nachschauen?
 
@@ -2311,7 +2310,7 @@ Alle der Befehle sind dafür geeignet, einen ersten schnellen Überblick über d
 
 -   `head()` gibt die ersten paar (standardmässig 6) Zeilen des Datensatzes aus.
 
--   `glimpse()` gibt für jede Spalte den Namen, Typ und ihre ersten Werte aus.
+-   `glimpse()` gibt für jede Spalte den Namen, Typ und ihren ersten Wert aus.
 
 -   `str()` gibt einen Überblick über die Dimensionen des Datensatzes, wie Anzahl an Spalten, Anzahl an Zeilen und Überblick über die Datentypen.
 
@@ -2393,7 +2392,7 @@ Zum Abschluss dieses Coding-Blocks sollt ihr mehrere bisher gelernte Konzepte se
 
 Hier gibt es bewusst weniger genaue Codevorgaben.
 
-🎯 **Ziel:** Nicht jede Funktion auswendig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
+🎯 **Ziel:** Nicht jede Funktion auswenig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
 
 <br>
 
@@ -2586,7 +2585,7 @@ R prüft dabei jeden einzelnen Wert von `body_mass`.
 
 -   `FALSE` bedeutet: Der Wert ist nicht grösser als 5000.
 
--   `NA` bedeutet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
+-   `NA` bedeuetet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
 
 ```{r, include = TRUE, eval = TRUE}
 body_mass > 5000
@@ -2629,3 +2628,4 @@ sum(body_mass_over_5000, na.rm = TRUE)
 ## 🎉 Gratulation: Du hast die ersten Übungen erfolgreich bearbeitet!
 
 Vergiss nicht, dein Skript abzuspeichern.
+
