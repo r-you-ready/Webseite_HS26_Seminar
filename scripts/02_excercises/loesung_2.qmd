@@ -1668,7 +1668,7 @@ Nun steht `data_pct` links. Wie müsste `by` lauten?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 full_join(
   data_pct,
   data_cb,
@@ -1726,7 +1726,7 @@ Anschliessend soll `dat_full` nacheinander erweitert werden um:
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 dat_full <- dplyr::full_join(
   data_cb,
   data_cvstm,
