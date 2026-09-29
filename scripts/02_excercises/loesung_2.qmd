@@ -220,7 +220,7 @@ Typische Textelemente sind:
 
 Im Visual Editor könnt ihr diese Formatierungen weitgehend über die Oberfläche auswählen.
 
-![](../../images/Quarto_Formatierungen.png){fig-align="center" width="35%"}
+![](../../images/Quarto_Formatierungen.png){fig-align="center" width="55%"}
 
 ### 🧭 Aufgabe: Ein kleines Dokument strukturieren
 
@@ -299,7 +299,7 @@ Zwischen zwei Linien aus `---` befindet sich der sogenannte **YAML-Header**.
 
 Beispiel:
 
-![](../../images/YAML_Beispiel.png){fig-align="center" width="45%"}
+![](../../images/YAML_Beispiel.png){fig-align="center" width="55%"}
 
 ### Wofür ist der YAML-Header da?
 
