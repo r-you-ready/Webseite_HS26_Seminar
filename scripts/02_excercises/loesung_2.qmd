@@ -1860,7 +1860,7 @@ Finde heraus, wie genau du die beiden Funktionen anwenden kannst und welchen Out
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval=TRUE, include=TRUE}
+```{r, eval=FALSE, echo=TRUE}
 length(unique(dat_full$code))
 
 # Hier erwarten wir einen Wert von 159, weil die Funktion die Anzahl einzigartiger IDs ausgibt
