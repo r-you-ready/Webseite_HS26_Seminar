@@ -1378,7 +1378,7 @@ Achte jeweils auf:
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 # data_cb
 data_cb <- readr::read_delim(
   here::here("data", "raw", "data_cb.csv"),
@@ -1405,7 +1405,7 @@ data_pct <- readr::read_delim(
 
 # data_vp
 data_vp <- readr::read_delim(
-  here::here("data", "raw", "data_vpn.csv"),
+  here::here("data", "raw", "data_vp.csv"),
   delim = ";"
 )
 
