@@ -657,21 +657,19 @@ Auch wichtig ist, dass das Codebook im Verlauf des Semesters mehrmals noch aktua
 
 ------------------------------------------------------------------------
 
-## 
-
-Ab hier noch zu überarbeiten!
-
-------------------------------------------------------------------------
-
-## Hands on!
+## Nun: Arbeit im Hands-on 2
 
 -   Projekte
 
--   Daten einlesen
+-   Absolute vs. relative Pfade
 
--   Daten speichern
+-   Rohdatensätze einlesen
 
--   Fortsetzung Coding Basics
+-   Schlüsselvariablen
+
+-   Mergen
+
+-   Speichern von `dat_full`
 
 ------------------------------------------------------------------------
 
@@ -680,8 +678,6 @@ Ab hier noch zu überarbeiten!
 ... Uns mit den Grundlagen von Forschungsdatenmanagement beschäftigt
 
 ... Psych-DS als einen Standard kennengelernt
-
-... Style-Empfehlungen für R Code besprochen
 
 ... die Gründe für und den Aufbau von einem Codebook besprochen
 
@@ -693,9 +689,9 @@ Ab hier noch zu überarbeiten!
 
 ## Hausübungen
 
--   Datenanalyseplan bis **Mi, 11.03.2026**
+-   Datenanalyseplan bis **Mi, 07.10.2026**
 
--   Codebook erstellen bis **Mi, 25.03.2026**
+-   Codebook erstellen bis **Mi, 21.10.2026**
 
 ------------------------------------------------------------------------
 
