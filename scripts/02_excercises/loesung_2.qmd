@@ -365,7 +365,7 @@ Dafür gibt es **Chunk-Optionen**.
 
 Beispiel:
 
-![](../../images/Code_Chunk.png){fig-align="center"}
+![](../../images/code_chunk.png){fig-align="center"}
 
 Die Zeilen mit `#|` sind keine normalen R-Kommentare, sondern Quarto-Einstellungen für diesen Chunk.
 
