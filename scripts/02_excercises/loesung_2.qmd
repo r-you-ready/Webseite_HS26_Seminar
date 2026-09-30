@@ -398,6 +398,10 @@ Du kannst Inline-Code aktivieren, indem du im Visual Editor das entsprechende El
 
 Alternativ kannst du auch oben in der Leiste das `</>`-Symbol (direkt neben dem Kursiv-Symbol) drücken.
 
+**Hinweis:**
+
+📌 Du musst im Visual Editor vor dem zu markierenden Objekt noch ein `r` einfügen und auch dieses markieren. Also z.B. so: Dieses Dokument wurde zuletzt am `r datum` bearbeitet.
+
 ### 🧭 Aufgabe
 
 1.  **Zuerst ein Objekt erzeugen**
