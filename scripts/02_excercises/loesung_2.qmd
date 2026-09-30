@@ -400,7 +400,10 @@ Alternativ kannst du auch oben in der Leiste das `</>`-Symbol (direkt neben dem 
 
 **Hinweis:**
 
-📌 Du musst im Visual Editor vor dem zu markierenden Objekt noch ein `r` einfügen und auch dieses markieren. Also z.B. so: Dieses Dokument wurde zuletzt am `r datum` bearbeitet.
+📌 Du musst im Visual Editor vor dem zu markierenden Objekt noch ein `r` einfügen und auch dieses markieren. Also z.B. so:
+
+![](../../images/r_datum.png){fig-align="center" width="65%"}
+
 
 ### 🧭 Aufgabe
 
