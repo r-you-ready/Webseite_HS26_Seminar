@@ -1,6 +1,6 @@
 ---
 title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 4"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,31 +21,348 @@ draft: true
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**4. Einheit**, 11.03.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**4. Einheit**, 07.10.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ------------------------------------------------------------------------
 
-## Fragen zum Datenanalyseplan & Codebook:
+## Fragen zum Datenanalyseplan?
+
+**Abgabe heute Abend**
+
+Nutzt die Gelegenheit, letzte Unklarheiten zu Forschungsfragen, Hypothesen, Variablen oder geplanten Analysen zu klären.
 
 ![](../../images/EH_2_files/fragen.png){fig-align="center"}
 
 ::: notes
-Abgaben Datenanalysesplan heute via Ilias und per Email an Peer Feedback Partner:in
+Abgabe Datenanalyseplan heute via ILIAS und per Mail an Peer-Partner:in.
 :::
 
 ------------------------------------------------------------------------
 
-## Heute:
+## Semesterplan
 
 ::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
 ```{=html}
 <embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
+    src="../../PDFs/Semesterplan_HS26.pdf#view=FitH&navpanes=0&toolbar=0"
     type="application/pdf"
     style="width:100%; height:220vh; border:0; display:block; background:white;"
   >
 ```
 :::
+
+------------------------------------------------------------------------
+
+## Wo befinden wir uns?
+
+**ORGANISIEREN -\> AUFBEREITEN**
+
+<br>
+
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
+
+<br>
+
+In EH3 haben wir geklärt, **wo** Daten, Code und Dokumentation hingehören.
+
+Heute beginnen wir erstmals, die Rohdaten tatsächlich zu verarbeiten.
+
+------------------------------------------------------------------------
+
+## Unser Ausgangspunkt nach EH3
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**Das haben wir bereits**
+
+✓ Forschungsfrage verstanden
+
+✓ Datenanalyse geplant
+
+✓ Projektstruktur verstanden
+
+✓ Rohdaten lokalisiert
+
+✓ `processing.qmd` und `analysis.qmd` verortet
+
+✓ Codebook-Vorlage kennengelernt
+:::
+
+::: {.column width="50%"}
+**Das fehlt noch**
+
+○ Rohdaten reproduzierbar einlesen
+
+○ verstehen, welche Informationen zur selben Person gehören
+
+○ sieben Datensätze korrekt zusammenführen
+
+○ Ergebnis kontrollieren
+
+○ `dat_full` speichern
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Von Rohdateien zu `dat_full`
+
+**Wie werden aus sieben Rohdateien ein verlässlicher Gesamtdatensatz?**
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**7 Rohdateien**
+
+![](../../images/EH3/Rohdaten.png){fig-align="center" width="35%"}
+:::
+
+::: {.column width="50%"}
+**Gesamtdatensatz `dat_full` (159 x 36)**
+
+![](../../images/dat_full.png){fig-align="center" width="90%"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Leitfragen
+
+<br>
+
+1.  **Wie lesen wir die Dateien korrekt ein?**
+
+<br>
+
+2.  **Woher weiss R, wo die Dateien liegen?**
+
+<br>
+
+3.  **Woher wissen wir, welche Zeilen zusammengehören?**
+
+<br>
+
+4.  **Wie überprüfen wir, ob das Ergebnis korrekt ist?**
+
+# 1) Von der Rohdatei zum R-Objekt
+
+<br>
+
+**Bevor wir Daten verändern können, müssen wir sie zunächst in R verfügbar machen.**
+
+------------------------------------------------------------------------
+
+## 7 Dateien - 7 Teile derselben Studie
+
+<br>
+
+| Datei                  | Zeilen | Spalten | ID         |
+|------------------------|--------|---------|------------|
+| `data_cb.csv`          | 159    | 3       | `code`     |
+| `data_cvstm.csv`       | 159    | 3       | `code`     |
+| `data_mmq.csv`         | 159    | 19      | `code`     |
+| `data_pct.csv`         | 159    | 6       | `code_all` |
+| `data_vp.csv`          | 159    | 3       | `code`     |
+| `data_ratings.xlsx`    | 159    | 6       | `code`     |
+| `data_strategies.xlsx` | 159    | 2       | `code`     |
+
+<br>
+
+Die Informationen wurden während der Studie an unterschiedlichen Stellen erhoben und liegen deshalb zunächst getrennt vor.
+
+------------------------------------------------------------------------
+
+## Einlesen verändert die Rohdatei nicht
+
+**Datei ≠ R-Objekt**
+
+![](../../images/Rohdateien_R_Objekt.png){fig-align="center" width="60%"}
+
+Beim Import liest R den Inhalt einer Datei und erzeugt daraus ein **R-Objekt im Arbeitsspeicher**.
+
+Die ursprüngliche Datei unter `data/raw/` wird dadurch **weder verschoben noch verändert oder überschrieben**.
+
+------------------------------------------------------------------------
+
+## Veränderungen in R werden nicht automatisch zurückgeschrieben
+
+<br>
+
+![](../../images/R_Objekt_Rohdatei.png){fig-align="center" width="60%"}
+
+<br>
+
+Änderungen an einem R-Objekt exisitieren zunächst nur in der laufenden R-Session.
+
+Wenn ein verarbeiteter Datensatz dauerhaft als Datei vorliegen soll, müssen wir ihn **explizit speichern**.
+
+<br>
+
+![](../../images/raw_vs_processed.png){fig-align="center" width="85%"}
+
+# 2) Wie findet R unsere Rohdaten?
+
+<br>
+
+**Zum Einlesen braucht R nicht nur eine Funktion - sondern auch einen Weg zur Datei.**
+
+------------------------------------------------------------------------
+
+## R muss wissen, wo die Datei liegt
+
+<br>
+
+```{r, echo=TRUE, eval=FALSE}
+readr::read_delim(
+  "???",
+  delim = ";"
+)
+```
+
+<br>
+
+An die Stelle von `???` gehört ein **Dateipfad**.
+
+Ein Dateipfad beschreibt den Weg von einem Ausgangspunkt zu einer Datei.
+
+------------------------------------------------------------------------
+
+## Absoluter Pfad
+
+**Der vollständige Weg auf deinem Computer**
+
+<br>
+
+`C:/Users/Anna/Documents/UniBern/Master/Seminare/Grinschgl2020/data/raw/data_mmq.csv`
+
+und
+
+`/Users/Luca/Documents/Grinschgl2020/data/raw/data_mmq.csv`
+
+<br>
+
+Ein absoluter Pfad beschreibt den vollständigen Speicherort einer Datei auf einem bestimmten Computer.
+
+<br>
+
+**Beide Pfade können korrekt sein - aber jeweils nur auf dem entsprechenden Computer!**
+
+------------------------------------------------------------------------
+
+## Relativer Pfad
+
+**Der Weg innerhalb unseres Projekts**
+
+<br>
+
+![](../../images/Relativer_Pfad_EH4.png){fig-align="center" width="85%"}
+
+Ein relativer Pfad beschreibt nicht, **wo das Projekt auf meinem Computer gespeichert ist**, sondern wo sich eine Datei **relativ zu einem gemeinsamen Ausgangspunkt** befindet.
+
+<br>
+
+Genau hier wird unsere gemeinsame Psych-DS-Struktur nützlich: Die Projektstruktur ist bei allen gleich - deshalb sind auch die relativen Pfade alle gleich!
+
+------------------------------------------------------------------------
+
+## "Relativ" bedeutet immer: relativ wozu?
+
+**Ein relativer Pfad braucht einen Ausgangspunkt**
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**Ausgangspunkt = Projektwurzel**
+
+Interaktives Arbeiten in aktueller R-Session
+
+![](../../images/Pfad_Start_Projekt.png){fig-align="center" width="65%"}
+
+✅ `data/raw/data_mmq.csv` funktioniert
+:::
+
+::: {.column width="50%"}
+**Ausgangspunkt beim Rendern = code**
+
+Beim Rendern von `processing.qmd`
+
+![](../../images/Pfad_Start_Code.png){fig-align="center" width="65%"}
+
+❌ sucht nach: `code/data/raw/data_mmq.csv`
+:::
+:::::
+
+::: notes
+Beim interaktiven Arbeiten verwendet eure laufende R-Session nach dem Öffnen des R-Projekts typischerweise die Projektwurzel.
+
+Beim Rendern führt Quarto Code standardmässig relativ zum Ordner der .qmd-Datei aus.
+:::
+
+------------------------------------------------------------------------
+
+## Korrekter relativer Pfad: Rendern
+
+**`..` bedeutet: eine Ordnerebene nach oben**
+
+<br>
+
+![](../../images/animation_relativer_pfad.gif){fig-align="center" width="65%"}
+
+Beim Rendern starten wir im Ordner `code/`.
+
+Mit `..` gehen wir zunächst zur Projektwurzel zurück und von dort weiter nach `data/raw/`.
+
+------------------------------------------------------------------------
+
+## Die Alternative: `here()`
+
+**`here()` baut den Pfad von der Projektwurzel aus**
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**Von Hand mit `..`**
+
+```{r, echo=TRUE, eval=FALSE}
+data_mmq <- readr::read_delim(
+  "../data/raw/data_mmq.csv",
+  delim = ";"
+)
+```
+:::
+
+::: {.column width="50%"}
+**Mit `here()`**
+
+```{r, echo=TRUE, eval=FALSE}
+data_mmq <- readr::read_delim(
+  here::here("data", "raw", "data_mmq.csv"),
+  delim = ";"
+)
+```
+:::
+:::::
+
+<br>
+
+`here()` **verwendet die Projektwurzel als stabilen Bezugspunkt. Dadurch muss unser Code nicht selbst berücksichtigen, ob er gerade interaktiv oder beim Rendern ausgeführt wird.**
+
+<br>
+
+**Beide Varianten sind korrekt!**
+
+------------------------------------------------------------------------
+
+## Unterschiedliche Dateiformate
+
+**Welche Funktion liest welche Datei ein?**
 
 ------------------------------------------------------------------------
 

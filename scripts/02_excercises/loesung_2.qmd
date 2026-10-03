@@ -80,7 +80,7 @@ Die Rohdaten bleiben unverändert. `processing.qmd` dokumentiert den Weg zu `dat
 ## 🗺️ Unser Weg durch Hands-on 2
 
 | Schritt | Wo arbeitet ihr? | Was entsteht? |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | 1\) Quarto kennenlernen | `quarto_uebung.qmd` | Übungsdokument |
 | 2\) Abgabedokumente vorbereiten | `processing.qmd` & `analysis.qmd` | korrekte YAML-Header |
 | 3\) R-Projekt verstehen | `Grinschgl2020` | korrekter Projektkontext |
@@ -403,7 +403,6 @@ Alternativ kannst du auch oben in der Leiste das `</>`-Symbol (direkt neben dem 
 📌 Du musst im Visual Editor vor dem zu markierenden Objekt noch ein `r` einfügen und auch dieses markieren. Also z.B. so:
 
 ![](../../images/r_datum.png){fig-align="center" width="65%"}
-
 
 ### 🧭 Aufgabe
 

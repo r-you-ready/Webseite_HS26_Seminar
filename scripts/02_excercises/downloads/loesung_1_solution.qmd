@@ -2,10 +2,13 @@
 title: "Hands-on Block 1: Vom ersten R-Skript zum nachvollziehbaren Workflow (Einheiten 1 & 2)"
 filters:
   - conditional_content
-show_solutions: false
+show_solutions: true
 format:
   html:
-    code-tools: false
+    code-tools:
+       source: downloads/loesung_1_solution.qmd
+       toggle: false
+       caption: "Download der Lösungsdatei"
 draft: false
 ---
 
@@ -19,7 +22,11 @@ Bei Bedarf finden sich hier nochmal die Slides zur EH1:
 
 Und hier nochmal die Slides zur EH2:
 
-Wird kurz vor der Einheit 2 hochgeladen
+::: {=html}
+<iframe src="../01_slides/EH_2.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 1.5rem 0;">
+
+</iframe>
+:::
 
 ## 🧭 Wo befinden wir uns?
 
@@ -63,7 +70,7 @@ Für dieses Seminar benötigt ihr R und RStudio. Dabei handelt es sich um zwei u
 
 -   **RStudio** ist die Benutzeroberfläche bzw. Arbeitsumgebung, über die wir mit R arbeiten. RStudio hilft uns dabei,
 
-    -   Code zu schrieben und zu speichern,
+    -   Code zu schreiben und zu speichern,
 
     -   Dateien und Datensätze zu verwalten,
 
@@ -103,9 +110,9 @@ Bitte prüfe jetzt:
 
 -   RStudio ist nicht stark veraltet
 
-Ihr benötigt nicht zwingend die allerneuste Version von R und RStudio.
+Ihr benötigt nicht zwingend die allerneueste Version von R und RStudio.
 
-Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, indealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
+Für das Seminar empfehlen wir jedoch eine relativ aktuelle Installation, idealerweise aus **2025 oder neuer**. Wenn eure Programme bereits problemlos funktionieren und ungefähr aus diesem Zeitraum stammen, müsst ihr nicht wegen jeder neuen Unterversion sofort aktualisieren.
 
 Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
@@ -115,7 +122,7 @@ Bei deutlich älteren Versionen können später jedoch Probleme auftreten, z.B.:
 
 -   Code verhält sich anders als in unseren Übungen,
 
--   oder Fehlermeldugen entstehen aufgrund von Versionsunterschieden.
+-   oder Fehlermeldungen entstehen aufgrund von Versionsunterschieden.
 
 ### Welche Version habe ich?
 
@@ -175,7 +182,7 @@ Für das Seminar ist es wichtig, dass ihr zunächst grob wisst:
 
 Bevor wir beginnen, nehmen wir einige Grundeinstellungen in RStudio vor. Diese Einstellungen müssen normalerweise nur einmal vorgenommen werden und erleichtern uns später das reproduzierbare Arbeiten.
 
-Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General`so ein wie auf dem folgenden Bild:
+Öffne in RStudio: `Tools → Global Options` und setze die Einstellungen unter `General` so ein wie auf dem folgenden Bild:
 
 ![](../../images/Global_Options.png){fig-align="center"}
 
@@ -359,7 +366,7 @@ Im Skript schreiben und speichern wir Code, den wir:
 
     -   Aber: Der Befehl ist damit noch nicht sinnvoll in unserem Analysecode dokumentiert und lässt sich nicht einfach zu einem späteren Zeitpunkt erneut ausführen!
 
-2.  Schreibe nun in dein Skritp:
+2.  Schreibe nun in dein Skript:
 
     -   `2 + 2`
 
@@ -671,7 +678,7 @@ Führe danach die Zeile erneut aus, mit der du `summe` berechnet hast. Was passi
 
 📌 **Merke:** R speichert in einem Objekt das Ergebnis zum Zeitpunkt der Zuweisung. Wenn sich zugrunde liegende Werte ändern, müssen davon abhängige Berechnungen erneut ausgeführt werden.
 
-Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfole von oben nach unten auszuführen.
+Das wird später ein wichtiger Grund dafür sein, Skripte in sinnvoller Reihenfolge von oben nach unten auszuführen.
 
 #### 🧭 **3. Objekte können auch Text speichern**
 
@@ -836,6 +843,8 @@ negative_zahl <- -42
 # Ergebnis speichern
 absolute_zahl <- abs(negative_zahl)
 ```
+
+Die Funktion `abs()` liefert den absoluten Wert von Objekten.
 :::
 ::::
 
@@ -864,7 +873,6 @@ Zum Beispiel können wir mehrere Altersangaben in einem Objekt speichern:
 
 ```{r}
 #| echo: true
-#| eval: false
 
 alter <- c(22, 24, 27, 21, 25)
 ```
@@ -921,7 +929,7 @@ temperaturen <- c(12.1, 23.4, 10.3, 8.9, 15.6)
 namen <- c("Anna", "Ben", "Jana", "Elina")
 ```
 
-Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
+Hier ist es wichtig, dass die Namen mit " " geschrieben werden, da es sich um Text handelt. Es sind sogenannte character vectors, die wir später noch genauer kennenlernen werden.
 :::
 ::::
 
@@ -935,7 +943,7 @@ Hier ist es wichtig, dass die Namen mit " " geschreiben werden, da es sich um Te
 bestanden <- c(TRUE, FALSE, TRUE, TRUE)
 ```
 
-Hier muss der Text nicht in " " geschreiben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
+Hier muss der Text nicht in " " geschrieben werden, da es sich um eine Sonderklasse an Vektoren handelt, nämlich sogenannte logical vectors. Auch diese werden wir zu einem späteren Zeitpunkt noch systematischer kennenlernen.
 :::
 ::::
 
@@ -1090,9 +1098,25 @@ Erstelle einen Vektor, in dem die Zahl `5` zehnmal vorkommt. Speichere auch dies
 ::: {.callout-note collapse="true" title="Lösung"}
 ```{r, include = TRUE, eval = TRUE}
 
-# seq()-Vektor erstellen
+# rep()-Vektor erstellen
 fuenf_zehnmal <- rep(5, times = 10)
 ```
+:::
+::::
+
+### ⭐ 5 Zusatzaufgabe:
+
+Erkläre, warum der folgende Code negative Werte ausgibt.
+
+```{r}
+#| echo: true
+some_numbers <-- c(22, 24, 27, 25)
+some_numbers
+```
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+Der Code gibt negative Werte aus, weil wir vor den Code, der den Vektor erstellt, ein Minuszeichen geschrieben haben. Dieses Minuszeichen bewirkt, dass alle Zahlen des Vektors mit -1 multipliziert werden. Gemein ist nur, dass man dieses Minuszeichen schlecht sieht. Es gehört nämlich scheinbar zum Zuweisungsoperator "\<-". Aber "\<--" wird von R eben nicht einfach als Zuweisungsoperator interpretiert, sondern als ein Zuweisungsoperator "\<-" gefolgt vom Minuszeichen "-".
 :::
 ::::
 
@@ -1658,8 +1682,6 @@ Prüfe stattdessen, ob du die grundlegenden Ideen erklären kannst:
 
 -   Mein Code steht im Skript und ist gespeichert.
 
-### ⭐ Evtl. noch Zusatzübungen Einheit 1
-
 # Einheit 2: Von funktionierendem zu nachvollziehbarem Code
 
 In Einheit 1 ging es zunächst darum, R grundsätzlich bedienen zu können. In Einheit 2 verschiebt sich unser Fokus.
@@ -1688,7 +1710,7 @@ Bevor du R neu startest, prüfe:
 
 -   Sind alle relevanten Befehle im Skript enthalten?
 
--   Werden benötigte Pakete am Anfang des Skripts gespeichert?
+-   Werden benötigte Pakete am Anfang des Skripts geladen?
 
 Speichere dein Skript anschliessend noch einmal.
 
@@ -1752,7 +1774,7 @@ sd(test_scores)
 scores_over_5 <- test_scores > 5
 ```
 
-#### Übelege
+#### Überlege
 
 Welches Skript würdest du lieber wieder öffnen, wenn du es in zwei Monaten noch einmal brauchst?
 
@@ -1804,7 +1826,7 @@ Später können Kommentare z.B. erklären:
 # Reverse-codiertes Item vor Berechnung des Skalenwerts umpolen
 ```
 
-📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentschiedungen nachzuvollziehen.
+📌 **Merke:** Kommentare müssen nicht jede Codezeile übersetzen. Sie sollen vor allem helfen, Struktur und Analyseentscheidungen nachzuvollziehen.
 
 #### 🧭 Strukturiere dein Skript
 
@@ -1838,7 +1860,7 @@ test_scores <- c(75, 82, 91)
 mean_test_scores <- mean(test_scores)
 ```
 
-Welche Version lässt sich leicher verstehen, ohne dass du weiteren Kontext kennst?
+Welche Version lässt sich leichter verstehen, ohne dass du weiteren Kontext kennst?
 
 ### Unser Standard: `snake_case`
 
@@ -2088,7 +2110,7 @@ Niemand kennt alle R-Funktionen, Argumente oder Fehlermeldungen auswendig.
 
 Eine zentrale Kompetenz im Umgang mit R ist deshalb: **wissen, wie man sich selbst weiterhilft!**
 
-Im Laufe des Seminars sollt ihr zunehmend selbstständig entschieden können:
+Im Laufe des Seminars sollt ihr zunehmend selbstständig entscheiden können:
 
 -   Wo kann ich nachschauen?
 
@@ -2195,8 +2217,6 @@ Finde selbstständig heraus, was die folgenden Funktionen machen:
     # rev() kehrt die ursprüngliche Reihenfolge der Elemente eines Vektors um
     rev(zahlen)
     ```
-
-    Durch `scores <- 74` wird der ursprüngliche Vektor überschrieben. Für einen Vergleich wird `==` benötigt. Dieser Fehler ist besonders problematisch, weil R keine Fehlermeldung erzeugt.
     :::
     ::::
 
@@ -2291,7 +2311,7 @@ Alle der Befehle sind dafür geeignet, einen ersten schnellen Überblick über d
 
 -   `head()` gibt die ersten paar (standardmässig 6) Zeilen des Datensatzes aus.
 
--   `glimpse()` gibt für jede Spalte den Namen, Typ und ihren ersten Wert aus.
+-   `glimpse()` gibt für jede Spalte den Namen, Typ und ihre ersten Werte aus.
 
 -   `str()` gibt einen Überblick über die Dimensionen des Datensatzes, wie Anzahl an Spalten, Anzahl an Zeilen und Überblick über die Datentypen.
 
@@ -2352,6 +2372,9 @@ class(penguins$body_mass_g)
 # bill_length_mm
 class(penguins$bill_length_mm)
 
+# species
+class(penguins$species)
+
 # island
 class(penguins$island)
 
@@ -2370,7 +2393,7 @@ Zum Abschluss dieses Coding-Blocks sollt ihr mehrere bisher gelernte Konzepte se
 
 Hier gibt es bewusst weniger genaue Codevorgaben.
 
-🎯 **Ziel:** Nicht jede Funktion auswenig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
+🎯 **Ziel:** Nicht jede Funktion auswendig kennen, sondern überlegen, welches Werkzeug für welchen Schritt geeignet ist.
 
 <br>
 
@@ -2420,6 +2443,188 @@ Arbeite mit dem Datensatz `penguins`.
 **Dokumentation**
 
 16. Lies deinen gesamten Abschnitt noch einmal durch. Ergänze Kommentare so, dass eine andere Person nachvollziehen kann, was du machst und warum die einzelnen Schritte notwendig sind.
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
+**Schritt 1: Paket laden**
+
+Zu Beginn stellen wir sicher, dass das Paket `palmerpenguins` geladen ist. Dadurch steht uns der Datensatz `penguins` zur Verfügung.
+
+```{r, include = TRUE, eval = TRUE}
+library(palmerpenguins)
+```
+
+**Schritt 2: Abschnitt dokumentieren**
+
+Mit Kommentaren können wir festhalten, was ein Abschnitt unseres Skripts macht. Kommentare beginnen mit `#` und werden nicht ausgeführt.
+
+```{r, include = TRUE, eval = TRUE}
+# Abschlussaufgabe: Datensatz penguins untersuchen
+```
+
+**Schritt 3: Anzahl Beobachtungen und Variablen bestimmen**
+
+Mit `nrow()` bestimmen wir die Anzahl der Zeilen und damit die Anzahl der Beobachtungen. Mit `ncol()` bestimmen wir die Anzahl der Spalten bzw. Variablen.
+
+```{r, include = TRUE, eval = TRUE}
+nrow(penguins)
+ncol(penguins)
+
+# Der Datensatz verfügt über 8 Variablen und 344 Beobachtungen.
+```
+
+**Schritt 4: Ergebnisse speichern**
+
+Damit wir die beiden Ergebnisse später erneut verwenden können, speichern wir sie unter sinnvollen Objektnamen.
+
+```{r, include = TRUE, eval = TRUE}
+# Ergebnisse speichern
+n_observations <- nrow(penguins)
+n_variables <- ncol(penguins)
+
+# Ergebnisse ausgeben lassen
+n_observations
+n_variables
+```
+
+**Schritt 5: Einen ersten Überblick über den Datensatz erhalten**
+
+Für einen ersten Überblick können verschiedene Funktionen verwendet werden. `summary()` ist hier bspw. geeignet, da sie für jede Variable eine Zusammenfassung ausgibt.
+
+```{r, include = TRUE, eval = TRUE}
+summary(penguins)
+```
+
+**Schritt 6: Variable `body_mass_g` auswählen**
+
+Mit `$` können wir eine einzelne Variable aus einem Data Frame auswählen.
+
+Damit greifen wir auf die Variable `body_mass_g` aus dem Datensatz `penguins` zu.
+
+```{r, include = TRUE, eval = TRUE}
+penguins$body_mass_g
+```
+
+**Schritt 7: Variable als neues Objekt speichern**
+
+Die ausgewählte Variable speichern wir nun unter dem Namen `body_mass`.
+
+`body_mass` enthält damit die Werte der Variable `body_mass_g`.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass <- penguins$body_mass_g
+```
+
+**Schritt 8: Datentyp prüfen**
+
+Mit `class()` können wir überprüfen, welchen Datentyp unser neues Objekt besitzt.
+
+```{r, include = TRUE, eval = TRUE}
+class(body_mass)
+
+# Die Ausgabe "integer" zeigt uns, dass body_mass ganzzahlige numerische Werte enthält.
+```
+
+**Schritt 9: Mittelwert berechnen**
+
+Nun versuchen wir zunächst, den Mittelwert wie gewohnt mit `mean()` zu berechnen.
+
+Als Ergebnis erhalten wir `NA`. R kann den Mittelwert also in dieser Form nicht berechnen.
+
+```{r, include = TRUE, eval = TRUE}
+mean(body_mass)
+```
+
+**Schritt 10: Herausfinden, weshalb `NA` entsteht**
+
+Nun müssen wir herausfinden, weshalb `mean()` kein numerisches Ergebnis liefert. Eine Möglichkeit ist, uns die Variable mit `summary()` genauer anzusehen.
+
+Die fehlenden Werte erklären das Problem: Wenn in einem Vektor fehlende Werte vorhanden sind, liefert `mean()` standardmässig ebenfalls `NA`.
+
+Alternativ könnten wir, wie in B5 besprochen, beispielsweise die R-Hilfe zu `mean()` öffnen.
+
+```{r, include = TRUE, eval = TRUE}
+summary(body_mass)
+
+# In der Ausgabe sehen wir, dass body_mass fehlende Werte (NA) enthält.
+```
+
+**Schritt 11: Umgang mit fehlenden Werten herausfinden**
+
+In der Hilfe zu `mean()` finden wir das Argument `na.rm`.
+
+Mit `na.rm = TRUE` teilen wir R mit, dass fehlende Werte vor der Berechnung entfernt bzw. ignoriert werden sollen.
+
+Der Mittelwert lässt sich deshalb folgendermassen berechnen:
+
+```{r, include = TRUE, eval = TRUE}
+mean(body_mass, na.rm = TRUE)
+```
+
+**Schritt 12: Mittelwert, Median und Standardabweichung berechnen**
+
+Dasselbe Prinzip können wir auch für die weiteren Kennwerte verwenden.
+
+```{r, include = TRUE, eval = TRUE}
+# mean() berechnet den Mittelwert
+mean(body_mass, na.rm = TRUE)
+
+# median() berechnet den Median
+median(body_mass, na.rm = TRUE)
+
+# sd() berechnet die Standardabweichung
+sd(body_mass, na.rm = TRUE)
+```
+
+**Schritt 13: Werte grösser als 5000 finden**
+
+Mit einem logischen Vergleich können wir für jeden Wert überprüfen, ob er grösser als `5000` ist.
+
+R prüft dabei jeden einzelnen Wert von `body_mass`.
+
+-   `TRUE` bedeutet: Der Wert ist grösser als 5000.
+
+-   `FALSE` bedeutet: Der Wert ist nicht grösser als 5000.
+
+-   `NA` bedeutet: Für diese Beobachtung fehlt der ursprüngliche Wert und der Vergleich kann deshalb nicht durchgeführt werden.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass > 5000
+```
+
+**Schritt 14: Ergebnis unter einem sinnvollen Objektnamen speichern**
+
+Das Ergebnis des Vergleichs speichern wir nun in einem neuen Objekt.
+
+```{r, include = TRUE, eval = TRUE}
+body_mass_over_5000 <- body_mass > 5000
+
+# Ergebnis ausgeben lassen
+body_mass_over_5000
+```
+
+**Schritt 15: Datentyp des neuen Objekts prüfen**
+
+Mit `class()` überprüfen wir erneut den Datentyp.
+
+Das Ergebnis ist `logical`, da das Objekt hauptsächlich aus den logischen Werten `TRUE` und `FALSE` besteht.
+
+```{r, include = TRUE, eval = TRUE}
+class(body_mass_over_5000)
+```
+
+**Zusatz: Wie viele Werte über 5000 existieren?**
+
+Das Objekt `body_mass_over_5000` enthält momentan einfach jeweils, ob ein Wert unter oder über 5000 war. Wenn wir nun auf einem Blick prüfen wollen, wie viele der 344 beobachteten Penguine einen Wert über 5000 haben, können wir folgenden Code verwenden:
+
+```{r, include = TRUE, eval = TRUE}
+sum(body_mass_over_5000, na.rm = TRUE)
+
+# TRUE wird intern als 1 gespeichert, FALSE als 0. Deswegen entspricht die Summe einfach
+# der Anzahl der TRUE-Antworten.
+```
+:::
+::::
 
 ## 🎉 Gratulation: Du hast die ersten Übungen erfolgreich bearbeitet!
 
