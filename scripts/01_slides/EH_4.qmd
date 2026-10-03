@@ -364,6 +364,12 @@ data_mmq <- readr::read_delim(
 
 **Welche Funktion liest welche Datei ein?**
 
+<br>
+
+Ab hier sind die Folien noch nicht überarbeitet!
+
+Wird am Sonntag oder spätestens Montag noch gemacht.
+
 ------------------------------------------------------------------------
 
 ## Hands On!
