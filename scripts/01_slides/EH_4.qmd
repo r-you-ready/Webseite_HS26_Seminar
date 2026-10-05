@@ -1,5 +1,5 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 4"
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 4"
 author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
@@ -197,7 +197,7 @@ Die ursprüngliche Datei unter `data/raw/` wird dadurch **weder verschoben noch 
 
 <br>
 
-Änderungen an einem R-Objekt exisitieren zunächst nur in der laufenden R-Session.
+Änderungen an einem R-Objekt existieren zunächst nur in der laufenden R-Session.
 
 Wenn ein verarbeiteter Datensatz dauerhaft als Datei vorliegen soll, müssen wir ihn **explizit speichern**.
 
@@ -266,7 +266,7 @@ Ein relativer Pfad beschreibt nicht, **wo das Projekt auf meinem Computer gespei
 
 <br>
 
-Genau hier wird unsere gemeinsame Psych-DS-Struktur nützlich: Die Projektstruktur ist bei allen gleich - deshalb sind auch die relativen Pfade alle gleich!
+Genau hier wird unsere gemeinsame Psych-DS-Struktur nützlich: Wenn Projektstruktur und Ausgangspunkt gleich sind, können dieselben relativen Pfaden bei allen funktionieren.
 
 ------------------------------------------------------------------------
 
@@ -288,7 +288,7 @@ Interaktives Arbeiten in aktueller R-Session
 :::
 
 ::: {.column width="50%"}
-**Ausgangspunkt beim Rendern = code**
+**Ausgangspunkt beim Rendern = code/**
 
 Beim Rendern von `processing.qmd`
 
@@ -547,7 +547,7 @@ Wenn IDs nicht zusammenpassen, bleiben diese Fälle als `NA` sichtbar und könne
 
 **In sechs Dateien heisst die Personen-ID `code`, in einer Datei `code_all`.**
 
-![](../../images/full_join_code.png){fig-aling="center" width="75%"}
+![](../../images/full_join_code.png){fig-align="center" width="75%"}
 
 <br>
 
@@ -581,7 +581,7 @@ R kann nicht wissen, dass `code` und `code_all` inhaltlich dieselbe Personen-ID 
 :::
 
 ::: {.column width="25%"}
-`full_join`
+`full_join()`
 
 <br>
 
@@ -631,7 +631,7 @@ Deshalb benötigen wir keine Objekte wie `dat_full_1`, `dat_full_2`, `dat_full_3
 
 ------------------------------------------------------------------------
 
-## Was müsste ein korrekter `dat_full` enthalten?
+## Unsere Erwartungen an `dat_full`
 
 **Wir leiten unsere Erwartungen aus dem Paper und den Rohdaten ab.**
 
@@ -643,7 +643,7 @@ Deshalb benötigen wir keine Objekte wie `dat_full_1`, `dat_full_2`, `dat_full_3
 
 -   Wie viele Variablen? **36 (da ID-Variable nur einmal)**
 
--   Wie viele NAs? **Keine**
+-   Wie viele NAs? **Keine; 159 eindeutige IDs**
 
 ------------------------------------------------------------------------
 
