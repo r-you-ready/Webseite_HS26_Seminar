@@ -3,55 +3,99 @@ title: "Hausübung: Peer-Feedback zum Datenanalyseplan"
 editor: visual
 ---
 
-Im Rahmen des Abschlussprojekts gebt ihr euch gegenseitig Feedback zu euren Datenanalyseplänen. Ziel ist es, den Plan vor der finalen Abgabe zu verbessern und mögliche Unklarheiten oder Lücken frühzeitig zu erkennen.
+Im Abschlussprojekt ist der Datenanalyseplan die Grundlage für eure spätere Auswertung. Bevor ihr ihn finalisiert, schaut deshalb eine andere Person mit einem frischen Blick darauf. Ziel des Peer-Feedbacks ist es, **Unklarheiten, Lücken oder nicht nachvollziehbare Entscheidungen frühzeitig zu erkennen** und den Plan so zu verbessern, dass die geplante Analyse möglichst eindeutig daraus hervorgeht.
 
-### Ablauf
+::: {.callout-tip title="Ziel der Hausübung"}
+Nach dem Peer-Feedback soll eure Partnerperson wissen,
 
-1.  **Musterlösung anschauen**\
-    Schaut euch zunächst die Musterlösung im Ordner *Abschlussprojekt* auf ILIAS an.
+-   **was bereits klar und gut gelungen ist**,
+-   **wo noch Fragen oder Lücken bestehen** und
+-   **wie der Datenanalyseplan konkret verbessert werden kann**.
 
-2.  **Datenanalyseplan eurer Partnerperson prüfen**\
-    Lest den Datenanalyseplan eurer Partnerin oder eures Partners sorgfältig durch und gebt bis **18.03.** Feedback.\
-    Am besten verwendet ihr **Kommentare in Word oder PDF**.
+Gleichzeitig schärft ihr beim Prüfen eines fremden Plans euren Blick dafür, was einen guten und nachvollziehbaren Datenanalyseplan ausmacht.
+:::
 
-3.  **Abgabe**
+## Ablauf
 
-    -   Upload des kommentierten Dokuments auf **ILIAS**
+1.  **Musterlösung als Orientierung anschauen**\
+    Schaut euch zunächst die Musterlösung im Ordner *Abschlussprojekt* auf ILIAS an. Nutzt sie als Orientierung dafür, **welche Informationen und welcher Detailgrad erwartet werden**. Es geht nicht darum, Formulierungen wörtlich zu übernehmen.
 
-    -   Zusätzlich Weitergabe des Feedbacks an eure Partnerperson **per E-Mail**
+2.  **Datenanalyseplan vollständig lesen**\
+    Lest den Plan eurer Partnerperson zunächst einmal vollständig durch. Achtet besonders auf Stellen, an denen ihr ins Stocken geratet oder nicht eindeutig wisst, was gemeint ist.
 
-4.  **Optional: persönliches Feedback**\
-    Wenn ihr möchtet, könnt ihr euch zusätzlich persönlich austauschen und das Feedback gemeinsam besprechen.
+3.  **Plan systematisch prüfen**\
+    Geht den Datenanalyseplan anschliessend ein zweites Mal durch und orientiert euch an den Kriterien weiter unten. Prüft dabei nicht nur einzelne Formulierungen, sondern vor allem, ob der **geplante Analyseweg als Ganzes klar, vollständig und nachvollziehbar** ist.
+
+4.  **Feedback direkt im Dokument formulieren**\
+    Gebt euer Feedback möglichst direkt an der jeweiligen Stelle im Dokument, vorzugsweise mit **Kommentaren in Word oder PDF**. Formuliert konkrete Hinweise, Fragen und Verbesserungsvorschläge. Hebt auch Aspekte hervor, die bereits besonders gut gelungen sind.
+
+5.  **Feedback abgeben und weitergeben**\
+    Gebt euer Feedback bis am **Mittwoch, 14.10.26** ab:
+
+    -   Ladet das kommentierte Dokument auf **ILIAS** hoch.
+    -   Schickt dasselbe Dokument zusätzlich **per E-Mail an eure Partnerperson**.
+
+6.  **Optional: Feedback persönlich besprechen**\
+    Wenn ihr möchtet, könnt ihr euch zusätzlich persönlich austauschen. Das ist besonders hilfreich, wenn ein Kommentar erklärungsbedürftig ist oder ihr gemeinsam über verschiedene Lösungsmöglichkeiten nachdenken möchtet.
+
+## Feedback-Kriterien
+
+Euer Feedback sollte sich vor allem auf die **inhaltliche Qualität und Nachvollziehbarkeit des Datenanalyseplans** beziehen. Die folgenden vier Kriterien helfen euch dabei.
+
+**1. Klarheit und Verständlichkeit**
+
+-   Ist eindeutig beschrieben, **was** gemacht werden soll?
+-   Sind Begriffe, Entscheidungen und Analyseschritte verständlich formuliert?
+-   Gibt es Stellen, an denen ihr interpretieren oder nachfragen müsstet, um zu verstehen, was gemeint ist?
+
+**2. Vollständigkeit**
+
+-   Sind alle Informationen enthalten, die für die geplante Analyse benötigt werden?
+-   Sind die einzelnen Analyseschritte ausreichend beschrieben?
+-   Fehlt eine wichtige Angabe oder Entscheidung, die für die spätere Umsetzung notwendig wäre?
+
+**3. Logik und Passung**
+
+-   Passen die geplanten Analyseschritte zu den Anforderungen der Aufgabe und zum jeweiligen Ziel bzw. zur Fragestellung?
+-   Ist die Reihenfolge der Schritte logisch und nachvollziehbar?
+-   Gibt es Angaben, die sich widersprechen oder nicht gut zusammenpassen?
+
+**4. Nachvollziehbarkeit und Reproduzierbarkeit**
+
+-   Könnte eine andere Person anhand des Plans nachvollziehen, **welche Analyseschritte durchgeführt werden sollen**?
+-   Ist der Plan konkret genug, dass die spätere Umsetzung in R möglichst eindeutig wäre?
+-   Ist bei zentralen Entscheidungen erkennbar, was genau geplant ist, statt dass wichtige Schritte offenbleiben?
+
+Wenn ihr beim Lesen an einer Stelle denkt **„Hier müsste ich nachfragen“**, ist genau das eine gute Stelle für einen Kommentar.
+
+## Hilfreiches Peer-Feedback formulieren
+
+Gutes Peer-Feedback beschreibt nicht nur, **dass** etwas unklar oder verbesserungswürdig ist, sondern macht möglichst deutlich, **warum** und **wie** es verbessert werden könnte.
+
+Eine hilfreiche Struktur ist:
+
+1.  **Beobachtung:** Was ist euch aufgefallen?
+2.  **Begründung:** Warum ist diese Stelle wichtig oder problematisch?
+3.  **Vorschlag oder Frage:** Was könnte ergänzt, präzisiert oder nochmals geprüft werden?
+
+> **Beispiel:** „Bei diesem Analyseschritt ist für mich noch nicht eindeutig, welche Variable verwendet werden soll. Dadurch wäre die spätere Umsetzung in R nicht eindeutig. Ergänze hier am besten, welche Variable genau gemeint ist.“
+
+Achtet ausserdem auf folgende Grundsätze:
+
+-   Gebt **konkretes und begründetes Feedback** statt allgemeiner Aussagen wie „unklar“ oder „passt nicht“.
+-   Bezieht euch auf den **Plan und die Anforderungen der Aufgabe**, nicht auf die Person oder persönliche Vorlieben.
+-   Konzentriert euch zuerst auf **inhaltlich relevante Punkte**. Kleine sprachliche oder gestalterische Details sind nachrangig.
+-   Formuliert sachlich und respektvoll, und hebt auch **besonders gelungene Aspekte** hervor.
+-   Wenn ihr euch bei einem Punkt selbst nicht sicher seid, formuliert ihn als **Frage** statt als vermeintliche Korrektur.
+
+## Bevor ihr abgebt
+
+Prüft zum Schluss kurz, ob ihr an alles gedacht habt:
+
+-   [ ] Ich habe den Datenanalyseplan vollständig gelesen.
+-   [ ] Ich habe die wichtigsten Unklarheiten, Lücken oder nicht nachvollziehbaren Stellen kommentiert.
+-   [ ] Meine Kommentare sind konkret und enthalten, wo sinnvoll, einen Verbesserungsvorschlag oder eine Frage.
+-   [ ] Ich habe auch Gelungenes hervorgehoben.
+-   [ ] Ich habe das kommentierte Dokument auf ILIAS hochgeladen und an meine Partnerperson weitergegeben.
 
 Bei Fragen könnt ihr euch jederzeit über das **Forum oder die Sprechstunde** melden.
-
-------------------------------------------------------------------------
-
-### Worauf ihr beim Feedback achten solltet
-
-Beim Feedback könnt ihr euch insbesondere an folgenden Fragen orientieren:
-
--   **Klarheit und Verständlichkeit**\
-    Sind alle Begriffe und Konzepte ausreichend erklärt? Gibt es unklare oder verwirrende Formulierungen?
-
--   **Vollständigkeit**\
-    Werden alle relevanten Fragen beantwortet? Fehlen wichtige Informationen für die geplante Analyse?
-
--   **Reproduzierbarkeit**\
-    Ist der Analyseplan so beschrieben, dass eine andere Person die Analyse nachvollziehen und reproduzieren könnte?
-
-------------------------------------------------------------------------
-
-### Regeln für gutes Peer-Feedback
-
--   Gebt **fundiertes, konstruktives und gut strukturiertes Feedback**.
-
--   Der Fokus sollte auf der **inhaltlichen Qualität und den Anforderungen der Aufgabe** liegen, nicht auf persönlichen Präferenzen.
-
--   **Konkrete Verbesserungsvorschläge** sind erwünscht – wir wollen aus dem Feedback lernen.
-
--   Bleibt **sachlich und respektvoll** in eurer Formulierung.
-
--   Hebt auch **besonders gelungene Aspekte** hervor.
-
--   Ziel ist nicht nur die Verbesserung der aktuellen Arbeit, sondern auch der **Lernprozess für beide Seiten**.
