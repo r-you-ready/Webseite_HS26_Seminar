@@ -1836,7 +1836,7 @@ Vernwende:
 
 `dim()`
 
-Prüfe, ob der Datensatz tatsächlich über 159 Spalten und 36 Spalten verfügt.
+Prüfe, ob der Datensatz tatsächlich über 159 Zeilen und 36 Spalten verfügt.
 
 ### Warum prüfen wir beides?
 
