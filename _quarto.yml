@@ -59,7 +59,7 @@ website:
       - href: scripts/04_misc/muddiest_points.qmd
         text: "Muddiest Points"
         contents:
-          - href: scrips/04_misc/muddiest_points_1.qmd
+          - href: scripts/04_misc/muddiest_points_1.qmd
             text: "Muddiest Points I"
       - href: scripts/03_faq/faq.qmd
         text: "FAQ"
