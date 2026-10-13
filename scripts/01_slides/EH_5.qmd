@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 5"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 5"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,221 +21,461 @@ draft: true
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**5. Einheit**, 18.03.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**5. Einheit**, 14.10.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
+
+::: notes
+Willkommen zur fünften Einheit. In der letzten Sitzung haben wir unsere sieben Rohdatensätze zusammengeführt. Damit besitzen wir zum ersten Mal einen Datensatz, in dem die Informationen der 159 VPN gemeinsam vorliegen.
+
+Heute beschäftigen wir uns damit, was diese Daten eigentlich bedeuten und wie wir diese Informationen so dokumentieren, dass unser Datensatz auch für andere Personen verständlich und nutzbar wird.
+:::
 
 ------------------------------------------------------------------------
 
-## Heute:
+## Organisatorisches und offene Fragen
 
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
+<br>
+
+✓ **Datenanalyseplan:** bereits abgegeben
+
+○ **Peer-Feedback Datenanalyseplan:** bis heute um 23:55 Uhr
+
+📅 **Codebook-Abgabe:** Mittwoch, 21.10.
+
+<br>
+
+Die Materialien und Aufgaben findet ihr wie gewohnt auf unserer Seminarwebseite und auf ILIAS.
+
+::: notes
+Zuerst noch zwei organisatorische Punkte: Heute ist das Peer-Feedback zum Datenanalyseplan fällig. Die entsprechende Anleitung findet ihr auf unserer Webseite.
+
+Ausserdem steht nächste Woche die erste Codebook-Abgabe an. Genau dafür werden wir heute die notwendigen Grundlagen erneut anschauen und anschliessend im Hands-on praktisch anwenden. Falls euch beim Zusammenführen der Daten noch etwas unklar geblieben ist, können wir das kurz besprechen. Ihr habt während den Übungen auch noch Zeit, die Musterlösungen von letzter Woche anzuschauen und ggf. die Übungen 2 noch zu Ende durchzuführen. Der dritte Übungsblock ist vom Umfang her deutlich kürzer.
+:::
+
+------------------------------------------------------------------------
+
+##  {data-background-iframe="../../PDFs/Muddiest_Points_I.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
+## Wo befinden wir uns?
+
+**AUFBEREITEN: Daten verstehen und dokumentieren**
+
+<br>
+
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
+
+<br>
+
+Was bedeuten die Daten in `dat_full`?
+
+::: notes
+Wir haben in den letzten Einheiten eine klare Reihenfolge verfolgt.
+
+Zuerst haben wir unseren Analyseplan erstellt und gelernt, wie wir unser Forschungsprojekt organisieren. Anschliessend haben wir die sieben Rohdatensätze importiert und über die Personen-ID zusammengeführt.
+
+Nun stehen wir vor dem nächsten Schritt: Wir haben zwar einen gemeinsamen Datensatz, aber bevor wir einzelne Variablen verändern oder analysieren, müssen wir wissen, was sie überhaupt bedeuten. Deshalb untersuchen und dokumentieren wir heute unseren Datensatz.
+
+Nächste Woche bauen wir direkt darauf auf und lernen, wie wir die notwendigen Verändeurngen mit R durchführen können.
+:::
+
+------------------------------------------------------------------------
+
+## Repetition: Ein Datensatz erklärt sich nicht selbst
+
+**Wir haben `dat_full`, aber verstehen wir auch seine Variablen?**
+
+<br>
+
+| Variable     | Beispielwert |
+|--------------|--------------|
+| `code`       | 1            |
+| `group_all`  | above        |
+| `strategies` | 2            |
+| `pre1`       | 6.2          |
+| `question1`  | 2            |
+
+<br>
+
+Was können wir aus diesen Werten allein erkennen - und was nicht?
+
+::: notes
+Wir haben in der dritten Einheit bereits theoretisch bespreochen, was ein Codebook ist und welchem Zweck es dient. Heute schauen wir uns das einmal praktisch an und füllen auch eine Variable gemeinsam aus.
+
+Schauen wir uns ein paar Werte aus unserem Datensatz an.
+
+Bei `code` wissen wir inzwischen, dass diese Zahl die durchgängige Personen-ID einer Person kennzeichnet. Bei `pre1` sehen wir eine Zahl wie 6.2. Aber was wurde damit gemessen? Was bedeutet `above` in `group_all` genau? Und was sagt uns eine 2 in `strategies`?
+
+Wie wir schon gesehen haben, reichen einzelne Werte nicht aus, um die Daten wissenschaftlich korrekt zu interpretieren. Dafür brauchen wir zusätzliche Informationen: Welche Variablen wurden wie erhoben? Welche Werte sind möglich? Und was bedeuten diese Werte?
+
+Genau diese Informationen wollen wir heute systematisch zusammentragen.
+:::
+
+------------------------------------------------------------------------
+
+## Wie ist unser `dat_full` aufgebaut?
+
+`dat_full` **ist ein Data Frame bzw. Tibble**
+
+<br>
+
+::::: columns
+::: {.column width="75%"}
+| `code` | `group_all` | `strategies` | `pre1` | `question1` |
+|--------|-------------|--------------|--------|-------------|
+| 1      | above       | 1            | 6.2    | 2           |
+| 2      | control     | 1            | 5.5    | 3           |
+| 3      | below       | 2            | 8.7    | 2           |
+:::
+
+::: {.column width="25%"}
+<br>
+
+**159 Zeilen = Personen**
+
+**36 Spalten = Variablen**
+:::
+:::::
+
+<br><br>
+
+**Jede Spalte enthält die Werte einer Variable. Unterschiedliche Spalten können unterschiedliche Datentypen besitzen.**
+
+::: notes
+Bevor wir die einzelnen Variablen dokumentieren, schauen wir uns nochmals kurz an, wie unser Datensatz in R aufgebaut ist.
+
+`dat_full` ist ein Data Frame, genauer gesagt in unserem Fall ein Tibble. Ein Tibble ist eine moderne Variante eines Data Frames.
+
+Wir haben 159 Zeilen, weil unser Datensatz 159 VPN enthält. Jede Zeile entspricht einer Person.
+
+Daneben besitzen wir 36 Spalten. Jede Spalte repräsentiert eine Variable. Besonders wichtig ist, dass nicht alle Spalten denselben Datentyp haben müssen. In einer Spalte können Zahlen stehen, in einer anderen Textwerte. Und genau diese Unterschiede schauen wir uns als Nächstes an.
+:::
+
+------------------------------------------------------------------------
+
+## Welche Datenstrukturen gibt es in R?
+
+**Die wichtigsten Datenstrukturen im Überblick**
+
+<br>
+
+| Datenstruktur | Aufbau | Beispiel |
+|-------------------|-----------------------------|------------------------|
+| Vektor | Folge von Werten desselben Datentyps | Variable mit Ratings |
+| Matrix | Zweidimensionale Struktur mit einheitlichem Datentyp | Numerische Messwertmatrix |
+| Liste | Kann unterschiedliche Objekte und Datenstrukturen enthalten | Ergebnisse verschiedener Analysen |
+| Data Frame / Tibble | Tabelle aus gleich langen Spalten, deren Datentypen unterschiedlich sein dürfen | Unser `dat_full` |
+
+<br>
+
+Ein Data Frame besteht aus mehreren Spalten. Jede dieser Spalten lässt sich wie ein Vektor untersuchen und bearbeiten.
+
+::: notes
+In Hands-on 1 haben wir bereits verschiedene Objekte in R kennengelernt. Ordnen wir sie nochmals kurz ein.
+
+Ein Vektor enthält mehrere Werte desselben grundlegenden Datentyps. Bspw. können wir die Ratings aller VPN als numerischen Vektor betrachten.
+
+Eine Matrix besitzt Zeilen und Spalten. Im Unterschied zu einem Data Frame haben alle Elemente einer gewöhnlichen Matrix denselben Datentyp.
+
+Eine Liste ist flexibler. Sie kann unterschiedliche Objekte enthalten, etwa einen Datensatz, einen Vektor und eine Tabelle mit Ergebnissen.
+
+Für unsere Arbeit steht aber der Data Frame im Mittelpunkt. Er organisiert verschiedene Variablen gemeinsam in einer Tabelle. Dabei können die Spalten unterschiedliche Datentypen besitzen. Wenn wir nachher eine einzelne Variable mit einem Dollarzeichen auswählen, greifen wir auf eine solche Spalte zu.
+:::
+
+------------------------------------------------------------------------
+
+##  {data-background-iframe="../../PDFs/Verschiedene_Datentypen_in_R.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
+## Welche Datentypen finden wir in R?
+
+**Datentypen bestimmen, wie R Werte speichert und verarbeitet**
+
+<br>
+
+| Datentyp | Bedeutung | Beispiel |
+|-------------------|---------------------------|---------------------------|
+| `numeric` | Zahlen, einschliesslich Dezimalzahlen | `6.2`, `0.75`, `159` |
+| `character` | Text und Zeichenfolgen | `"above"`, `"control"` |
+| `logical` | Wahrheitswerte | `TRUE`, `FALSE` |
+| `factor` | Kategoriale Variable mit definierten Faktorstufen | `control`, `below`, `above` |
+
+::: notes
+Neben der Datenstruktur ist der Datentyp einer Variable wichtig.
+
+Numerische Variablen enthalten Zahlen.
+
+Character-Variablen enthalten Zeichenfolgen, bspw. die Bezeichnungen unserer Experimentalgruppen.
+
+Logical-Variablen enthalten Wahrheitswerte, also TRUE und FALSE.
+
+Eine weitere wichtige Klasse sind Faktoren. Sie werden verwendet, um kategoriale Variablen in R darzustellen. Wir werden später dann noch unsere Experimentalgruppen, welche momentan noch ein character sind, zu einem Faktor umwandeln. Faktoren besitzen definierte Faktorstufen, sogenannte Levels. Wie wir diese gezielt festlegen, behandeln wir nächste Woche ausführlicher. Wichtig ist einfach einmal, dass ihr schon einmal davon gehört habt.
+
+Bei unserem aktuellen Datensatz ist wichtig, dass group_all noch als character gespeichert ist. Auch strategies ist aktuell numerisch gespeichert. Das wird für die Codebook-Erstellung gleich eine wichtige Rolle spielen.
+:::
+
+------------------------------------------------------------------------
+
+## Datentyp ist nicht gleich Bedeutung
+
+**Entscheidend ist nicht nur, wie R eine Variable speichert, sondern auch, was ihre Werte bedeuten**
+
+<br>
+
+| Variable     | Datentyp in R | Wissenschaftliche Bedeutung          |
+|--------------|---------------|--------------------------------------|
+| `code`       | Numeric       | Identifikation einer Person          |
+| `group_all`  | Character     | Nominale Experimentalbedingung       |
+| `strategies` | Numeric       | Nominale Strategiekategorie          |
+| `pre1`       | Numeric       | Quantitative Leistungseinschätzung   |
+| `question1`  | Numeric       | Einzelnes ordinal kodiertes MMQ-Item |
+
+<br>
+
+**Eine Zahl ist nicht automatisch eine quantitative Messgrösse.**
+
+`strategies = 2` bedeutet nicht "doppelt so viel wie Strategie 1", sondern bezeichnet eine bestimmte Kategorie.
+
+::: notes
+Hier kommen wir zu einer der wichtigsten Unterscheidungen der heutigen Einheit. Wenn R erkennt, dass eine Variable numerisch gespeichert ist, sagt uns das zunächst nur etwas über ihren technischen Datentyp.
+
+Es sagt noch nicht, ob wir die Zahlen sinnvoll als Mengen oder Messwerte interpretieren dürfen.
+
+Schauen wir uns code an: Obwohl dort Zahlen stehen, handelt es sich lediglich um Personenerkennungen. Eine Person mit dem Code 100 besitzt nicht mehr von irgendeinem psychologischen Merkmal als eine Person mit den Code 20.
+
+Ähnlich ist es bei strategies: Die Werte 1, 2 und 3 repräsentieren unterschiedliche Strategiekategorien. Sie bilden keine quantitative Skala.
+
+Bei pre1 it das anders. Hier beschreibt die Zahl eine subjektive Leistungseinschätzung, deren Grösse für unsere spätere Auswertung relevant ist.
+
+Und bei den MMQ-Items finden wir wieder eine andere Situation: Die numerischen Werte repräsentieren geordnete Antwortkategorien.
+
+Deshalb müssen wir bei der Codebook-Erstellung immer beides dokumentieren: Wie ist die Variable technisch gespeichert, und was bedeutet sie inhaltlich?
+
+**Übergang:** Wir haben nun verstanden, weshalb der Datentyp allein nicht reicht. Als Nächstes lernen wir, was wir direkt aus unserem Datensatz herausfinden können und wofür wir zusätzliche Forschungsunterlagen brauchen.
+:::
+
+------------------------------------------------------------------------
+
+## Was können wir direkt mit R herausfinden? (1)
+
+**Wir können unsere Variablen systematisch untersuchen**
+
+<br>
+
+```{r, echo=FALSE, eval=TRUE}
+library(dplyr)
+library(tidyverse)
+dat_full <- readr::read_delim("raw/dat_full.csv")
 ```
-:::
 
-------------------------------------------------------------------------
+```{r, echo=TRUE, eval=FALSE}
+# Überblick über den Datensatz
+glimpse(dat_full)
+```
 
-## Muddiest Points I: Inhalte
+<br>
 
-Eure Fragen und Anmerkungen liessen sich in folgende 3 Blöcke einteilen:
+```{r, echo=TRUE, eval=TRUE}
+# Datentyp einer Variable
+class(dat_full$strategies)
+```
 
-1.  Fragen zum Codebook
+<br>
 
-2.  Fragen zum Datenanalyseplan
-
-3.  Sonstige Fragen
-
-------------------------------------------------------------------------
-
-## Live-Demonstration Codebook
-
--   Wie genau soll das Codebook bearbeitet werden?
-
--   Wo findet man die entsprechenden Angaben?
-
--   Wofür kann man das dann nutzen?
-
--\> Gemeinsames Einfügen einer Variable
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan
-
-**Research Questions:** Für jede RQ auch ein "Statistical Model"
-
--   Beeinflusst Fake-Performance Feedback die metakognitiven Überzeugungen der Versuchspersonen (im Sinne von subj. Leistungseinschätzungen) über ihre Arbeitsgedächtnisleistung?
-
-    -   👉 *2x3 ANOVA der subj. Leistungseinschätzungen*
-
--   Gibt es Unterschiede zwischen den Gruppen bezüglich des Offloading-Verhaltens im Pattern Copy Task?
-
-    -   👉 *One-way ANOVA für jede Offloading-Variable (3x)*
-
--   Explorativ: Gibt es Unterschiede zwischen den Gruppen bezüglich der Leistung im Pattern Copy Task?
-
-    -   👉 One-way ANOVA für Trial Dauer
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan (2)
-
-**Research Questions:** Für jede RQ auch ein "Statistical Model"
-
--   Explorativ: Gibt es Unterschiede zwischen den Gruppen in Bezug auf den Glauben in ihre generellen Gedächtnisfähigkeiten?
-
-    -   👉 *One-way ANOVA für MMQ*
-
--   Gibt es Unterschiede zwischen den Gruppen bezüglich ihrer Gedächtnisleistung im Feature Switch Detection Task?
-
-    -   👉 *One-way ANOVA für Arbeitsgedächtnisleistung*
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan (3)
-
-**Hypothesen**
-
-**Basierend auf RQ1:** Wir erwarten einen Interaktionseffekt der subjektiven Leistungseinschätzung. Bei der ersten Leistungseinschätzung erwarten wir keine Unterschiede zwischen den Gruppen, während wir unmittelbar vor dem Pattern Copy Task (4te Leistungeinschätzung) Unterschiede zwischen den drei Gruppen erwarten. Die unterdurchschnittliche-Gruppe wird ihre Leistung am niedrigsten bewerten, gefolgt von der Kontrollgruppe und der „überdurchschnittlichen“-Gruppe, von der wir erwarten, dass sie ihre kommende Leistung am höchsten bewertet.
-
-**Basierend auf RQ2:** Wir erwarten, dass die Versuchspersonen, die ein unterdurchschnittliches Leistungsfeedback erhalten, sich mehr Offloading-Verhalten zeigen als Versuchspersonen mit überdurchschnittlichem Feedback, während die Kontrollgruppe (ohne Feedback) zwischen den beiden liegt.
-
-**Explorativ:** RQ3 und RQ4
-
-**Basierend auf RQ5:** Wir erwarten keine Gruppenunterschiede in Bezug auf die Arbeitsgedächtniskapazität
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan (4)
-
-**Abhängige Variablen/Measured Variables:**
-
--   **Subjektive Leistungseinschätzungen: (für RQ1)**
-
-    -   Vor jedem Task (4x) gaben die Versuchspersonen an, wie gut sie ihre bevorstehende Leistung im Vergleich zu anderen Studierenden einschätzten (0–100 Percentile).
-
-    -   Ein zusätzliches Post-Rating wurde nach dem Pattern Copy Task erhoben, um die eingeschätzte Leistung nach der Aufgabenbearbeitung zu erfassen.
-
--   **Offloading-Verhalten: (für RQ2)**
-
-    -   Anzahl der Öffnungen des Modellfensters (Mittelwert aus 20 Trials)
-
-    -   Anzahl korrekt kopierter Items nach der ersten Öffnung (Mittelwert aus 20 Trials)
-
-    -   Dauer der ersten Öffnung (Mittelwert aus 20 Trials). 
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan (5)
-
-**Abhängige Variablen/Measured Variables:**
-
--   **Leistung im Pattern Copy Task:**
-
-    -   (für RQ3) - Trial Dauer (Mittelwert aus 20 Trials)
-
--   **MMQ**
-
-    -   (Mittelwert aus 18 Items) (für RQ4)
-
--   **Arbeitsgedächtnisleistung**
-
-    -   Feature Switch Detection Task (Proportion richtiger Antworten bei 120 trials) (für RQ5)
-
-------------------------------------------------------------------------
-
-## Datenanalyseplan (6)
-
-**Analyses - Statistical Models**
-
-1.  Beeinflusst Fake-Performance Feedback die metakognitiven Überzeugungen der Versuchspersonen (im Sinne von subj. Leistungseinschätzungen) über ihre Arbeitsgedächtnisleistung? 👉 **2x3 mixed ANOVA der «subjective performance ratings» mit post-hoc t-Tests. Unabhängige Variablen: Zeitpunkt der Selbsteinschätzung (1. vs. 4); 3 Gruppen**
-
-2.  Gibt es Unterschiede zwischen den Gruppen bezüglich des Offloading-Verhaltens im Pattern Copy Task? 👉 **One-way ANOVA für jede Offloading Variable. UV: 3 Gruppen**
-
-3.  Explorativ: Gibt es Unterschiede zwischen den Gruppen bezüglich der Leistung im Pattern Copy Task? 👉 **One-way ANOVA für Trial Dauer. UV: 3 Gruppen**
-
-4.  Explorativ: Gibt es Unterschiede zwischen den Gruppen in Bezug auf den Glauben in ihre generellen Gedächtnisfähigkeiten? 👉 **One-way ANOVA für MMQ mit post-hoc t-Tests. UV: 3 Gruppen**
-
-5.  Gibt es Unterschiede zwischen den Gruppen bezüglich ihrer Gedächtnisleistung im Feature Switch Detection Task? 👉 **One-way ANOVA für Arbeitsgedächtnisleistung; UV: 3 Gruppen**
-
-------------------------------------------------------------------------
-
-## {data-background-iframe="../../PDFs/Muddiest_Points_I.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
-
-------------------------------------------------------------------------
-
-## Fragen Hands On Block 2?
-
-![](../../images/EH_2_files/fragen.png){fig-align="center"}
+```{r, echo=TRUE, eval=TRUE}
+# Vorhandene Kategorien
+unique(dat_full$strategies)
+```
 
 ::: notes
--   Mergen / Full_join
+Wir müssen glücklicherweise nicht jede Spalte manuell anschauen, um herauszufinden, welche Werte darin vorkommen. R stellt uns verschiedene Funktiionen zur Dateninspektion zur Verfügung.
 
--   Funktionen, Tastenkombinationen, Styler –\> wenn noch nicht gemacht heute nachholen
+Mit `glimpse()` erhalten wir zunächst einen Überblick über den gesamten Datensatz. Wir sehen u.a. die vorhandenen Variablen und ihre Datentypen.
+
+Mit `class()` können wir den Datentyp einer einzelnen Variable untersuchen.
+
+`unique()` zeigt uns, welche unterschiedlichen Werte vorkommen. Gerade bei kategorialen Variablen ist das sehr hilfreich.
 :::
 
 ------------------------------------------------------------------------
 
-## Reproduzierbare Auswertung: Quarto
+## Was können wir direkt mit R herausfinden? (2)
 
--   Open Source Publishing System: Nachfolger von RMarkdown
+**Wir können unsere Variablen systematisch untersuchen**
 
--   Kombination von Text, Code und Resultaten 👉 Hohe Reproduzierbarkeit
+<br>
 
--   Kann für diverse Arten von Dokumenten verwendet werden:
+```{r, echo=TRUE, eval=TRUE}
+# Häufigkeiten
+table(dat_full$strategies)
+```
 
-    ✏️Dokumente & Projekte
+<br>
 
-    📊 Analysen und Reports
+```{r, echo=TRUE, eval=TRUE}
+# Beobachteter Wertebereich
+range(dat_full$pre1)
+```
 
-    🌐Websites & Blogs
+<br>
 
-    📱Slides und [Shinyapps](https://gallery.shinyapps.io/064-telephones-by-region/?_gl=1z7uznf_gaMTQ1NzEyMzY1My4xNzU4MTAwOTM3_ga_2C0WZ1JHG0*czE3NjA0MjU5MzYkbzgkZzAkdDE3NjA0MjU5MzgkajU4JGwwJGgw)
+**Was erfahren wir daraus?**
+
+Datentyp, vorhandene Werte, Häufigkeiten, beobachteter Wertebereich
 
 ::: notes
-Live vorzeigen, wie die Oberfläche von Quarto aussieht.
+Mit `table()` erhalten wir zusätzlich die Häufigkeiten der einzelnen Werte.
 
--   Quarto erstellen
+Und `range()` gibt uns bei einer numerischen Variable den kleinsten und grössten tatsächlich vorkommenden Wert zurück. Die Funktion ermittelt den beobachteten Wertebereich, nicht automatisch das theoretische Minimum und Maximum.
 
--   Neuen Code-Chunk erstellen
+Diese Funktionen helfen uns, unsere Daten kennenzulernen. Aber sie können uns nicht automatisch erklären, was die einzelnen Zahlen oder Kategorien wissenschaftlich bedeuten.
 
--   Rendern und Header anpassen
-
--   Inline Code
+**Übergang:** R zeigt uns, welche Werte gespeichert sind. Wo finden wir nun heraus, was diese Werte bedeuten?
 :::
 
 ------------------------------------------------------------------------
 
-## Selbstständiges Arbeiten: Hands on Block 3
+## Repetition: Ein Codebook entsteht aus mehreren Informationsquellen (1)
+
+<br>
+
+![](../../images/Informationen_Codebook.png){fig-align="center" width="85%"}
 
 ------------------------------------------------------------------------
 
-## Was haben wir heute gemacht?
+## Repetition: Ein Codebook entsteht aus mehreren Informationsquellen (2)
 
--   Offene Fragen (*Muddiest Points*) aufgegriffen
+<br>
 
--   Live-Demonstration **Codebook**
+**Datensatz (`dat_full`)**
 
--   Wichtigste Punkte im **Datenanalyseplan** besprochen
+Variablennamen, Datentypen
 
--   **Quarto** kennengelernt
+<br>
+
+`Informationen_zu_Daten.xlsx`
+
+Variablenbeschreibungen, Kodierungen und Bedeutung der Kategorien
+
+<br>
+
+**Paper und weitere Studiendeokumente**
+
+Erhebung, Studiendesign, eingesetzte Instrumente, mögliche Änderungen im Vergleich zum momentanen Zustand von `dat_full`
+
+<br>
+
+**-\> Keine einzelne Quelle liefert automatisch sämtliche Informationen.**
+
+::: notes
+Ein Codebook lässt sich normalerweise nicht einfach aus einer einzigen Datei übernehmen. Unser Datensatz verrät uns, welche Variablen vorhanden sind, welchen Datentyp sie besitzen und welche Werte tatsächlich vorkommen.
+
+In `Informationen_zu_Daten.xlsx` finden wir zusätzliche Informationen zu den einzelnen Rohdatensätzen, den Variablen und bestimmten Kodierungen.
+
+Das Paper erklärt wiederum, wie die Daten erhoben wurden, welche Aufgabe die Teilnehmenden bearbeitet haben und was die erhobenen Merkmale bedeuten.
+
+Die unterschiedlichen Quellen ergänzen sich also gegenseitig.
+:::
 
 ------------------------------------------------------------------------
 
-## Bis nächstes Mal:
+## Unsere Codebook-Vorlage
 
--   Datenanalyseplan:
-    -   Peer Feedback selbstständig anschauen und Datenanalyseplan überarbeiten
-    -   Bei Fragen oder für weitere Feedback -\> selbsständig auf uns zu kommen
--   Abgabe **Codebook** (ILIAS und Peer–Partner:innen) bis zum **25.03.2026**
+**Unsere Excel-Vorlage enthält drei Arbeitsblätter**
 
-**Reminder Instruktionen:**
+<br>
 
--   Notwendig für „gemergten“ Datensatz „dat_full“ (159 Versuchspersonen & 36 Variablen)
+🗂️ **Metadata**
 
--   Vorlage ist auf Englisch, kann aber auch auf Deutsch ausgefüllt werden (selbes gilt für Datenanalyseplan)
+Allgemeine Informatioenn zur Studie und zur Datenerhebung
 
--   Basierend auf Horstmann et al. (2020)
+<br>
+
+📖 **Codebook**
+
+Eine Zeile pro Variable in `dat_full`; Beschreibung, Datentyp, Kodierung und weitere Informationen
+
+<br>
+
+🏷️ **response_labels**
+
+Zuordnung gespeicherter Antwortcodes zu ihrer Bedeutung
+
+<br>
+
+**Unser Codebook bezieht sich auf `dat_full` - nicht auf alle sieben Rohdateien einzeln und nicht auf den späteren Long-Datensatz.**
+
+::: notes
+Öffnet bei euch nun einmal eure Vorlage.
+
+Ihr seht, dass diese drei unterschiedliche Arbeitsblätter enthält.
+
+Im ersten Blatt, Metadata, halten wir allgemeine Informationen zur Studie fest. Bspw., worum es in der Untersuchung geht und wie die Daten erhoben wurden.
+
+Im zweiten Blatt, Codebook, dokumentieren wir die einzelnen Variablen. Hier gilt grundsätzlich: Eine Spalte aus unserem Datensatz entspricht einer Zeile im Codebook. Aktuell besitzt dat_full 36 Variablen, weshalb wir diese 36 Variablen dokumentieren müssen.
+
+Das dritte Blatt enthält die Response Labels. Response Labels dienen bei kategorialen Variablen dazu, die verschiedenen möglichen Ausprägungen der Variable sowie deren Bedeutung festzuhalten. Bei strategies könnten wir dort bspw. festhalten, dass der Wert 1 für eine interne Gedächtnisstrategie und der Wert 2 für eine Offloading-Strategie steht.
+:::
+
+------------------------------------------------------------------------
+
+::: {.absolute top="30%" left="15%" style="font-size: 3em;"}
+**Live-Demo Codebook**
+
+`strategies`
+:::
+
+::: notes
+-   **Number of item:** Hier handelt es sich einfach um eine Nummerierungsvariable des Codebooks. Wir fangen bei der 1 in der ersten Zeile an und nummerieren sämtliche Zeilen einmal durch. Diese Nummer hat keine inhaltliche Bedeutung für die Variablen. Je nachdem, in welcher Reihenfolge ihr die verschiedenen Rohdatensätze zusammengefügt habt, wird sich dies bei euch unterscheiden. Wir setzen hier einmal eine 1 hin, weil es die erste Zeile ist. Passt das bei euch entsprechend an.
+
+-   **Name of data frame:** Auch diese Angabe ist sehr einfach. Dies ist bei sämtlichen Variablen dat_full, da dies unser Datensatz ist, für den wir das Codebook erstellen.
+
+-   **Name of the variable:** Hierhin kommt der exakte Variablenname, wie er im Datensatz geschrieben ist. Dies können wir mit der Funktion names() prüfen oder wir schauen uns einfach den Datensatz genau an. Dies ist hier `strategies`. Dabei sind auch die Schreibweise und mögliche Unterstriche relevant.
+
+-   **Type:** Das ist der technische Datentyp im aktuellen Datensatz. Dies haben wir zuvor mit dat_full\$strategies überprüft, es handelt sich um eine numeric Variable. Obwohl es sich also inhaltlich um eine kategoriale Variable handelt, tragen wir hier also zunächst numeric ein. Der Datentyp und die inhaltliche Bedeutung sind nicht dasselbe.
+
+-   **Questionnaire/Source:** Hier können wir angeben, aus welchem Fragebogen, Test oder Aufgabe eine bestimmte Variable stammt. Hier können wir im Paper nachlesen, dass die Variable in einer Befragung nach dem Pattern Copy Task erhoben wurde. Wir könnten also schreiben: `Post-task strategy question (Pattern Copy Task)`
+
+-   **Dimension:** Hier können wir angeben, ob die Variable zu einer übergeordneten Skala oder Dimension gehört. Das trifft in unserem Fall nicht zu, deswegen -
+
+-   **Response Format:** Das Response Format betrifft die Art und das Format der Antwortgabe. Hier können wir bspw. anhand des Papers entnehmen: Categorical self-report of strategy use; three recorded codes
+
+-   **Response labels:** Hier kommt, wenn zutreffend, der Verweis auf die Bedeutung der gespeicherten Antwortcodes bei kategorialen Variablen. Wir können hier bspw. `response_list_strategies` schreiben. Wir tragen also nicht einfach die Werte ein, sondern erstellen im dritten Tabellenblatt eine Liste, die erklärt, was diese Codes bedeuten. Damit das Codebook diese Liste verweisen kann, erhält sie einen eindeutigen Namen.
+
+    Hier dann zu response_labels wechseln und ausfüllen. Wir haben bei unserer Variable strategies dokumentiert, dass drei verschiedene Codes vorkommen. Aber damit eine andere Person unsere Daten interpretieren kann, reicht die Information 1, 2 und 3 nicht aus. Wir müssen also angeben, welche Strategie jeder dieser Codes bezeichnet.
+
+response_list_strategie; Coded response (1, 2, 3); Label (Internal memory strategy, Offloading strategy, Both strategies)
+
+-   **Theoretical minimum:** Kleinster zulässiger Code bzw. theoretischer Wert. Das ist hier die 1.
+
+-   **Theoretical maximum:** grösster zulässiger Code bzw. theoretischer Wert. Das ist hier die 3.
+
+-   **Coding of item:** Hier kommen Informationen zu inverser Codierung oder erforderlicher Umkodierung. Das ist bei dieser Variable nicht der Fall, weswegen ein - kommt.
+
+-   **Coding of missing data:** Hierhin kommt, wie fehlende Werte in dieser Variable kodiert sind. Da in unseren Originaldaten keine fehlenden Werte vorkommen, kommt hier ein -
+
+-   **Composition of item:** Wie wurde die Variable gebildet? Handelt es sich um einen Einzelwert, eine Summe oder ein Mittelwert? Hier ist es ein `single strategy self-report item`
+
+-   **Brief verbal description:** Hierhin kommt eine kurze inhaltliche Beschreibung der Variable. `Self-reported strategy used during the Pattern Copy Task`
+
+-   **Reference:** Was ist die wissenschaftliche Quelle des Instruments oder der Erhebung? `Grinschgl et al. (2020)`
+
+-   **Comment:** Hierhin könnt ihr zusätzliche Informationen schrieben, welche zum korrekten Verständnis hilfreich oder nötig sind. Hier könnten wir das Feld frei lassen. Es sind eigentlich keine zusätzlichen Informationen mehr nötig. Ihr dürft aber gerne Infos für euch ergänzen, z.B. `Numerically coded nominal variable; code 3 denotes both strategies.`
+:::
+
+------------------------------------------------------------------------
+
+## Jetzt: Hands-on 3 - Teil A
+
+<br>
+
+Ihr dokumentiert selbstständig `group_all` und seine Response Labels. Anschliessend übertragt ihr das Vorgehen auf die übrigen Variablen.
+
+<br>
+
+**Codebook-Abgabe: 21.10.2026**
+
+Diese Abgabe dokumentiert den zusammengeführten Datensatz nach EH4. Veränderungen werden fortlaufend nachgeführt und dokumentiert.

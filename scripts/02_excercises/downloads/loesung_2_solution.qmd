@@ -21,7 +21,13 @@ Bei Bedarf finden sich hier nochmal die Slides zu Einheit 3:
 </iframe>
 :::
 
-Die Slides zu EH4 werden kurz vor der Vorlesung eingefügt.
+Und hier die Slides zu Einheit 4:
+
+::: {=html}
+<iframe src="../01_slides/EH_4.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+
+</iframe>
+:::
 
 ## 🧭 Wo befinden wir uns?
 
@@ -1830,7 +1836,7 @@ Vernwende:
 
 `dim()`
 
-Prüfe, ob der Datensatz tatsächlich über 159 Spalten und 36 Spalten verfügt.
+Prüfe, ob der Datensatz tatsächlich über 159 Zeilen und 36 Spalten verfügt.
 
 ### Warum prüfen wir beides?
 
