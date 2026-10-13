@@ -42,6 +42,8 @@ website:
             text: "Hands-on 1 (Woche 1 - 2)"
           - href: scripts/02_excercises/loesung_2.qmd
             text: "Hands-on 2 (Woche 3 - 4)"
+          - href: scripts/02_excercises/loesung_3.qmd
+            text: "Hands-on 3 (Woche 5 - 6)"
       - href: hausuebungen.qmd
         text: "Hausübungen"
         contents:
