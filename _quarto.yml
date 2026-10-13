@@ -33,6 +33,8 @@ website:
             text: "Einheit 3 - 30.09.2026"
           - href: scripts/01_slides/EH_4.qmd
             text: "Einheit 4 - 07.10.2026"
+          - href: scripts/01_slides/EH_5.qmd
+            text: "Einheit 5 - 14.10.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 
