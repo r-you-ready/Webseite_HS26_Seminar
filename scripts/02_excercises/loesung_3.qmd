@@ -6,7 +6,7 @@ show_solutions: false
 format:
   html:
     code-tools: false
-draft: true
+draft: false
 ---
 
 ```{r, include = FALSE}
@@ -53,7 +53,7 @@ In Hands-on 2 haben wir unsere sieben Rohdatensätze zu `dat_full` zusammengefü
 
 Wir wissen jetzt, welche Informationen zur gleichen Versuchsperson gehören. Allerdings bedeutet das noch nicht automatisch, dass wir auch alle Variablen richtig verstehen oder bereits für unsere späteren Analysen verwenden können.
 
-Deshalb beschäftigen wir und in diesem Übungsblock mit zwei aufeinanderfolgenden Schritten:
+Deshalb beschäftigen wir uns in diesem Übungsblock mit zwei aufeinanderfolgenden Schritten:
 
 **Teil 1 - Daten verstehen und dokumentieren (nach EH5)**
 
@@ -85,7 +85,7 @@ In diesem Hands-on verwenden wir drei unterschiedliche Arbeitsorte:
 
 **Merkt euch:** Nicht jeder R-Befehl muss ins Processing-Skript!
 
-In **Teil 1** arbeitet ihr hauptsächlich in der R-Konsole und im Excel-Codebook. Die R-Befehle helfen euch dabei, Informationen über die Variablen zu gewinnen. Ihr müsst die anschliessend nicht aus dem Processing-Skript löschen, weil ihr sie gar nicht erst dort einfügt.
+In **Teil 1** arbeitet ihr hauptsächlich in der R-Konsole und im Excel-Codebook. Die R-Befehle helfen euch dabei, Informationen über die Variablen zu gewinnen. Ihr müsst diese Befehlt anschliessend nicht aus dem Processing-Skript löschen, weil ihr sie gar nicht erst dort einfügt.
 
 In **Teil 2** probiert ihr neue Funktionen zunächst teilweise in der Konsole aus. Die eigentlichen Transformationen ergänzt ihr danach dauerhaft an der passenden Stelle in `processing.qmd`.
 
@@ -107,7 +107,7 @@ Nach diesem Hands-on-Block könnt ihr:
 
 -   eure Transformationen an der richtigen Stelle in `processing.qmd` integrieren;
 
--   der Erfolg eurer Verarbeitungsschritte überprüfen und die Dokumentation entsprechend aktualisieren.
+-   den Erfolg eurer Verarbeitungsschritte überprüfen und die Dokumentation entsprechend aktualisieren.
 
 ## 🗂️ Benötigte Dateien
 
@@ -169,19 +169,19 @@ Jetzt werdet ihr das Vorgehen selbstständig auf eine weitere Variable übertrag
 
 📍**Arbeitsort:** Excel-Codebook
 
-Öffnet `Codebook_Vorlage.xlsx` und geht der Datei einen eindeutigen Namen, bspw. `Codebook_dat_full.xlsx`.
+Öffnet `Codebook_Vorlage.xlsx` und gebt der Datei einen eindeutigen Namen, bspw. `Codebook_dat_full.xlsx`.
 
 Schaut euch anschliessend einmal die drei Tabellenblätter an:
 
-+-----------------------+---------------------------------------------------------+
-| Tabellenblatt         | Inhalt                                                  |
-+=======================+=========================================================+
-| `Metadata`            | Allgemeine Informationen zur Studie und Datenerhebung   |
-+-----------------------+---------------------------------------------------------+
-| `Codebook`            | Beschreibung der einzelnen Variablen                    |
-+-----------------------+---------------------------------------------------------+
-| `response_labels`     | Bedeutung der gespeicherten Antwortcodes und Kategorien |
-+-----------------------+---------------------------------------------------------+
++-------------------+---------------------------------------------------------+
+| Tabellenblatt     | Inhalt                                                  |
++===================+=========================================================+
+| `Metadata`        | Allgemeine Informationen zur Studie und Datenerhebung   |
++-------------------+---------------------------------------------------------+
+| `Codebook`        | Beschreibung der einzelnen Variablen                    |
++-------------------+---------------------------------------------------------+
+| `response_labels` | Bedeutung der gespeicherten Antwortcodes und Kategorien |
++-------------------+---------------------------------------------------------+
 
 Im Blatt `Codebook` entspricht grundsätzlich **eine Zeile einer Variable aus `dat_full`.** Die ersten beiden Zeilen der Vorlage enthalten die Spaltenüberschriften bzw. technische Feldnamen.
 
@@ -209,7 +209,7 @@ Die folgenden Inspektionsbefehle führt ihr direkt in der R-Konsole aus. Sie die
 
 Verwendet `class()`, um den technischen Datentyp von `group_all` zu bestimmen.
 
-Überlegt dazu, sie ihr mit dem \$-Operator auf eine einzelne Spalte aus `dat_full` zugreifen könnt.
+Überlegt dazu, wie ihr mit dem \$-Operator auf eine einzelne Spalte aus `dat_full` zugreifen könnt.
 
 **Frage:** Welchen Datentyp besitzt `group_all` momentan in R?
 
@@ -331,7 +331,7 @@ Diese Informationen benötigen wir, um `group_all` im Codebook korrekt zu beschr
 
 -   Welche Art von Feedback haben die Versuchspersonen in den verschiedenen Gruppen erhalten?
 
--   Wurde die Gruppenzugehörigkeit durch eine Fragebogenantowrt bestimmt oder experimentell festgelegt?
+-   Wurde die Gruppenzugehörigkeit durch eine Fragebogenantwort bestimmt oder experimentell festgelegt?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
@@ -413,7 +413,8 @@ Füllt die Spalten A-D für die Variable `group_all` aus.
 
 Ob eine kategoriale Variable später in einen Faktor umgewandelt wird, hängt u.a. davon ab, wie wir sie verwenden möchten.
 
-::: {.content-visible when-meta="show_solutions"}
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Lösung"}
 -   **A - Number of item:** Fortlaufende Nummer entsprechend der Position im Codebook (individuell)
 
 -   **B - Name of the data frame:** `dat_full`
@@ -422,17 +423,23 @@ Ob eine kategoriale Variable später in einen Faktor umgewandelt wird, hängt u.
 
 -   **D - Type of the variable in the data frame: `character`**
 :::
+::::
 
 ### A3.2 - Herkunft und Antwortkategorien (Spalten E-H)
 
 Diese Felder beantworten die Frage: **Woher stammt eine Variable und wie wurden ihre Werte erfasst bzw. kodiert?**
 
-| Feld | Was wird verlangt? | Woher kommt die Information? |
-|----|----|----|
-| E - Questionnaire/Source of the item | Aus welchem Fragebogen, Test, Erhebungsschritt oder welcher experimentellen Bedingung stammt die Variable? Nicht alle Variablen stammen aus einem Fragebogen. | Paper und `Informationen_zu_Daten.xlsx` |
-| F - Dimension the item belongs to | Gehört ein Item zu einer bestimmten Skala oder Dimension? Bspw. kann ein Persönlichkeitsitem der Dimension Extraversion zugeordnet sein. | Fragebogenbeschreibung oder Testmanual |
-| G - Response format | Wie wurde eine Antwort erhoben? Bspw. über eine fünfstufige Likert-Skala, eine Ja/Nein-Frage oder eine freie Texteingabe. | Fragebogen, Paper und Erhebungsinformationen |
-| H - Response labels | Verweis auf eine Liste, welche die Bedeutung der gespeicherten Antwortcodes oder Kategorien erklärt. Diese Listen werden im Tabellenblatt `response_labels` angelegt. | Kodierungsinformationen und Tabellenblatt |
++--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| Feld                                 | Was wird verlangt?                                                                                                                                                    | Woher kommt die Information?                 |
++======================================+=======================================================================================================================================================================+==============================================+
+| E - Questionnaire/Source of the item | Aus welchem Fragebogen, Test, Erhebungsschritt oder welcher experimentellen Bedingung stammt die Variable? Nicht alle Variablen stammen aus einem Fragebogen.         | Paper und `Informationen_zu_Daten.xlsx`      |
++--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| F - Dimension the item belongs to    | Gehört ein Item zu einer bestimmten Skala oder Dimension? Bspw. kann ein Persönlichkeitsitem der Dimension Extraversion zugeordnet sein.                              | Fragebogenbeschreibung oder Testmanual       |
++--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| G - Response format                  | Wie wurde eine Antwort erhoben? Bspw. über eine fünfstufige Likert-Skala, eine Ja/Nein-Frage oder eine freie Texteingabe.                                             | Fragebogen, Paper und Erhebungsinformationen |
++--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
+| H - Response labels                  | Verweis auf eine Liste, welche die Bedeutung der gespeicherten Antwortcodes oder Kategorien erklärt. Diese Listen werden im Tabellenblatt `response_labels` angelegt. | Kodierungsinformationen und Tabellenblatt    |
++--------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------+
 
 #### **Eure Aufgabe**
 
@@ -458,12 +465,17 @@ Für Spalte H könnt ihr bereits den Namen eurer geplanten Antwortliste eintrage
 
 Diese Felder beantworten die Frage: **Welche Werte kann eine Variable annehmen und welche Besonderheiten müssen bei ihrer Interpretation berücksichtigt werden?**
 
-| Feld | Was wird verlangt? | Woher kommt die Information? |
-|----|----|----|
-| I - Theoretical minimum | Der kleinste theoretisch zulässige Wert einer Variable. Gemeint ist nicht einfach der kleinste beobachtete Wert. | Fragebogen, Erhebungsinstrument oder Kodierungsregeln |
-| J - Theoretical maximum | Der grösste theoretisch zulässige Wert einer Variable. Auch hier geht es nicht automatisch um den beobachteten Höchstwert. | Fragebogen, Erhebungsinstrument oder Kodierungsregeln |
-| K - Coding of item, if it needs to be reverse-coded | Ob ein Item invers kodiert werden muss bzw. welche entsprechende Umkodierung erforderlich oder vorgenommen wurde. | Fragebogenanleitung und Kodierungsinformationen |
-| L - Coding of missing data | Wie fehlende Werte dargestellt werden, bspw. als NA oder durch spezielle Werte wie -999. | Datensatz und Dokumentation der Erhebung bzw. Datenaufbereitung |
++-----------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| Feld                                                | Was wird verlangt?                                                                                                         | Woher kommt die Information?                                    |
++=====================================================+============================================================================================================================+=================================================================+
+| I - Theoretical minimum                             | Der kleinste theoretisch zulässige Wert einer Variable. Gemeint ist nicht einfach der kleinste beobachtete Wert.           | Fragebogen, Erhebungsinstrument oder Kodierungsregeln           |
++-----------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| J - Theoretical maximum                             | Der grösste theoretisch zulässige Wert einer Variable. Auch hier geht es nicht automatisch um den beobachteten Höchstwert. | Fragebogen, Erhebungsinstrument oder Kodierungsregeln           |
++-----------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| K - Coding of item, if it needs to be reverse-coded | Ob ein Item invers kodiert werden muss bzw. welche entsprechende Umkodierung erforderlich oder vorgenommen wurde.          | Fragebogenanleitung und Kodierungsinformationen                 |
++-----------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
+| L - Coding of missing data                          | Wie fehlende Werte dargestellt werden, bspw. als NA oder durch spezielle Werte wie -999.                                   | Datensatz und Dokumentation der Erhebung bzw. Datenaufbereitung |
++-----------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------+
 
 #### **Eure Aufgabe**
 
@@ -485,12 +497,17 @@ Füllt die Spalten I-L für `group_all` aus.
 
 Diese Felder beantworten die Frage: **Wie ist die Variable entstanden, was bedeutet sie und worauf stützt sich unsere Beschreibung?**
 
-| Feld | Was wird verlangt? | Woher kommt die Information? |
-|----|----|----|
-| M - Composition of item | Wie wurde eine Variable gebildet? Bspw. aus einer einzelnen Frage, als Summe mehrerer Items, als Mittelwert oder als Anteil richtiger Antworten. | Paper, Dateninformationen und ggf. Verarbeitungsskript |
-| N - Brief verbal description of the variable | Eine kurze, inhaltlich verständliche Beschreibung der Variable. Eine andere Person sollte daraus erkennen können, was die Variable bezeichnet oder misst. | Paper, Dateninformationen und fachlich begründete eigene Formulierung |
-| O - Reference for the survey or assessment tool | Wissenschaftliche Quelle des verwendeten Instruments oder der Erhebung, bspw. das Originalpaper oder ein Testmanual. | Literaturangaben im Paper und ergänzende Studienunterlagen |
-| P - Comment | Zusätzliche Informationen, die für das Verständis der Variable wichtig sind und nicht bereits in den anderen Feldern stehen. | Dokumentierte Verarbeitungsschritte und andere relevante Hinweise |
++-------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Feld                                            | Was wird verlangt?                                                                                                                                        | Woher kommt die Information?                                          |
++=================================================+===========================================================================================================================================================+=======================================================================+
+| M - Composition of item                         | Wie wurde eine Variable gebildet? Bspw. aus einer einzelnen Frage, als Summe mehrerer Items, als Mittelwert oder als Anteil richtiger Antworten.          | Paper, Dateninformationen und ggf. Verarbeitungsskript                |
++-------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| N - Brief verbal description of the variable    | Eine kurze, inhaltlich verständliche Beschreibung der Variable. Eine andere Person sollte daraus erkennen können, was die Variable bezeichnet oder misst. | Paper, Dateninformationen und fachlich begründete eigene Formulierung |
++-------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| O - Reference for the survey or assessment tool | Wissenschaftliche Quelle des verwendeten Instruments oder der Erhebung, bspw. das Originalpaper oder ein Testmanual.                                      | Literaturangaben im Paper und ergänzende Studienunterlagen            |
++-------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| P - Comment                                     | Zusätzliche Informationen, die für das Verständnis der Variable wichtig sind und nicht bereits in den anderen Feldern stehen.                             | Dokumentierte Verarbeitungsschritte und andere relevante Hinweise     |
++-------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
 
 #### **Eure Aufgabe**
 
@@ -504,7 +521,7 @@ Füllt die Spalten M-P für `group_all` aus.
 
 -   **O - Reference for the survey or assessment tool:** Grinschgl et al. (2020)
 
--   **P - Comment:** Z.B.: Performance feedback was experimentally manipulatet (fake feedback) and did not reflect participants' actual performance.
+-   **P - Comment:** Z.B.: Performance feedback was experimentally manipulated (fake feedback) and did not reflect participants' actual performance.
 :::
 ::::
 
@@ -512,7 +529,7 @@ Füllt die Spalten M-P für `group_all` aus.
 
 Ihr habt jetzt sämtliche Felder des Codebooks kennengelernt.
 
-Im nächsten Schritt erstellt ihr für `group_all` die passende Reponse-Liste.
+Im nächsten Schritt erstellt ihr für `group_all` die passende Response-Liste.
 
 ### Warum brauchen wir Response Labels?
 
@@ -528,11 +545,15 @@ Das gleiche Prinzip habt ihr in EH5 bei `strategies` kennengelernt.
 
 Dieses Tabellenblatt enthält drei zentrale Spalten:
 
-| Spalte | Funktion |
-|----|----|
-| Response list | Name der Antwortliste (muss nicht auf jeder Zeile wiederholt werden) |
-| Coded response | Der tatsächlich im Datensatz gespeicherte Wert |
-| Label | Inhaltliche Bedeutung des jeweiligen Wertes |
++-----------------------+----------------------------------------------------------------------+
+| Spalte                | Funktion                                                             |
++=======================+======================================================================+
+| Response list         | Name der Antwortliste (muss nicht auf jeder Zeile wiederholt werden) |
++-----------------------+----------------------------------------------------------------------+
+| Coded response        | Der tatsächlich im Datensatz gespeicherte Wert                       |
++-----------------------+----------------------------------------------------------------------+
+| Label                 | Inhaltliche Bedeutung des jeweiligen Wertes                          |
++-----------------------+----------------------------------------------------------------------+
 
 Füllt die drei Spalten für sämtliche Kategorien von `group_all` aus.
 
@@ -678,13 +699,17 @@ Dafür arbeiten wir wieder in unserem bestehenden `processing.qmd`.
 
 ### Was werden wir verändern?
 
-| Aktueller Zustand | Gewünschter Zustand | Warum? |
-|----|----|----|
-| `group_all` | `group` | Einheitliche Bezeichnung der Experimentalgruppen |
-| `csvtm_sum` | `cvstm_sum` | Schreibweise der Variable vereinheitlichen |
-| `pre1`, `pre2`, `pre3`, `pre4`, `post` | Ratings auf 0-100 | Übereinstimmung mit der im Paper verwendeten Perzentilskala |
++----------------------------------------+---------------------+-------------------------------------------------------------+
+| Aktueller Zustand                      | Gewünschter Zustand | Warum?                                                      |
++========================================+=====================+=============================================================+
+| `group_all`                            | `group`             | Einheitliche Bezeichnung der Experimentalgruppen            |
++----------------------------------------+---------------------+-------------------------------------------------------------+
+| `csvtm_sum`                            | `cvstm_sum`         | Schreibweise der Variable vereinheitlichen                  |
++----------------------------------------+---------------------+-------------------------------------------------------------+
+| `pre1`, `pre2`, `pre3`, `pre4`, `post` | Ratings auf 0-100   | Übereinstimmung mit der im Paper verwendeten Perzentilskala |
++----------------------------------------+---------------------+-------------------------------------------------------------+
 
-Ausserdem werden wir anhand von `group` und `strategies` nochmals praktisch untersuchen, wie Faktoren und Faktortufen in R funktionieren.
+Ausserdem werden wir anhand von `group` und `strategies` nochmals praktisch untersuchen, wie Faktoren und Faktorstufen in R funktionieren.
 
 **Wichtig:** In diesem Übungsteil verändern wir den tatsächlichen Datensatz nur dort dauerhaft, wo dies für unser Processing erforderlich ist. Die Faktorbeispiele dienen zunächst dem Verständnis und werden in separaten Objekten behandelt.
 
@@ -768,8 +793,6 @@ Welche Funktion benötigt ihr dafür?
 
 Wenn ihr Daten nur vorübergehend untersuchen möchtet, könnt ihr eine Pipeline ausführen, ohne das Ergebnis wieder `dat_full` zuzuweisen.
 
-Code-Chunk erstellen, der dann wieder gelöscht werden kann.
-
 ## B2 - Variablennamen vereinheitlichen
 
 Einige Variablennamen sind noch nicht optimal auf die spätere Verarbeitung und die Studieninformationen abgestimmt.
@@ -778,13 +801,13 @@ Wir möchten deshalb zwei Variablen umbenennen.
 
 ### 🧭 Aufgabe 1: `group_all` umbenennen
 
-Verwendet `rename()`, um die Variable `group_all` in `group()` umzubenennen.
+Verwendet `rename()`, um die Variable `group_all` in `group` umzubenennen.
 
 Das Ergebnis soll anschliessend dauerhaft im Processing-Skript enthalten sein.
 
 **Hinweis**
 
-Bei `rename()` wird zuerst der neue und danach der bisherige Variablenname abgegeben:
+Bei `rename()` wird zuerst der neue und danach der bisherige Variablenname angegeben:
 
 `rename(neuer_name = alter_name)`
 
@@ -794,7 +817,7 @@ Bei `rename()` wird zuerst der neue und danach der bisherige Variablenname abgeg
 
 Im ursprünglichen Datensatz `data_cvstm.csv` wird die Variable `csvtm_sum` verwendet.
 
-In der bereitgestellten Dateninformation wird dagegen die Schriebweise `cvstm_sum` verwendet.
+In der bereitgestellten Dateninformation wird dagegen die Schreibweise `cvstm_sum` verwendet.
 
 Vereinheitlicht deshalb diesen Namen ebenfalls mit `rename()`.
 
@@ -916,7 +939,7 @@ Wenn ihr unsicher seid, startet die Verarbeitung erneut bei den unveränderten R
 
 ### Schritt 5: Transformationen überprüfen
 
-Verwendet geeigenete R-Funktionen, um eure Ergebnisse zu kontrollieren.
+Verwendet geeignete R-Funktionen, um eure Ergebnisse zu kontrollieren.
 
 **Fragen:**
 
@@ -937,6 +960,8 @@ Sucht diese Variablen im Codebook und überprüft, welche Angaben angepasst werd
 Nach Abschluss dieser Aufgabe muss euer Codebook zum transformierten Datensatz passen.
 
 ## B4 - Faktoren und Faktorstufen verstehen
+
+📍**Arbeitsort:** R-Konsole
 
 In EH5 haben wir zwischen dem technischen Datentyp einer Variable und ihrer wissenschaftlichen Bedeutung unterschieden.
 
@@ -1000,7 +1025,7 @@ Bei `factor()` könnt ihr zwei unterschiedliche Argumente verwenden:
 
 -   `levels = ...` legt fest, welche ursprünglichen Werte zu welchen Faktorstufen gehören und in welcher Reihenfolge sie verwendet werden.
 
--   `lables = ...` legt fest, welche Bezeichnungen die Faktorstufen erhalten sollen.
+-   `labels = ...` legt fest, welche Bezeichnungen die Faktorstufen erhalten sollen.
 
 Überprüft eure Ergebnisse anschliessend mit `class()` und `levels()`.
 
@@ -1016,11 +1041,11 @@ Bei `factor()` könnt ihr zwei unterschiedliche Argumente verwenden:
 
 4.  Weshalb wird `strategies` in unserer Replikation nicht als Faktor für die statistischen Modelle benötigt?
 
-### Wichtig für unser Forschungsobjekt
+### Wichtig für unser Forschungsprojekt
 
 **Die beiden Faktorobjekte dienen hier nur der Übung.**
 
-Für die späteren statistischen Modelle werden wir in `analysis.qmd` die jeweils benötigtwn Variablen als Faktoren definieren:
+Für die späteren statistischen Modelle werden wir in `analysis.qmd` die jeweils benötigten Variablen als Faktoren definieren:
 
 -   `group` für die Experimentalgruppen
 
@@ -1083,11 +1108,11 @@ Zum Abschluss stellen wir sicher, dass die neuen Verarbeitungsschritte korrekt i
 
 Kontrolliert die Reihenfolge der Arbeitsschritte in `processing.qmd`.
 
-Die neuen Transformationen müssen nach dem Zusammenführen der Rohdaten und vor dem Speichern des verarbeiteten Datesatzes erfolgen.
+Die neuen Transformationen müssen nach dem Zusammenführen der Rohdaten und vor dem Speichern des verarbeiteten Datensatzes erfolgen.
 
 Achtet darauf, dass der bestehende Speicherschritt aus Hands-on 2 an der richtigen Stelle steht.
 
-Entfernt sämtlichen Code, der nur Übungszwecken gedient hat und nicht dauerhaft in `processing.qmd` gehört.
+Kontrolliert, ob euer Processing-Skript ausschliesslich die benötigten Verarbeitungsschritte und sinnvollen Datenkontrollen enthält. Vorübergehende Testbefehle, die ihr versehentlich im Skript gespeichert habt, könnt ihr entfernen.
 
 ### 🧭 Aufgabe 2: Vollständig rendern
 
@@ -1127,7 +1152,7 @@ Nach vollständiger Bearbeitung von Hands-on 3 sollte euer Projekt folgenden Zus
 
 **Was fehlt noch?**
 
-Unser Processing ist damit noch nicht vollständig abgeschlossen. In den nächsten Einheiten werden wir uns u.a. it der Erkennung und Bereinigung problemtaischer Daten beschäftigen, den MMQ-Skalenwert `mmq-mean` berechnen und aus unserem Wide-Datensatz zusätzlich einen Long-Datensatz erzeugen.
+Unser Processing ist damit noch nicht vollständig abgeschlossen. In den nächsten Einheiten werden wir uns u.a. it der Erkennung und Bereinigung problematischer Daten beschäftigen, den MMQ-Skalenwert `mmq_mean` berechnen und aus unserem Wide-Datensatz zusätzlich einen Long-Datensatz erzeugen.
 
 Erst danach führen wir die umfassende Abschlusskontrolle durch und beginnen mit den statistischen Analysen.
 
