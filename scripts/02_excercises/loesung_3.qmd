@@ -1,13 +1,19 @@
 ---
-title: "Hands On – Coding Basics (Einheiten 5 und 6)"
+title: "Hands-on Block 3: Daten verstehen, dokumentieren und transformieren (Einheiten 5 & 6)"
 filters:
   - conditional_content
 show_solutions: false
-draft: true
 format:
   html:
     code-tools: false
+draft: true
 ---
+
+```{r, include = FALSE}
+library(tidyverse)
+
+dat_full <- readr::read_delim("raw/dat_full.csv")
+```
 
 Bei Bedarf findest du hier nochmals die Slides zu Einheit 5:
 
@@ -17,721 +23,1114 @@ Bei Bedarf findest du hier nochmals die Slides zu Einheit 5:
 </iframe>
 :::
 
-Und hier die Slides zu Einheit 6:
+Die Slides für EH6 werden kurz vor dem Seminartermin hochgeladen.
 
-::: {=html}
-<iframe src="../01_slides/EH_6.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+<br>
 
-</iframe>
-:::
+## Bevor ihr beginnt
 
-# Wiederholung Hands On Block 2:
+⚠️ **Wichtig:** Beginnt mit Hands-on 3 erst, wenn ihr Hands-on 2 vollständig abgeschlossen habt.
 
--   Projekt und relativer Pfad: Arbeitet immer mit eurem R Projekt. Klickt auf dieses, um R zu öffnen.
+Euer bestehendes `processing.qmd` sollte bereits:
 
-![](images/clipboard-4238854060.png){width="105"}
+-   alle sieben Rohdatensätze erfolgreich einlesen und anhand der Personen-ID zusammenführen,
 
--   Ausgehend vom Arbeitsverzeichnis des Projektes, kannst du Dateien mit einem relativen Pfad in den jeweiligen Unterordnern abspeichern. z.B.: `write.csv(dat_full, "data/processed/dat_full.csv")`
+-   den zusammengeführten Datensatz kontrollieren,
 
--   Ebenso kannst du ausgehend vom Arbeitsverzeichnis des Projektes auch Dateien einlesen, z.B.: `dat_pct <- read.delim("data/raw/data_pct.csv", delim = ";")`
+-   `dat_full` mit 159 Zeilen und 36 Spalten erzeugen,
 
--   **Ergänzung**: Um sicherzustellen die Dateien ausgehend vom Arbeitsverzeichnis des Projektes zu lesen kannst du die Funktion `here` aus dem gleichnamigen Package `here::` verwenden, z.B. `dat_pct <- read.csv(here::here("data", "raw", "dat.full.csv"))`. Die Funktion geht immer vom Ordner der Projektdatei aus und baut dann anhand der beliebig vielen angegebenen Argumente selbstständig den passenden Pfad zum Einlesen einer Datei. Wir empfehlen dir für dein Abschlussprojekt mit `here()` zu arbeiten.
+-   den Datensatz unter `data/processed/dat_full.csv` speichern,
 
--   Mehrere Datensätze könnten mit `full_join()` "gemerged" werden
+-   sich vollständig und fehlerfrei rendern lassen.
 
--   Datensätze können mit z.B. `head()` und `summary()` inspiziert werden
+⚠️ Falls euch noch Aufgaben aus Hands-on 2 fehlen, schliesst diese bitte zuerst ab. Ihr erstellt für Hands-on 3 kein neues R-Projekt und kein neues Processing-Dokument. Wir erweitern das bereits bestehende Forschungsprojekt!
 
-Wir haben nun schon mit einigen Funktionen gearbeitet, wie etwa `full_join()`. Falls du die Übungen der letzten Wochen noch nicht abgeschlossen hast, versuche diese nun nachzuholen. Schaue dir
+## 🧭 Wo befinden wir uns?
 
--   Funktionen
+**Projektphase: AUFBEREITEN**
 
--   Tab Completion
+In Hands-on 2 haben wir unsere sieben Rohdatensätze zu `dat_full` zusammengeführt.
 
--   und Style Conventions an.
+Wir wissen jetzt, welche Informationen zur gleichen Versuchsperson gehören. Allerdings bedeutet das noch nicht automatisch, dass wir auch alle Variablen richtig verstehen oder bereits für unsere späteren Analysen verwenden können.
 
-[Hier kommt hier zurück zu den Inhalten Hands-On-Blocks 2.](https://r-you-ready.github.io/Webseite_FS26_Seminar/scripts/02_excercises/loesung_2.html)
+Deshalb beschäftigen wir und in diesem Übungsblock mit zwei aufeinanderfolgenden Schritten:
 
-# Lernziele des Hands-On-Blocks 3
+**Teil 1 - Daten verstehen und dokumentieren (nach EH5)**
 
-✅Basics Reproduziebarer Code
+Wir untersuchen unsere Variablen, recherchieren ihre wissenschaftliche Bedeutung und dokumentieren sie im Codebook.
 
-✅Quarto
+**Teil 2 - Daten transformieren und dokumentieren (nach EH6)**
 
-✅Faktoren
+Wir verändern ausgewählte Variablen für die spätere Analyse in `processing.qmd`, kontrollieren die Ergebnisse und aktualisieren die entsprechenden Codebook-Einträge.
 
-✅Datentypen: Vektoren, Listen, Matrizen, Dataframes
+**Unser Grundprinzip:**
 
-# Reproduzierbarer Code: Quarto
+Daten verstehen → Veränderungen begründen → Veränderungen im Skript durchführen → Ergebnisse überprüfen → Codebook aktualisieren
 
-👉[R for Datascience, Kapitel 28](https://r4ds.hadley.nz/quarto.html)
+Das Processing-Skript beschreibt, **wie** die Daten verarbeitet werden. Das Codebook dokumentiert, **was** die Variablen des aufbereiteten Datensatzes bedeuten.
 
-Bisher haben wir hauptsächlich in klassischen R-Skripten gearbeitet. RStudio bietet jedoch auch die Möglichkeit, in einem Dateiformat zu arbeiten, dass Textelemente und Code kombiniert 👉 **Quarto**.
+## 💻 Wo bearbeiten wir die Aufgaben?
 
-Quarto verbindet normalen Text und Code in einem dynamischen Dokument. Auch diese Website wurde mit Quarto erstellt. Dadurch lässt sich die Kommentierung von Code besser integrieren, was die Arbeit insgesamt reproduzierbarer macht. Mit Quarto können zudem ganze Dokumente erstellt werden, beispielsweise eine Masterarbeit.
+In diesem Hands-on verwenden wir drei unterschiedliche Arbeitsorte:
 
-Der Vorteil von Quarto ist, dass Code ausführlich kommentiert werden kann und Skripte mit Überschriften, Inhaltsverzeichnis etc. erstellt werden können. Das macht R-Coder übersichtlicher und verständlicher und somit auch reproduzierbarer.
++------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Arbeitsort       | Was machen wir dort?                                                                                                                                                  |
++==================+=======================================================================================================================================================================+
+| R-Konsole        | Daten vorübergehend untersuchen und Funktionen ausprobieren, bspw. mit `class()`, `unique()` oder `table()`. Diese Befehle müssen nicht dauerhaft gespeichert werden. |
++------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `processing.qmd` | Notwendige Verarbeitungsschritte und wichtige Kontrollen dauerhaft dokumentieren, damit unsere Datenaufbereitung reproduzierbar bleibt.                               |
++------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Codebook (Excel) | Die Bedeutung, Eigenschaften und Kodierungen der Variablen dokumentieren und bei Veränderungen aktualisieren.                                                         |
++------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-## Übungen:
+**Merkt euch:** Nicht jeder R-Befehl muss ins Processing-Skript!
 
--   Erstelle ein neues Quarto-Skript:
+In **Teil 1** arbeitet ihr hauptsächlich in der R-Konsole und im Excel-Codebook. Die R-Befehle helfen euch dabei, Informationen über die Variablen zu gewinnen. Ihr müsst die anschliessend nicht aus dem Processing-Skript löschen, weil ihr sie gar nicht erst dort einfügt.
 
-![](../../images/hands_on_3/Quarto.png)
+In **Teil 2** probiert ihr neue Funktionen zunächst teilweise in der Konsole aus. Die eigentlichen Transformationen ergänzt ihr danach dauerhaft an der passenden Stelle in `processing.qmd`.
 
--   Versuche dich zu orientieren: Wie wechselst du zwischen dem **Visual** und **Source Editor**?
+## 🎯 Lernziele
 
--   **Erstelle eine Überschrift:**
+Nach diesem Hands-on-Block könnt ihr:
 
-    -   Suche zuerst nach der entsprechenden Option im **Visual Editor**.
+-   Datentypen, Werte und Kategorien von Variablen in R untersuchen;
 
-    -   Schau dir anschließend die Überschrift im **Source Editor** an. Wie unterscheiden sich Überschriften von normalem Text?
+-   zwischen technischem Datentyp und wissenschaftlicher Bedeutung unterscheiden;
+
+-   alle 16 Felder des Codebooks verstehen und ausfüllen;
+
+-   Response Labels erstellen und korrekt mit dem Codebook verknüpfen;
+
+-   mit `dplyr` Variablen auswählen, umbenennen und transformieren;
+
+-   den Unterschied zwischen kategorialen Variablen und Faktoren in R nachvollziehen;
+
+-   eure Transformationen an der richtigen Stelle in `processing.qmd` integrieren;
+
+-   der Erfolg eurer Verarbeitungsschritte überprüfen und die Dokumentation entsprechend aktualisieren.
+
+## 🗂️ Benötigte Dateien
+
+Wir verwenden die bereits bereitgestellten Dateien unseres Forschungsprojekts.
+
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| Datei                         | Speicherort                          | Verwendung                                                   |
++===============================+======================================+==============================================================+
+| `processing.qmd`              | `code/`                              | Bestehendes Verarbeitungsskript                              |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| `dat_full.csv`                | `data/processed/`                    | Zusammengeführter Datensatz aus Hands-on 2                   |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| `Codebook_Vorlage.xlsx`       | `data/`                              | Dokumentation unseres Wide-Datensatzes                       |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| `Informationen_zu_Daten.xlsx` | `data/`                              | Informationen zu Variablen und Kodierungen                   |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| Originalpaper                 | `reports/`                           | Studiendesign, Erhebungsmethoden und Bedeutung der Variablen |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+| Codebook-Guideline            | `Unterstützende_Dokumente/Codebook/` | Zusätzliche Erklärungen zu den Codebook-Feldern              |
++-------------------------------+--------------------------------------+--------------------------------------------------------------+
+
+⚠️ **Wichtig:** Die sieben Originaldateien unter `data/raw/` bleiben unverändert. Veränderungen an den Daten nehmen wir mit R in `processing.qmd` vor - nicht manuell in Excel.
+
+# Teil 1: Unsere Daten verstehen und dokumentieren
+
+*Bearbeitung nach EH5*
+
+**Leitfrage:** Wie können wir unsere Variablen so dokumentieren, dass andere Personen den Datensatz auch ohne zusätzliche Erklärungen richtig verstehen und verwenden können?
+
+In EH5 haben wir anhand der Variable `strategies` gemeinsam einen Codebook-Eintrag erstellt.
+
+Jetzt werdet ihr das Vorgehen selbstständig auf eine weitere Variable übertragen: `group_all`. Die Variable ist besonders interessant, weil sie für unsere spätere statistische Analyse zentral ist und zugleich einen wichtigen Unterschied zwischen einer experimentellen Gruppenzuteilung und einer Fragebogenantwort verdeutlicht.
+
+## A0 - Projekt und Codebook vorbereiten
+
+### 🧭 Aufgabe 1: Ausgangszustand überprüfen
+
+📍**Arbeitsort: `code/processing.qmd`** und anschliessend R-Konsole
+
+1.  Öffnet euer bestehendes R-Projekt über die zugehörige `.Rproj`-Datei in RStudio.
+
+2.  Öffnet anschliessend `code/processing.qmd`
+
+3.  Führt den bisherigen Code bis einschliesslich der Merge-Kontrolle aus, sodass `dat_full` im Environment verfügbar ist.
+
+4.  Überprüft in der R-Konsole die Dimensionen des Datensatzes.
+
+**Kontrollfragen:**
+
+-   Ist `dat_full` im Environment vorhanden?
+
+-   Wie viele Zeilen und Spalten besitzt der Datensatz?
+
+-   Stimmen diese Dimensionen mit dem Ergebnis aus Hands-on 2 überein?
+
+**Hinweis:** Zur Kontrolle könnt ihr bspw. `dim()`, `nrow()` oder `ncol()` verwenden. Diese kurzen Abfragen müsst ihr nicht dauerhaft ins Processing-Skript aufnehmen.
+
+### 🧭 Aufgabe 2: Codebook vorbereiten
+
+📍**Arbeitsort:** Excel-Codebook
+
+Öffnet `Codebook_Vorlage.xlsx` und geht der Datei einen eindeutigen Namen, bspw. `Codebook_dat_full.xlsx`.
+
+Schaut euch anschliessend einmal die drei Tabellenblätter an:
+
++-----------------------+---------------------------------------------------------+
+| Tabellenblatt         | Inhalt                                                  |
++=======================+=========================================================+
+| `Metadata`            | Allgemeine Informationen zur Studie und Datenerhebung   |
++-----------------------+---------------------------------------------------------+
+| `Codebook`            | Beschreibung der einzelnen Variablen                    |
++-----------------------+---------------------------------------------------------+
+| `response_labels`     | Bedeutung der gespeicherten Antwortcodes und Kategorien |
++-----------------------+---------------------------------------------------------+
+
+Im Blatt `Codebook` entspricht grundsätzlich **eine Zeile einer Variable aus `dat_full`.** Die ersten beiden Zeilen der Vorlage enthalten die Spaltenüberschriften bzw. technische Feldnamen.
+
+Im Laufe dieser Übung lernen wir, wie ihr die entsprechenden Einträge erstellt.
+
+⚠️ **Wichtig für die erste Codebook-Abgabe am 21.10.2026:**
+
+Ihr dokumentiert zunächst den aktuellen Datensatz nach EH4.
+
+Das bedeutet bspw., dass die Gruppierungsvariable noch `group_all` heisst und die Rating-Variablen noch nicht von 0-10 auf 0-100 transformiert wurden.
+
+Die Änderungen aus EH6 werden wir später im Codebook nachführen. Wer aber bereits so weit ist, darf dies gerne schon integrieren!
+
+## A1 - Eine Variable in R untersuchen
+
+📍**Arbeitsort:** R-Konsole
+
+Bevor wir eine Variable im Codebook dokumentieren können, müssen wir herausfinden, wie sie im Datensatz gespeichert ist.
+
+Wir beginnen mit `group_all`.
+
+Die folgenden Inspektionsbefehle führt ihr direkt in der R-Konsole aus. Sie dienen dazu, Informationen für euer Codebook zu gewinnen, und müssen nicht dauerhaft gespeichert werden.
+
+### 🧭 Aufgabe 1: Datentyp bestimmen
+
+Verwendet `class()`, um den technischen Datentyp von `group_all` zu bestimmen.
+
+Überlegt dazu, sie ihr mit dem \$-Operator auf eine einzelne Spalte aus `dat_full` zugreifen könnt.
+
+**Frage:** Welchen Datentyp besitzt `group_all` momentan in R?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-Überschriften sind anders formatiert, mit grösserer Schrift und in Fettdruck. Ausserdem werden anhand von entsprechend formatierten Überschriften die Outline im Dokument erstellt (siehe rechts oben im Skript). Beim Rendern kann anhand dieser Outline automatisch ein Inhaltsverzeichnis generiert werden lassen.
-:::
-::::
-
--   Schreibe einige Dinge in *kursiv*, **fett**, [unterstrichen]{.underline}, Schaue dir diese im Source Editor an.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Dieser Text ist teilweise in *kursiv*, in **fett** und [unterstrichen]{.underline} formatiert.
-:::
-::::
-
--   Rendere deine Datei indem du den Button "Render" verwendest. Schaue dir das Resultat an.
-
-Eine gerenderete Datei ist eine PDF, HTML oder Word Datei, die man dann auch mit anderen Programmen als R öffnen kann. So könnte man z.B. aus einem Quarto Dokument den Ergebnisteils für eine Masterarbeit erstellen und diesen als Word Datei speichern.
-
-## Code Chunks
-
-📖 [R4DS Kapitel 28.5.1](https://r4ds.hadley.nz/quarto.html#code-chunks)
-
-Für weitere Informationen, konsultiere das [Quarto Cheatsheat](https://rstudio.github.io/cheatsheets/quarto.pdf) und die [Quarto Website](https://quarto.org/).
-
--   **Erstelle einen neuen Code-Chunk:**
-
-    -   Versuche es im **Visual Editor**, indem du ein „/“ eingibst und im Drop-down-Menü **„R-Code Chunk“** auswählst
-
--   Gib deinem Code-Chunk ein "Label". Verwende dafür "#\|" in deinem Chunk um lokale Einstellungen zu setzen. (📖 [R4DS Kapitel 28.5.1](https://r4ds.hadley.nz/quarto.html#code-chunks)).
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# #| label: Beispiellabel
+```{r, echo=TRUE, eval=TRUE}
+class(dat_full$group_all)
 ```
 
-Der erste `#` ist hier nur von uns gesetzt, damit die Chunkoption beim Rendern nicht wie gewöhnlich ausgeblendet wird. Eigentlich wird dieser nicht verwendet.
+Bei der Variable group_all handelt es sich um eine Character-Variable.
 :::
 ::::
 
--   Manchmal will man nicht alle Teile des Skripts in das gerenderte Dokument übernehmen. Erstelle einen neuen Code-Chunk und stelle `eval` und `include` auf TRUE
+### 🧭 Aufgabe 2: Vorhandene Werte untersuchen
+
+Verwendet `unique()`, um herauszufinden, welche unterschiedlichen Werte in `group_all` vorkommen.
+
+Untersucht anschliessend mit `table()`, wie häufig jede Kategorie im Datensatz vertreten ist.
+
+**Fragen:**
+
+-   Welche unterschiedlichen Werte kommen vor?
+
+-   Wie viele Personen gehören zu den jeweiligen Kategorien?
+
+-   Handelt es sich bei diesen Werten um quantitative Messwerte oder um Kategorien?
+
+**Hinweis:** Die Funktionen `class()`, `unique()` und `table()` haben wir bereits in EH5 kennengelernt. Wenn ihr euch bei ihrer Anwendung unsicher seid, könnt ihr die entsprechenden Vorlesungsfolien nochmals anschauen oder die R-Hilfe verwenden.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# #| eval: TRUE
-# #| include: TRUE
+```{r, echo=TRUE, eval=TRUE}
+# unique()
+unique(dat_full$group_all)
+
+# table()
+table(dat_full$group_all)
 ```
 
-Auch hier bräuchte es die ersten `#` nicht, sofern die Chunkoption nicht ausgeschaltet und zu demonstrationszwecken als Kommentar angezeigt werden sollte.
+Die Variable verfügt über drei unterschiedliche Ausprägungen: "above", "control" und "below". Jede dieser drei Gruppen verfügt über 53 Versuchspersonen.
+
+Das stimmt mit den Angaben aus der Studie überein, wonach sämtliche der drei Experimentalbedingungen über 53 Personen verfügen.
+
+Bei diesen Werten handelt es sich um Kategorien, nicht um quantitative Messwerte. Die Gruppen widerspiegeln die Zugehörigkeit zu einer der drei Experimentalbedingungen. Auch wenn die drei Gruppen nicht als Character, sondern als Zahl repräsentiert wären, würde es sich dabei nicht um eine quantitative Messgrösse, sondern immer noch um eine kategoriale Gruppenzugehörigkeit handeln.
 :::
 ::::
 
--   **Kreiere eine neue Variable `datum`** mit dem heutigen Datum. Nutze dafür `Sys.Date()`
+### 🧭 Aufgabe 3: Datentyp und Bedeutung unterscheiden
+
+Überlegt:
+
+`group_all` beschreibt die Zugehörigkeit zu einer Experimentalbedingung.
+
+Weshalb ist diese Variable inhaltlich kategorial, obwohl sie aktuell nicht als `factor` gespeichert ist?
+
+Haltet eure Überlegungen kurz fest.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-datum <- Sys.Date()
-```
+Die Variable `group_all` ist **inhaltlich kategorial (nominalskaliert)**, da sie angibt, welcher der drei Experimentalgruppen eine Versuchsperson zugeordnet wurde (`above`, `below` oder `control`). Die Kategorien unterscheiden sich qualitativ und stellen keine quantitativen Messwerte dar.
+
+Aktuell ist die Variable in R als `character` gespeichert, da ihre Werte aus Text bestehen. **Eine Variable muss jedoch nicht als `factor` gespeichert sein, um inhaltlich kategorial zu sein.**
+
+Mit `factor()` könnten wir die Variable später als Faktor mit definierten Faktorstufen (*Levels*) darstellen, beispielsweise für unsere statistischen Analysen.
+
+**Merke:** Der technische Datentyp in R beschreibt, wie die Werte gespeichert werden. Das wissenschaftliche Skalenniveau beschreibt dagegen, wie diese Werte inhaltlich interpretiert werden können.
 :::
 ::::
 
-## Inline Code
+📌 **Merke:** Der technische Datentyp in R und das wissenschaftliche Skalenniveau einer Variable sind nicht dasselbe.
 
--   **Füge folgenden dynamischen Satz in dein Dokument ein:** „*Dieses Dokument wurde zum letzten Mal am `datum` bearbeitet.*“
+## A2 - Woher bekommen wir die Informationen über unsere Variable?
 
--   Benutze dafür die Variable `datum` die du bereits kreiert hast. Diese kannst du hinzufügen indem du "/" benutzt und "Inline R Code" suchst. Alternativ kannst du über Insert - Any - Inline Code einfügen. Diese Option funktioniert nur in der Ansicht Visual. Alternativ kannst du im Visual View über Insert - Any - Inline Code einfügen. Inline Code lässt sich auch mit diesem Sonderzeichen \` kreieren wenn du danach ein "r" eingibst. Diese Methode funktioniert in beiden Ansichten.
+Mit R können wir den Datentyp, die gespeicherten Werte und deren Häufigkeiten bestimmen.
+
+Damit wissen wir aber noch nicht automatisch, **was diese Werte im Kontext unserer Studie bedeuten.**
+
+Dafür müssen wir weitere Quellen heranziehen.
+
+### 🧭 Aufgabe 1: Dateninformationen untersuchen
+
+Öffnet die Datei `Informationen_zu_Daten.xlsx`.
+
+Sucht im Tabellenblatt `Experimentalgruppen` nach Informationen zur Gruppenzugehörigkeit der Versuchspersonen.
+
+**Fragen:**
+
+-   Was bedeuten die unterschiedlichen Werte von `group_all`?
+
+-   Welche Experimentalbedingungen unterscheiden wir in unserer Studie?
+
+-   Welche Informationen liefert uns diese Datei zusätzlich zu den Ergebnissen aus R?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-\*Dieses Dokument wurde zum letzten Mal am `r datum` bearbeitet.
+Die Variable `group_all` beschreibt, welcher der drei Experimentalgruppen eine Versuchsperson zugeordnet wurde:
+
+-   **`above`:** Die Versuchsperson erhielt die Rückmeldung, dass ihre Leistung überdurchschnittlich war (*above-average feedback*).
+
+-   **`below`:** Die Versuchsperson erhielt die Rückmeldung, dass ihre Leistung unterdurchschnittlich war (*below-average feedback*).
+
+-   **`control`:** Die Versuchsperson gehörte zur Kontrollgruppe und erhielt keine entsprechende Leistungsrückmeldung (*no feedback*).
+
+Die drei Gruppen unterscheiden sich somit hinsichtlich des **erhaltenen Leistungsfeedbacks**.
+
+Die Datei `Informationen_zu_Daten.xlsx` liefert uns die inhaltliche Bedeutung der gespeicherten Kategorien. Während wir mit R lediglich feststellen können, welche Werte (`above`, `below`, `control`) vorkommen und wie häufig sie vertreten sind, erfahren wir aus den Studieninformationen, **welche experimentelle Bedingung die jeweiligen Werte bezeichnen**.
+
+Diese Informationen benötigen wir, um `group_all` im Codebook korrekt zu beschreiben und die entsprechenden Response Labels zu erstellen.
 :::
 ::::
 
--   **Rendere das Dokument:** Stelle ganz oben in deinem Dokument dafür das Format auf docx um. Wenn du das Dokument als PDF rendern willst benötigst du TinyTeX. Das kannst du mit dem Befehl `install.packages("tinytex")` installieren.
+### 🧭 Aufgabe 2: Originalpaper konsultieren
+
+Öffnet das Originalpaper von Grinschgl et al. (2020). Sucht im Methodenteil nach einer Erklärung des Studiendesigns und der unterschiedlichen Feedbackgruppen.
+
+**Fragen:**
+
+-   Wodurch unterscheiden sich die Experimentalbedingungen?
+
+-   Welche Art von Feedback haben die Versuchspersonen in den verschiedenen Gruppen erhalten?
+
+-   Wurde die Gruppenzugehörigkeit durch eine Fragebogenantowrt bestimmt oder experimentell festgelegt?
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = FALSE}
-install.packages("tinytex") # am besten direkt in der Console eingeben
+Die Studie von Grinschgl et al. (2020) untersuchte, ob manipuliertes Leistungsfeedback die subjektive Einschätzung der eigenen Gedächtnisleistung und des Cognitive Offloading beeinflusst.
 
-# Auch noch oben im YAML Header das Format unter format zu `docx` oder ggf. `pdf` ändern:
+Die VPN wurden einer von drei Experimentalbedingungen zugeteilt, die sich hinsichtlich des erhaltenen Leistungsfeedbacks unterschieden:
 
----
-title: "Hands On – Coding Basics (Einheiten 5 und 6)"
-editor: visual
-format: docx
----
-```
+-   **`above` (Above-average feedback):** Die VPN erhielten die Rückmeldung, dass ihre Leistung im Vergleich zu anderen Studierenden überdurchschnittlich sei (ungefähr 80. Perzentil).
 
-Beachte: Eigentlich hat ein YAML-Header in einem Code-Chunk nichts zu suchen. Hier ist er nur eingesetzt worden um besser zeigen zu können was geändert werden muss!
+-   **`below` (Below-average feedback):** Die VPN erhielten die Rückmeldung, dass ihre Leistung im Vergleich zu anderen Studierenden unterdurchschnittlich sei (ungefähr 20. Perzentil).
+
+-   **`control` (Control group):** Die VPN erhielten keine Leistungsrückmeldung. Stattdessen wurde ihnen lediglich ein neutraler Wartebildschirm angezeigt.
+
+Das Feedback wurde nach den ersten drei Arbeitsgedächtnisaufgaben präsentiert und war bewusst manipuliert (Fake Feedback). Es spiegelte also nicht die tatsächliche Leistung der VPN wider.
+
+Die Gruppenzugehörigkeit wurde **experimentell festgelegt und nicht durch eine Fragebogenantwort der VPN bestimmt.**
+
+Die Variable `group_all` ist somit die UV des Experiments und beschreibt, welcher Feedbackbedingung eine VPN zugeordnet wurde. Sie ist inhaltlich nominalskaliert, da ihre drei Werte unterschiedliche experimentelle Bedingungen bezeichnen.
 :::
 ::::
 
--   Nutze dafür den **Render-Button** und schau dir das gerenderte Ergebnis an. Was ist mit deinem dynamischen Satz passiert?
+### 🧭 Aufgabe 3: Bedeutung formulieren
 
-*Das Resultat sollte so aussehen (mit dem aktuellen Datum):*
+Formuliert einen kurzen, verständlichen Satz, der erklärt, welche Informationen die Variable `group_all` enthält.
 
-```{r, echo=FALSE}
-datum <- Sys.Date()
-```
-
-Dieses Dokument wurde zum letzten Mal am `r datum` bearbeitet.
-
-::: callout-important
-Quarto-Dokumente lassen sich nur rendern, wenn das gesamte Skript fehlerfrei durchläuft. Tritt beim Rendern ein Fehler auf, ist es sinnvoll, das gesamte Skript auszuführen und auf Fehlermeldungen zu achten. Auf diese Weise wird die **Reproduzierbarkeit** sichergestellt.
-
-Möchte man das Skript trotz eines Fehlers rendern, kann man an den entsprechenden Code-Chunk `#| eval: false` schreiben - dies verhindert, dass der Code für die gerenderte Datei ausgeführt wird
-:::
-
-## Quarto Header
-
-In den Code Chunks hast du bereits einige Einstellungen kennengelernt. In den **Quarto-Headern** lassen sich verschiedene Einstellungen vornehmen.\
-Beispielsweise kann man den **Output des Dokuments** anpassen (z. B. `format: html` `format: docx` `format: pdf`).
-
-Manchmal möchte man auch **globale Einstellungen** vornehmen, die für das gesamte Dokument gelten.\
-Zum Beispiel kann es sinnvoll sein, **Warnmeldungen von R** im gerenderten Dokument auszublenden, um die Übersicht zu behalten.\
-Dies lässt sich mit der Option `warning: false` einstellen.
-
--   Versuche den Quarto Header so zu verändern das du ein Word oder PDF renderst.
+Versetzt euch dabei in die Lage einer Person, die den Datensatz zum ersten Mal sieht.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-So nuss der Header aussehen wenn das Outputformat .docx entsprechen soll:
+Die Variable `group_all` gibt an, welcher der drei experimentellen Feedbackbedingungen eine VPN zugeordnet wurde: überdurchschnittliches Leistungsfeedback (`above`), unterdurchschnittliches Leistungsfeedback (`below`) oder Kontrollgruppe ohne Leistungsfeedback (`control`). Das Feedback war manipuliert und entsprach nicht der tatsächlichen Leistung der VPN.
 
-```{r, eval = FALSE, echo = TRUE}
----
-title: "Hands On – Coding Basics (Einheiten 5 und 6)"
-editor: visual
-format: docx
-execute:
-  warning: false
----
-```
+**Für das Codebook eignet sich bspw. folgende Beschreibung:**
 
-Und so muss der Header aussehen wenn das Outputformat .pdf entsprechen soll:
-
-```{r, eval = FALSE, echo = TRUE}
----
-title: "Hands On – Coding Basics (Einheiten 5 und 6)"
-editor: visual
-format: pdf
-execute:
-  warning: false
----
-```
+*Experimental group assignment indicating whether a participant received above-average performance feedback, below-average performance feedback, or no performance feedback (control group).*
 :::
 ::::
 
-Viele weitere Einstellungsmöglichkeiten findest du unter folgendem [Link](https://quarto.org/docs/reference/formats/html.html).
+## A3 - Das Codebook Schritt für Schritt ausfüllen
 
-![](../../images/hands_on_3/Quarto_header.png)
+Wir haben die Variable `group_all` technisch untersucht und ihre wissenschaftliche Bedeutung recherchiert.
 
-### Übungen Quarto Header
+Jetzt übertragen wir diese Informationen in das Codebook.
 
-Stelle in deinem Quarto Header die folgenden Einstellungen ein, indem du die Elemente des YAML-Headers überarbeitest. Diesen findest du ganz oben in deinem Dokument. Dafür kannst du den Code-Block unten kopieren und für deinen Header anpassen.
+Unsere Vorlage enthält insgesamt **16 Felder (Spalten A-P).**
 
--   Titel
+Wir bearbeiten sie in vier Gruppen. Zu jedem Feld erfahrt ihr:
 
--   Autor:in
+-   welche Information dort verlangt wird;
 
--   Inhaltsverzeichnis (toc) = TRUE
+-   wo ihr diese Information finden könnt;
 
--   Position des Inhaltsverzeichnisses = left
+-   worauf ihr beim Eintragen achten solltet.
 
--   Warning = FALSE
+Anschliessend tragt ihr die entsprechenden Informationen für `group_all` in euer Codebook ein.
 
--   Message = FALSE
+**Grundregel:** Wenn ein Feld für eine bestimmte Variable nicht relevant oder nicht anwendbar ist, tragt ihr einfach `-` ein. Prüft aber immer zuerst, ob das Feld tatsächlich nicht zutrifft.
 
--   <div>
+### A3.1 - Identifikation und Datentyp (Spalten A-D)
 
-    ```{r, eval=FALSE, echo=TRUE}
-    title: 'Gib hier den Namen deines Dokuments ein'
-    author: 'Dein Name'
-    date: today
-    format:
-      html:
-        theme: flatly
-        toc:   # Inhaltsverzeichnis?
-        toc-location:  # Links oder Rechts?
-    execute:
-      warning:  # TRUE or FALSE
-      message: # TRUE or FALSE
+Diese Felder beantworten die Frage: **Welche Variable dokumentieren wir und wie ist sie aktuell gespeichert?**
 
-    ```
++--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------+
+| Feld                                       | Was wird verlangt?                                                                                                                          | Woher kommt die Information?   |
++============================================+=============================================================================================================================================+================================+
+| A - Number of item                         | Eine fortlaufende Nummer für den Eintrag im Codebook. Diese Nummer dient der Organisation und ist nicht mit der Personen-ID zu verwechseln. | Eigene Reihenfolge im Codebook |
++--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------+
+| B - Name of the data frame                 | Der Name des Datensatzes, in dem sich die Variable befindet.                                                                                | Name des Data Frames           |
++--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------+
+| C - Name of the variable in the data frame | Der genaue Name der Variable, wie er im Datensatz vorkommt. Schreibweise und Unterstriche müssen übereinstimmen.                            | `names(dat_full)`              |
++--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------+
+| D - Type of the variable in the data frame | Der technische Datentyp der Variable.                                                                                                       | `class()` oder `glimpse()`     |
++--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------+
 
-    </div>
+#### **Eure Aufgabe**
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = FALSE, echo = TRUE}
-    title: 'Gib hier den Namen deines Dokuments ein'
-    author: 'Dein Name'
-    date: today
-    format:
-      html:
-        theme: flatly
-        toc: TRUE # Inhaltsverzeichnis?
-        toc-location: left # Links oder Rechts?
-    execute:
-      warning:  TRUE # TRUE or FALSE
-      message: TRUE # TRUE or FALSE
-```
+Füllt die Spalten A-D für die Variable `group_all` aus.
+
+**Hinweis:** Im Feld *Type* dokumentieren wir den Datentyp, den die Variable aktuell tatsächlich besitzt. Eine Variable kann bspw. nominalskaliert sein, obwohl sie in R als `character` oder `numeric` gespeichert ist.
+
+Ob eine kategoriale Variable später in einen Faktor umgewandelt wird, hängt u.a. davon ab, wie wir sie verwenden möchten.
+
+::: {.content-visible when-meta="show_solutions"}
+-   **A - Number of item:** Fortlaufende Nummer entsprechend der Position im Codebook (individuell)
+
+-   **B - Name of the data frame:** `dat_full`
+
+-   **C - Name of the variable in the data frame: `group_all`**
+
+-   **D - Type of the variable in the data frame: `character`**
 :::
-::::
 
-**Aufgabe:** Rendere das Dokument erneut und überprüfe das gerenderte Ergebnis im Vorschaufenster oder im Ausgabeordner.
+### A3.2 - Herkunft und Antwortkategorien (Spalten E-H)
 
-Arbeite von nun an immer in einem Quarto Skript. Für das Abschlussprojekt findest du im Ordner "code" schon zwei vorgegebene Quarto Skripte.
+Diese Felder beantworten die Frage: **Woher stammt eine Variable und wie wurden ihre Werte erfasst bzw. kodiert?**
 
-# Faktoren (Spezialtyp eines Vektors):
-
-👉[Einführung in R, Kapitel 2.4.4](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#factors)
-
-***Aufgabe: Arbeiten mit kategorialen Variablen (Faktoren)***
-
-Kategoriale bzw. nominale Variablen werden in R als **Faktoren** gespeichert (`factor`-Datentyp).
-
--   **Erstelle** einen Character-Vektor mit mindestens fünf Einträgen, die verschiedene Geschlechtskategorien enthalten (z. B. *"male"*, *"female"*, *"nonbinary"*).
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-gender_vec <- c("female", "male", "nonbinary", "female", "male")
-```
-:::
-::::
-
--   **Definiere** nun einen Faktor mit der Funktion `factor()` für diesen Vektor.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-gender_fac <- factor(gender_vec)
-```
-:::
-::::
-
--   **Untersuche** die Eigenschaften deines Faktors mit den Funktionen `class()`, `attributes()` und `table()`.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-class(gender_fac)
-
-attributes(gender_fac)
-
-table(gender_fac)
-```
-:::
-::::
-
-**Beachte:** Die erste Stufe des Faktors ist die sogenannte **Referenzkategorie** – sie ist für manche Analysen relevant. Mit `relevel()` kannst du die Referenzkategorie ändern.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-gender_fac_rlvl <- relevel(gender_fac, ref = "male")
-```
-
-Die Referenzkategorie haben wir hier "male" gewählt - dies ist je nach Studiendesign oder gewünschter Analyse zu entscheiden.
-:::
-::::
-
-# Datenstrukturen: Vektoren, Listen, Matrizen und Data Frames
-
-👉[Einführung in R, Kapitel 2.4](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#datentypen)
-
-Bevor wir mit den Übungen starten, ein Überblick über die Unterschiede:
-
-| Struktur | Eigenschaften | Beispiel-Inhalt |
+| Feld | Was wird verlangt? | Woher kommt die Information? |
 |----|----|----|
-| **Vektor** | \- Enthält Elemente **eines** Datentyps<br>- Grundbaustein in R | `c(1, 2, 3)` oder `c("Anna", "Ben")` |
-| **Liste** | \- Kann verschiedene Datentypen enthalten<br>- Elemente können unterschiedlich lang sein | Zahlenvektor, Textvektor, logischer Vektor in einer Liste |
-| **Matrix** | \- Enthält nur **einen** Datentyp<br>- Hat feste Dimensionen (Zeilen, Spalten) | 3x3-Matrix mit Zahlen 1–9 |
-| **Data Frame** | \- Tabellarisch aufgebaut<br>- Spalten können unterschiedliche Datentypen enthalten<br>- Jede Spalte gleich lang | Tabelle mit Name (Character), Alter (Numeric), Studiert (Logical) |
+| E - Questionnaire/Source of the item | Aus welchem Fragebogen, Test, Erhebungsschritt oder welcher experimentellen Bedingung stammt die Variable? Nicht alle Variablen stammen aus einem Fragebogen. | Paper und `Informationen_zu_Daten.xlsx` |
+| F - Dimension the item belongs to | Gehört ein Item zu einer bestimmten Skala oder Dimension? Bspw. kann ein Persönlichkeitsitem der Dimension Extraversion zugeordnet sein. | Fragebogenbeschreibung oder Testmanual |
+| G - Response format | Wie wurde eine Antwort erhoben? Bspw. über eine fünfstufige Likert-Skala, eine Ja/Nein-Frage oder eine freie Texteingabe. | Fragebogen, Paper und Erhebungsinformationen |
+| H - Response labels | Verweis auf eine Liste, welche die Bedeutung der gespeicherten Antwortcodes oder Kategorien erklärt. Diese Listen werden im Tabellenblatt `response_labels` angelegt. | Kodierungsinformationen und Tabellenblatt |
 
-***👉*** **Merksatz:**
+#### **Eure Aufgabe**
 
-\
-**Vektor** = einfachste Struktur, ein Datentyp\
-**Liste** = flexibel, verschiedene Datentypen\
-**Matrix** = „Zahlenrechteck“, ein Datentyp\
-**Data Frame** = Tabelle, Spalten können unterschiedliche Datentypen haben
+Füllt die Spalten E-H für `group_all` aus.
 
-## Vektoren:
-
-Wir haben in den Hands-On-Übungen Block 1 und 2 bereits einige einfache Vektoren erstellt und damit operiert.
-
-## Matrizen
-
-Eine **Matrix** besteht nur aus einem Datentyp (z.B. nur Zahlen).
-
--   Erstelle eine 3x3-Matrix `matrix()` mit den Zahlen 1 bis 9.
+Für Spalte H könnt ihr bereits den Namen eurer geplanten Antwortliste eintragen. Die eigentliche Liste erstellt ihr in Aufgabe A4.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
-```
+-   **E - Questionnaire/Source of the item:** Experimental feedback condition
 
-Da in der Aufgabe nicht genauer angegeben, wäre auch `byrow = FALSE` (Default) möglich. Dann würde die Matrix nicht Zeilen-, sondern Spaltenweise gefüllt werden
+-   **F - Dimension the item belongs to:** -
+
+-   **G - Response format:** -
+
+-   **H - Response labels: `response_list_group`**
+
+**Merke:** Das *Response format* beschreibt, wie eine Antwort erhoben wurde. Die *Response labels* erklären dagegen, was die gespeicherten Werte bedeuten. Deshalb kann bei `group_all` das Feld *Response format* mit `-` gekennzeichnet werden, während wir trotzdem Response Labels dokumentieren.
 :::
 ::::
 
--   Wandle einen Vektor 1:12 in eine 3x4-Matrix um. Teste den Unterschied zwischen `byrow = TRUE` und `byrow = FALSE` innerhalb von matrix().
+### A3.3 - Theoretischer Wertebereich und Kodierungen (Spalten I-L)
+
+Diese Felder beantworten die Frage: **Welche Werte kann eine Variable annehmen und welche Besonderheiten müssen bei ihrer Interpretation berücksichtigt werden?**
+
+| Feld | Was wird verlangt? | Woher kommt die Information? |
+|----|----|----|
+| I - Theoretical minimum | Der kleinste theoretisch zulässige Wert einer Variable. Gemeint ist nicht einfach der kleinste beobachtete Wert. | Fragebogen, Erhebungsinstrument oder Kodierungsregeln |
+| J - Theoretical maximum | Der grösste theoretisch zulässige Wert einer Variable. Auch hier geht es nicht automatisch um den beobachteten Höchstwert. | Fragebogen, Erhebungsinstrument oder Kodierungsregeln |
+| K - Coding of item, if it needs to be reverse-coded | Ob ein Item invers kodiert werden muss bzw. welche entsprechende Umkodierung erforderlich oder vorgenommen wurde. | Fragebogenanleitung und Kodierungsinformationen |
+| L - Coding of missing data | Wie fehlende Werte dargestellt werden, bspw. als NA oder durch spezielle Werte wie -999. | Datensatz und Dokumentation der Erhebung bzw. Datenaufbereitung |
+
+#### **Eure Aufgabe**
+
+Füllt die Spalten I-L für `group_all` aus.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-# Der Ausgangsvektor
-v <- 1:12
+-   **I - Theoretical minimum:** -
 
-# 1. Variante: Spaltenweise (Standard)
-mat_col <- matrix(v, nrow = 3, ncol = 4, byrow = FALSE)
+-   **J - Theoretical maximum:** -
 
-# 2. Variante: Zeilenweise
-mat_row <- matrix(v, nrow = 3, ncol = 4, byrow = TRUE)
-```
+-   **K - Coding of item, if it needs to be reverse-coded:** -
+
+-   **L - Coding of missing data:** -
 :::
 ::::
 
--   Greife auf das Element in der 2. Zeile, 3. Spalte zu.
+### A3.4 - Berechnung, Beschreibung und Referenzen (Spalten M-P)
+
+Diese Felder beantworten die Frage: **Wie ist die Variable entstanden, was bedeutet sie und worauf stützt sich unsere Beschreibung?**
+
+| Feld | Was wird verlangt? | Woher kommt die Information? |
+|----|----|----|
+| M - Composition of item | Wie wurde eine Variable gebildet? Bspw. aus einer einzelnen Frage, als Summe mehrerer Items, als Mittelwert oder als Anteil richtiger Antworten. | Paper, Dateninformationen und ggf. Verarbeitungsskript |
+| N - Brief verbal description of the variable | Eine kurze, inhaltlich verständliche Beschreibung der Variable. Eine andere Person sollte daraus erkennen können, was die Variable bezeichnet oder misst. | Paper, Dateninformationen und fachlich begründete eigene Formulierung |
+| O - Reference for the survey or assessment tool | Wissenschaftliche Quelle des verwendeten Instruments oder der Erhebung, bspw. das Originalpaper oder ein Testmanual. | Literaturangaben im Paper und ergänzende Studienunterlagen |
+| P - Comment | Zusätzliche Informationen, die für das Verständis der Variable wichtig sind und nicht bereits in den anderen Feldern stehen. | Dokumentierte Verarbeitungsschritte und andere relevante Hinweise |
+
+#### **Eure Aufgabe**
+
+Füllt die Spalten M-P für `group_all` aus.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-mat_col[2, 3]
-```
+-   **M - Composition of item:** -
+
+-   **N - Brief verbal description of the variable:** Experimental group assignment indicating whether a participant received above-average performance feedback (`above`), below-average performance feedback (`below`), or no performance feedback (`control`).
+
+-   **O - Reference for the survey or assessment tool:** Grinschgl et al. (2020)
+
+-   **P - Comment:** Z.B.: Performance feedback was experimentally manipulatet (fake feedback) and did not reflect participants' actual performance.
 :::
 ::::
 
--   Berechne die Spaltensummen und Zeilensummen.
+## A4 - Response Labels selbstständig erstellen
+
+Ihr habt jetzt sämtliche Felder des Codebooks kennengelernt.
+
+Im nächsten Schritt erstellt ihr für `group_all` die passende Reponse-Liste.
+
+### Warum brauchen wir Response Labels?
+
+In unserem Datensatz enthält `group_all` unterschiedliche Textwerte.
+
+Damit auch andere Personen verstehen, welche experimentelle Bedingung jeder Wert bezeichnet, dokumentieren wir diese Bedeutungen im Tabellenblatt `response_labels`.
+
+Das gleiche Prinzip habt ihr in EH5 bei `strategies` kennengelernt.
+
+### 🧭 Aufgabe 1: Antwortliste erstellen
+
+Öffnet das Tabellenblatt `response_labels`. Erstellt eine neue Antwortliste mit dem Namen: `response_list_group`.
+
+Dieses Tabellenblatt enthält drei zentrale Spalten:
+
+| Spalte | Funktion |
+|----|----|
+| Response list | Name der Antwortliste (muss nicht auf jeder Zeile wiederholt werden) |
+| Coded response | Der tatsächlich im Datensatz gespeicherte Wert |
+| Label | Inhaltliche Bedeutung des jeweiligen Wertes |
+
+Füllt die drei Spalten für sämtliche Kategorien von `group_all` aus.
+
+Gebt den Antwortwerten keine neuen Codes. Übernehmt diejenigen Werte, die tatsächlich im aktuellen Datensatz vorkommen.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-rowSums(mat_col)
-colSums(mat_col)
-```
++-------------------------------------------------------+----------------+------------------------------+
+| Response list                                         | Coded response | Label                        |
++=======================================================+================+==============================+
+| `response_list_group`                                 | `above`        | Above-average feedback group |
++-------------------------------------------------------+----------------+------------------------------+
+| `(response_list_group)`                               | `below`        | Below-average feedback group |
+|                                                       |                |                              |
+| Muss nicht zwingend auf jeder Zeile wiederholt werden |                |                              |
++-------------------------------------------------------+----------------+------------------------------+
+| `(response_list_group)`                               | `control`      | Control group (no feedback)  |
+|                                                       |                |                              |
+| Muss nicht zwingend auf jeder Zeile wiederholt werden |                |                              |
++-------------------------------------------------------+----------------+------------------------------+
+
+Der Name in der Response list muss exakt mit dem Namen im Codebook (Spalte H) übereinstimmen.
 :::
 ::::
 
--   Schaue dir an, was passiert wenn du `t()` auf deine Matrix anwendest.
+### 🧭 Aufgabe 2: Antwortliste kontrollieren
+
+Überprüft:
+
+-   Sind sämtliche beobachteten Kategorien dokumentiert?
+
+-   Stimmen die gespeicherten Codes bzw. Werte exakt mit `dat_full` überein?
+
+-   Ist die Bedeutung jeder Kategorie eindeutig verständlich?
+
+-   Verweist Spalte H des Codebooks auf den korrekten Namen?
+
+**Reflexionsfrage**
+
+Weshalb ist es sinnvoll, Repsonse Labels separat zu dokumentieren, statt die Bedeutung einer Kategorie nur beiläufig im Kommentar zu erwähnen?
+
+Denkt dabei auch an Fragebogenitems (MMQ), die alle dieselbe Antwortskala verwenden.
 
 :::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-t(mat_col)
-```
+der
 :::
 ::::
 
-::::::: callout-note
-## Freiwillig für Fortgeschrittene:
+## A5 - Transfer auf eine andere Art von Variable
 
--   Generiere aus den Variablen ID, Initialen und Alter eine Matrize, die so aussieht: "1-RS-44" "2-MM-78" "3-PD-22" "4-PG-34" "5-DK-67" "1-RS-59«
+Bisher habt ihr eine kategoriale Variable dokumentiert.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# 1. Variablen definieren
-id <- c(1, 2, 3, 4, 5, 1)
-initialen <- c("RS", "MM", "PD", "PG", "DK", "RS")
-alter <- c(44, 78, 22, 34, 67, 59)
+Nun betrachten wir mit `pre1` eine numerische Rating-Variable.
 
-# 2. Strings kombinieren (mit Bindestrich als Trenner)
-kombiniert <- paste(id, initialen, alter, sep = "-")
+Ihr müsst für diese Aufgabe nicht nochmals alle 16 Felder vollständig ausfüllen (dürft dies aber gerne, wenn ihr dies noch nicht gemacht habt). Es geht darum, die Unterschiede zwischen verschiedenen Variablenarten zu verstehen.
 
-# 3. In eine Matrix umwandeln
-ergebnis_matrix <- matrix(kombiniert, nrow = 2, byrow = TRUE)
-```
+### 🧭 Aufgabe 1: `pre1` untersuchen
 
-Da in der Aufgabe nicht genauer angegeben, wäre auch byrow = FALSE möglich oder es könnte für nrow auch ein anderer Teiler von 6 angegeben werden.
-:::
-::::
+Verwendet die bereits bekannten R-Funktionen, um den Datentyp und den beobachteten Wertebereich von `pre1` zu bestimmen.
 
--   Erstelle einen Vektor mit den Namen mehrerer berühmter Wissenschaftler:innen. Kombiniere die Namen mit paste() und einem zusätzlichen Suffix, z. B. „, PhD“. Prüfe mit grepl(), ob einer der Namen ein bestimmtes Muster enthält (z. B. „stein“).
+Überlegt anschliessend:
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# 1. Vektor mit Namen erstellen
-wissenschaftler <- c("Albert Einstein", "Marie Curie", "Ada Lovelace", "Max Planck", "Rosalind Franklin")
+-   Was wurde mit `pre1` gemessen?
 
-# 2. Suffix ", PhD" hinzufügen
-phd_liste <- paste(wissenschaftler, "PhD", sep = ", ")
+-   Welchen Wertebereich besitzt die Variable aktuell im zusammengeführten Datensatz?
 
-# 3. Mit grepl() nach dem Muster "stein" suchen
-ist_stein <- grepl("stein", wissenschaftler, ignore.case = TRUE)
-```
+-   Welcher theoretische Wertebereich ist für die aktuell gespeicherten Werte vorgesehen?
 
-Mit dem Argument ignore.case lässt sich bestimmen, ob im gesuchten Muster Grossschreibung ignoriert werden soll
-:::
-::::
-:::::::
+-   Wie wird die Erhebung der subjektiven Leistungseinschätzungen im Paper beschrieben?
 
-## Listen
+📌 **Wichtig:** Das Paper berichtet subjektive Leistungseinschätzungen auf einer Perzentilskala von 0-100. In den uns bereitgestellten Rohdaten sind diese Ratings zunächst auf einer 0-10-Skala gespeichert. Diesen Unterschied werden wir in EH6 durch eine Transformation auflösen.
 
-Eine **Liste** kann verschiedene Datentypen enthalten (z. B. Zahlen, Zeichenketten, logische Werte).
-
-👉 [Einführung in R, Kapitel 2.4.5](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#lists)
-
--   **Erstelle eine Liste mit drei Elementen und der Funktion** `list()`**:**
-
-    -   einem Vektor mit den Zahlen 1 bis 5
-
-    -   einem Character-Vektor mit den Namen deiner Kommiliton:innen
-
-    -   einem logischen Vektor (TRUE, FALSE)
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# 1. Die drei Elemente definieren
-zahlen_vektor <- 1:5
-kommilitonen <- c("Lukas", "Sarah", "Maximilian", "Julia")
-logik_vektor <- c(TRUE, FALSE, TRUE, FALSE)
-
-# 2. Die Liste mit der Funktion list() erstellen
-meine_liste <- list(
-  Zahlen = zahlen_vektor,
-  Namen = kommilitonen,
-  Check = logik_vektor
-)
-```
-:::
-::::
-
--   Greife auf das zweite Element der Liste zu.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-meine_liste[[2]]
-
-meine_liste$Namen
-```
-:::
-::::
-
--   Greife auf den dritten Wert des ersten Elements der Liste zu.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-meine_liste[[1]][3]
-
-meine_liste$Zahlen[3]
-```
-:::
-::::
-
--   Füge der Liste ein weiteres Element hinzu (z. B. den Mittelwert der Zahlen).
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-meine_liste$Mittelwert <- mean(meine_liste[[1]])
-```
-:::
-::::
-
-## Data Frames
-
-👉[Einführung in R, Kapitel 2.4.6](https://methodenlehre.github.io/einfuehrung-in-R/chapters/02-R-language.html#data-frames)
-
-Ein **Data Frame** ist eine tabellarische Struktur mit Spalten, die verschiedene Datentypen enthalten können.
-
--   Erstelle einen Data Frame `data.frame()` oder `tibble()` mit drei Spalten:
-
-    -   name (Character)
-
-    -   alter (Numeric)
-
-    -   studiert (Logical: TRUE/FALSE)
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-mein_df <- data.frame(
-  name = c("Lukas", "Sarah", "Maximilian", "Julia"),
-  alter = c(22, 25, 21, 24),
-  studiert = c(TRUE, TRUE, FALSE, TRUE)
-)
-```
-:::
-::::
-
--   Greife mit `datensatz$alter` auf die Spalte "alter" zu.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-mein_df$alter
-```
-:::
-::::
-
--   Filtere alle Zeilen, in denen studiert `== TRUE`.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-mein_df[mein_df$studiert == TRUE, ]
-```
-:::
-::::
-
--   Füge eine neue Spalte hinzu, die "alter" + 10 berechnet.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-mein_df$alter_plus_10 <- mein_df$alter + 10
-```
-
-Wenn ihr die Werte in der Spalte Alter mit Anführungsstrichen definiert hattet, also bspw. mit `alter = c("2", "10", "5")`, dann muss diese Spalte erst als numerisch formatiert werden damit Additionen mit ihren Werten vorgenommen werden können:
-
-```{r}
-# 1. Formatieren auf numerisch
-mein_df$alter <- as.numeric(mein_df$alter)
-
-# 2. Berechnung/Transformation
-mein_df$alter_plus_10 <- mein_df$alter + 10
-```
-:::
-::::
-
--   Benenne die Spalten in deinem Data Frame mit `colnames()` oder `rename()`um, sodass sie internationalen Standards folgen.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# Alle Spalten
-colnames(mein_df) <- c("name", "age", "studies", "age_plus_10")
-
-# Nur ausgewählte Spalte (hier die zweite)
-colnames(mein_df)[2] <- "age"
-```
-
-Die Funktion `rename()` ist Teil des Tidyverse, welches in den kommenden Einheiten noch eine Rolle spielen wird. Hier schon mal einen Einblick in die übliche Schreibweise:
-
-```{r}
-# Einmalig in der Console ausführen:
-# install.packages("tidyverse")
-
-# Verwendung von dplyr, einem Unterpaket des Metapaket Tidyverse
-mein_df <- mein_df |> 
-  dplyr::rename("is_studying" = "studies")
-```
-
-Die Schreibweise von Paketname::Funktionsname ist nicht besonders an das Tidyverse bzw. dplyr gebunden. Diese Schreibweise stellt sicher, dass die Funktion `rename()` aus dem gewünschten Paket verwendet wird und nicht stattdessen eine Funktion mit dem gleichen Namen aber aus einem anderen Paket.
-:::
-::::
-
--   Berechne den Mittelwert und die Standardabweichung der Variable „age".
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# Mittelwert
-mean(mein_df$age)
-
-# Standardabweichung
-sd(mein_df$age)
-```
-:::
-::::
-
--   Sortiere den Data Frame basierend auf "age" absteigend mit `arrange()`.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-# Da beide Funktionen, arrange() und desc() erst mit ihrem jeweiligen Paket aufgerufen werden müssten, laden wir an dieser Stelle einfach wieder explizit das Paket (üblicherweise werden alle Pakete zu Beginn in einem gesonderten Chunk geladen):
-library(tidyverse)
-
-# Base R:
-mein_df_sortiert <- arrange(mein_df, desc(age))
-
-# Tidyverse:
-mein_df_sortiert <- mein_df |> 
-  arrange(desc(age))
-```
-:::
-::::
-
-Weitere Informationen zum Erstellen von Data Frames findest du hier: [Einführung in R, Kapitel 3.1](https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html#datens%C3%A4tze-selber-erstellen)
-
-## Übungen mit dat_full
-
-Nun, da wir einige Operationen mit Data Frames kennengelernt haben, wenden wir diese auf unseren Datensatz dat_full an.
-
--   Lies **dat_full** ein. Diesen Datensatz solltest du als .csv-Datei abgespeichert haben.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-dat_full <- read.csv(here::here("data", "processed", "dat_full.csv"))
-```
-:::
-::::
-
--   Sieh dir den Datensatz genau an. Die Variable `csvtm_sum` scheint einen Tippfehler zu enthalten. Korrigiere diesen zu `cvstm_sum` mit einer der oben vorgestellten Funktionen.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-dat_full$cvstm_sum <- dat_full$csvtm_sum
-```
-:::
-::::
-
--   Überlege dir: Welche Variable sollte in einen Faktor umgewandelt werden?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-Als Faktoren bieten sich vor allem solche Variablen an, welche logischerweise klar voneinander abetrente Werte haben. Oftmals gibt es keine logische Reihenfolge zwischen den Werten. Beispielsweise könnte man Studierende klar ihren Studienfächern zuordnen, ohne das eines logischerweise höher oder niedriger als ein anderes anzusehen wäre. Statistisch spricht man bei Faktoren oft von gemessen Werten auf der Nominalskala. Im hier vorliegenden Fall bietet sich die Faktorisierung für die Variablen `group_all` (bzw. abhängig davon wie man die Spalte beim mergen in den vorherigen Sitzungen genannt hatte ist vielleicht auch `group` möglich) und `strategies` an.
-:::
-::::
-
--   Definiere diese Variable(n) als Faktor, z. B. mit `as.factor()` oder `factor().`
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-dat_full$group_all <- factor(dat_full$group_all)
-
-dat_full$strategies <- as.factor(dat_full$strategies)
-```
-:::
-::::
-
--   **Zum Schluss speichere den bereinigten Datensatz erneut mit `write.csv` ab.**
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-write.csv(dat_full, here::here("data", "processed", "dat_full_renamed.csv"), row.names = FALSE)
-```
-:::
-::::
-
-::: callout-note
-**Hinweis:** R speichert nicht automatisch, dass eine Variable als Faktor definiert wurde. Dieser Code muss daher bei jedem Neustart erneut ausgeführt werden, wenn du wieder mit denselben Faktoren arbeiten möchtest.
+::: {.content-visible when-meta="show_solutions"}
+der
 :::
 
-# Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! :-)
+### 🧭 Aufgabe 2: Codebook-Felder vergleichen
+
+Überlegt, wie sich die Codebook-Einträge für `pre1` und `group_all` unterscheiden würden.
+
+Konzentriert euch dabei besonders auf:
+
+-   *Type*
+
+-   *Response format*
+
+-   *Response labels*
+
+-   *Theoretical minimum*
+
+-   *Theoretical maximum*
+
+-   *Composition of item*
+
+-   *Brief verbal description*
+
+**Reflexionsfrage:** Weshalb müssen wir bei einer kontinuierlich bzw. fein abgestuft erfassten numerischen Rating-Variable nicht für jeden einzelnen Zahlenwert ein separates Response Label anlegen?
+
+## ✅ Checkpoint - Ende des EH5-Teils
+
+Am Ende von Teil 1 solltet ihr Folgendes können:
+
+-   Ich kann den Datentyp und die Werte einer Variable in R untersuchen.
+
+-   Ich kann zwischen technischem Datentyp und wissenschaftlicher Bedeutung unterscheiden.
+
+-   Ich weiss, wo ich Informationen über unsere Variablen finde.
+
+-   Ich verstehe sämtliche 16 Felder des Codebooks.
+
+-   Ich kann eine Variable vollständig dokumentieren.
+
+-   Ich kann Response Labels erstellen und mit dem Codebook verknüpfen.
+
+-   Ich weiss, wie ich dieses Vorgehen auf andere Variablen übertragen kann.
+
+### Selbstständige Weiterarbeit: Codebook-Abgabe
+
+**Abgabe: Mittwoch, 21.10.2026**
+
+Vervollständigt das Codebook für alle 36 Variablen des zusammengeführten Datensatzes `dat_full` nach EH4.
+
+Bearbeitet auch das Tabellenblatt `Metadata` und ersetzt die Platzhalter der Vorlage durch passende Angaben zum gemeinsamen Forschungsprojekt.
+
+Verwendet dazu die Studiendokumentation, die Codebook-Guideline und die in dieser Übung vorgestellten Inspektionsfunktionen.
+
+Für diese erste Abgabe gilt ausdrücklich der Datenstand nach EH4. Die Transformationen aus EH6 müssen für diese Abgabe noch nicht durchgeführt oder im Codebook vorweggenommen werden.
+
+Das Codebook wird im weiteren Semesterverlauf fortlaufend aktualisiert. Später kommt bspw. auch die neu berechnete Variable `mmq_mean` hinzu.
+
+# Teil 2: Daten transformieren, überprüfen und dokumentieren
+
+*Bearbeitung nach EH6*
+
+**Leitfrage:** Wie verändern wir unseren Datensatz gezielt und reproduzierbar, ohne dabei die Übereinstimmung zwischen Daten, Verarbeitungsskript und Codebook zu verlieren?
+
+In Teil 1 haben wir unsere Variablen untersucht und dokumentiert.
+
+Nun wissen wir, was die verschiedenen Variablen bedeuten. Allerdings müssen einzelne Variablen noch angepasst werden, bevor wir sie für unsere späteren Analysen verwenden können.
+
+Dafür arbeiten wir wieder in unserem bestehenden `processing.qmd`.
+
+### Was werden wir verändern?
+
+| Aktueller Zustand | Gewünschter Zustand | Warum? |
+|----|----|----|
+| `group_all` | `group` | Einheitliche Bezeichnung der Experimentalgruppen |
+| `csvtm_sum` | `cvstm_sum` | Schreibweise der Variable vereinheitlichen |
+| `pre1`, `pre2`, `pre3`, `pre4`, `post` | Ratings auf 0-100 | Übereinstimmung mit der im Paper verwendeten Perzentilskala |
+
+Ausserdem werden wir anhand von `group` und `strategies` nochmals praktisch untersuchen, wie Faktoren und Faktortufen in R funktionieren.
+
+**Wichtig:** In diesem Übungsteil verändern wir den tatsächlichen Datensatz nur dort dauerhaft, wo dies für unser Processing erforderlich ist. Die Faktorbeispiele dienen zunächst dem Verständnis und werden in separaten Objekten behandelt.
+
+## B0 - Wo gehören unsere neuen Verarbeitungsschritte hin?
+
+📍**Arbeitsort: `code/processing.qmd`**
+
+Öffnet euer bisheriges Processing-Dokument. Öffnet dazu wieder erst euer R-Projekt und ladet das Skript darin.
+
+Aus Hands-on 2 solltet ihr bereits Abschnitte zum Import der Rohdaten, zum Zusammenführen der Datensätze, zur Kontrolle des Merge-Ergebnisses und zum Speichern des Datensatzes besitzen.
+
+### 🧭 Aufgabe 1: Die richtige Stelle finden
+
+Sucht den Abschnitt, in dem ihr die zusammengeführten Daten kontrolliert habt.
+
+**Überlegt:** An welcher Stelle müssen wir die neuen Transformationen ergänzen, damit die anschliessend gespeicherte `dat_full.csv` bereits die veränderten Variablen enthält?
+
+### 🧭 Aufgabe 2: Dokumentstruktur erweitern
+
+Ergänzt an der passenden Stelle aussagekräftige Überschriften, bspw.:
+
+-   Variablen transformieren
+
+-   Transformierte Daten kontrollieren
+
+Die Überschriften gehören als normaler Quarto-Text ausserhalb von R-Code-Chunks in das Dokument.
+
+Die eigentlichen R-Befehle werden darunter in passenden Code-Chunks ergänzt.
+
+#### Wichtig für den weiteren Ablauf
+
+Euer Processing-Dokument soll eine nachvollziehbare Reihenfolge besitzen:
+
+1.  Pakete laden
+
+2.  Rohdatensätze einlesen
+
+3.  Datensätze zusammenführen
+
+4.  Zusammengeführte Daten kontrollieren
+
+5.  Variablen transformieren
+
+6.  Transformierte Daten kontrollieren
+
+7.  Aufbereitete Daten speichern
+
+Falls euer Speicherschritt aus Hands-on 2 noch vor den neuen Transformationen steht, verschiebt ihn entsprechend nach unten.
+
+**Speichert den Datensatz nicht mehrfach an verschiedenen Stellen!** Wir erweitern das vorhandene Processing-Skript, statt eine zweite, unabhängige Verarbeitung zu beginnen.
+
+## B1 - Daten gezielt auswählen und untersuchen
+
+In EH6 habt ihr den Pipe-Operator `|>` (oder `%>%`) und verschiedene Funktionen aus `dplyr` kennengelernt.
+
+Bevor wir unseren Datensatz dauerhaft verändern, verwenden wir zunächst `select()` und `filter()`, um ausgewählte Informationen anzuschauen.
+
+### 🧭 Aufgabe 1: Spalten auswählen
+
+Erstellt eine Pipeline, die aus `dat_full` nur die Variablen `code`, `group_all` und `pre1` anzeigt.
+
+Welche Funktion benötigt ihr dafür?
+
+### 🧭 Aufgabe 2: Personen auswählen
+
+Erstellt eine weitere Pipeline, die nur Personen aus der Kontrollgruppe berücksichtigt.
+
+Welche Funktion benötigt ihr dafür?
+
+### 🧭 Aufgabe 3: Ergebnisse einordnen
+
+**Überlegt:**
+
+-   Was ist der Unterschied zwischen `select()` und `filter()`?
+
+-   Wann verwenden wir welche Funktion?
+
+-   Warum sollten wir das Ergebnis dieser beiden Aufgaben nicht dauerhaft unter `dat_full` speichern?
+
+**Wichtig:** Die bisherige Stichprobe von 159 Personen soll für unser Forschungsprojekt vollständig erhalten bleiben.
+
+Wenn ihr Daten nur vorübergehend untersuchen möchtet, könnt ihr eine Pipeline ausführen, ohne das Ergebnis wieder `dat_full` zuzuweisen.
+
+Code-Chunk erstellen, der dann wieder gelöscht werden kann.
+
+## B2 - Variablennamen vereinheitlichen
+
+Einige Variablennamen sind noch nicht optimal auf die spätere Verarbeitung und die Studieninformationen abgestimmt.
+
+Wir möchten deshalb zwei Variablen umbenennen.
+
+### 🧭 Aufgabe 1: `group_all` umbenennen
+
+Verwendet `rename()`, um die Variable `group_all` in `group()` umzubenennen.
+
+Das Ergebnis soll anschliessend dauerhaft im Processing-Skript enthalten sein.
+
+**Hinweis**
+
+Bei `rename()` wird zuerst der neue und danach der bisherige Variablenname abgegeben:
+
+`rename(neuer_name = alter_name)`
+
+Überlegt, wie ihr diese Funktion in eine Pipeline mit `dat_full` integriert.
+
+### 🧭 Aufgabe 2: Einen Schreibfehler korrigieren
+
+Im ursprünglichen Datensatz `data_cvstm.csv` wird die Variable `csvtm_sum` verwendet.
+
+In der bereitgestellten Dateninformation wird dagegen die Schriebweise `cvstm_sum` verwendet.
+
+Vereinheitlicht deshalb diesen Namen ebenfalls mit `rename()`.
+
+**Tipp:** Ihr könnt beide Umbenennungen auch in derselben Verarbeitungskette zusammenfassen.
+
+### 🧭 Aufgabe 3: Änderungen überprüfen
+
+Kontrolliert mit geeigneten R-Befehlen:
+
+-   Sind `group` und `cvstm_sum` jetzt vorhanden?
+
+-   Sind die bisherigen Namen `group_all` und `csvtm_sum` verschwunden?
+
+-   Hat sich die Anzahl der Personen verändert?
+
+-   Hat sich die Anzahl der Variablen verändert?
+
+### 🧭 Aufgabe 4: Was bedeutet das für das Codebook?
+
+In Teil 1 habt ihr die Gruppierungsvariable noch unter dem Namen `group_all` dokumentiert. Auch habt ihr vielleicht den Schreibfehler in `csvtm_sum` noch übernommen.
+
+**Überlegt:**
+
+Welche Codebook-Felder müssen angepasst werden, wenn die Variable im Datensatz nun `group` heisst?
+
+Führt die entsprechenden Aktualisierungen in eurer Codebook-Datei durch.
+
+## B3 - Ratings auf die 0-100-Skala transformieren
+
+Nun kommen wir zu einer Veränderung der tatsächlich gespeicherten Werte.
+
+In der Grinschgl-Studie wurden subjektive Leistungseinschätzungen auf einer Perzentilskala von 0-100 berichtet.
+
+Die uns bereitgestellten Originaldaten enthalten die entsprechenden Ratings zunächst auf einer 0-10-Skala.
+
+Wir müssen deshalb fünf Variablen transformieren:
+
+`pre1`, `pre2`, `pre3`, `pre4`, `post`
+
+### Schritt 1: Die notwendige Transformation verstehen
+
+**Überlegt zunächst:**
+
+Eine Person besitzt bei `pre1` den Wert `6.2`. Welcher Wert sollte nach einer linearen Transformation von 0-10 auf 0-100 vorliegen?
+
+Welche mathematische Operation benötigen wir dafür?
+
+Beantwortet diese Fragen, bevor ihr den R-Code schreibt.
+
+### Schritt 2: Die bisherigen Daten untersuchen
+
+Überprüft mit R die Wertebereiche der fünf Rating-Variablen.
+
+Kontrolliert dabei, ob die Werte mit der derzeitigen 0-10-Skala vereinbar sind.
+
+**Reflexionsfrage**
+
+Weshalb sollten wir die vorhandenen Werte zunächst überprüfen, statt einfach ohne Kontrolle eine Transformation durchzuführen?
+
+Denkt dabei auch an das spätere Abschlussprojekt mit individuell simulierten Daten.
+
+### Schritt 3: Eine einzelne Variable probeweise transformieren
+
+Verwendet `mutate()`, um zunächst eine vorübergehende neue Variable zu erzeugen.
+
+Diese soll die transformierten Werte von `pre1` enthalten.
+
+Gebt ihr bspw. den Namen `pre1_100`.
+
+Vergleicht danach die ursprünglichen und die transformierten Werte.
+
+**Wichtig:** Bei dieser ersten Probe soll `dat_full` noch nicht dauerhaft verändert werden.
+
+**Hinweis**
+
+Mit `mutate()` könnt ihr neue Variablen erstellen oder bestehende Variablen verändern.
+
+Bspw. lässt sich mit:
+
+`mutate(neue_variable = vorhandene_variable * faktor)`
+
+eine neue Variable aus einer vorhandenen berechnen. Überlegt, welche tatsächlichen Variablennamen und welchen Faktor ihr für unser Beispiel einsetzen müsst.
+
+### Schritt 4: Alle fünf Ratings gemeinsam transformieren
+
+Die gleiche Berechnung wird nun für sämtliche fünf Rating-Variablen benötigt.
+
+Anstatt fünf fast identische `mutate()`-Anweisungen zu schreiben, verwenden wir `across()`.
+
+**Eure Aufgabe**
+
+Erstelle eine Pipeline, die:
+
+1.  `dat_full` als Ausgangspunkt verwendet,
+
+2.  mit `mutate()` bestehende Variablen verändert,
+
+3.  mit `across()` die fünf Rating-Variablen auswählt,
+
+4.  auf alle ausgewählten Variablen dieselbe Berechnung anwendet,
+
+5.  das Ergebnis wieder unter `dat_full` speichert.
+
+Dokumentiert mit einem kurzen Kommentar im Processing-Skript, weshalb diese Transformation erforderlich ist.
+
+**Hinweis**
+
+`across()` benötigt zwei zentrale Informationen:
+
+-   Welche Spalten sollen bearbeitet werden?
+
+-   Welche Funktion soll auf diese Spalten angewendet werden?
+
+In einer anonymen Funktion kann `.x` verwendet werden, um den jeweiligen Spaltenwert anzusprechen.
+
+**Achtung:** Führt die Skalentransformation auf demselben bereits veränderten R-Objekt nicht versehentlich zweimal aus. Andernfalls werden die Werte nochmals multipliziert.
+
+Wenn ihr unsicher seid, startet die Verarbeitung erneut bei den unveränderten Rohdaten und führt das Processing von oben aus.
+
+### Schritt 5: Transformationen überprüfen
+
+Verwendet geeigenete R-Funktionen, um eure Ergebnisse zu kontrollieren.
+
+**Fragen:**
+
+-   Sind die fünf Rating-Variablen weiterhin vorhanden?
+
+-   Sind die Werte jetzt mit der 0-100-Skala vereinbar?
+
+-   Hat sich die Anzahl der Personen verändert?
+
+-   Hat sich die Anzahl der Variablen verändert?
+
+### Schritt 6: Codebook aktualisieren
+
+Ihr habt nun die Werte von fünf Variablen verändert.
+
+Sucht diese Variablen im Codebook und überprüft, welche Angaben angepasst werden müssen.
+
+Nach Abschluss dieser Aufgabe muss euer Codebook zum transformierten Datensatz passen.
+
+## B4 - Faktoren und Faktorstufen verstehen
+
+In EH5 haben wir zwischen dem technischen Datentyp einer Variable und ihrer wissenschaftlichen Bedeutung unterschieden.
+
+Nun möchten wir genauer verstehen, wie kategoriale Variablen in R als Faktoren dargestellt werden können.
+
+Dazu untersuchen wir zwei Beispiele aus unserem Forschungsprojekt:
+
+-   `group`: eine kategoriale Variable, deren Werte als Text gespeichert sind
+
+-   `strategies`: eine kategoriale Variable, deren Werte numerisch kodiert sind
+
+Beide Variablen sind inhaltlich nominal, obwohl sie unterschiedliche Datentypen besitzen.
+
+### 🧭 Aufgabe 1: `group` als Faktor darstellen
+
+Erstellt aus `dat_full$group` ein **separates Übungsobjekt** mit dem Namen `group_faktor`.
+
+Verwendet dafür `factor().`
+
+Legt die Reihenfolge der Faktorstufen bewusst fest:
+
+1.  `control`
+
+2.  `below`
+
+3.  `above`
+
+Vergleicht anschliessend:
+
+`class(dat_full$group)`
+
+`class(group_faktor)`
+
+`levels(group_faktor)`
+
+**Fragen:**
+
+-   Welchen Datentyp besitzt die ursprüngliche Variable?
+
+-   Welchen Datentyp besitzt euer neues Faktorobjekt?
+
+-   Welche Faktorstufen werden angezeigt?
+
+-   Weshalb könnte die Reihenfolge der Faktorstufen später für statistische Analysen relevant sein?
+
+### 🧭 Aufgabe 2: Numerisch kodierte Kategorien als Faktoren
+
+Betrachtet nun erneut die Variable `strategies` aus EH5.
+
+Ihr habt im Codebook bereits dokumentiert, welche Bedeutung die Codes 1, 2 und 3 haben.
+
+Erstellt ein separates Faktorobjekt mit dem Namen `strategies_faktor`.
+
+Verwendet die ursprünglichen Codes und ergänzt mit `labels = ...` verständliche Bezeichnungen für die drei Kategorien.
+
+Die erforderlichen Bezeichnungen findet ihr in euren Response Labels bzw. in den Studiendokumenten.
+
+**Hinweis**
+
+Bei `factor()` könnt ihr zwei unterschiedliche Argumente verwenden:
+
+-   `levels = ...` legt fest, welche ursprünglichen Werte zu welchen Faktorstufen gehören und in welcher Reihenfolge sie verwendet werden.
+
+-   `lables = ...` legt fest, welche Bezeichnungen die Faktorstufen erhalten sollen.
+
+Überprüft eure Ergebnisse anschliessend mit `class()` und `levels()`.
+
+### 🧭 Aufgabe 3: Die beiden Beispiele vergleichen
+
+**Überlegt gemeinsam:**
+
+1.  Weshalb können sowohl `group` als auch `strategies` sinnvoll als Faktoren dargestellt werden?
+
+2.  Weshalb ist `strategies` auch ohne Faktor-Konvertierung bereits eine inhaltlich kategoriale Variable?
+
+3.  Welche Rolle spielt `group` später in unseren ANOVAs?
+
+4.  Weshalb wird `strategies` in unserer Replikation nicht als Faktor für die statistischen Modelle benötigt?
+
+### Wichtig für unser Forschungsobjekt
+
+**Die beiden Faktorobjekte dienen hier nur der Übung.**
+
+Für die späteren statistischen Modelle werden wir in `analysis.qmd` die jeweils benötigtwn Variablen als Faktoren definieren:
+
+-   `group` für die Experimentalgruppen
+
+-   `code` als Personenerkennung für die wiederholten Messungen
+
+-   `timepoint` für die Messzeitpunkte im späteren Long-Datensatz
+
+**Was bedeutet dies für unser Codebook?**
+
+Das Codebook beschreibt die Variablen im gespeicherten Wide-Datensatz. Die temporär erzeugten Faktorobjekte verändern diese Datei nicht.
+
+Deshalb müsst ihr die Einträge im Codebook aufgrund dieser Faktorübung nicht verändern!
+
+## B5 - Stimmen Daten, Skript und Codebook überein?
+
+Wir haben jetzt mehrere Verarbeitungsschritte vorgenommen.
+
+Bevor wir den Datensatz speichern und zum nächsten Forschungsschritt übergehen, müssen wir überprüfen, ob die Veränderungen korrekt durchgeführt wurden.
+
+**Wichtig:** Ein R-Code kann ohne Fehlermeldung ausgeführt werden und trotzdem ein inhaltlich falsches Ergebnis erzeugen.
+
+Deshalb gehört die Ergebnisprüfung zu jeder nachvollziehbaren Datenaufbereitung.
+
+### 🧭 Aufgabe 1: Daten kontrollieren
+
+Wählt geeignete R-Funktionen, um folgende Punkte zu überprüfen:
+
+| Kontrollfrage | Euer Ergebnis |
+|----|----|
+| Wie viele Personen enthält `dat_full`? |  |
+| Wie viele Variablen enthält `dat_full`? |  |
+| Sind die neuen Variablennamen vorhanden? |  |
+| Sind die alten Variablennamen verschwunden? |  |
+| Wie viele Personen gehören zu jeder Experimentalgruppe? |  |
+| Sind die fünf Ratings korrekt transformiert? |  |
+| Sind die bisherigen MMQ-Items weiterhin unverändert vorhanden? |  |
+| Wurden die Faktorübungen nur in separaten Objekten durchgeführt? |  |
+
+Ihr kennt bereits verschiedene Funktionen, mit denen ihr diese Fragen überprüfen könnt. Überlegt selbstständig, welche Funktion für die jeweilige Kontrollfrage geeignet ist.
+
+### 🧭 Aufgabe 2: Codebook-Abgleich
+
+Öffnet die aktualisierte Codebook-Datei.
+
+Überprüft:
+
+-   Stimmen die Variablennamen mit dem aktuellen `dat_full` überein?
+
+-   Sind die beiden Umbenennungen berücksichtigt?
+
+-   Sind die theoretischen Wertebereich der transformierten Ratings korrekt dokumentiert?
+
+-   Ist die Skalentransformation nachvollziehbar beschrieben?
+
+## B6 - Speichern und reproduzierbar rendern
+
+Zum Abschluss stellen wir sicher, dass die neuen Verarbeitungsschritte korrekt in unser bestehendes Forschungsprojekt integriert sind.
+
+### 🧭 Aufgabe 1: Verarbeitungskette überprüfen
+
+Kontrolliert die Reihenfolge der Arbeitsschritte in `processing.qmd`.
+
+Die neuen Transformationen müssen nach dem Zusammenführen der Rohdaten und vor dem Speichern des verarbeiteten Datesatzes erfolgen.
+
+Achtet darauf, dass der bestehende Speicherschritt aus Hands-on 2 an der richtigen Stelle steht.
+
+Entfernt sämtlichen Code, der nur Übungszwecken gedient hat und nicht dauerhaft in `processing.qmd` gehört.
+
+### 🧭 Aufgabe 2: Vollständig rendern
+
+Speichert euer Processing-Dokument und rendert es vollständig.
+
+Kontrolliert anschliessend:
+
+-   Wurde das Dokument erfolgreich gerendert?
+
+-   Wurden die neuen Verarbeitungsschritte ausgeführt?
+
+-   Wurde `dat_full.csv` unter `data/processed/` aktualisiert?
+
+-   Enthält die gespeicherte Datei die neuen Variablennamen und die transformierten Ratings?
+
+## ✅ Checkpoint - Ende des EH6-Teils
+
+Nach vollständiger Bearbeitung von Hands-on 3 sollte euer Projekt folgenden Zustand erreicht haben:
+
+-   `processing.qmd` verwendet weiterhin die sieben unveränderten Rohdatensätze.
+
+-   Der zusammengeführte Datensatz enthält weiterhin 159 Personen und 36 Variablen.
+
+-   `group_all` wurde zu `group` umbenannt.
+
+-   `csvtm_sum` wurde zu `cvstm_sum` umbenannt.
+
+-   Die fünf Ratings wurden korrekt von 0-10 auf 0-100 transformiert.
+
+-   Ihr habt den Unterschied zwischen kategorialen Variablen und Faktoren praktisch nachvollzogen.
+
+-   Die Faktorübungen haben die gespeicherten Wide-Daten nicht verändert.
+
+-   Die vorgenommen Änderungen sind im Processing-Skript dokumentiert.
+
+-   Das Codebook wurde entsprechend aktualisiert.
+
+**Was fehlt noch?**
+
+Unser Processing ist damit noch nicht vollständig abgeschlossen. In den nächsten Einheiten werden wir uns u.a. it der Erkennung und Bereinigung problemtaischer Daten beschäftigen, den MMQ-Skalenwert `mmq-mean` berechnen und aus unserem Wide-Datensatz zusätzlich einen Long-Datensatz erzeugen.
+
+Erst danach führen wir die umfassende Abschlusskontrolle durch und beginnen mit den statistischen Analysen.
+
+# 🎉 Abschluss! Gratulation zum Beenden von Hands-on 3.
+
+✅ Speichere dein Skript ab.

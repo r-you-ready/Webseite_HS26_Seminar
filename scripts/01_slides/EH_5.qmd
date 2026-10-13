@@ -162,7 +162,7 @@ Daneben besitzen wir 36 Spalten. Jede Spalte repräsentiert eine Variable. Beson
 <br>
 
 | Datenstruktur | Aufbau | Beispiel |
-|-------------------|-----------------------------|------------------------|
+|----|----|----|
 | Vektor | Folge von Werten desselben Datentyps | Variable mit Ratings |
 | Matrix | Zweidimensionale Struktur mit einheitlichem Datentyp | Numerische Messwertmatrix |
 | Liste | Kann unterschiedliche Objekte und Datenstrukturen enthalten | Ergebnisse verschiedener Analysen |
@@ -197,7 +197,7 @@ Für unsere Arbeit steht aber der Data Frame im Mittelpunkt. Er organisiert vers
 <br>
 
 | Datentyp | Bedeutung | Beispiel |
-|-------------------|---------------------------|---------------------------|
+|----|----|----|
 | `numeric` | Zahlen, einschliesslich Dezimalzahlen | `6.2`, `0.75`, `159` |
 | `character` | Text und Zeichenfolgen | `"above"`, `"control"` |
 | `logical` | Wahrheitswerte | `TRUE`, `FALSE` |

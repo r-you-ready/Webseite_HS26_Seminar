@@ -1802,7 +1802,7 @@ Ein fehlerhafter Merge kann beispielsweise:
 
 Solche Fehler würden alle späteren Analysen beeinflussen.
 
-Deshalb gehört zum Mergen immer eine **Valisierung**.
+Deshalb gehört zum Mergen immer eine **Validierung**.
 
 ## F1 - Erst Erwartungen formulieren, dann prüfen
 
@@ -1850,7 +1850,7 @@ Wenn eine dieser Zahlen unerwartet ist, müssen wir den Merge untersuchen, **bev
 
 159 Zeilen allein reichen noch nicht.
 
-Theoretisch könnten beispielsweise einzelne Personen dopplet enthalten sein und andere fehlen.
+Theoretisch könnten beispielsweise einzelne Personen doppelt enthalten sein und andere fehlen.
 
 Deshalb prüfen wir die Schlüsselvariable selbst.
 
@@ -1906,7 +1906,7 @@ Suche insbesondere nach Namen, die auf `.x` oder `.y` enden.
 
 ### Warum wäre das auffällig?
 
-Wenn zwei DAtensätze eine gleich benannte Variable enthalten und R nicht weiss, dass diese Variable als gemeinsamer Schlüssel behandelt werden soll, behält Join unter Umständen beide Versionen und ergänzt solche Endungen.
+Wenn zwei Datensätze eine gleich benannte Variable enthalten und R nicht weiss, dass diese Variable als gemeinsamer Schlüssel behandelt werden soll, behält Join unter Umständen beide Versionen und ergänzt solche Endungen.
 
 Das muss nicht immer falsch sein.
 
