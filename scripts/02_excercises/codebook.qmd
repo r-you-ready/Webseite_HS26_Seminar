@@ -1,109 +1,87 @@
 ---
 title: "Hausübung: Codebook"
+format: html
 editor: visual
 ---
 
-Im Methodenseminar „R you Ready? Reproduzierbare Datenaufbereitung und –analyse in R“ erstellt ihr ein **Codebook für euren finalen Datensatz (dat_full)**.
+## Worum geht es?
 
-Das Codebook ist Teil eures Analyseprojekts und dokumentiert alle Variablen, im Datensatz beinhaltet sind und die ihr im Rahmen eurer Datenaufbereitung erstellt. Das Codebook bezieht sich **ausschliesslich auf euren finalen Datensatz (dat_full) und nicht auf die Rohdaten der Einzeldatensätze**.
+Im Methodenseminar **«R u Ready? Reproduzierbare Datenaufbereitung und -analyse in R» (HS26)** erstellt ihr ein Codebook für den zusammengeführten Datensatz `dat_full` der Studie von Grinschgl et al.
 
-------------------------------------------------------------------------
+Ein Codebook erklärt, **was die Variablen bedeuten, wie ihre Werte kodiert sind und wie sie interpretiert werden können**. Eine aussenstehende Person soll damit den Datensatz verstehen und sinnvoll weiterverwenden können, ohne euch zusätzliche Fragen stellen zu müssen.
 
-## Ziel der Hausübung
+::: {.callout-important title="Welcher Datenstand ist für die erste Abgabe relevant?"}
+Für die **erste Codebook-Abgabe am Mittwoch, 21.10.2026** dokumentiert ihr den Stand von **`dat_full` nach EH4**: den aus sieben Rohdateien zusammengeführten Datensatz mit **159 Zeilen und 36 Variablen**.
 
-Ziel dieser Hausübung ist es, dass ihr euren finalen Datensatz so dokumentiert, dass **eine aussenstehende Person eure Daten vollständig nachvollziehen kann**.
+Die Transformationen aus EH6 werden **noch nicht vorausgesetzt**. Beispielsweise heisst die Gruppenvariable für diese Abgabe noch `group_all`; die Ratings liegen noch auf der 0–10-Skala vor. Das Codebook wird später entsprechend aktualisiert.
+:::
 
-Das bedeutet konkret:
+## Was ist eure Aufgabe?
 
-Eine Person sollte anhand eures Codebooks verstehen können,
+Dokumentiert **alle 36 Variablen**, die im zusammengeführten `dat_full` enthalten sind – nicht nur diejenigen, die wir später statistisch analysieren. Für jede Variable füllt ihr die vorgesehenen **16 Felder (Spalten A–P)** der Codebook-Vorlage aus.
 
--   welche Variablen im Datensatz enthalten sind
+Dazu gehört insbesondere:
 
--   wie diese entstanden sind
+-   **Identifikation:** Wie heisst die Variable und in welchem Data Frame liegt sie?
+-   **Datentyp:** Wie ist sie *aktuell* in R gespeichert (`numeric`, `character` usw.)?
+-   **Herkunft und Bedeutung:** Was wurde erhoben, beobachtet oder experimentell festgelegt?
+-   **Werte und Kodierungen:** Welche Werte sind zulässig, was bedeuten sie und wie werden gegebenenfalls fehlende Werte dargestellt?
+-   **Zusammensetzung und Quellen:** Wurde ein Kennwert berechnet? Wo ist die entsprechende Beschreibung dokumentiert?
 
--   wie sie berechnet wurden
+Im Blatt **`response_labels`** dokumentiert ihr bei Bedarf zusätzlich die Bedeutung gespeicherter Codes und Kategorien, etwa für `group_all`, `strategies` oder die MMQ-Antwortskala. Im Hauptblatt `Codebook` verweist ihr dann mit dem entsprechenden Listennamen auf diese Zuordnung.
 
--   welche Werte sie annehmen können
+**Wichtig:** Der technische Datentyp ist nicht dasselbe wie das wissenschaftliche Skalenniveau. Eine kategoriale Variable kann aktuell als `character` oder `numeric` gespeichert sein, ohne bereits ein `factor` in R zu sein. Tragt im Feld *Type* den **tatsächlichen Datentyp des vorliegenden Datensatzes** ein.
 
--   wie sie zu interpretieren sind
+Wenn ein Feld für eine Variable **nicht anwendbar oder nicht relevant** ist, tragt ihr **`-`** ein. Prüft aber zuerst anhand der Unterlagen, ob die Information tatsächlich nicht benötigt wird.
 
-👉 Das Codebook bildet damit die **Verbindung zwischen eurem Datensatz und eurem R-Skript**.
+## Materialien und Hilfestellungen
 
-------------------------------------------------------------------------
+Alle benötigten Unterlagen findet ihr im **bereitgestellten ZIP-Ordner des gemeinsamen Forschungsprojekts** auf ILIAS:
 
-## Materialien und Vorlage
+-   **`data/Codebook_Vorlage.xlsx`:** Excel-Datei mit den Blättern `Metadata`, `Codebook` und `response_labels`.
+-   **`data/Informationen_zu_Daten.xlsx`:** Angaben zu Variablen und gespeicherten Codes.
+-   **Originalpaper von Grinschgl et al.:** Studiendesign, Messinstrumente und Beschreibung der erhobenen Variablen.
+-   **Codebook-Guideline:** Erläuterungen zu den einzelnen Feldern und Beispiele.
+-   **Hands-on 3, Teil 1:** Schrittweise Anleitung anhand von `group_all`; in EH5 haben wir gemeinsam `strategies` dokumentiert.
 
-Alle relevanten Materialien findet ihr auf ILIAS im ZIP-Ordner des Abschlussprojekts.
+Untersucht die Variablen in R beispielsweise mit `class()`, `unique()`, `table()` oder `range()`. Die Ergebnisse solcher **vorübergehenden Abfragen** könnt ihr direkt in der R-Konsole ansehen. Ihr müsst diese Inspektionsbefehle nicht dauerhaft in `processing.qmd` übernehmen. Die relevanten Informationen tragt ihr in eure Excel-Datei ein.
 
-Dort findet ihr:
+Speichert die bearbeitete Vorlage unter einem eindeutigen Dateinamen, beispielsweise `Codebook_dat_full.xlsx`.
 
--   **Excel-Vorlage für das Codebook**
-
--   Beispiel: *Example_Codebook*
-
--   Dokument *Codebook* *Guideline* mit nützlichen Hinweisen zu den relevanten Spalten
+### Codebook-Guideline
 
 <iframe src="../../PDFs/Guideline_Codebook.pdf" width="100%" height="600px">
 
 </iframe>
 
-👉 Verwendet die bereitgestellte Vorlage und ergänzt die vorgesehenen Felder.
+## Worauf achten wir bei der Bewertung?
 
-------------------------------------------------------------------------
+-   **Vollständigkeit:** Alle 36 Variablen sind erfasst; die vorgesehenen Felder und notwendigen Response Labels sind bearbeitet.
+-   **Korrektheit:** Namen, Datentypen, Kodierungen und Wertebereiche entsprechen dem **Datenstand nach EH4**.
+-   **Verständlichkeit:** Die Variablen sind so beschrieben, dass ihre Bedeutung auch ohne zusätzliche Erklärungen nachvollziehbar ist.
+-   **Quellenbezug:** Angaben lassen sich aus den Daten, dem Originalpaper und den ergänzenden Studienunterlagen begründen.
+-   **Konsistenz:** Die Verweise auf die Listen in `response_labels` stimmen mit deren Namen überein.
 
-## Wichtige Anforderungen
+## Abgabe und Peer-Feedback
 
-Für die Bewertung ist insbesondere wichtig:
+**Abgabefrist: Mittwoch, 21.10.2026**
 
--   **Vollständigkeit**\
-    → alle Variablen aus dat_full sind enthalten
+-   Ladet euer **Codebook als Excel-Datei (`.xlsx`) auf ILIAS** hoch.
+-   Gebt die Datei ausserdem an eure **Peer-Partnerin beziehungsweise euren Peer-Partner** weiter.
+-   Im anschliessenden Peer-Feedback prüft ihr gegenseitig, ob die Variablen vollständig, korrekt und verständlich dokumentiert sind. Die weiteren Hinweise und die Frist dafür findet ihr in der separaten Peer-Feedback-Aufgabe.
 
--   **Konsistenz**\
-    → Variablennamen stimmen exakt mit dem Datensatz überein
+## Wie geht es danach weiter?
 
--   **Nachvollziehbarkeit**\
-    → Berechnungen und Bedeutungen sind klar beschrieben
+Das Codebook ist kein Dokument, das ihr nach der ersten Abgabe nicht mehr benötigt. Wir führen es im Semester weiter:
 
-👉 Das Codebook muss so klar sein, dass jemand eure Analyse **ohne Rückfragen verstehen kann**.
+1.  **Ab EH6:** Änderungen an Variablennamen und Rating-Skalen im Processing-Skript werden im Codebook nachgeführt.
+2.  **In den folgenden Einheiten:** Neu berechnete Variablen, insbesondere `mmq_mean`, werden ergänzt.
+3.  **Im Abschlussprojekt:** Ihr erhaltet eine neue ZIP-Datei mit individuell simulierten Rohdaten. Ihr passt euer Codebook an den **finalen Wide-Datensatz dieser simulierten Daten** an und gebt die überarbeitete Version im vorgesehenen Projektordner ab.
 
-------------------------------------------------------------------------
+Das Codebook beschreibt den **Wide-Datensatz (`dat_full`)**, nicht zusätzlich jede Rohdatei einzeln oder den später erzeugten Long-Datensatz (`dat_long`).
 
-## Abgabe
-
--   **Abgabe bis EH6 (25.03.2026)**
-
--   Upload über **ILIAS als Excel Datei**
-
--   Zusätzlich Versand an eure/n **Peer-Partner:in**
-
-Nach der Abgabe:
-
--   Ihr erhaltet **Peer-Feedback**
-
--   Ihr überarbeitet euer Codebook (relevant für das Abschlussprojekt)
-
-------------------------------------------------------------------------
-
-## Zusammenhang mit den anderen Abgaben
-
-Euer Codebook ist Teil eines Gesamtpakets:
-
--   **Datenanalyseplan** → Was wird analysiert?
-
--   **R-Skript** → Wie wird es umgesetzt?
-
--   **Codebook** → Was bedeuten die Variablen?
-
-👉 Diese drei Komponenten müssen **inhaltlich übereinstimmen**.
-
-------------------------------------------------------------------------
+**Unser Grundprinzip:** Das Processing-Skript dokumentiert, **wie** Variablen aufbereitet werden. Das Codebook erklärt, **was** die resultierenden Variablen bedeuten. Beide müssen inhaltlich übereinstimmen.
 
 ## Sprache
 
-Das Codebook kann auf **Deutsch oder Englisch** verfasst werden.
-
-Wichtig ist:
-
--   Konsistenz mit eurem Datenanalyseplan und (später auch eurem R-Skript)
-
--   klare und einheitliche Begriffe
+Ihr könnt das Codebook auf **Deutsch oder Englisch** verfassen. Verwendet innerhalb eures Dokuments möglichst einheitliche und verständliche Begriffe.

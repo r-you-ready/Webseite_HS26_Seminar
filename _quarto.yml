@@ -51,6 +51,8 @@ website:
             text: "Datenanalyseplan (07.10.26)"
           - href: scripts/02_excercises/peer_feedback_datenanalyseplan.qmd
             text: "Peer-Feedback Datenanalyseplan (14.10.26)"
+          - href: scripts/02_excercises/codebook.qmd
+            text: "Codebook (21.10.2026)"
       - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
         text: "Wettbewerb: R-Cheatsheet"
       - href: scripts/04_misc/Bedarfsanalyse.qmd
