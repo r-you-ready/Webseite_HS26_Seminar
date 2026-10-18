@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 6"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 6"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,476 +21,295 @@ draft: true
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**6. Einheit**, 25.03.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**6. Einheit**, 21.10.2026
 
-------------------------------------------------------------------------
-
-## Heute:
-
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
-:::
-
-------------------------------------------------------------------------
-
-## Quarto
-
--   Wir arbeiten ab jetzt immer in **Quarto Dateien** (und im Projektordner)
-
--   Vorteil: Code, Ergebnisse und Beschreibung/Interpretation sind an einem Ort
-
-    -\> **Nachvollziehbar & reproduzierbar**
-
--   Falls das Rendern nicht klappt → meldet euch!
-
--   Bei Problemen mit Word und PDF Datein: im Terminal `quarto install tinytex`
-
-------------------------------------------------------------------------
-
-## Verschiedene Datentypen
-
--   In R gibt es verschiedene Datentypen mit unterschiedlichen Eigenschaften
-
--   Der Datentyp bestimmt, wie Daten gespeichert und verarbeitet werden können
-
-**Wichtige Datentypen im Überblick:**
-
--   Vektoren
-
--   Faktoren
-
--   Matrizen
-
--   Listen
-
--   Data Frames
-
-------------------------------------------------------------------------
-
-## Datentypen: Vektoren
-
--   Vektoren sind der grundlegende Datentyp in R
-
--   Ein Vektor ist eine Sammlung von Elementen gleichen Typs
-
-👉 Wichtig: Alle Elemente müssen den gleichen Datentyp (z.B. numeric) haben
-
-**Typen von Vektoren:**
-
--   Numerisch (Zahlen; umfasst *integer* und *double*)
-
--   Character (Text)
-
--   Logisch (TRUE / FALSE)
-
-------------------------------------------------------------------------
-
-## Datentypen: Vektoren (2)
-
-**Erstellung von Vektoren:**
-
--   meist mit "`c`" (*combine / concatenate*)
-
-```{r echo = TRUE}
-numeric_vector <- c(5, 4, 5)
-character_vector <- c("Frau", "Mann","Non-Binär")
-logical_vector <- c(TRUE, FALSE, TRUE)
-```
-
-**Sonderfall:**
-
--   Ein Vektor mit nur einem Element = Skalar
-
-```{r echo = TRUE}
-x <- 5
-```
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ::: notes
-**Numerische Vektoren** (umfassen *integer* und *double*, R unterscheidet aber intern kaum zwischen „float“ und „double“)
+Willkommen zur sechsten Einheit. In der letzten Sitzung haben wir unseren zusammengeführten Datensatz kennengelernt und uns damit beschäftigt, was die verschiedenen Variablen bedeuten und wie wir sie dokumentieren können.
 
-Integer: ganze zahlen
+Heute gehen wir einen Schritt weiter: Wir lernen, wie wir mit R gezielte Veränderungen an unserem Datensatz vornehmen und diese Veränderungen so dokumentieren, dass sie jederzeit reproduziert werden können.
 
-double: zahlen mit kommastellen –\> Steht für double precision (wegen 64bit)
+Dabei werden wir insbesondere verschiedene Funktionen aus dem Paket `dplyr` kennenlernen, die uns während des weiteren Semesters begleiten werden.
 :::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Vektoren (3)
+## Organisatorisches und offene Fragen
 
-Werde Typen jedoch trotzdem vermischt, werden alle Elemente in denselben Typ umgewandelt – auch dann, wenn sie einzeln betrachtet eigentlich nicht zu diesem Typ gehören würden.
+<br>
 
-**Beispiel:**
+✓ **Codebook:** Erste Abgabe heute, 21.10.2026
 
-```{r, echo = TRUE}
-vermischter_vektor <- c(2, 1, "mann", TRUE)
-class(vermischter_vektor)
-class(vermischter_vektor[1])
-```
+✓ **Datenstand dieser Abgabe: `dat_full`** nach EH4 (159 x 36)
 
-Attribute von Vektoren können zum Beispiel mit `typeof()`, `length()` oder `attributes()` eingesehen werden.
+➡️ **Heute im Hands-on:** Transformationen im bestehenden `processing.qmd` ergänzen
 
-------------------------------------------------------------------------
+<br>
 
-## Datentypen: Faktoren
-
-**Faktoren = kategoriale Variablen in R** (z.B. Geschlecht, Versuchsbedingung)
-
-**Aufbau eines Faktors:**
-
--   Kategorien (*Levels*)
-
--   Intern als Zahlen gespeichert (→ keine inhaltliche Bedeutung)
-
-🎯 **Wichtig für statistische Analysen mit kategorialen Daten** (z.B. ANOVA, Regression)
-
--   Faktoren sorgen dafür, dass R Kategorien korrekt interpretiert – also **nicht** als Text oder numerische Werte.
-
--   Sie ermöglichen das **Festlegen einer Referenzkategorie**, die für Vergleiche in statistischen Modellen relevant ist.
+**Das Codebook wird nach den Transformationen fortlaufend aktualisiert.**
 
 ::: notes
-Die Referenzkategorie spielt bei der ANOVA keine Rolle für den Gesamttest (F-Test). Bei z.B. einer linearen Regression, legt die Referenzkategorie fest welche Gruppe als Basis für den Vergleich dient.
+Zuerst noch ein organisatorischer Punkt: Die erste Codebook-Abgabe ist heute fällig. Für diese Abgabe dokumentiert ihr den Zustand direkt nach dem Zusammenführen aus EH4.
+
+Die Veränderungen, die wir heute kennenlernen, müssen noch nicht zu dieser ersten Version gehören. Wir werden sie anschliessend im Processong-Skript durchführen und das Codebook entsprechend aktualisieren. Wer heute noch nicht so weit kommt, macht das gar nichts. Euer Codebook muss diese Verändeurngen bei der Abgabe noch nicht integriert haben!
+
+Fragen zu Codebook?
 :::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Faktoren (2)
+## Wo befinden wir uns?
 
-**Beispiel: Geschlecht mit Faktorstufen**
+**AUFBEREITEN: Daten verstehen → Daten gezielt verändern**
 
-```{r, echo = TRUE}
-geschlecht <- c("male", "female", "nonbinary", "female", "male","nonbinary")
+<br>
 
-geschlecht_faktor <- factor(geschlecht)
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
 
-levels(geschlecht_faktor)
-```
+<br>
 
-Faktoren können auch numerisch sein, werden dann aber nicht mehr als Zahlen behandelt.
+**EH5:** Was bedeuten die Variablen?
 
-```{r, echo = TRUE}
-
-numerisch <- c(1, 2, 2, 1, 2, 3, 2, 1)
-
-faktorstufen_numerisch <- factor(numerisch)
-
-levels(faktorstufen_numerisch)
-```
-
-***🤔 Welche Variable(n) sollten in den Daten von Grinschgl et al. (2020) zu Faktoren transformiert werden?***
+**EH6:** Wie verändern wie sie nachvollziehbar?
 
 ::: notes
-Die Faktorstufen werden standardmässig alphabetisch festgelegt.
+Wir befinden uns weiterhin in der Phase der Datenaufbereitung.
 
-In Grinschgl2020 werden group_all als Faktor bestimmt, und nach der transformation zu einem Long Datensatz (kommende Wochen) auch noch time_rating.
+In EH4 haben wir die sieben Rohdatensätze zusammengeführt. Dadurch können wir die verschiedenen Informationen einer Person gemeinsam betrachten.
+
+In EH5 haben wir gelernt, dass wir diese Informationen zuerst verstehen und dokumentieren müssen. Genau dafür haben wir das Codebook erstellt.
+
+Jetzt wissen wir bereits viel besser, welche Variablen wir besitzen. Damit können wir auch begründet entscheiden, welche Veränderungen notwendig sind, damit wir die Variablen später analysieren können. Wir wechseln also von *Daten verstehen und dokumentieren* zu *Daten gezielt verändern und die Änderungen nachvollziehbar festhalten.*
 :::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Matrizen
+## Was müssen wir an `dat_full` verändern?
 
-**Matrix = zweidimensionale Datenstruktur**
+**Drei konkrete Aufgaben aus unserer Replikation**
 
--   besteht aus **Zeilen** und **Spalten**
+<br>
 
--   alle Elemente haben den **gleichen Datenyp**
+| Ausgangszustand | Benötigte Änderung | Warum? |
+|----|----|----|
+| `group_all` | `group` | Einheitlicher Name der Experimentalbedingung |
+| `csvtm_sum` | `cvstm_sum` | Schreibweise gemäss Dateninformationen |
+| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100 | Skala für die spätere Replikation |
 
-**Wichtige Idee:**
+<br>
 
-👉 Eine Matrix ist eigentlich ein **Vektor mit Dimensionen**
-
-**Erstellung einer Matrix:**
-
-```{r, echo = TRUE}
-v <- 1:20
-dim(v) <- c(2, 10) # Als Attribut des Vektors
-v
-```
-
-```{r, echo = TRUE}
-attributes(v)    # zeigt die Dimensionen
-```
+**Noch nicht heute:** `mmq_mean` berechnen und Long-Datensatz erzeugen.
 
 ::: notes
-Dim ist hier keine Funktion sondern ein Attribut.
+Bevor wir uns Funktionen anschauen, beginnen wir mit den konkreten Anforderugen an unseren Datensatz.
+
+-   Erstens möchten wir die Variable group_all künftig einheitlich group nennen.
+
+-   Zweitens enthält ein Variablenname in den Daten einen Schreibfehler: csvtm_sum soll entsprechend der Datenbeschreibung cvstm_sum heissen.
+
+-   Drittens liegen die fünf Ratings momentan auf einer Skala von 0 bis 10 vor. Für die Replikation benötigen wir sie auf der Skala von 0 bis 100.
+
+Das sind überschaubare Änderungen, für die wir aber grundlegende R-Funktionen kennenlernen.
+
+Die Berechnung des MMQ-Mittelwerts und die spätere Umstrukturierung in das Long-Format folgen erst in EH9. So wissen wir, welches Ziel wir heite konkret erreichen wollen.
 :::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Matrizen (2)
+## Nicht jeder R-Befehl gehört ins Processing-Skript
 
-**Erstellen und Zugriff**
+<br>
 
-**Erstellung mit** `matrix()`
+:::::: columns
+::: {.column width="33%"}
+**R-Konsole**
 
-```{r, echo = TRUE}
-m <- matrix(1:20, nrow = 2, ncol = 10)
-```
+<br>
 
-👉 Standard: Werte werden **spaltenweise eingefügt**
+*Ausprobieren und untersuchen*
 
-**Zugriff auf Elemente:**
+→ Temporär
+:::
 
-`m[Zeile, Spalte]`
+::: {.column width="34%"}
+**`processing.qmd`**
 
-```{r, echo=TRUE, results='hide'}
-m[2, 4]
-m[2, 1:5]
-```
+<br>
 
-**Frage:**
+*Daten reproduzierbar verändern*
 
-Welche Werte ergeben sich hier?
+→ Dauerhaft
+:::
 
-***🤔*** Ist der Datensatz `dat_full` eine **Matrix?**
+::: {.column width="33%"}
+**Codebook (Excel)**
+
+<br>
+
+*Daten erklären*
+
+→ Aktuell halten
+:::
+::::::
+
+<br>
+
+**Merksatz:** Untersuchen ≠ verändern ≠ dokumentieren.
 
 ::: notes
--   Zweite Zeile, 4te Spalte –\> 8
+Aus Hands-on 3 kennt ihr bereits drei Arbeitsorte, die wir heute bewusst auseinanderhalten.
 
--   2, 4, 6, 8, 10. -\> Zweite Zeile, erste bis 5te spalte.
+-   In der Konsole dürfen wir Dinge ausprobieren. Bspw. können wir vorübergehend nur einzelne Zeilen anzeigen oder untersuchen, welchen Datentyp eine Variable besitzt. Solche Abfragen müssen nicht dauerhaft in unserem Forschungsprojekt gespeichert werden.
+
+-   In unserem Processing-Skript dokumentieren wir dagegen alle notwendigen Verarbeitungsschritte. Wir dokumentieren also alle Schritte, die notwendig sind, um aus den sieben Rohdateien den aufbereiteten Datensatz zu erzeugen. Wenn wir bspw. Variablennamen verändern oder Ratings umskalieren, müssen diese Änderungen dort stehen. Wichtige Qualitätskontrollen gehören ebenfalls dazu.
+
+-   Das Codebook ist unser dritter Arbeitsort: Es beschreibt, was die Variablen des aktuell gespeicherten Datensatzes bedeuten. Eine Veränderung im R-Code kann deshalb eine Anpassung im Codebook erforderlich machen.
 :::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Listen
+## Rückblick EH5: Kategorial bedeutet nicht automatisch `factor`
 
-**Listen = flexible Datenstruktur in R**
+**`group_all` beschreibt drei Experimentalgruppen - R speichert die Werte bisher als `character`**
 
--   Eine Liste kann **Elemente unterschiedlicher Typen** enthalten (z.B. Zahlen, Text, Vektoren, Data Frames, andere Listen)
+<br>
 
-**Unterschied zu Vektoren:**
+```{r, echo=FALSE, eval=TRUE}
+dat_full <- readr::read_delim("raw/dat_full.csv")
+```
 
--   Vektoren → nur ein Datentyp
+```{r, echo=TRUE, eval=TRUE}
+# Wie ist die Variable aktuell gespeichert?
+class(dat_full$group_all)
 
--   Listen → mehrere Datentypen möglich
+# Nur zum Ausprobieren: automatische Umwandlung in ein separates Faktorobjekt
+group_faktor <- as.factor(dat_full$group_all)
+
+# Welche Klasse hat das Objekt?
+class(group_faktor)
+# Welche Faktorstufen?
+levels(group_faktor)
+```
+
+<br>
+
+`as.factor()` **wandelt Werte in einen Faktor um. Die Faktorstufen werden automatisch bestimmt.**
+
+::: notes
+In EH5 haben wir eine zentrale Unterscheidung kennengelernt: Ein technischer Datentp sagt noch nicht, was eine Variable wissenschaftlich bedeutet.
+
+-   group_all ist ein gutes Beispiel: Dir drei Textwerte above, below und control stehen für verschiedene Experimentalbedingungen. Inhaltlich ist die Variable nominalskaliert. Technisch liegt sie nach dem Einlese aber als character vor.
+
+-   Was passiert, wenn R diese Kategorien ausdrücklich als Faktor behandeln soll? Die einfachste Möglichkeit ist `as.factor(`). Wir übergeben die Variable und erhalten ein Faktorobjekt. Mit `class()` sehen wir den neuen Datentyp, mit `levels()` die Faktorstufen. Bei dieser Character-Variable werden sie automatisch alphabetisch angeordnet: above, below, control.
+
+-   Ganz wichtig: Wir erstellen hier ein separates Übungsobjekt. Wir überschreiben hier nicht dat_full\$group_all. Die Funktion ist heute nur eine kurze Demonstration des Begriffs aus EH5 und keine Transformation für das Processing-Skript.
+
+-   Übergang: Aber was ist, wenn wir die Reihenfolge dieser Kategorien bewusst festlegen oder numerischen Codes verständliche Bezeichnungen geben möchten?
+:::
 
 ------------------------------------------------------------------------
 
-## Datentypen: Listen (2)
+## `as.factor()` oder `factor()`?
 
-**Erstellung mit `list()`:**
+<br>
 
-```{r, echo = TRUE}
-my_list <- list(
-  name = "Anna",
-  age = 27,
-  scores = c(8, 9, 10),
-  info = list(city = "Bern", student = TRUE)
+::::: columns
+::: {.column width="48%"}
+**`as.factor()`**
+
+**Automatische Faktorbildung:** vorhandene Codes als Faktorstufen übernommen.
+
+```{r, echo=TRUE, eval=TRUE}
+demo_strategies <- 
+  as.factor(dat_full$strategies)
+
+# Levels
+levels(demo_strategies)
+```
+
+<br><br>
+
+*Die gespeicherten Codes `1`, `2`, `3` werden zu Faktorstufen.*
+:::
+
+::: {.column width="52%"}
+**`factor()`**
+
+**Gezielte Faktorbildung:** Reihenfolge & Beschriftung ausdrücklich festgelegt.
+
+```{r, echo=TRUE, eval=TRUE}
+uebung_strategies <- factor(
+  dat_full$strategies,
+  levels = c(1, 2, 3),
+  labels = c("Internal memory",
+             "Offloading", "Both")
 )
 
-my_list
+# Levels
+levels(uebung_strategies)
 ```
 
-------------------------------------------------------------------------
+*Stufen und Beschriftungen lassen sich festlegen.*
+:::
+:::::
 
-## Datentypen: Listen (3)
+<br>
 
-**Zugriff auf Listenelemente**
+⚠️ **Heute nur zum Verständnis:** Die für die Analysen benötigten Faktoren definieren wir später in `analysis.qmd`.
 
-Mit **`[ ]`** → gibt eine Teilliste zurück
+::: notes
+Wir bleiben bewusst beim bereits bekannten Beispiel aus EH5: strategies enthält die numerischen Codes 1, 2 und 3. Diese stehen für verschiedene Strategien - nicht für eine quantitative Abstufung. Wir haben die Bedeutung der Codes schon im Codebook und in den Response Labels festgehalten.
 
-```{r, echo = TRUE}
-my_list[1]
-```
+-   Mit `as.factor()` macht R aus den drei Codes nun unmittelbar Faktorstufen. Das reicht aus, wenn die automatische Reihenfolge und die vorhandenen Codebezeichnungen passen.
 
-👉 Ergebnis bleibt eine **Liste**
+-   Mit `factor()` haben wir mehr Kontrolle: Über levels geben wir an, welche ursprünglichen Codes vorkommen und in welcher Reihenfogle sie stehen sollen. Mit labels können wir zusätzlich lesbare Bezeichnungen festlegen.
 
--   Mit **`[[ ]]`** → gibt den Inhalt zurück
+-\> Wichtig ist hier NICHT, dass ihr euch heute jede Variante auswendig merkt. Ihr sollt verstehen: Kategorien können als character oder numeric gespeichert sein; für eine statistische Auswertung können wir sie bei Bedarf gezielt als Faktoren definieren.
 
-```{r, echo=TRUE}
+Für unsere Modelle werden wir die benötigten Faktoren nach dem Einlesen der aufbereiteten Daten zu Beginn von analysis.qmd definieren.
 
-my_list[[3]]
-my_list[[3]][2]
-```
-
-👉 Ergebnis ist das **eigentliche Element** (z.B. Vektor)
-
-------------------------------------------------------------------------
-
-## Datentypen: Listen (4)
-
--   Mit **`$`** → Zugriff über Namen
-
-```{r, echo = TRUE}
-my_list$info
-my_list$info$student
-```
-
-👉 besonders praktisch bei benannten Listen
-
-------------------------------------------------------------------------
-
-## Datentypen: Listen (5)
-
-**Elemente hinzufügen**
-
-Neues Element hinzufügen mit `[[ ]]`:
-
-```{r, echo = TRUE}
-my_list[[5]] <- 42
-my_list
-```
-
-------------------------------------------------------------------------
-
-## Datentypen: Listen (6)
-
-Alternativ mit Namen
-
-```{r, echo = TRUE}
-my_list$new_value <- 42
-my_list
-```
-
-**Allgemeines Prinzip:**
-
--   Listen können **beliebig erweitert werden**
-
--   neue Elemente werden über einen **Index oder Namen** hinzugefügt
-
-------------------------------------------------------------------------
-
-## Datentypen: Data Frames
-
-**Data Frame = tabellarische Datenstruktur**
-
--   besteht aus **Zeilen und Spalten**
-
--   jede Spalte ist ein **Vektor**
-
-**Wichtige Eigenschaften:**
-
--   Spalten können unterschiedliche Datentypen haben
-
--   alle Spalte gleich lang (ggf. auffüllen mit NAs)
-
-**Warum Data Frames wichtig sind:**
-
--   Standardformat für Daten in R
-
--   Datensätze werden beim Einlesen meist als **Data Frame** gespeichert
-
-------------------------------------------------------------------------
-
-## Datentypen: Data Frames (2)
-
-**Erstellen und Zugriff**
-
-**Erstellung eines Data Frames:**
-
-```{r, echo=TRUE}
-bundesraet_innen <- data.frame(
-  vorname = c("Elisabeth", "Martin", "Ignazio"),
-  alter = c(62, 63, 65),
-  partei = c("SP", "Mitte", "FDP"),
-  graue_haare = c(TRUE, TRUE, FALSE)
-)
-```
-
-**Data Frame anzeigen:**
-
-```{r, echo=TRUE}
-head(bundesraet_innen)
-```
-
-**Zugriff auf Spalten:**
-
-```{r, echo=TRUE}
-bundesraet_innen$graue_haare
-```
-
-------------------------------------------------------------------------
-
-## Datentypen: Data Frames (3)
-
-**Arbeiten mit Data Frames**
-
-1.  **Zugriff auf Elemente und Spalten**
-
-```{r echo = TRUE}
-bundesraet_innen[3,"graue_haare"] #Zugriff mittels Position im Data Frame
-bundesraet_innen$alter #Zugriff über Spaltennamen
-```
-
-2.  **Filtern von Daten**
-
-```{r echo = TRUE}
-library(tidyverse)
-
-brs_unter_63 <- filter(bundesraet_innen, alter < 63)
-head(brs_unter_63)
-
-#Alternative mit Base R
-brs_unter_63 <- subset(bundesraet_innen, bundesraet_innen$alter < 63)
-head(brs_unter_63)
-```
-
-------------------------------------------------------------------------
-
-## Datentypen: Data Frames (4)
-
-3.  **Neue Variablen erstellen**
-
-```{r echo = TRUE}
-bundesraet_innen$alter_in_10_jahren <- bundesraet_innen$alter + 10
-head(bundesraet_innen)
-```
-
-------------------------------------------------------------------------
-
-## Datentypen: Überblick
-
-::: {style="font-size: 0.75em;"}
-| Struktur | Eigenschaften | Beispiel-Inhalt |
-|------------------------|------------------------|------------------------|
-| **Vektor** | \- Enthält Elemente **eines** Datentyps<br>- Grundbaustein in R | `c(1, 2, 3)` oder `c("Anna", "Ben")` |
-| **Liste** | \- Kann verschiedene Datentypen enthalten<br>- Elemente können unterschiedlich lang sein | Zahlenvektor, Textvektor, logischer Vektor in einer Liste |
-| **Matrix** | \- Enthält nur **einen** Datentyp<br>- Hat feste Dimensionen (Zeilen, Spalten) | 3x3-Matrix mit Zahlen 1–9 |
-| **Data Frame** | \- Tabellarisch aufgebaut<br>- Spalten können unterschiedliche Datentypen enthalten<br>- Jede Spalte gleich lang | Tabelle mit Name (Character), Alter (Numeric), Studiert (Logical) |
+Nun wenden wir uns den Schritten zu, die wir tatsächlich dauerhaft in processing.qmd benötigen: Datenpipelines und Transformationen.
 :::
 
-***👉*** **Merksatz:**\
-**Vektor** = einfachste Struktur, ein Datentyp\
-**Liste** = flexibel, verschiedene Datentypen\
-**Matrix** = „Zahlenrechteck“, ein Datentyp\
-**Data Frame** = Tabelle, Spalten können unterschiedliche Datentypen haben
+------------------------------------------------------------------------
+
+## Unsere Processing-Pipeline wächst weiter
+
+**Die Rohdateien bleiben unverändert. Wir erweitern den bestehenden Code.**
+
+<br>
+
++-------------------------------+----------------------------------------------------------+
+| Bisher nach EH4               | Ab EH6                                                   |
++===============================+==========================================================+
+| 1.  Rohdaten importieren      | 1.  Rohdaten importieren                                 |
++-------------------------------+----------------------------------------------------------+
+| 2.  Datensätze zusammenführen | 2.  Datensätze zusammenführen                            |
++-------------------------------+----------------------------------------------------------+
+| 3.  Merge kontrollieren       | 3.  Merge kontrollieren                                  |
++-------------------------------+----------------------------------------------------------+
+| 4.  **Datensatz speichern**   | 4.  **Transformieren → 5. Kontrollieren → 6. Speichern** |
++-------------------------------+----------------------------------------------------------+
+
+<br>
+
+**Entscheidend: `write_csv()`** steht **nach** den neuen Transformationen.
+
+::: notes
+Bevor wir neue Funktionen kennenlernen, überlegen wir nochmals, wo diese eigentlich in unserem Aufbereitungsskript hingehören.
+
+Aus Hands-on 2 besitzen wir bereits ein Processing-Skript, das die Rohdateien einliest, zusammenführt, kontrolliert und speichert.
+
+Jetzt kommen neue Verarbeitungsschritte hinzu.
+
+Wir verändern aber nicht manuell die gespeicherte CSV-Datei und erstellen auch kein neues Skript. Stattdessen ergänzen wir den vorhandenen Code.
+
+Wichtig ist die Reihenfolge: Zuerst werden die Rohdateien eingelesen und zusammengeführt, dann werden die notwendigen Transformationen durchgeführt, das Ergebnis geprüft und erst danach der neue Datenstand gespeichert.
+
+So bleibt der gesamte Weg von den Rohdaten zum aufbereiteten Datensatz reproduzierbar.
+:::
 
 ------------------------------------------------------------------------
 
-## Heute haben wir:
-
--   Verschiedene Datentypen angeschaut:
-
-    -   Vektoren
-
-    -   Faktoren
-
-    -   Matrizen
-
-    -   Listen
-
-    -   Dataframes
-
-------------------------------------------------------------------------
-
-## Bis nächstes Mal:
-
--   Peer-Feedback: Codebook:
-
-    Codebook des Partners/der Partnerin bis EH7 durchschauen und kommentieren (am besten mit Excel Kommentar-Funktion oder Notizen in zusätzlicher Datei) 👉 sind ALLE Variablen mit ausreichend Detail beschrieben?
-
--   Upload auf Ilias mit Kommentaren + Weitergabe an Partner:in. Auch persönliches Feedback erwünscht 👉 selbstorganisiert
-
--   Hands On Block 3 abschliessen!
-
-
-
-
-
-
-
+Ab hier müssen die Folien noch überarbeitet bzw. erstellt werden: Pipe-Operator und verschiedene dplyr-Funktionen. Teilweise Folien aus alten Folien übernehmen!

@@ -89,7 +89,7 @@ Die Rohdaten bleiben unverändert. `processing.qmd` dokumentiert den Weg zu `dat
 ## 🗺️ Unser Weg durch Hands-on 2
 
 | Schritt | Wo arbeitet ihr? | Was entsteht? |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | 1\) Quarto kennenlernen | `quarto_uebung.qmd` | Übungsdokument |
 | 2\) Abgabedokumente vorbereiten | `processing.qmd` & `analysis.qmd` | korrekte YAML-Header |
 | 3\) R-Projekt verstehen | `Grinschgl2020` | korrekter Projektkontext |
