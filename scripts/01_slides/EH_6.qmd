@@ -71,7 +71,7 @@ Fragen zu Codebook?
 
 **EH5:** Was bedeuten die Variablen?
 
-**EH6:** Wie verändern wie sie nachvollziehbar?
+**EH6:** Wie verändern wir sie nachvollziehbar?
 
 ::: notes
 Wir befinden uns weiterhin in der Phase der Datenaufbereitung.
@@ -345,7 +345,7 @@ Ich habe euch auf der nächsten Folie einmal eine mögliche Vorlage unseres bish
 
 ------------------------------------------------------------------------
 
-## Pipe -Operator: Code lesbarer gestalten
+## Pipe-Operator: Code lesbarer gestalten
 
 <br>
 
@@ -419,8 +419,6 @@ Die Pipe (`|>` oder `%>%`):
 
 -   setzt das Ergebnis links als erstes Argument in die nächste Funktion ein
 
--   ersetzt das erste Argument der nächsten Funktion
-
 <br>
 
 ```{r, echo= TRUE , eval=FALSE}
@@ -441,7 +439,7 @@ Ich würde mir angewöhnen, von Beginn an mit diesem Pipe-Operator zu arbeiten, 
 
 ------------------------------------------------------------------------
 
-## Daten transformieren mit `dplyr()`
+## Daten transformieren mit `dplyr`
 
 <br>
 
@@ -457,7 +455,7 @@ Ich würde mir angewöhnen, von Beginn an mit diesem Pipe-Operator zu arbeiten, 
 
 ------------------------------------------------------------------------
 
-## `dplyr()`: Welche Funktion macht was?
+## `dplyr`: Welche Funktion macht was?
 
 **Eine Forschungsfrage bestimmt, welchen Verarbeitungsschritt wir brauchen**
 
