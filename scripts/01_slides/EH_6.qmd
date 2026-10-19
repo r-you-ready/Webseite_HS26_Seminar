@@ -91,11 +91,15 @@ Jetzt wissen wir bereits viel besser, welche Variablen wir besitzen. Damit könn
 
 <br>
 
-| Ausgangszustand | Benötigte Änderung | Warum? |
-|----|----|----|
-| `group_all` | `group` | Einheitlicher Name der Experimentalbedingung |
-| `csvtm_sum` | `cvstm_sum` | Schreibweise gemäss Dateninformationen |
-| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100 | Skala für die spätere Replikation |
++---------------------------------------+----------------------+----------------------------------------------+
+| Ausgangszustand                       | Benötigte Änderung   | Warum?                                       |
++=======================================+======================+==============================================+
+| `group_all`                           | `group`              | Einheitlicher Name der Experimentalbedingung |
++---------------------------------------+----------------------+----------------------------------------------+
+| `csvtm_sum`                           | `cvstm_sum`          | Schreibweise gemäss Dateninformationen       |
++---------------------------------------+----------------------+----------------------------------------------+
+| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100         | Skala für die spätere Replikation            |
++---------------------------------------+----------------------+----------------------------------------------+
 
 <br>
 
@@ -280,17 +284,17 @@ Nun wenden wir uns den Schritten zu, die wir tatsächlich dauerhaft in processin
 
 <br>
 
-+-------------------------------+----------------------------------------------------------+
-| Bisher nach EH4               | Ab EH6                                                   |
-+===============================+==========================================================+
-| 1.  Rohdaten importieren      | 1.  Rohdaten importieren                                 |
-+-------------------------------+----------------------------------------------------------+
-| 2.  Datensätze zusammenführen | 2.  Datensätze zusammenführen                            |
-+-------------------------------+----------------------------------------------------------+
-| 3.  Merge kontrollieren       | 3.  Merge kontrollieren                                  |
-+-------------------------------+----------------------------------------------------------+
-| 4.  **Datensatz speichern**   | 4.  **Transformieren → 5. Kontrollieren → 6. Speichern** |
-+-------------------------------+----------------------------------------------------------+
++-----------------------------+----------------------------------------------------------+
+| Bisher nach EH4             | Ab EH6                                                   |
++=============================+==========================================================+
+| 1.  Rohdaten importieren    | 1.  Rohdaten importieren                                 |
++-----------------------------+----------------------------------------------------------+
+| 2.  Datensätze mergen       | 2.  Datensätze mergen                                    |
++-----------------------------+----------------------------------------------------------+
+| 3.  Merge kontrollieren     | 3.  Merge kontrollieren                                  |
++-----------------------------+----------------------------------------------------------+
+| 4.  **Datensatz speichern** | 4.  **Transformieren → 5. Kontrollieren → 6. Speichern** |
++-----------------------------+----------------------------------------------------------+
 
 <br>
 
@@ -308,8 +312,14 @@ Wir verändern aber nicht manuell die gespeicherte CSV-Datei und erstellen auch 
 Wichtig ist die Reihenfolge: Zuerst werden die Rohdateien eingelesen und zusammengeführt, dann werden die notwendigen Transformationen durchgeführt, das Ergebnis geprüft und erst danach der neue Datenstand gespeichert.
 
 So bleibt der gesamte Weg von den Rohdaten zum aufbereiteten Datensatz reproduzierbar.
+
+Ich habe euch auf der nächsten Folie einmal eine mögliche Vorlage unseres bisherigen Processing-Skripts erzeugt.
 :::
 
 ------------------------------------------------------------------------
 
-Ab hier müssen die Folien noch überarbeitet bzw. erstellt werden: Pipe-Operator und verschiedene dplyr-Funktionen. Teilweise Folien aus alten Folien übernehmen!
+##  {data-background-iframe="../../PDFs/processing.html#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
+Hier die drei alten Folien aus EH7 zum Pipe-Operator integrieren
