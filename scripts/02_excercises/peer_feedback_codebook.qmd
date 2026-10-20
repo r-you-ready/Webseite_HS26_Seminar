@@ -4,118 +4,96 @@ format: html
 editor: visual
 ---
 
-Ihr gebt euch gegenseitig Feedback zu euren Codebooks.\
-Ziel ist es, die Dokumentation eures finalen Datensatzes zu verbessern und sicherzustellen, dass alle Variablen klar, vollständig und nachvollziehbar beschrieben sind.
+## Ziel der Hausübung
 
-------------------------------------------------------------------------
+Ihr gebt euch gegenseitig **konstruktives Peer-Feedback** zu euren Codebooks. Dabei prüft ihr, ob die Variablen vollständig, fachlich korrekt und so verständlich dokumentiert sind, dass auch andere Personen den Datensatz nachvollziehen können.
 
-### Codebook eurer Partnerperson prüfen
+Durch das Prüfen eines fremden Codebooks lernt ihr gleichzeitig, eure eigene Dokumentation kritisch zu hinterfragen.\
 
-Schaut euch das Codebook eurer Partnerin oder eures Partners sorgfältig an und gebt bis **01.04.2026** Feedback.
+::: {.callout-important title="Welchen Datenstand beurteilen wir?"}
+Für dieses Peer-Feedback gilt die **erste Codebook-Abgabe zum Datenstand nach EH4**: `dat_full` mit **159 Personen und 36 Variablen** – noch **vor den Transformationen aus EH6**.
 
-👉 Am besten verwendet ihr:
+Das bedeutet insbesondere:
 
--   die Kommentar-Funktion in Excel
+-   Die Gruppenvariable heisst noch `group_all` (nicht `group`).
+-   Der ursprüngliche Variablenname `csvtm_sum` wurde noch nicht zu `cvstm_sum` korrigiert.
+-   Die Ratingvariablen `pre1`, `pre2`, `pre3`, `pre4` und `post` liegen noch auf der **0–10-Skala** vor.
+-   `mmq_mean` und ein Long-Datensatz werden für diese Abgabe **noch nicht** erwartet.
 
--   oder ergänzt Hinweise in einer separaten Datei
+Bewertet daher **nicht** als Fehler, dass die erst später vorgesehenen Verarbeitungsschritte noch fehlen. Das Codebook wird im weiteren Semester aktualisiert.
+:::
 
-------------------------------------------------------------------------
+## Abgabefrist
 
-### Abgabe
+**Reguläre Abgabe des Peer-Feedbacks: Mittwoch, 28.10.2026.**
 
--   Upload des **kommentierten Codebooks auf ILIAS**
+Falls eure Peer-Partnerperson ihre erste Codebook-Abgabe um eine Woche verlängert hat (bis 28.10.2026), verschiebt sich eure Frist für das Feedback zu diesem Codebook ebenfalls um eine Woche auf Mittwoch, 04.11.2026.
 
--   Zusätzlich: **Weitergabe des Feedbacks an eure Partnerperson** (z.B. per E-Mail)
+::: {.callout-note title="Wichtig zur Frist"}
+Die spätere Feedbackfrist gilt nur dann, wenn eure Peer-Partnerperson die verlängerte Codebook-Abgabefrist nutzt. Bei einer regulären Codebook-Abgabe bleibt der **28.10.2026** verbindlich.
+:::
 
-------------------------------------------------------------------------
+## Aufgabe: Das Codebook eurer Partnerperson prüfen
 
-### Optional: persönliches Feedback
+**1. Codebook öffnen und mit dem erwarteten Datenstand abgleichen**
 
-Wenn ihr möchtet, könnt ihr euch zusätzlich austauschen und das Feedback gemeinsam besprechen.
+Schaut euch die drei Tabellenblätter `Metadata`, `Codebook` und `response_labels` an. Prüft, ob sie sinnvoll ausgefüllt sind und zusammenpassen.
 
-👉 Dies ist freiwillig und selbstorganisiert, kann aber sehr hilfreich sein.
+**2. Inhaltliche Qualität systematisch beurteilen**
 
-------------------------------------------------------------------------
+Orientiert euch dabei an den folgenden Leitfragen:
 
-### Worauf ihr beim Feedback achten solltet
+| Prüfaspekt | Worauf solltet ihr achten? |
+|------------------------------------|------------------------------------|
+| **Vollständigkeit** | Sind alle **36 Variablen** aus `dat_full` enthalten? Sind die **16 Codebook-Felder** sinnvoll bearbeitet? |
+| **Datentypen und Wertebereiche** | Stimmen die angegebenen technischen Datentypen mit dem Datenstand nach EH4 überein? Wird zwischen **theoretischen** und **beobachteten** Wertebereichen unterschieden? |
+| **Bedeutung und Herkunft** | Wird verständlich erklärt, was jede Variable bedeutet und woher die Information stammt? Stimmen die Angaben mit dem Originalpaper und den Dateninformationen überein? |
+| **Kodierungen und Response Labels** | Sind kategoriale Codes eindeutig erklärt? Verweisen die Einträge im `Codebook` auf die richtigen Listen im Blatt `response_labels`? Passen Codes und Bezeichnungen zusammen? |
+| **Berechnete Variablen** | Ist bei Mittelwerten, Summen und anderen Kennwerten nachvollziehbar, **wie sie gebildet wurden**? |
+| **Fehlende bzw. nicht anwendbare Angaben** | Sind Missing-Codes korrekt dokumentiert? Wird `-` dort verwendet, wo ein Feld nicht anwendbar ist, statt unbegründete Angaben zu erfinden? |
+| **Verständlichkeit und Einheitlichkeit** | Sind Bezeichnungen, Schreibweisen und Erklärungen konsistent? Könnte eine aussenstehende Person die Variablen richtig interpretieren? |
 
-Beim Feedback könnt ihr euch insbesondere an folgenden Fragen orientieren:
+Nicht jedes Feld benötigt bei jeder Variable einen inhaltlichen Eintrag. Entscheidend ist, ob die Angaben **zutreffend und nachvollziehbar** sind – nicht, ob möglichst viele Zellen ausgefüllt wurden.
 
-#### Vollständigkeit
+**3. Konkretes, umsetzbares Feedback formulieren**
 
--   Sind **alle Variablen aus `dat_full` enthalten**?
+-   **Hebt auch gelungene Aspekte hervor:** Welche Beschreibungen oder Zuordnungen sind besonders verständlich?
+-   **Benennt Unklarheiten möglichst genau:** Gebt das betreffende Tabellenblatt, die Variable und wenn möglich das Feld an.
+-   **Schlagt Verbesserungen vor:** Erklärt kurz, was fehlt oder nicht zusammenpasst und wie der Eintrag verbessert werden könnte.
+-   **Begründet fachliche Hinweise:** Verweist bei Bedarf auf die Studienunterlagen oder die Codebook-Guideline
 
-#### Klarheit und Verständlichkeit
+## So gebt ihr euer Feedback ab
 
--   Sind die Variablen klar beschrieben?
+1.  Ergänzt eure Hinweise **direkt mit der Kommentarfunktion in Excel** oder dokumentiert sie übersichtlich in einer **separaten Feedbackdatei**. Macht jeweils deutlich, auf welche Variable und welches Feld sich euer Hinweis bezieht.
+2.  **Ladet das kommentierte Codebook auf ILIAS hoch.** Wenn ihr eine separate Feedbackdatei verwendet, gebt diese ebenfalls mit ab.
+3.  **Leitet euer Feedback zusätzlich an eure Peer-Partnerperson weiter**, beispielsweise per E-Mail, damit sie die Verbesserungsvorschläge für die weitere Bearbeitung verwenden kann.
 
--   Sind Definitionen und Formulierungen verständlich?
+Ihr müsst das Codebook der anderen Person **nicht selbst korrigieren oder neu ausfüllen**. Eure Aufgabe besteht darin, die Dokumentation zu beurteilen und hilfreiche Hinweise zu geben.
 
-#### Nachvollziehbarkeit
+## Hilfreiche Unterlagen
 
--   Ist ersichtlich, **wie Variablen entstanden oder berechnet wurden**?
+Für die Beurteilung könnt ihr dieselben Materialien verwenden wie bei eurer eigenen Codebook-Erstellung:
 
--   Sind Transformationen und Berechnungsschritte erklärt?
+-   **Hands-on 3 – Teil A:** Anleitung zu den 16 Codebook-Feldern und zu Response Labels
+-   **Codebook-Guideline:** Anforderungen an eine nachvollziehbare Variablendokumentation
+-   **`Informationen_zu_Daten.xlsx`:** Variablenbedeutungen und Kodierungen
+-   **Originalpaper von Grinschgl et al.:** Studiendesign, Erhebungsmethoden und wissenschaftlicher Kontext
+-   **Datensatz `dat_full` nach EH4:** tatsächliche Variablennamen, Datentypen und vorhandene Werte
 
-#### Interpretation
+Für das **vollständige Codebook** gibt es keine verbindliche Musterlösung, anhand der ihr einfach alle Felder abhaken könnt. Nutzt deshalb die Dokumentation und begründet eure Rückmeldungen sorgfältig. Bei fachlichen Unklarheiten könnt ihr euch an das Seminarteam wenden.
 
--   Ist klar, **was die Variablen bedeuten**?
+## Freiwillig: Feedback gemeinsam besprechen
 
--   Sind Wertebereiche und Codierungen verständlich beschrieben?
+Ihr könnt euch mit eurer Peer-Partnerperson zusätzlich persönlich oder online über die Rückmeldungen austauschen. Das ist **freiwillig** und selbstorganisiert.
 
-👉 Leitfrage:\
-Könnte eine externe Person den Datensatz allein anhand des Codebooks verstehen?
+## Checkpoint: Wann ist mein Peer-Feedback vollständig?
 
-------------------------------------------------------------------------
+-   [ ] Ich habe alle drei Tabellenblätter berücksichtigt und das Codebook anhand der Kriterien geprüft.
+-   [ ] Ich habe konkrete, respektvolle und umsetzbare Rückmeldungen formuliert – auch zu gelungenen Aspekten.
+-   [ ] Ich habe den **Datenstand nach EH4** beurteilt und keine erst für EH6/EH9 vorgesehenen Änderungen verlangt.
+-   [ ] Ich habe mein Feedback fristgerecht **auf ILIAS hochgeladen**.
+-   [ ] Ich habe die Rückmeldung **meiner Peer-Partnerperson weitergegeben**.
 
-### Wichtige Hinweise
+**Leitfrage:** *Könnte eine andere Person die dokumentierten Variablen allein mithilfe dieses Codebooks und der darin angegebenen Informationen korrekt verstehen und verwenden?*
 
--   Es gibt **keine Musterlösung** für das Codebook.
-
--   Orientiert euch daher besonders an den Anforderungen der Aufgabe.
-
-👉 Relevante Informationen findet ihr in:
-
--   der Studie von Grinschgl et al. (2020)
-
--   dem Dokument *Informationen_zu_Daten.xlsx*
-
-Diese Quellen helfen euch insbesondere bei:
-
--   Variablenbedeutungen
-
--   Codierungen
-
--   Hintergrundinformationen zum Datensatz
-
-👉 Bei Unklarheiten zu einzelnen Variablen oder Codierungen könnt ihr euch jederzeit an uns wenden.
-
-------------------------------------------------------------------------
-
-### Regeln für gutes Peer-Feedback
-
--   Gebt **konkretes, konstruktives und gut strukturiertes Feedback**
-
--   Fokussiert euch auf die **inhaltliche Qualität**, nicht auf persönliche Präferenzen
-
--   Macht **konkrete Verbesserungsvorschläge**
-
--   Bleibt **sachlich und respektvoll**
-
--   Hebt auch **positive Aspekte** hervor
-
-👉 Ziel ist nicht nur die Verbesserung des Codebooks, sondern auch euer eigener Lernprozess.
-
-------------------------------------------------------------------------
-
-### Zusammenhang mit den anderen Abgaben
-
-Euer Codebook ist Teil eines Gesamtpakets:
-
--   **Datenanalyseplan** → Was wird analysiert?
-
--   **R-Skript** → Wie wird es umgesetzt?
-
--   **Codebook** → Was bedeuten die Variablen?
-
-👉 Diese drei Komponenten müssen **inhaltlich übereinstimmen**.
+Das Peer-Feedback unterstützt euch dabei, das Codebook während der weiteren Aufbereitung laufend zu verbessern. Für das Abschlussprojekt werdet ihr dieselben Qualitätskriterien auf eure eigenen Daten übertragen.

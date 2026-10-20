@@ -16,7 +16,7 @@ format:
     progress: true
     controls: true
     embed-resources: true
-draft: true
+draft: false
 ---
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
@@ -113,15 +113,15 @@ Jetzt wissen wir bereits viel besser, welche Variablen wir besitzen. Damit könn
 
 <br>
 
-+---------------------------------------+--------------------+----------------------------------------------+
-| Ausgangszustand                       | Benötigte Änderung | Warum?                                       |
-+=======================================+====================+==============================================+
-| `group_all`                           | `group`            | Einheitlicher Name der Experimentalbedingung |
-+---------------------------------------+--------------------+----------------------------------------------+
-| `csvtm_sum`                           | `cvstm_sum`        | Schreibweise gemäss Dateninformationen       |
-+---------------------------------------+--------------------+----------------------------------------------+
-| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100       | Skala für die spätere Replikation            |
-+---------------------------------------+--------------------+----------------------------------------------+
++---------------------------------------+----------------------+----------------------------------------------+
+| Ausgangszustand                       | Benötigte Änderung   | Warum?                                       |
++=======================================+======================+==============================================+
+| `group_all`                           | `group`              | Einheitlicher Name der Experimentalbedingung |
++---------------------------------------+----------------------+----------------------------------------------+
+| `csvtm_sum`                           | `cvstm_sum`          | Schreibweise gemäss Dateninformationen       |
++---------------------------------------+----------------------+----------------------------------------------+
+| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100         | Skala für die spätere Replikation            |
++---------------------------------------+----------------------+----------------------------------------------+
 
 <br>
 
@@ -224,9 +224,9 @@ levels(group_faktor)
 `as.factor()` **wandelt Werte in einen Faktor um. Die Faktorstufen werden automatisch bestimmt.**
 
 ::: notes
-In EH5 haben wir eine zentrale Unterscheidung kennengelernt: Ein technischer Datentp sagt noch nicht, was eine Variable wissenschaftlich bedeutet.
+In EH5 haben wir eine zentrale Unterscheidung kennengelernt: Ein technischer Datentyp sagt noch nicht, was eine Variable wissenschaftlich bedeutet.
 
--   group_all ist ein gutes Beispiel: Dir drei Textwerte above, below und control stehen für verschiedene Experimentalbedingungen. Inhaltlich ist die Variable nominalskaliert. Technisch liegt sie nach dem Einlese aber als character vor.
+-   group_all ist ein gutes Beispiel: Dir drei Textwerte above, below und control stehen für verschiedene Experimentalbedingungen. Inhaltlich ist die Variable nominalskaliert. Technisch liegt sie nach dem Einlesen aber als character vor.
 
 -   Was passiert, wenn R diese Kategorien ausdrücklich als Faktor behandeln soll? Die einfachste Möglichkeit ist `as.factor(`). Wir übergeben die Variable und erhalten ein Faktorobjekt. Mit `class()` sehen wir den neuen Datentyp, mit `levels()` die Faktorstufen. Bei dieser Character-Variable werden sie automatisch alphabetisch angeordnet: above, below, control.
 
@@ -547,7 +547,7 @@ dat_full |>
 ::: notes
 Unsere erste Funktion heisst filter(). Sie beantwortet immer die Frage: Welche Beobachtungen möchte ich behalten?
 
-Im Beispiel hier möchten wir einmal nur die Kontrollgruppe anschauen. Deshalb nehme wir als Bedingung innerhalb von filter group_all gleich control.
+Im Beispiel hier möchten wir einmal nur die Kontrollgruppe anschauen. Deshalb nehmen wir als Bedingung innerhalb von filter group_all gleich control.
 
 In R stehen für einen Vergleich zwei Gleichheitszeichen. Da die Variable ein character ist, müssen wir control in Anführungszeichen setzen.
 
@@ -809,7 +809,7 @@ Neu ist die Zuweisung vor der Pipeline. R berechnet zuerst das Ergebnis rechts v
 
 Das bisherige Objekt wir damit im aktuellen R-Environment ersetzt.
 
-Der Befehlt soll nach der Merge-Kontrolle und vor dem Speichern der Datei im Processing-Skript stehen. Danach müssen wir kontrollieren, ob die neuen Namen vorhanden sind, die alten nicht mehr vorkommen und der Datensatz weiterhin 159 Zeilen und 36 Spalten besitzt.
+Der Befehl soll nach der Merge-Kontrolle und vor dem Speichern der Datei im Processing-Skript stehen. Danach müssen wir kontrollieren, ob die neuen Namen vorhanden sind, die alten nicht mehr vorkommen und der Datensatz weiterhin 159 Zeilen und 36 Spalten besitzt.
 
 Das Codebook muss daraufhin auch aktualisiert werden.
 :::
