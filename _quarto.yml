@@ -35,6 +35,8 @@ website:
             text: "Einheit 4 - 07.10.2026"
           - href: scripts/01_slides/EH_5.qmd
             text: "Einheit 5 - 14.10.2026"
+          - href: scripts/01_slides/EH_6.qmd
+            text: "Einheit 6 - 21.10.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 
@@ -53,6 +55,8 @@ website:
             text: "Peer-Feedback Datenanalyseplan (14.10.26)"
           - href: scripts/02_excercises/codebook.qmd
             text: "Codebook (21.10.2026)"
+          - href: scripts/02_excercises/peer_feedback_codebook.qmd
+            text: "Peer-Feedback Codebook (28.10.2026)"
       - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
         text: "Wettbewerb: R-Cheatsheet"
       - href: scripts/04_misc/Bedarfsanalyse.qmd
