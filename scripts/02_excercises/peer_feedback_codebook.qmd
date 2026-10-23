@@ -44,7 +44,7 @@ Schaut euch die drei Tabellenblätter `Metadata`, `Codebook` und `response_label
 Orientiert euch dabei an den folgenden Leitfragen:
 
 | Prüfaspekt | Worauf solltet ihr achten? |
-|------------------------------------|------------------------------------|
+|----|----|
 | **Vollständigkeit** | Sind alle **36 Variablen** aus `dat_full` enthalten? Sind die **16 Codebook-Felder** sinnvoll bearbeitet? |
 | **Datentypen und Wertebereiche** | Stimmen die angegebenen technischen Datentypen mit dem Datenstand nach EH4 überein? Wird zwischen **theoretischen** und **beobachteten** Wertebereichen unterschieden? |
 | **Bedeutung und Herkunft** | Wird verständlich erklärt, was jede Variable bedeutet und woher die Information stammt? Stimmen die Angaben mit dem Originalpaper und den Dateninformationen überein? |

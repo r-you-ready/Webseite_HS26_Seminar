@@ -113,15 +113,11 @@ Jetzt wissen wir bereits viel besser, welche Variablen wir besitzen. Damit könn
 
 <br>
 
-+---------------------------------------+----------------------+----------------------------------------------+
-| Ausgangszustand                       | Benötigte Änderung   | Warum?                                       |
-+=======================================+======================+==============================================+
-| `group_all`                           | `group`              | Einheitlicher Name der Experimentalbedingung |
-+---------------------------------------+----------------------+----------------------------------------------+
-| `csvtm_sum`                           | `cvstm_sum`          | Schreibweise gemäss Dateninformationen       |
-+---------------------------------------+----------------------+----------------------------------------------+
-| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100         | Skala für die spätere Replikation            |
-+---------------------------------------+----------------------+----------------------------------------------+
+| Ausgangszustand | Benötigte Änderung | Warum? |
+|----|----|----|
+| `group_all` | `group` | Einheitlicher Name der Experimentalbedingung |
+| `csvtm_sum` | `cvstm_sum` | Schreibweise gemäss Dateninformationen |
+| `pre1`, `pre2`, `pre3`, `pre4`,`post` | 0-10 → 0-100 | Skala für die spätere Replikation |
 
 <br>
 
@@ -461,19 +457,13 @@ Ich würde mir angewöhnen, von Beginn an mit diesem Pipe-Operator zu arbeiten, 
 
 <br>
 
-+----------------------------------------------+----------------------+---------------------------------+
-| Unsere Frage                                 | Funktion             | Was verändert sich im Ergebnis? |
-+==============================================+======================+=================================+
-| Welche Personen interessieren uns?           | `filter()`           | Auswahl der Zeilen              |
-+----------------------------------------------+----------------------+---------------------------------+
-| Welche Variablen brauchen wir?               | `select()`           | Auswahl der Spalten             |
-+----------------------------------------------+----------------------+---------------------------------+
-| Wie sollen Variablen heissen?                | `rename()`           | Spaltennamen                    |
-+----------------------------------------------+----------------------+---------------------------------+
-| Welche Werte wollen wir berechnen?           | `mutate()`           | Spaltenwerte / neue Spalten     |
-+----------------------------------------------+----------------------+---------------------------------+
-| Welche Spalten brauchen dieselbe Berechnung? | `across()`           | Mehrere Spalten gleichzeitig    |
-+----------------------------------------------+----------------------+---------------------------------+
+| Unsere Frage | Funktion | Was verändert sich im Ergebnis? |
+|----|----|----|
+| Welche Personen interessieren uns? | `filter()` | Auswahl der Zeilen |
+| Welche Variablen brauchen wir? | `select()` | Auswahl der Spalten |
+| Wie sollen Variablen heissen? | `rename()` | Spaltennamen |
+| Welche Werte wollen wir berechnen? | `mutate()` | Spaltenwerte / neue Spalten |
+| Welche Spalten brauchen dieselbe Berechnung? | `across()` | Mehrere Spalten gleichzeitig |
 
 ::: notes
 Gerade haben wir die Pipe kennengelernt. Jetzt brauchen wir konkrete Funktionen, die wir in dieser Verarbeitungskette verwenden können.

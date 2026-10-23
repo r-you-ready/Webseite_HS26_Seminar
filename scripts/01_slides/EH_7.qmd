@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 7"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 7"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -21,352 +21,109 @@ draft: true
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**7. Einheit**, 01.04.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**7. Einheit**, 28.10.2026
 
-------------------------------------------------------------------------
-
-## Heute:
-
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
-:::
-
-------------------------------------------------------------------------
-
-## Fragen zu Hands On Block 3?
-
-![](../../images/EH_7/Bild1.png){fig-align="center" width="411"}
-
-------------------------------------------------------------------------
-
-## Wiederholung: Datentypen
-
-::: {style="font-size: 0.75em;"}
-| Struktur | Eigenschaften | Beispiel-Inhalt |
-|----|----|----|
-| **Vektor** | \- Enthält Elemente **eines** Datentyps - Grundbaustein in R | `c(1, 2, 3)` oder `c("Anna", "Ben")` |
-| **Liste** | \- Kann verschiedene Datentypen enthalten - Elemente können unterschiedlich lang sein | Zahlenvektor, Textvektor, logischer Vektor in einer Liste |
-| **Matrix** | \- Enthält nur **einen** Datentyp - Hat feste Dimensionen (Zeilen, Spalten) | 3x3-Matrix mit Zahlen 1–9 |
-| **Data Frame** | \- Tabellarisch aufgebaut - Spalten können unterschiedliche Datentypen enthalten<br>- Jede Spalte gleich lang | Tabelle mit Name (Character), Alter (Numeric), Studiert (Logical) |
-:::
-
-------------------------------------------------------------------------
-
-## Wiederholung
-
--   Faktoren definieren, z.B. `dat_full$group <- factor(dat_full$group, levels = c("above", "below", "control")` oder `dat_full$group <- as.factor(dat_full$group)`
-
-    --\> müssen wir bei jedem Öffnen von R/beim Einlesen von Datensätzen wieder machen
-
--   Matritzen erstellen mit `matrix()`
-
--   Listen erstellen mit `list()`
-
--   Data Frame ersellen mit `data.frame()`
-
-    -   Zugriff auf Spalten mit `$` –\> heute besprechen wir Alternativen dazu
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ::: notes
-bei factor() kann die Reihenfolge der levels festgelegt werden (aber geht auch automatisch), bei as.factor immer automatisch
+Willkommen zur siebten Einheit. Heute sind wir schon in der Hälfte des Semesters angekommen und machen einmal bewusst etwas anderes als in den vergangenen Wochen: Wir arbeiten heute nicht primär an unserem Forschungsprojekt weiter, sondern trainieren einmal die Werkzeige, die wir dafür brauchen.
+
+Ihr habt letzte Woche die grundlegenden dplyr-Funktionen kennengelernt und die notwendigen Transformationen im Processing-Skript vorgenommen.
+
+Heute kriegt ihr die Gelegenheit, diese Funktionen an einem separaten Datensatz einmal zu üben. Ihr lernt, passende Funktionen selber auszuwählen und auch miteinander zu kombinieren.
 :::
 
 ------------------------------------------------------------------------
 
-## Inhalte heute
+## Wo befinden wir uns?
 
--   Schrittweise Transformation von Daten
-
--   Pipe-Operator verstehen und anwenden
-
--   Zentrale Funktionen aus `dplyr`:
-
-    -   `filter()` → Daten auswählen
-
-    -   `select()` → Variablen auswählen
-
-    -   `mutate()` → neue Variablen erstellen
-
-    -   `summarize()` → Daten zusammenfassen
-
-    -   `group_by()` → nach Gruppen auswerten
-
-**Praxis:**
-
--   💻 Anwendung der Funktionen in Übungen
-
-------------------------------------------------------------------------
-
-## Pipe-Operator - Code lesbarer gestalten
-
-❌ **Verschachtelter Code (schwer lesbar)**
-
-```{r, echo= TRUE , results = 'hide'}
-library(tidyverse)
-library(palmerpenguins)
-head(select(filter(penguins, species == "Adelie"), species, bill_length_mm))
-```
+**AUFBEREITEN: Werkzeuge beherrschen, bevor wir weitere Datenprobleme lösen**
 
 <br>
 
-✅ **Mit Pipe: Schritt für Schritt lesbar (`|>` oder `%>%`)**
-
-```{r, echo= TRUE , results = 'hide'}
-penguins |>  
-  filter(species == "Adelie") |>  
-  select(species, bill_length_mm) |>  
-  head()
-```
-
-💡 Der Code wird von oben nach unten lesbar
-
-------------------------------------------------------------------------
-
-## Pipe-Operator
-
-### Wie funktioniert die Pipe?
-
-![](../../images/EH_7/Piper.png)
-
-👉 Das Ergebnis wird jeweils an die nächste Funktion weitergegeben
-
-siehe auch [Kapitel 4.2](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html)
-
-------------------------------------------------------------------------
-
-## Pipe-Operator
-
-### Was macht die Pipe genau?
-
-👉 Die Pipe (`|>` oder `%>%`) bedeutet:
-
--   Nimm das Ergebnis links
-
--   Setze es als erstes Argument in die nächste Funktion ein
-
-💡 Die Pipe ersetzt das erste Argument der nächsten Funktion
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
 
 <br>
 
-👉 **Beispiel**
+**EH6:** Notwendige Transformationen in `processing.qmd` durchführen.
 
-<br>
+**EH7:** dplyr-Werkzeuge an anderen Datensätzen selbstständig anwenden.
 
-```{r, echo= TRUE , results = 'hide'}
-penguins |> filter(species == "Adelie")
-```
+::: notes
+Wir bleiben also in der Phase der Datenaufbereitung.
 
-=
+Unser gemeinsames Projekt steht inzwischen nach der Zusammenführung, Dokumentation und ersten Transformationen an einem guten Zwischenpunkt.
 
-```{r, echo= TRUE , results = 'hide'}
-filter(penguins, species == "Adelie")
-```
+Bevor wir nächste Woche gezielt Datenfehler behandeln und in EH9 Analysevariablen und den Long-Datensatz erzeugen, nehmen wir uns heute Zeit, die wichtigsten Funktionen wirklich zu festigen.
 
-------------------------------------------------------------------------
-
-## Daten transformieren mit `dplyr`
-
-👉 `dplyr` bietet zentrale Funktionen für die Datenverarbeitung
-
-👉 Teil des `tidyverse`
-
-👉 Diese Funktionen lassen sich ideal mit der Pipe kombinieren
-
-::: {style="display: flex; justify-content: center; gap: 50px;"}
-<img src="../../images/EH_7/images.jpg" alt="Image 1" width="45%"/> <img src="/images/EH_7/Functions.png" alt="Image 2" width="45%"/>
+Das ist kein Themenwechsel weg vom Forschungsprozess: Wir trainieren heute Fähigkeiten, die wir später bei neuen oder problematischen Daten eigenständig einsetzen müssen. An unserem Processing-Skript nehmen wir heute mal keine weiteren Änderungen vor sondern arbeiten in einem neuen Quarto-Dokument nur zu Übungszwecken.
 :::
 
-siehe auch [Kapitel 4.4](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html#data-wrangling-dplyr)
-
 ------------------------------------------------------------------------
 
-## dplyr: filter()
-
-![](../../images/EH_7/filter.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## dplyr: filter()
-
--   `filter()` wählt **Zeilen/Beobachtungen (rows)** basierend auf Bedingungen
-
-```{r, echo = TRUE}
-
-penguins |>
-  filter(species == "Gentoo") |>
-  head(n = 4)
-```
-
-👉 Ergebnis: Nur Gentoo-Pinguine bleiben übrig
+## Heute: Kurzer Input, viel Übungszeit
 
 <br>
 
-```{r, echo = TRUE}
+**1. Wiederholen:** Fünf Funktionen aus EH6
 
-penguins |>
-  filter(species != "Gentoo") |>
-  head(n = 4)
-```
+**2. Erweitern:** `arrange()`, `relocate()`, `summarise()` und `group_by()`
 
-👉 Ergebnis: Alle Pinguine ausser Gentoo bleiben übrig
+**3. Verbinden:** Eine Pipeline selbstständig lesen und planen
 
-------------------------------------------------------------------------
+**4. Anwenden:** Eigenständige Übungszeit
 
-## dplyr: filter_out()
-
-Alternative (ggf. Update von `dplyr` notwendig):
-
-```{r, echo = TRUE}
-
-penguins |>
-  filter_out(species == "Gentoo") |>
-  head()
-```
-
-------------------------------------------------------------------------
-
-## dplyr: select()
-
--   `select()` wählt **Spalten (Variablen)** aus einem Datensatz aus
--   Die Zeilen bleiben unverändert
+**5. Abschliessen:** Abgaben und Cheatsheet-Wettbewerb
 
 <br>
 
-💡 **Merke:**
+**Ziel:** Nicht nur R-Code wiedererkennen, sondern **die passende Funktion selbst auswählen.**
 
--   `filter()` → wählt Zeilen (Beobachtungen)
+::: notes
+Der Ablauf ist heute bewusst kompakt. Wir repetieren zuerst kurz die Funktionen von letzter Woche, ergänzen dann vier neue Funktionen und lernen anschliessend, wie sie kombiniert werden.
 
--   `select()` → wählt Spalten (Variablen)
+Danach gehört der grösste Teil der Zeit euch. Ihr arbeitet selbstständig oder in kleinen Gruppen an Aufgaben mit anderen Datensätzen.
+
+Am Schluss gibt es Abgabehinweise und Informationen zu einem freiwilligen Wettbewerb für Zusatzpunkte.
+:::
 
 ------------------------------------------------------------------------
 
-## dplyr: select ()
-
-### Bestimmte Spalten direkt auswählen
-
-```{r, echo = TRUE}
-penguins |> 
-  select(species, island, bill_length_mm) |>
-  head(n = 3)
-```
-
--   `species`, `island` und `bill_length_mm` bleiben erhalten
-
--   alle anderen Spalten werden entfernt, die Zeilen bleiben gleich
+## Rückblick: Welche Funktion macht was?
 
 <br>
 
-👉 **Ergebnis:**
-
--   Der Datensatz enthält nur noch diese drei Spalten
-
-------------------------------------------------------------------------
-
-## dplyr: select()
-
-### Spalten mit Hilfsfunktionen auswählen, z.B.
-
-```{r, echo = TRUE}
-penguins |> 
-  select(starts_with("bill")) |>
-  head(n = 3)
-```
-
-Wählt alle Spalten, deren Name mit `"bill"` beginnt
+| Unsere Frage | Funktion | Wirkung |
+|--------------------------|---------------------|--------------------------|
+| Welche **Beobachtungen** möchten wir behalten? | `filter()` | Zeilen auswählen |
+| Welche **Variablen** interessieren uns? | `select()` | Spalten auswählen |
+| Wie soll eine **Variable heissen**? | `rename()` | Spaltenname ändern |
+| Welche **Werte** wollen wir berechnen? | `mutate()` | Neue/bestehende Spalten bearbeiten |
+| Wie wenden wir **dieselbe Berechnung mehrfach** an? | `across()` | Mehrere Spalten innerhalb von `mutate()` bearbeiten |
 
 <br>
 
-👉 **Ergebnis:**
+**Gemeinsamkeit:** Wir können die Funktionen mit `|>` (oder `%>%`) in einer Pipeline verbinden.
 
--   `bill_length_mm`
+::: notes
+Hier noch einmal eine kurze Repetition der fünf Funktionen von letzter Woche.
 
--   `bill_depth_mm`
+-   Mit filter() wählen wir bestimmte Fälle oder Beobachtungen nach Bedingungen aus.
 
-------------------------------------------------------------------------
+-   Mit select() wählen wir einzelne Variablen aus.
 
-## dplyr: select()
+-   rename() verändert Variablennamen, aber nicht die Werte.
 
-### Spalten mit Hilfsfunktionen auswählen, z.B.
+-   mutate() berechnet oder verändert Werte und bearbeitet neue oder bereits bestehende Spalten.
 
-**Weitere Möglichkeiten**, z.B.: `ends_with()`, `contains()`, `where(is.numeric)`
+-   across() hilft uns, dieselbe Operation auf mehrere Spalten gleichzeitig anzuwenden.
 
-Wenn man das Gegenteil erzielen will:
-
-```{r, echo = TRUE}
-
-penguins |> 
-  select(!starts_with("bill")) |>
-  head(n = 3)
-```
-
-👉 **Ergebnis:** alle Spalten, die nicht mit "bill" starten
+Diese Funktionen haben also unterschiedliche Aufgaben. Gemeinsam ist ihnen allen, dass sie praktisch mithilfe eines Pipe-Operators auf einen Datensatz angewendet werden können und sich auch miteinander kombinieren lassen.
+:::
 
 ------------------------------------------------------------------------
 
-## dplyr: select()
-
-### Spalten ausschliessen mit `-`
-
-```{r, echo = TRUE}
-penguins |> 
-  select(-species, -island) |>
-  head(n = 3)
-```
-
--   `-` bedeutet: diese Spalten **entfernen**
-
--   alle anderen Spalten bleiben erhalten
-
-<br>
-
-👉 **Ergebnis:**
-
--   Datensatz enthält alle Spalten **ausser** `species` und `island`
-
-------------------------------------------------------------------------
-
-## dplyr: mutate()
-
--   `mutate()` erstellt neue Variablen (Spalten),
-
--   oder verändert bestehende Variablen
-
-<br>
-
-👉 Alle Zeilen des ursprünglichen Datensatzes werden behalten
-
-👉 Neue Spalten werden aus bestehenden Variablen berechnet
-
-------------------------------------------------------------------------
-
-## dplyr: mutate()
-
--   Wird oft genutzt, um **berechnete Spalten** hinzuzufügen (z.B. `bill_to_flipper_ratio`)
-
--   Die Berechnung erfolgt zeilenweise (jede Zeile bekommt ihren eigenen Wert)
-
-<br>
-
-```{r, echo = TRUE}
-penguins_upgraded <- penguins |>    
-  mutate(bill_to_flipper_ratio = bill_length_mm / flipper_length_mm, 
-         body_mass_kg = body_mass_g / 1000) 
-
-head(penguins_upgraded, n = 3)
-```
-
-------------------------------------------------------------------------
-
-## dplyr: mutate()
-
-![](../../images/EH_7/mutate.png)
-
-👉 Zeilenweise Berechnung, ohne dabei die Originalvariablen zu verändern
+Ab hier müsse die Folien noch überarbeitet werden! Wird heute oder spätestens am Samstag gemacht.
 
 ------------------------------------------------------------------------
 
@@ -404,7 +161,7 @@ head(penguins_upgraded, n = 3)
 
 ### Kennwerte berechnen mit `summarize()`
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 penguins |> 
   summarize(
     mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
@@ -428,7 +185,7 @@ penguins |>
 
 `group_by()` und `summarize()`
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 grouped_summary <- penguins |> 
   group_by(species) |> 
   summarize(
@@ -447,7 +204,7 @@ grouped_summary
 
 **Ohne `group_by()`:**
 
-```{r, echo= TRUE}
+```{r, echo= TRUE, eval=FALSE}
 penguins |>
   summarize(mean_body_mass = mean(body_mass_g, na.rm = TRUE))
 ```
@@ -458,7 +215,7 @@ penguins |>
 
 **Mit `group_by()`:**
 
-```{r, echo= TRUE}
+```{r, echo= TRUE, eval=FALSE}
 penguins |>
   group_by(species) |>
   summarize(mean_body_mass = mean(body_mass_g, na.rm = TRUE))
