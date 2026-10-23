@@ -162,142 +162,281 @@ Diese Funktionen schauen wir uns nun noch kurz anhand von Beispielen an.
 
 ## `arrange()`: Beobachtungen sortieren
 
-------------------------------------------------------------------------
-
-Ab hier müsse die Folien noch überarbeitet werden! Wird heute oder spätestens am Samstag gemacht.
-
-------------------------------------------------------------------------
-
-## dplyr: summarize()
-
--   `summarize()` fasst Daten zu **Kennwerten** zusammen
-
--   Aus vielen Beobachtungen wird eine **kompakte Zusammenfassung**
+**`arrange()` verändert die Reihenfolge der Zeilen - nicht ihre Werte**
 
 <br>
 
-💡 **Typische Kennwerte:**
-
--   Mittelwert (`mean()`)
-
--   Median (`median()`)
-
--   Standardabweichung (`sd()`)
-
-<br>
-
-👉 `summarize()` reduziert viele Zeilen zu einer oder wenigen zusammengefassten Zeilen
-
-------------------------------------------------------------------------
-
-## dplyr: summarize()
-
-![](../../images/EH_7/summarize.png){fig-align="center"}
-
-👉 Einzelne Beobachtungen verschwinden, übrig bleibt die zusammengefasste Information
-
-------------------------------------------------------------------------
-
-## dplyr: summarize()
-
-### Kennwerte berechnen mit `summarize()`
-
-```{r, echo=TRUE, eval=FALSE}
-penguins |> 
-  summarize(
-    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
-    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE)
-  )
+```{r, echo=FALSE, eval=TRUE}
+library(palmerpenguins)
+library(dplyr)
 ```
 
-<br>
+::::: columns
+::: {.column width="53%"}
+**Aufsteigend (Standard)**
 
-👉 **Ergebnis:** Eine Tabelle mit einer Zeile und den beiden berechneten Kennwerten
-
-------------------------------------------------------------------------
-
-## dplyr: group_by()
-
-![](../../images/EH_7/group_by.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## dplyr: group_by()
-
-`group_by()` und `summarize()`
-
-```{r, echo=TRUE, eval=FALSE}
-grouped_summary <- penguins |> 
-  group_by(species) |> 
-  summarize(
-    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
-    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE)
-  )
-
-grouped_summary
-```
-
-------------------------------------------------------------------------
-
-## dplyr: group_by()
-
-### Ohne vs. mit `group_by()`
-
-**Ohne `group_by()`:**
-
-```{r, echo= TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=TRUE}
 penguins |>
-  summarize(mean_body_mass = mean(body_mass_g, na.rm = TRUE))
+  arrange(body_mass_g) |>
+  select(species, body_mass_g) |>
+  head(4)
 ```
+:::
 
-➡️ Ergebnis: 1 Wert
+::: {.column width="47%"}
+**Absteigend mit `desc()`**
+
+```{r, echo=TRUE, eval=TRUE}
+penguins |>
+  arrange(desc(body_mass_g)) |>
+  select(species, body_mass_g) |>
+  head(4)
+```
+:::
+:::::
 
 <br>
 
-**Mit `group_by()`:**
+Die Beobachtungen bleiben vorhanden; wir ändern nur, welche Zeilen zuerst angezeigt werden.
 
-```{r, echo= TRUE, eval=FALSE}
+::: notes
+Wir arbeiten hier einmal mit dem Penguinen-Datensatz, der in R vorinstalliert ist.
+
+Angenommen, wir möchten uns die Penguine einmal nach ihrem Gewicht her betrachten. Wenn wir zuerst die leichtesten Penguine betrachten wollen, sortieren wir die Zeilen mit arrange() nach der Körpermasse. Ohne weiteren Angaben werden Zahlen mit arrange() aufsteigend sortiert.
+
+Wenn wir die schwersten Penguine zuerst sehen möchten, verwenden wir das Argument desc innerhalb von arrange().
+
+Mit select() geben wir uns anschliessend nur zwei Variablen des Datensatzes aus und mit head beschränken wir die Ansicht auf die ersten vier Zeilen des Datensatzes.
+
+arrange() löscht weder Personen noch ändert es Werte. Es wird nur die Reihenfolge der Beobachtungen verändert.
+:::
+
+------------------------------------------------------------------------
+
+## `relocate()`: Spalten verschieben
+
+**`relocate()` verändert die Reihenfolge der Spalten - nicht ihre Werte**
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+# Urspüngliche Reihenfolge
+penguins |>
+  head(n = 2)
+```
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+# Sepzies hinter die Insel verschieben
+penguins |>
+  relocate(species, .after = island) |>
+  head(n = 2)
+```
+
+<br>
+
+**Weitere Möglichkeit: `.before = ...`** platziert eine Spalte **vor** einer anderen.
+
+::: notes
+Während arrange() die Reihenfolge von Beobachtungen verändert, betrifft relocate() die Reihenfolge von Variablen.
+
+Das ist nützlich, wenn wichtige Spalten übersichtlich nebeneinander stehen sollen.
+
+Hier wollen wir einmal die Art der Spezies direkt hinter die Insel verschieben, auf der die Pinguine beobachtet wurden. Das Argument .after gibt an, hinter welcher Spalte die ausgewählte Variable stehen soll.
+
+Mit .before funktioniert es entsprechend davor.
+
+Auch hier bleiben alle Zeilen und Spalten erhalten - nur die Spaltenreihenfolge verändert sich.
+:::
+
+------------------------------------------------------------------------
+
+## summarise(): Viele Beobachtungen zu Kennwerten verdichten I
+
+**`summarise()` erzeugt eine neue, kompaktere Ergebnistabelle**
+
+<br>
+
+![](../../images/EH_7/summarize.png){fig-align="center" width="1436"}
+
+<br>
+
+Einzelne Beobachtungen verschwinden, übrig bleibt die zusammengefasste Information.
+
+::: notes
+Jetzt wollen wir nicht mehr einzelne Beobachtungen anschauen, sondern viele Beobachtungen durch einige Kennwerte zusammenfassen. Dazu dient summarise(). Die Funktion kann mit s oder z geschrieben werden.
+:::
+
+------------------------------------------------------------------------
+
+## summarise(): Viele Beobachtungen zu Kennwerten verdichten II
+
+**`summarise()` erzeugt eine neue, kompaktere Ergebnistabelle**
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+penguins |>
+  summarise(
+    n = n(),
+    mittlere_masse = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+
+<br>
+
+-   `n()` zählt die Beobachtungen
+
+-   `mean()` berechnet den Mittelwert der Körpermasse
+
+-   `na.rm = TRUE` lässt fehlende Werte bei der Mittelwertberechnung aus.
+
+**Ergebnis:** Eine Zeile mit zwei Kennwerten für den gesamten Datensatz.
+
+::: notes
+Mit n() zählen wir zunächst die Beobachtungen unseres Penguindatensatzes.
+
+Mit mean() berechnen wir die durchschnittliche Körpermasse der Penguine. Weil im Datensatz bei einzelnen Beobachtungen Werte fehlen, geben wir na.rm = TRUE an. Das bedeutet nur für diese Berechnung, dass fehlende Werte nicht in den Mittelwert eingehen sollen.
+
+Sie werden damit aber nicht aus der Datei gelöscht!
+
+Ohne vorherige Gruppierung der Pinguine erhalten wir genau eine Zeile mit Kennwerten für den gesamten Datensatz.
+:::
+
+------------------------------------------------------------------------
+
+## `group_by()`: Daten für getrennte Berechnungen gruppieren
+
+**`group_by()` legt fest, welche Beobachtungen zusammengehören**
+
+<br>
+
+:::::: columns
+::: {.column width="40%"}
+![](../../images/EH_7/group_by.png){fig-align="center"}
+:::
+
+:::: {.column width="60%"}
+```{r, echo=TRUE, eval=FALSE}
+penguins |>
+  group_by(species)
+```
+
+<br>
+
+::: {style="font-size: 0.65em;"}
+| Ohne Gruppierung | Mit `group_by(species)` |
+|------------------------------------|------------------------------------|
+| Alle 344 Pinguine bilden eine Gesamtheit. | Die 344 Pinguine sind drei Arten zugeordnet. |
+| Berechnungen beziehen sich auf alle Pinguine. | Nachfolgende Berechnungen können pro Art erfolgen. |
+:::
+::::
+::::::
+
+<br>
+
+**Wichtig:** `group_by()` berechnet noch keinen Mittelwert und entfernt keine Zeilen.
+
+::: notes
+Oft interessiert uns nicht der Durchschnitt aller Pinguine, sondern bspw. die durchschnittliche Körpermasse je Pinguinart.
+
+Dafür müssen wir R mitteilen, nach welcher Variable getrennt gerechnet werden soll.
+
+group_by(species) kennzeichnet die Daten als nach Art gruppiert. Die ursprünglichen 344 Zeilen bleiben bestehen.
+
+group_by() allein erzeugt also noch keine Zusammenfassung. Es verändert, wie nachfolgende Funktionen wie aummarise() ihre Berechnungen ausführen.
+:::
+
+------------------------------------------------------------------------
+
+## Entscheidender Unterschied: Ohne und mit `group_by()`
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+**Ohne Gruppierung**
+
+```{r, echo=TRUE, eval=TRUE}
+penguins |>
+  summarise(
+    n = n(),
+    mean_masse = mean(body_mass_g, na.rm = TRUE)
+    )
+```
+
+<br>
+
+*Eine Zeile insgesamt*
+:::
+
+::: {.column width="50%"}
+**Mit Gruppierung**
+
+```{r, echo=TRUE, eval=TRUE}
 penguins |>
   group_by(species) |>
-  summarize(mean_body_mass = mean(body_mass_g, na.rm = TRUE))
+  summarise(
+    n = n(),
+    mean_masse = mean(body_mass_g, na.rm = TRUE)
+    )
 ```
 
-➡️ Ergebnis: ein Wert pro Art
+*Eine Zeile pro Art*
+:::
+:::::
+
+::: notes
+Das ist die wichtigste Gegenüberstellung der heutigen Sitzung. Links verwenden wir summarise() direkt auf den gesamten Datensatz. Wir erhalten eine einzige Zeile mit n = 344 und einem Gesamtmittelwert aller Pinguine.
+
+Rechts dagegen gruppieren wir zuerst nach Pinguinart und führen exakt dieselbe Zusammenfassung aus. Jetzt erhalten wir drei Zeilen.
+
+Dieselbe Logik benötigten wir später bspw. für gruppierte Deskriptivstatistiken der drei Feedbackgruppen in unserem Forschungsprojekt.
+:::
 
 ------------------------------------------------------------------------
 
-## Heute haben wir gelernt:
+## Eine Frage - mehrere `dplyr`-Funktionen
 
-🧩 **Daten Schritt für Schritt verarbeiten**
+**Frage:** Welche Pinguinart besitzt die höchste durchschnittliche Körpermasse?
 
--   Pipe (`|>` oder `%>%`) verbindet mehrere Schritte
+<br>
 
-🔍 **Daten auswählen**
+```{r, echo=TRUE, eval=TRUE}
+penguins |>
+  group_by(species) |>
+  summarise(
+    n = n(),
+    mittlere_masse = mean(body_mass_g, na.rm = TRUE)
+  ) |>
+  arrange(desc(mittlere_masse))
+```
 
--   `filter()` → Zeilen (Beobachtungen)
+<br>
 
--   `select()` → Spalten (Variablen)
+**Was geschieht nacheinander?**
 
-🧮 **Daten verändern**
+`group_by()` → Arten festlegen
 
--   `mutate()` → neue Variablen erstellen
+`summarise()` → Mittelwerte berechnen
 
-📊 **Daten zusammenfassen**
+`arrange()` → Ergebnis sortieren
 
--   `summarize()` → Kennwerte
+::: notes
+Nun verbinden wir mehrere neue Funktionen in einer einzigen Pipeline.
 
--   `group_by()` → Funktionen pro Gruppe anwenden
+Wir beginnen mit den Pinguindaten und gruppieren sie nach Art. Anschliessend berechnen wir pro Art die Anzahl und die mittlere Körpermasse. Zum Schluss sortieren wir diese drei Ergebniszeilen absteigend nach der mittleren Körpermasse. Die schwerste Art steht damit zuoberst.
+:::
 
 ------------------------------------------------------------------------
 
-## R-Hausübung
+Hier noch eine Folie zum dplyr-Trainingslabor
 
--   Bis am 22.04.2026 (EH 9)
+------------------------------------------------------------------------
 
--   Alle Instruktionen auf der Website
+Folie zu anstehenden Abgaben und Ausblick
 
--   Danach Feedback von uns
+------------------------------------------------------------------------
 
--   16:15 Gruppe: am 15.04 kommt Laura statt Sandra!
-
-    ***Schöne Osterfeiertage!***
+Folie zu freiwilligem Wettbewerb
