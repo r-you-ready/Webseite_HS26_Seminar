@@ -123,6 +123,47 @@ Diese Funktionen haben also unterschiedliche Aufgaben. Gemeinsam ist ihnen allen
 
 ------------------------------------------------------------------------
 
+## 4 weitere `dplyr`-Funktionen
+
+<br>
+
+| Funktion | Leitfrage | Wirkung |
+|-------------------|---------------------------|---------------------------|
+| `arrange()` | In welcher Reihenfolge sollen die **Zeilen** stehen? | Zeilen sortieren |
+| `relocate()` | Wo sollen bestimmte **Spalten** stehen? | Spalten verschieben |
+| `summarise()` | Welche Kennwerte fasse unsere Daten zusammen? | Beobachtungen zu Kennwerten verdichten |
+| `group_by()` | Für welche Gruppen sollen Berechnungen getrennt erfolgen? | Gruppierung festlegen |
+
+<br>
+
+**Zwei Paare:** Reihenfolge verändern; Informationen zusammenfassen.
+
+::: notes
+Heute kommen noch vier weitere Funktionen hinzu.
+
+Die ersten beiden betreffen die Reihenfolge:
+
+-   arrange() sortiert die Zeilen des Datensatzes,
+
+-   relocate() verschiebt die Spalten in ihrer Anordnung.
+
+Bei de verändern also nur die Darstellungsweise der Daten, verändern diese selbst aber nicht. Es werden Zeilen oder Spalten innerhalb des Datensatzes verschoben, ohne dabei inhaltlich etwas zu verändern.
+
+Die anderen beiden Funktionen helfen uns, Informationen kompakt zusammenzufassen:
+
+-   summarise() berechnet verschiedene Kennwerte,
+
+-   group_by() gibt vor, für welche Gruppen wir solche Berechnungen getrennt durchführen wollen.
+
+Diese Funktionen schauen wir uns nun noch kurz anhand von Beispielen an.
+:::
+
+------------------------------------------------------------------------
+
+## `arrange()`: Beobachtungen sortieren
+
+------------------------------------------------------------------------
+
 Ab hier müsse die Folien noch überarbeitet werden! Wird heute oder spätestens am Samstag gemacht.
 
 ------------------------------------------------------------------------
