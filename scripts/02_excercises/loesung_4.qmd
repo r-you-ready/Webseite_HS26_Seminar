@@ -19,8 +19,8 @@ resources:
 
 ```{r, include=FALSE}
 library(tidyverse)
-
-# Hier benötigte Datensätze einlesen und laden
+library(readxl)
+practice <- read_excel("raw/practice_dataset.xlsx")
 ```
 
 Bei Bedarf findest du hier nochmals die Slides zu Einheit 7:
@@ -267,7 +267,7 @@ Bei **b)** besitzt `penguins_cm` weiterhin acht Spalten, aber zwei davon enthalt
 
 # A2: Die vier neuen Funktionen aus EH7 anwenden
 
-### 🧭 A2.1:  Mit `arrange()` Zeilen sortieren
+### 🧭 A2.1: Mit `arrange()` Zeilen sortieren
 
 Sortiert die Pinguine nach `body_mass_g`, von der höchsten zur niedrigsten Masse, und zeigt die ersten sechs Zeilen mit `species` und `body_mass_g` an. Überlegt zudem, warum `arrange()` nicht dasselbe wie `filter()` ist.
 
@@ -286,7 +286,7 @@ penguins |>
 `arrange()` verändert die **Reihenfolge der Zeilen**, entfernt aber keine Beobachtungen. Fehlende Massenwerte erscheinen beim Sortieren am Ende.
 :::
 
-### 🧭 A2.2:  Mit `relocate()` die Spaltenreihenfolge verändern
+### 🧭 A2.2: Mit `relocate()` die Spaltenreihenfolge verändern
 
 Zeigt `body_mass_g` unmittelbar **hinter** `species` an. Die übrigen Spalten sollen vorhanden bleiben. Überprüft die neue Spaltenreihenfolge und erklärt den Unterschied zu `select()`.
 
@@ -444,7 +444,7 @@ Mit `readxl::read_excel("data/practice_dataset.xlsx")` könnt ihr eine Excel-Dat
 :::
 
 ::: {.callout-note collapse="true" title="Musterlösung A4.1"}
-```{r}
+```{r, echo=TRUE, eval=FALSE}
 practice <- readxl::read_excel("data/practice_dataset.xlsx")
 
 dim(practice)
