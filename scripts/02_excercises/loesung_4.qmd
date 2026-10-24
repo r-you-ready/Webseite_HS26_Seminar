@@ -341,12 +341,290 @@ Mithilfe der Funktion `summarise()` entsteht eine Zeile mit der Gesamtanzahl Pin
 `mutate()` funktioniert an sich auch, führt jedoch zu einer anderen Darstellungsweise. Die Daten werden hier nicht verdichtet als übersichtliche Ergebnistabelle dargestellt, sondern dem bestehenden Datensatz werden zwei weitere Variablen angefügt, in welcher die zusammengefasste Information auf sämtlichen 344 Zeilen des Datensatzes wiederholt wird. Das ist an sich nicht falsch, aber auch nicht sonderlich nützlich. Auch kann so schnell der falsche Eindruck entstehen, dass es sich um Individualdaten handelt, obschon es eine zusammenfassende Information ist, welche nicht den einzelnen Pinguin betrifft.
 :::
 
-# Datenaufbereitung – Tidy & Transform
+### 🧭 A2.4: `group_by()` und `summarise()` kombinieren
 
-In den folgenden Aufgaben lernen wir die grundlegenden Funktionen des **dplyr**-Packages aus dem **tidyverse** kennen.
+Berechnet **für jede Pinguinart getrennt** die Anzahl der Beobachtungen, die durchschnittliche Körpermasse und ihre Standardabweichung. Verwendet `group_by()` und `summarise()` in einer Pipeline.
 
-**Hier findest du ein Cheatsheet zu den dplyr-Funktionen:**
+**Kontrolle:** Wie viele Ergebniszeilen entstehen? Welche Art hat die höchste durchschnittliche Körpermasse?
 
-<iframe src="../../PDFs/dplyr_cheatsheet.pdf" width="100%" height="600px">
+::: {.callout-tip collapse="true" title="Tipp zu A2.4"}
+Zuerst bestimmt `group_by(species)` die Gruppen. Anschliessend wird in `summarise()` dieselbe Berechnung **innerhalb jeder Gruppe** durchgeführt. Die Standardabweichung berechnet ihr mit `sd(..., na.rm = TRUE)`.
+:::
 
-</iframe>
+::: {.callout-note collapse="true" title="Musterlösung A2.4"}
+```{r}
+penguins |>
+  group_by(species) |>
+  summarise(
+    n_penguins = n(),
+    mean_mass_g = mean(body_mass_g, na.rm = TRUE),
+    sd_mass_g = sd(body_mass_g, na.rm = TRUE)
+  ) |>
+  arrange(desc(mean_mass_g))
+```
+
+Da wir mithilfe von `group_by(species)` die Pinguine zuerst nach Art trennen, entstehen drei Zeilen als Ergebnis (eine Zeile pro Art).
+
+Mithilfe von `arrange(desc(mean_mass_g))` können wir uns die resultierenden durchschnittlichen Körpermasse der drei Arten noch in absteigender Reihenfolge anzeigen lassen. Dabei zeigt sich, dass die Gentoo-Pinguine mit einer durchschnittlichen Körpermasse von ca. 5076 Gramm am schwersten sind. Die Standardabweichung zeigt uns zudem, dass sich die Gentoo-Pinguine am stärksten untereinander in ihrem Gewicht unterscheiden.
+:::
+
+------------------------------------------------------------------------
+
+# A3 – Mehrere Funktionen selbstständig kombinieren
+
+In den bisherigen Aufgaben war die passende Funktion meist bereits ersichtlich. Nun steht die Frage im Vordergrund. Versucht zuerst ohne Tipps herauszufinden, welche Funktion(en) ihr benötigt.
+
+### 🧭 A3.1: Eine kleine Forschungsfrage beantworten
+
+**Fragestellung:** *Welche Pinguinart hat auf der Insel Biscoe die höchste durchschnittliche Körpermasse?*
+
+Erstellt eine übersichtliche Ergebnistabelle, die für jede auf Biscoe vorkommende Art den Namen der Art, die Zahl der Beobachtungen und die mittlere Körpermasse enthält. Die Art mit dem höchsten Mittelwert soll oben stehen.
+
+Wählt die benötigten Funktionen und deren Reihenfolge selbst aus. Das Ergebnis wird **nicht** als Änderung am ursprünglichen `penguins` gespeichert.
+
+::: {.callout-tip collapse="true" title="Tipp zu A3.1"}
+Überlegt: (1) Welche Insel interessiert uns? (2) Für welche Arten sollen getrennte Mittelwerte entstehen? (3) Wie bekommen wir eine Zeile pro Art? (4) Wie sortieren wir den höchsten Mittelwert nach oben? Dafür benötigt ihr mehrere `dplyr`-Funktionen in einer Pipeline.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A3.1"}
+```{r}
+penguins |>
+  filter(island == "Biscoe") |>
+  group_by(species) |>
+  summarise(
+    n_penguins = n(),
+    mean_mass_g = mean(body_mass_g, na.rm = TRUE)
+  ) |>
+  arrange(desc(mean_mass_g))
+```
+
+Auf Biscoe kommen im Datensatz bloss Adelie- und Gentoo-Pinguine vor. Die Gentoo-Pinguine stehen wegen ihres höheren durchschnittlichen Körpergewichts oben.
+:::
+
+### 🧭 A3.2: Fehlerhaften Code selbst korrigieren
+
+Der folgende Code soll alle **Gentoo-Pinguine** nach Körpermasse absteigend sortiert anzeigen und nur `species` und `body_mass_g` behalten. Er enthält **zwei Fehler**. Korrigiert ihn in eurer Arbeitsdatei.
+
+``` r
+penguins |>
+  select(species, body_mass_g)
+  filter(species = "Gentoo") |>
+  arrange(desc(body_mass_g))
+```
+
+::: {.callout-tip collapse="true" title="Tipp zu A3.2"}
+Kontrolliert, ob zwischen den Verarbeitungsschritten die Pipe fehlt. Unterscheidet ausserdem zwischen `=` (Argumentzuweisung) und `==` (Gleichheitsvergleich). Die Reihenfolge der Funktionen kann bei dieser Frage unterschiedlich sein, solange das Ergebnis korrekt ist.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A3.2"}
+```{r}
+penguins |>
+  select(species, body_mass_g) |>
+  filter(species == "Gentoo") |>
+  arrange(desc(body_mass_g))
+```
+
+Die zwei Korrekturen sind die fehlende Pipe nach `select()` und der Vergleich `==` in `filter()`.
+:::
+
+------------------------------------------------------------------------
+
+# A4 – Transfer auf einen neuen Datensatz
+
+Jetzt bearbeitet ihr einen **anderen Datensatz**, ohne dass die Lösungsfunktionen bereits im Auftrag genannt werden. Er ist eigens für Übungen erstellt und enthält Angaben zu Personen, Wohnorten, Alter und Ausbildung. **Aus diesen simulierten Daten lassen sich keine Aussagen über die tatsächliche Bevölkerung ableiten.**
+
+### 🧭 A4.1: Die Excel-Datei selbstständig einlesen
+
+📍 **Arbeitsort:** `dplyr_training.qmd`, Abschnitt A4
+
+Lest `data/practice_dataset.xlsx` mit einer passenden Funktion aus `readxl` ein und nennt das Objekt `practice`. Prüft anschliessend Dimensionen, Variablennamen und Datentypen.
+
+::: {.callout-tip collapse="true" title="Tipp zu A4.1"}
+Mit `readxl::read_excel("data/practice_dataset.xlsx")` könnt ihr eine Excel-Datei importieren. Das Präfix `readxl::` ermöglicht den Funktionsaufruf ohne zusätzliches `library(readxl)`. Der Pfad ist relativ zum Ordner eures Quarto-Dokuments. `glimpse()` hilft beim Überblick.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A4.1"}
+```{r}
+practice <- readxl::read_excel("data/practice_dataset.xlsx")
+
+dim(practice)
+names(practice)
+glimpse(practice)
+```
+
+Der Datensatz verfügt über 300 Zeilen (Beobachtungen) und 7 Variablen: `participant_id`, `home_town`, `age`, `gender`, `favorite_color`, `years_of_education` und `postal_code`.
+:::
+
+### 🧭 A4.2: Eine Teilgruppe übersichtlich darstellen
+
+Erstellt eine Ergebnistabelle aller Personen aus **Bern**, die **mindestens 30 Jahre alt** sind. Zeigt nur `participant_id`, `home_town`, `age` und `years_of_education` an und sortiert die Personen nach Alter **absteigend.**
+
+Wählt die benötigten Funktionen selbst. **Wie viele Personen** erfüllen die beiden Bedingungen?
+
+::: {.callout-tip collapse="true" title="Tipp zu A4.2"}
+Ihr braucht eine Auswahl von Beobachtungen, eine Auswahl von Spalten und eine Sortierung. Ihr könnt beide Bedingungen innerhalb von `filter()` mit einem passenden logischen Operator verbinden.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A4.2"}
+```{r}
+practice |>
+  filter(home_town == "Bern" & age >= 30) |>
+  select(participant_id, home_town, age, years_of_education) |>
+  arrange(desc(age))
+```
+
+Insgesamt erfüllen 26 der 300 Personen beide Bedingungen. Das vollständige Objekt `practice` behält weiterhin 300 Zeilen.
+:::
+
+### 🧭 A4.3: Eine Frage zu gruppierten Kennwerten beantworten
+
+**Fragestellung:** *In welchem Wohnort ist die durchschnittliche Anzahl Ausbildungsjahre in unserem Übungsdatensatz am höchsten?*
+
+Erstellt eine Tabelle mit **einer Zeile pro Wohnort**, der Anzahl Personen und der durchschnittlichen Zahl der Ausbildungsjahre. Sortiert die Wohnorte nach ihrem Mittelwert **absteigend.**
+
+**Hinweis:** In der Variable `years_of_education` gibt es einige fehlende Werte. Für den **Mittelwert** dürft ihr `na.rm = TRUE` verwenden. Das heisst nicht, dass ihr Personen aus dem Datensatz entfernen sollt. Um die Ursachen und Behandlung fehlender Werte kümmern wir uns ausführlicher in EH8.
+
+::: {.callout-tip collapse="true" title="Tipp zu A4.3"}
+Welche Variable bestimmt die Gruppen? Wie könnt ihr `n()` und `mean(..., na.rm = TRUE)` für jede Gruppe berechnen und das Ergebnis anschliessend sortieren? Beachtet: `n()` zählt alle Personen einer Gruppe; der Mittelwert ignoriert durch `na.rm = TRUE` nur die fehlenden Ausbildungsjahre.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A4.3"}
+```{r}
+practice |>
+  group_by(home_town) |>
+  summarise(
+    n_personen = n(),
+    mean_education = mean(years_of_education, na.rm = TRUE)
+  ) |>
+  arrange(desc(mean_education))
+```
+
+In unserem fiktiven Datensatz gibt es zehn Orte. Lugano steht mit durchschnittlichen 14.25 Ausbildungsjahren ganz oben. Der Wert ist ausschliesslich eine Eigenschaft dieses künstlichen Übungsdatensatzes. `n_personen` zählt jeweils alle Personen des Wohnorts, nicht nur jene mit vollständiger Angabe zu Ausbildungsjahren.
+:::
+
+------------------------------------------------------------------------
+
+## ⭐ Freiwillige Vertiefungen
+
+Wenn ihr mit dem Kernpfad fertig seid, könnt ihr die folgenden Zusatzaufgaben bearbeiten.
+
+### V1: Erweiterte Spaltenauswahl
+
+Wählt aus `penguins` nur `species` und alle Variablen, deren Namen mit `bill_` beginnen. Findet dafür eine passende Auswahlhilfe innerhalb von `select()`.
+
+::: {.callout-note collapse="true" title="Musterlösung V1"}
+```{r}
+penguins |>
+  select(species, starts_with("bill_"))
+```
+
+Die Hilfsfunktion `starts_with()` wird innerhalb von `select()` verwendet.
+:::
+
+### V2: Gruppierung nach zwei Merkmalen
+
+Berechnet die **Anzahl der Pinguine pro Art und Insel**. Sortiert das Ergebnis absteigend nach Anzahl. Welche Kombination kommt besonders häufig vor?
+
+::: {.callout-tip collapse="true" title="Tipp zu V2"}
+`group_by()` kann mehrere Gruppierungsvariablen erhalten. Anschliessend genügt eine Zusammenfassung mit `n()` und eine Sortierung mit `arrange(desc(...))`.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung V2"}
+```{r}
+penguins |>
+  group_by(species, island) |>
+  summarise(n_penguins = n(), .groups = "drop") |>
+  arrange(desc(n_penguins))
+```
+
+Mit `.groups = "drop"` wird eine eventuell verbleibende Gruppierung des Ergebnisses entfernt. Das ist für den Pflichtteil nicht erforderlich.
+
+Besonders häufig kommen Gentoo-Pinguine auf der Insel Biscoe vor.
+:::
+
+### V3: Welche Lieblingsfarben sind besonders beliebt?
+
+**Fragestellung:** *Welche fünf Lieblingsfarben werden in unserem Übungsdatensatz am häufigsten genannt, und wie gross ist ihr jeweiliger prozentualer Anteil?*
+
+Erstellt eine übersichtliche Ergebnistabelle mit den fünf am häufigsten genannten Lieblingsfarben.
+
+Die Tabelle soll für jede Farbe ermitteln:
+
+-   den Namen der Farbe
+
+-   die Anzahl der Personen, die diese Farbe angegeben haben
+
+-   den prozentualen Anteil dieser Personen an allen gültigen Farbangaben, gerundet auf eine Nachkommastelle
+
+Sortiert die Tabelle nach der Häufigkeit absteigend.
+
+**Fragen:** Wie viele gültige Farbangaben liegen insgesamt vor? Welche Farbe wird am häufigsten genannt? Weshalb dürfen wir bei der Prozentberechnung nicht einfach durch 300 teilen?
+
+**Wichtig:** In `favorite_color` kommen fehlende Werte (NA) vor. Diese sollen bei der Berechnung der Häufigkeiten und Prozentanteile nicht berücksichtigt werden.
+
+::: {.callout-note collapse="true" title="Musterlösung V3"}
+```{r}
+practice |>
+  filter(!is.na(favorite_color)) |>
+  group_by(favorite_color) |>
+  summarise(
+    n_personen = n(),
+    .groups = "drop"
+  ) |>
+  mutate(
+    anteil_personen = round(
+      n_personen / sum(n_personen) * 100, 1
+    )
+  ) |>
+  arrange(desc(n_personen)) |>
+  head(n = 5)
+```
+
+Insgesamt liegen 274 gültige Farbangaben vor. Die übrigen 26 Angaben fehlen.
+
+Deshalb beziehen sich die Prozentanteile auf 274 und nicht auf 300 Personen.
+
+`sum(n_personen)` ermittelt hier die Gesamtanzahl der gültigen Farbangaben aus der zusammengefassten Tabelle.
+:::
+
+### V4: Alter nach Wohnort und Geschlecht vergleichen
+
+**Fragestellung:** *Wie unterscheidet sich das Durchschnittsalter zwischen den verschiedenen Geschlechtergruppen innerhalb der Wohnorte?*
+
+Erstellt eine Ergebnistabelle, in der die Personen gleichzeitig nach Wohnort und Geschlecht gruppiert werden.
+
+Berechnet für jede Kombination den Wohnort, das Geschlecht, die Anzahl der Personen und das durchschnittliche Alter (gerundet auf eine Nachkommastelle).
+
+Berücksichtigt anschliessend nur Gruppen mit mindestens 10 Personen. Sortiert die Tabelle nach dem durchschnittlichen Alter absteigend.
+
+**Fragen:** Wie viele Gruppen erfüllen die Mindestgrösse von zehn Personen? Welche Kombination aus Wohnort und Geschlecht weist das höchste Durchschnittsalter auf?
+
+::: {.callout-note collapse="true" title="Musterlösung V4"}
+```{r}
+practice |>
+  group_by(home_town, gender) |>
+  summarise(
+    n_personen = n(),
+    mean_age = round(mean(age), 1),
+    .groups = "drop"
+  ) |>
+  filter(n_personen >= 10) |>
+  arrange(desc(mean_age))
+```
+
+Es entstehen 17 Gruppen, die mindestens 10 Personen enthalten.
+
+Die Gruppe mit dem höchsten Durchschnittsalter sind die Männer in Thun (59.4 Jahre im Schnitt).
+:::
+
+------------------------------------------------------------------------
+
+## ✅ Checkpoint: Was nehmt ihr aus EH7 mit?
+
+Ihr habt heute die Funktionen `filter()`, `select()`, `rename()`, `mutate()`, `across()`, `arrange()`, `relocate()`, `group_by()` und `summarise()` selbst angewendet. Ihr könnt erklären, wann eine Pipe nur ein vorübergehendes Ergebnis liefert und wann eine Zuweisung mit `<-` ein Objekt verändert. Ausserdem könnt ihr aus einer Forschungsfrage eine Abfolge geeigneter Verarbeitungsschritte ableiten und die Ergebnisse überprüfen.
+
+Speichert `dplyr_training.qmd`. **Rendert** es zum Schluss möglichst einmal vollständig. Falls ein Chunk einen Fehler auslöst, prüft, ob die Daten eingelesen wurden, die Namen korrekt geschrieben sind und die Befehle in der richtigen Reihenfolge ausgeführt werden.
+
+**Heute nicht verändert:** das gemeinsame `processing.qmd` und der aufbereitete `dat_full`-Datensatz.
+
+**Ausblick:** In EH8 wenden wir unsere Kenntnisse auf **problematische Daten** an. Wir üben, Fehler zu erkennen, Korrekturen zu begründen und anschliessend die Daten erneut zu prüfen.
