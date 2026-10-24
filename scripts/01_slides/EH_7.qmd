@@ -94,16 +94,12 @@ Am Schluss gibt es Abgabehinweise und Informationen zu einem freiwilligen Wettbe
 <br>
 
 | Unsere Frage | Funktion | Wirkung |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Welche **Beobachtungen** möchten wir behalten? | `filter()` | Zeilen auswählen |
 | Welche **Variablen** interessieren uns? | `select()` | Spalten auswählen |
 | Wie soll eine **Variable heissen**? | `rename()` | Spaltenname ändern |
 | Welche **Werte** wollen wir berechnen? | `mutate()` | Neue/bestehende Spalten bearbeiten |
 | Wie wenden wir **dieselbe Berechnung mehrfach** an? | `across()` | Mehrere Spalten innerhalb von `mutate()` bearbeiten |
-
-<br>
-
-**Gemeinsamkeit:** Wir können die Funktionen mit `|>` (oder `%>%`) in einer Pipeline verbinden.
 
 ::: notes
 Hier noch einmal eine kurze Repetition der fünf Funktionen von letzter Woche.
@@ -128,7 +124,7 @@ Diese Funktionen haben also unterschiedliche Aufgaben. Gemeinsam ist ihnen allen
 <br>
 
 | Funktion | Leitfrage | Wirkung |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `arrange()` | In welcher Reihenfolge sollen die **Zeilen** stehen? | Zeilen sortieren |
 | `relocate()` | Wo sollen bestimmte **Spalten** stehen? | Spalten verschieben |
 | `summarise()` | Welche Kennwerte fasse unsere Daten zusammen? | Beobachtungen zu Kennwerten verdichten |
@@ -327,7 +323,7 @@ penguins |>
 
 ::: {style="font-size: 0.65em;"}
 | Ohne Gruppierung | Mit `group_by(species)` |
-|----|----|
+|------------------------------------|------------------------------------|
 | Alle 344 Pinguine bilden eine Gesamtheit. | Die 344 Pinguine sind drei Arten zugeordnet. |
 | Berechnungen beziehen sich auf alle Pinguine. | Nachfolgende Berechnungen können pro Art erfolgen. |
 :::
@@ -431,12 +427,49 @@ Wir beginnen mit den Pinguindaten und gruppieren sie nach Art. Anschliessend ber
 
 ------------------------------------------------------------------------
 
-Hier noch eine Folie zum dplyr-Trainingslabor
+## Nun: dplyr-Trainingslabor
+
+<br>
+
+![](../../images/dplyr_trainingslabor.png){fig-align="center" width="65%"}
 
 ------------------------------------------------------------------------
 
-Folie zu anstehenden Abgaben und Ausblick
+## Hausübungen & Ausblick
+
+-   Peer-Feedback Codebook bis **Mi, 28.10.2026 (23:55)**
+
+    -   Ggf. eine Woche Verlängerung
+
+<br>
+
+**Weitere Schritte:**
+
+-   **EH8 (04.11.):** Problematische Daten erkennen und bereinigen.
+-   **EH9 (11.11.):** MMQ-Skalenwert berechnen und Long-Daten aus **`pre1` und `pre4`** erzeugen.
 
 ------------------------------------------------------------------------
 
-Folie zu freiwilligem Wettbewerb
+## Freiwillig: R-Cheatsheet-Wettbewerb
+
+**Erstellt euer eigenes kompaktes R-Nachschlagewerk**
+
+<br>
+
+🎯 **Ziel:** Auf Basis einer Vorlage (ILIAS) ein eigenes R-Cheatsheet mit wichtigen Befehlen, Beispielen und kurzen Erklärungen erstellen.
+
+<br>
+
+💡 **Idee:** Persönliches Nachschlagewerk für R-Workflows, Funktionen und Analysen; auch nützlich für spätere Projekte und/oder die Masterarbeit.
+
+<br>
+
+⭐ **Extrapunkte**
+
+-   2 Punkte für Teilnahme (bei erfüllten Mindestkriterien)
+
+-   +2 Punkte für das beste Cheatsheet (Abstimmung im Seminar)
+
+<br>
+
+**Genaue Informationen auf der [Webseite](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/04_misc/wettbewerb_cheatsheet.html)**
