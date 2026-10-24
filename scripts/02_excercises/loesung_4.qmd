@@ -35,6 +35,18 @@ Die Slides für EH8 werden kurz vor dem Seminartermin hochgeladen.
 
 <br>
 
+::: callout-tip
+**Tastenkombinationen für den Pipe Operator:**
+
+**Windows/Linux:** `Ctrl` + `Shift` + `M` → fügt \|\> ein
+
+**Mac:** `Cmd` + `Shift` + `M` → fügt \|\> ein
+
+Vergiss nicht, dass du das `tidyverse` laden musst, um die `%>%`-Pipe zu verwenden!
+
+Ggf. musst du unter "Tools" - "Global Options" - "Code" noch den "Native Pipe Operator" aktivieren
+:::
+
 # Teil 1: dplyr-Trainingslabor
 
 ## 🧭 Wo befinden wir uns?
@@ -92,27 +104,242 @@ Legt ausserhalb eures Grinschgl-Forschungsprojekts folgenden Ordner an:
      └── practice_dataset.xlsx
 ```
 
-Speichert die zwei
+Speichert die zwei heruntergeladenen Dateien an den angegebenen Orten. Öffnet danach `dplyr_training.qmd` in RStudio. Bearbeitet die Aufgaben und führt die Code-Chunks direkt im Quarto-Dokument aus. Bei einem vollständigen Render sollen die Lösungen nacheinander und ohne manuelle Zwischenschritte ausgeführt werden.
 
-# 
+::: {.callout-tip collapse="true" title="Hilfe bei der Installation"}
+Falls `palmerpenguins`, `tidyverse` oder `readxl` fehlen, installiert das betreffende Paket **einmalig in der R-Konsole** (nicht innerhalb des Übungsdokuments):
 
-::: callout-tip
-**Tastenkombinationen für den Pipe Operator:**
+``` r
+install.packages(c("tidyverse", "palmerpenguins", "readxl"))
+```
 
-**Windows/Linux:** `Ctrl` + `Shift` + `M` → fügt \|\> ein
-
-**Mac:** `Cmd` + `Shift` + `M` → fügt \|\> ein
-
-Vergiss nicht, dass du das `tidyverse` laden musst, um die `%>%`-Pipe zu verwenden!
-
-Ggf. musst du unter "Tools" - "Global Options" - "Code" noch den "Native Pipe Operator" aktivieren
+Im Quarto-Dokument genügt es anschliessend, `tidyverse` zu laden.
 :::
 
-**Aufgabe:**
+# A0: Daten bereitstellen und untersuchen
 
-Schreibe folgenden Code mit der Pipe um:
+### 🧭 A0.1: Pakete laden und `penguins` bereitstellen
 
-💡 Hinweis: Überlege, welche Schritte nacheinander ausgeführt werden und wie man sie mit \|\> lesbarer machen kann
+📍 **Arbeitsort:** `dplyr_training.qmd`, Abschnitt A0
+
+Ladet das `tidyverse`. Weist den im Paket `palmerpenguins` enthaltenen Datensatz einem Objekt mit dem Namen `penguins` zu. Überprüft anschliessend seine Dimensionen, Spaltennamen und Datentypen.
+
+**Kontrollfrage:** Wie viele Beobachtungen und Variablen enthält der Datensatz? Welche Variable bezeichnet die Pinguinart?
+
+::: {.callout-tip collapse="true" title="Tipp zu A0.1"}
+`library()` lädt ein Paket. Mit `palmerpenguins::penguins` könnt ihr auf die Daten zugreifen, ohne das Paket gesondert mit `library(palmerpenguins)` anzuhängen. Zur Kontrolle eignen sich `dim()`, `names()` und `glimpse()`.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A0.1"}
+```{r}
+# Pakete laden
+library(tidyverse)
+library(palmerpenguins)
+
+# Datenobjekt erstellen
+penguins <- palmerpenguins::penguins
+
+# Inspektion Datensatz
+dim(penguins)
+names(penguins)
+glimpse(penguins)
+```
+
+Der Datensatz verfügt über 344 Beobachtungen (Pinguine) und 8 Variablen. Die Pinguinart steht in der Variable `species`, welche einen Faktor mit drei Levels darstellt. Im Datensatz kommen einzelne `NA`-Werte vor; diese behandeln wir nächste Woche systematischer.
+:::
+
+### 🧭 A0.2: Eure Arbeitsumgebung kontrollieren
+
+Überprüft, ob sich die heruntergeladene Excel-Datei im Unterordner `data/` befindet. Lest sie noch nicht ein, das ist eure Transferaufgabe in A4. Speichert das Quarto-Dokument und achtet darauf, dass die R-Code-Chunks darin ausführbar sind.
+
+::: {.callout-tip collapse="true" title="Tipp zu A0.2"}
+Die Datei muss relativ zur Quarto-Datei unter `data/practice_dataset.xlsx` liegen. Lasst den Dateinamen unverändert und vermeidet absolute Pfade wie `/Users/...` oder `C:/Users/...`.
+:::
+
+------------------------------------------------------------------------
+
+# A1 – Die fünf Funktionen aus EH6 festigen
+
+**Ziel:** Einzelne Funktionen sicher verwenden, bevor wir zusätzliche Verarbeitungsschritte kombinieren. Alle Ergebnisse entstehen zunächst als Vorschau oder in einem neuen Übungsobjekt. Das ursprüngliche `penguins`-Objekt bleibt erhalten.
+
+### 🧭 A1.1: Mit `filter()` und `select()` eine Teilmenge betrachten
+
+Zeigt ausschliesslich die **Gentoo-Pinguine** an und behaltet nur die Variablen `species`, `island` und `body_mass_g`. Verwendet dafür eine Pipe mit zwei Funktionen.
+
+**Kontrolle:** Wie viele Zeilen und Spalten hat das Ergebnis? Hat `penguins` danach noch seine ursprünglichen Dimensionen?
+
+::: {.callout-tip collapse="true" title="Tipp zu A1.1"}
+`filter()` wählt **Zeilen** aus, `select()` wählt **Spalten** aus. Ein Zeichenkettenwert wie `"Gentoo"` steht in Anführungszeichen; zum Vergleichen verwendet ihr `==`. Wenn ihr das Ergebnis nur anzeigt, braucht ihr keine Zuweisung mit `<-`.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A1.1"}
+```{r}
+penguins |>
+  filter(species == "Gentoo") |>
+  select(species, island, body_mass_g)
+```
+
+Das Ergebnis enthält neu 124 Zeilen (da nur noch Gentoo-Penguine erhalten bleiben) und 3 Spalten. Das Ausgangsobjekt `penguins` enthält weiterhin 344 x 8 Beobachtungen bzw. Variablen. Wir haben das Objekt ja nicht mit einem Zuweisungspfeil überschrieben, sondern uns die Berechnung bloss als Ergebnis ausgeben lassen. Alternativ hätten wir die Berechnung auch unter einem neuen Objekt speichern können, damit es bestehen bleibt (z.B. berechnung_a1_1 \<- penguins \|\> filter(species == "Gentoo") \|\> select(species, island, body_mass_g)
+:::
+
+### 🧭 A1.2: Eine Spalte mit `rename()` umbenennen
+
+Erzeugt ein **neues** Objekt `penguins_renamed`, in dem `body_mass_g` neu `mass_g` heisst. Überprüft die Spaltennamen. Die Werte und die Dimensionen sollen unverändert bleiben.
+
+::: {.callout-tip collapse="true" title="Tipp zu A1.2"}
+Bei `rename()` steht der **neue** Name links des `=`, der **bisherige** Name rechts. Die Zuweisung zu `penguins_renamed` verhindert, dass `penguins` überschrieben wird.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A1.2"}
+```{r}
+penguins_renamed <- penguins |>
+  rename(mass_g = body_mass_g)
+
+# Neuen Variablennamen überprüfen
+names(penguins_renamed)
+
+# Dimensionen kontrollieren
+dim(penguins_renamed)
+```
+
+Die Dimensionen des neuen Objekts sind unverändert (344 x 8). Die betreffende Spalte heisst jetzt `mass_g`, deren Werte sind aber auch unverändert. Die Funktion hat nur den Variablennamen an sich verändert, nichts sonst.
+:::
+
+### 🧭 A1.3: Masseinheiten mit `mutate()` und `across()` umrechnen
+
+Im Datensatz `penguins` sind verschiedene Körpermerkmale in **Gramm (g)** bzw. **Millimetern (mm)** gespeichert. Für manche Fragestellungen möchten wir diese Werte lieber in Kilogramm (kg) oder Zentimetern (cm) angeben.
+
+Dafür üben wir nun zwei unterschiedliche Vorgehensweisen.
+
+**a) Eine zusätzliche Variablte mit `mutate()` erstellen**
+
+Die Variable `body_mass_g` enthält die Körpermasse der Pinguine in Gramm.
+
+Erstellt im Ergebnis eine zusätzliche Variable namens `body_mass_kg`, welche die Körpermasse in Kilogramm angibt. Die vorhandene Spalte `body_mass_g` soll dabei bestehen bleiben.
+
+Lasst euch beide Variablen nebeneinander anzeigen und vergleicht ihre Werte.
+
+**b) Mehrere bestehende Variablen mit `across()` umrechnen**
+
+Die Schnabellänge (`bill_length_mm`) und die Schnabeltiefe (`bill_depth_mm`) sind momentan in Millimetern gespeichert.
+
+Erstellt ein neues, separates Objekt `penguins_cm`, das auf dem ursprünglichen Datensatz `penguins` basiert. Verwendet `mutate()` in Kombination mit `across()`, um beide Schnabelvarianten mit einer einzigen Berechnung von Millimetern in Zentimeter umzurechnen.
+
+Die bestehenden Werte dieser beiden Spalten sollen dabei ersetzt werden. Ihr müsst also keine zusätzlichen Spalten erstellen. Benennt diese beiden umgerechneten Spalten danach so um, dass die Einheit **cm** erkennbar ist.
+
+Kontrolliert dann, ob die neuen Variablennamen vorhanden sind und die umgerechneten Werte stimmen.
+
+**Kontrolle:** Was ist der Unterschied zwischen der Verwendung von `mutate()` in den beiden Aufgaben? Wie viele Spalten besitzt das Ergebnis nach Aufgabe a) im Vergleich zum ursprünglichen Datensatz? Warum besitzt `penguins_cm` trotz der Umrechnungen weiterhin gleich viele Spalten wie `penguins`?
+
+::: {.callout-tip collapse="true" title="Tipp zu A1.3"}
+Für Gramm → Kilogramm teilt ihr durch 1000, für Millimeter → Zentimeter durch 10. Mit `mutate(neuer_name = berechnung)` ergänzt ihr eine Spalte. Innerhalb von `mutate()` verwendet ihr `across(c(spalte1, spalte2), ~ .x / 10)`. Weil die bisherigen Namen danach noch `_mm` enthalten würden, solltet ihr sie mit `rename()` passend aktualisieren.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A1.3"}
+```{r}
+# a) Zusätzliche Spalte: ursprüngliche Gramms bleiben erhalten
+penguins |>
+  mutate(body_mass_kg = body_mass_g / 1000) |>
+  select(body_mass_g, body_mass_kg) |>
+  head()
+
+# b) Zwei vorhandene Spalten umrechnen und korrekt umbenennen
+penguins_cm <- penguins |>
+  mutate(
+    across(c(bill_length_mm, bill_depth_mm), ~ .x / 10)
+  ) |>
+  rename(
+    bill_length_cm = bill_length_mm,
+    bill_depth_cm = bill_depth_mm
+  )
+
+penguins_cm |>
+  select(bill_length_cm, bill_depth_cm) |>
+  head()
+```
+
+Bei **a)** enthält das vorübergehende Ergebnis eine zusätzliche Spalte. Dies, da wir innerhalb von `mutate()` nicht eine bestehende Variable überschreiben, sondern mithilfe eines neuen Variablennamens eine zusätzliche Variable hinzufügen zum bestehenden Datensatz. Hätten wir die Variable anstelle von `body_mass_kg` erneut `body_mass_g` genannt, hätten wir dadurch keine neue Variable erstellt, sondern die bereits bestehende Variable überschrieben.
+
+Bei **b)** besitzt `penguins_cm` weiterhin acht Spalten, aber zwei davon enthalten jetzt Werte in Zentimetern und entsprechend angepasste Namen. Das ursprüngliche `penguins` bleibt unverändert.
+:::
+
+------------------------------------------------------------------------
+
+# A2: Die vier neuen Funktionen aus EH7 anwenden
+
+### 🧭 A2.1:  Mit `arrange()` Zeilen sortieren
+
+Sortiert die Pinguine nach `body_mass_g`, von der höchsten zur niedrigsten Masse, und zeigt die ersten sechs Zeilen mit `species` und `body_mass_g` an. Überlegt zudem, warum `arrange()` nicht dasselbe wie `filter()` ist.
+
+::: {.callout-tip collapse="true" title="Tipp zu A2.1"}
+`arrange()` sortiert standardmässig aufsteigend. Für eine absteigende Sortierung könnt ihr `desc()` verwenden. Anschliessend lassen sich die relevanten Spalten mit `select()` anzeigen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A2.1"}
+```{r}
+penguins |>
+  arrange(desc(body_mass_g)) |>
+  select(species, body_mass_g) |>
+  head(6)
+```
+
+`arrange()` verändert die **Reihenfolge der Zeilen**, entfernt aber keine Beobachtungen. Fehlende Massenwerte erscheinen beim Sortieren am Ende.
+:::
+
+### 🧭 A2.2:  Mit `relocate()` die Spaltenreihenfolge verändern
+
+Zeigt `body_mass_g` unmittelbar **hinter** `species` an. Die übrigen Spalten sollen vorhanden bleiben. Überprüft die neue Spaltenreihenfolge und erklärt den Unterschied zu `select()`.
+
+::: {.callout-tip collapse="true" title="Tipp zu A2.2"}
+`relocate(spalte, .after = andere_spalte)` verschiebt eine Spalte an eine bestimmte Stelle. Ihr könnt auch `.before = ...` verwenden. `select()` mit nur einzelnen Namen würde dagegen die übrigen Spalten aus dem Ergebnis ausschliessen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A2.2"}
+```{r}
+# Mit names() danach direkt nur die Spaltennamen anzeigen lassen
+penguins |>
+  relocate(body_mass_g, .after = species) |>
+  names()
+
+# Alternativ mit head
+penguins |>
+  relocate(body_mass_g, .after = species) |>
+  head(n = 1)
+```
+
+Die Anzahl der Spalten bleibt acht; nur ihre Reihenfolge ändert sich.
+:::
+
+### 🧭 A2.3: Mit `summarise()` einen Gesamtwert berechnen
+
+Berechnet in einer kleinen Ergebnistabelle **die Gesamtzahl der Pinguine** und ihre **durchschnittliche Körpermasse in Gramm**. Speichert das Resultat nicht als neue Spalte im ursprünglichen Datensatz.
+
+**Kontrollfrage:** Warum ist hier `summarise()` geeigneter als `mutate()`?
+
+::: {.callout-tip collapse="true" title="Tipp zu A2.3"}
+Mit `n()` zählt ihr die Beobachtungen. Einen Mittelwert berechnet ihr mit `mean(body_mass_g, na.rm = TRUE)`. `na.rm = TRUE` ignoriert fehlende Werte **für diese Berechnung**, entfernt aber keine Zeilen aus `penguins`. Die systematische Missing-Data-Behandlung folgt in EH8.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A2.3"}
+```{r}
+penguins |>
+  summarise(
+    n_penguins = n(),
+    mean_mass_g = mean(body_mass_g, na.rm = TRUE)
+  )
+
+# Variante mit mutate() anstelle von summarise()
+penguins |>
+  mutate(
+    n_penguins = n(),
+    mean_mass_g = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+
+Mithilfe der Funktion `summarise()` entsteht eine Zeile mit der Gesamtanzahl Pinguinen (n = 344) und der mittleren Körpermasse aller Pinguine. Die Funktion verdichtet die im Datensatz vorhandenen Daten zu einer übersichtlichen Ergebnistabelle.
+
+`mutate()` funktioniert an sich auch, führt jedoch zu einer anderen Darstellungsweise. Die Daten werden hier nicht verdichtet als übersichtliche Ergebnistabelle dargestellt, sondern dem bestehenden Datensatz werden zwei weitere Variablen angefügt, in welcher die zusammengefasste Information auf sämtlichen 344 Zeilen des Datensatzes wiederholt wird. Das ist an sich nicht falsch, aber auch nicht sonderlich nützlich. Auch kann so schnell der falsche Eindruck entstehen, dass es sich um Individualdaten handelt, obschon es eine zusammenfassende Information ist, welche nicht den einzelnen Pinguin betrifft.
+:::
 
 # Datenaufbereitung – Tidy & Transform
 
