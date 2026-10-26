@@ -158,7 +158,7 @@ Die Datei muss relativ zur Quarto-Datei unter `data/practice_dataset.xlsx` liege
 
 ------------------------------------------------------------------------
 
-# A1 – Die fünf Funktionen aus EH6 festigen
+# A1: Die fünf Funktionen aus EH6 festigen
 
 **Ziel:** Einzelne Funktionen sicher verwenden, bevor wir zusätzliche Verarbeitungsschritte kombinieren. Alle Ergebnisse entstehen zunächst als Vorschau oder in einem neuen Übungsobjekt. Das ursprüngliche `penguins`-Objekt bleibt erhalten.
 
@@ -370,7 +370,7 @@ Mithilfe von `arrange(desc(mean_mass_g))` können wir uns die resultierenden dur
 
 ------------------------------------------------------------------------
 
-# A3 – Mehrere Funktionen selbstständig kombinieren
+# A3: Mehrere Funktionen selbstständig kombinieren
 
 In den bisherigen Aufgaben war die passende Funktion meist bereits ersichtlich. Nun steht die Frage im Vordergrund. Versucht zuerst ohne Tipps herauszufinden, welche Funktion(en) ihr benötigt.
 
@@ -429,7 +429,7 @@ Die zwei Korrekturen sind die fehlende Pipe nach `select()` und der Vergleich `=
 
 ------------------------------------------------------------------------
 
-# A4 – Transfer auf einen neuen Datensatz
+# A4: Transfer auf einen neuen Datensatz
 
 Jetzt bearbeitet ihr einen **anderen Datensatz**, ohne dass die Lösungsfunktionen bereits im Auftrag genannt werden. Er ist eigens für Übungen erstellt und enthält Angaben zu Personen, Wohnorten, Alter und Ausbildung. **Aus diesen simulierten Daten lassen sich keine Aussagen über die tatsächliche Bevölkerung ableiten.**
 

@@ -14,7 +14,7 @@ editor: visual
 
 ## So arbeitet ihr mit dieser Vorlage
 
-Dies ist euer **persönliches, ausführbares Arbeitsdokument**. Es enthält die Aufgabennummern, kurze Beschreibungen und leere R-Code-Chunks. Ergänzt jeweils euren eigenen Code.
+Dies ist euer persönliches, ausführbares Arbeitsdokument. Es enthält die Aufgabennummern, kurze Beschreibungen und leere R-Code-Chunks. Ergänzt jeweils euren eigenen Code.
 
 **Ausführliche Aufgaben, aufklappbare Tipps und Musterlösungen:** [Hands-on 4A auf der Seminarwebseite](https://r-you-ready.github.io/Webseite_HS26_Seminar/scripts/02_excercises/loesung_4.html).
 
@@ -33,9 +33,9 @@ dplyr_training/
 
 ------------------------------------------------------------------------
 
-# A0 – Daten bereitstellen und untersuchen
+# A0: Daten bereitstellen und untersuchen
 
-## A0.1 – Pakete laden und Penguins-Daten bereitstellen
+## A0.1: Pakete laden und Penguins-Daten bereitstellen
 
 Ladet das `tidyverse`, weist `palmerpenguins::penguins` einem Objekt `penguins` zu und prüft Dimensionen, Spaltennamen und Datentypen.
 
@@ -45,15 +45,15 @@ Ladet das `tidyverse`, weist `palmerpenguins::penguins` einem Objekt `penguins` 
 
 ```
 
-## A0.2 – Arbeitsumgebung kontrollieren
+## A0.2: Arbeitsumgebung kontrollieren
 
 Prüft, ob `data/practice_dataset.xlsx` am richtigen Ort liegt. Die Excel-Datei wird erst in A4 eingelesen.
 
 ------------------------------------------------------------------------
 
-# A1 – Funktionen aus EH6 festigen
+# A1: Funktionen aus EH6 festigen
 
-## A1.1 – Beobachtungen und Variablen auswählen
+## A1.1: Beobachtungen und Variablen auswählen
 
 Zeigt nur **Gentoo**-Pinguine mit den Spalten `species`, `island` und `body_mass_g` an. Nutzt `filter()` und `select()` in einer Pipeline; kontrolliert eure Ergebnisdimensionen.
 
@@ -63,7 +63,7 @@ Zeigt nur **Gentoo**-Pinguine mit den Spalten `species`, `island` und `body_mass
 
 ```
 
-## A1.2 – Einen Variablennamen ändern
+## A1.2: Einen Variablennamen ändern
 
 Erzeugt `penguins_renamed`, in dem `body_mass_g` in `mass_g` umbenannt wird. Überprüft die Spaltennamen und Dimensionen.
 
@@ -73,7 +73,7 @@ Erzeugt `penguins_renamed`, in dem `body_mass_g` in `mass_g` umbenannt wird. Üb
 
 ```
 
-## A1.3 – Variablen mit mutate() und across() berechnen
+## A1.3: Variablen mit mutate() und across() berechnen
 
 **a)** Berechnet eine zusätzliche Spalte `body_mass_kg` aus `body_mass_g`. Die Gramms sollen erhalten bleiben.
 
@@ -93,9 +93,9 @@ Erzeugt `penguins_renamed`, in dem `body_mass_g` in `mass_g` umbenannt wird. Üb
 
 ------------------------------------------------------------------------
 
-# A2 – Die neuen Funktionen aus EH7 anwenden
+# A2: Die neuen Funktionen aus EH7 anwenden
 
-## A2.1 – Zeilen sortieren: arrange()
+## A2.1: Zeilen sortieren: arrange()
 
 Sortiert nach `body_mass_g` absteigend. Zeigt die ersten sechs Zeilen mit `species` und `body_mass_g` an.
 
@@ -105,7 +105,7 @@ Sortiert nach `body_mass_g` absteigend. Zeigt die ersten sechs Zeilen mit `speci
 
 ```
 
-## A2.2 – Spalten verschieben: relocate()
+## A2.2: Spalten verschieben: relocate()
 
 Zeigt `body_mass_g` unmittelbar hinter `species` an. Alle Spalten bleiben vorhanden. Kontrolliert die neue Reihenfolge.
 
@@ -115,7 +115,7 @@ Zeigt `body_mass_g` unmittelbar hinter `species` an. Alle Spalten bleiben vorhan
 
 ```
 
-## A2.3 – Einen Gesamtwert berechnen: summarise()
+## A2.3: Einen Gesamtwert berechnen: summarise()
 
 Berechnet **die Gesamtzahl der Pinguine** und die **mittlere Körpermasse in Gramm** in einer Ergebnistabelle. Berücksichtigt fehlende Werte bei der Mittelwertberechnung.
 
@@ -125,7 +125,7 @@ Berechnet **die Gesamtzahl der Pinguine** und die **mittlere Körpermasse in Gra
 
 ```
 
-## A2.4 – Kennwerte nach Art: group_by() + summarise()
+## A2.4: Kennwerte nach Art: group_by() + summarise()
 
 Berechnet für **jede Pinguinart** die Anzahl der Beobachtungen, den Mittelwert und die Standardabweichung von `body_mass_g`.
 
@@ -137,9 +137,9 @@ Berechnet für **jede Pinguinart** die Anzahl der Beobachtungen, den Mittelwert 
 
 ------------------------------------------------------------------------
 
-# A3 – Eine Forschungsfrage beantworten
+# A3: Mehrere Funktionen selbstständig kombinieren
 
-## A3.1 – Welche Art ist auf Biscoe am schwersten?
+## A3.1: Welche Art ist auf Biscoe am schwersten?
 
 Erstellt für jede **auf Biscoe vorkommende Art** eine Zeile mit Art, Anzahl Beobachtungen und mittlerer Körpermasse. Die Art mit dem höchsten Mittelwert soll oben stehen. **Wählt die benötigten Funktionen selbst.**
 
@@ -149,7 +149,7 @@ Erstellt für jede **auf Biscoe vorkommende Art** eine Zeile mit Art, Anzahl Beo
 
 ```
 
-## A3.2 – Fehlerhaften Code reparieren
+## A3.2: Fehlerhaften Code reparieren
 
 Dieser Code soll Gentoo-Pinguine absteigend nach Körpermasse sortiert anzeigen. **Findet und korrigiert zwei Fehler.**
 
@@ -168,11 +168,11 @@ penguins |>
 
 ------------------------------------------------------------------------
 
-# A4 – Transfer auf neue Daten
+# A4: Transfer auf neue Daten
 
 Das Excel-Dokument `practice_dataset.xlsx` enthält **künstlich erstellte Übungsdaten**. Die Ergebnisse erlauben keine Aussagen über die tatsächliche Bevölkerung.
 
-## A4.1 – Excel-Datei einlesen und prüfen
+## A4.1: Excel-Datei einlesen und prüfen
 
 Lest `data/practice_dataset.xlsx` mit `readxl` ein und speichert sie als `practice`. Prüft Dimensionen, Variablennamen und Datentypen.
 
@@ -182,7 +182,7 @@ Lest `data/practice_dataset.xlsx` mit `readxl` ein und speichert sie als `practi
 
 ```
 
-## A4.2 – Teilgruppe auswählen und sortieren
+## A4.2: Teilgruppe auswählen und sortieren
 
 Zeigt alle Personen aus **Bern ab 30 Jahren** mit den Variablen `participant_id`, `home_town`, `age` und `years_of_education` an. Sortiert nach Alter absteigend. Wie viele Personen sind es?
 
@@ -192,7 +192,7 @@ Zeigt alle Personen aus **Bern ab 30 Jahren** mit den Variablen `participant_id`
 
 ```
 
-## A4.3 – Forschungsfrage zu Ausbildungsjahren
+## A4.3: Forschungsfrage zu Ausbildungsjahren
 
 Erstellt für jeden `home_town` eine Zeile mit **Anzahl Personen** und **durchschnittlichen Ausbildungsjahren**. Sortiert nach dem höchsten Mittelwert. Für die Mittelwertberechnung dürfen fehlende Werte mit `na.rm = TRUE` ignoriert werden.
 
@@ -206,7 +206,7 @@ Erstellt für jeden `home_town` eine Zeile mit **Anzahl Personen** und **durchsc
 
 # ⭐ Freiwillige Vertiefungen
 
-## V1 – Spaltennamen mit einer Auswahlhilfe auswählen
+## V1: Spaltennamen mit einer Auswahlhilfe auswählen
 
 Wählt aus `penguins` nur `species` und alle Spalten, deren Namen mit `bill_` beginnen.
 
@@ -216,12 +216,44 @@ Wählt aus `penguins` nur `species` und alle Spalten, deren Namen mit `bill_` be
 
 ```
 
-## V2 – Nach zwei Merkmalen gruppieren
+## V2: Nach zwei Merkmalen gruppieren
 
 Zählt die Pinguine pro Art und Insel. Sortiert die Kombinationen nach Häufigkeit absteigend.
 
 ```{r}
 #| label: v2-two-group-variables
+# Euer Code:
+
+```
+
+## V3: Beliebte Lieblingsfarben
+
+Erstellt eine Ergebnistabelle mit den fünf am häufigsten genannten Lieblingsfarben.
+
+Die Tabelle soll für jede Farbe ermitteln:
+
+-   den Namen der Farbe
+
+-   die Anzahl der Personen, die diese Farbe angegeben haben
+
+-   den prozentualen Anteil dieser Personen an allen gültigen Farbangaben, gerundet auf eine Nachkommastelle
+
+Sortiert die Tabelle nach der Häufigkeit absteigend. Fehlende Werte bei der Lieblingsfarbe sollen bei der Berechnung ausgeschlossen werden.
+
+```{r}
+#| label: v3-favorite-color
+# Euer Code:
+
+```
+
+## V4: Alter nach Wohnort und Geschlecht
+
+In einer Ergebnistabelle sollen die Personen gleichzeitig nach Wohnort und Geschlecht sortiert werden. Für jede Kombination soll der Wohnort, das Geschlecht, die Anzahl Personen und das durchschnittliche Alter berechnet werden.
+
+Nachdem nur Gruppen mit mindestens 10 Personen erhalten bleiben, sollen diese absteigend nach ihrem durchschnittlichen Alter sortiert werden.
+
+```{r}
+#| label: v4-age-hometown-and-gender
 # Euer Code:
 
 ```
