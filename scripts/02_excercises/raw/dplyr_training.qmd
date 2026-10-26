@@ -75,7 +75,7 @@ Erzeugt `penguins_renamed`, in dem `body_mass_g` in `mass_g` umbenannt wird. Üb
 
 ## A1.3: Variablen mit mutate() und across() berechnen
 
-**a)** Berechnet eine zusätzliche Spalte `body_mass_kg` aus `body_mass_g`. Die Gramms sollen erhalten bleiben.
+**a)** Berechnet eine zusätzliche Spalte `body_mass_kg` aus `body_mass_g`. Die ursprüngliche Spalte `body_mass_g` soll erhalten bleiben.
 
 ```{r}
 #| label: a1-3a-mutate
@@ -248,7 +248,7 @@ Sortiert die Tabelle nach der Häufigkeit absteigend. Fehlende Werte bei der Lie
 
 ## V4: Alter nach Wohnort und Geschlecht
 
-In einer Ergebnistabelle sollen die Personen gleichzeitig nach Wohnort und Geschlecht sortiert werden. Für jede Kombination soll der Wohnort, das Geschlecht, die Anzahl Personen und das durchschnittliche Alter berechnet werden.
+In einer Ergebnistabelle sollen die Personen gleichzeitig nach Wohnort und Geschlecht gruppiert werden. Für jede Kombination soll der Wohnort, das Geschlecht, die Anzahl Personen und das durchschnittliche Alter berechnet werden.
 
 Nachdem nur Gruppen mit mindestens 10 Personen erhalten bleiben, sollen diese absteigend nach ihrem durchschnittlichen Alter sortiert werden.
 

@@ -1,6 +1,6 @@
 ---
 title: "Hands-on Block 4: Daten bearbeiten, überprüfen und bereinigen"
-subtitle: "Von dplyr-Funktionen zum Umgang mit probelmatischen Daten"
+subtitle: "Von dplyr-Funktionen zum Umgang mit problematischen Daten"
 editor: visual
 bibliography: references.bib
 filters:
@@ -179,7 +179,7 @@ penguins |>
   select(species, island, body_mass_g)
 ```
 
-Das Ergebnis enthält neu 124 Zeilen (da nur noch Gentoo-Penguine erhalten bleiben) und 3 Spalten. Das Ausgangsobjekt `penguins` enthält weiterhin 344 x 8 Beobachtungen bzw. Variablen. Wir haben das Objekt ja nicht mit einem Zuweisungspfeil überschrieben, sondern uns die Berechnung bloss als Ergebnis ausgeben lassen. Alternativ hätten wir die Berechnung auch unter einem neuen Objekt speichern können, damit es bestehen bleibt (z.B. berechnung_a1_1 \<- penguins \|\> filter(species == "Gentoo") \|\> select(species, island, body_mass_g)
+Das Ergebnis enthält neu 124 Zeilen (da nur noch Gentoo-Pinguine erhalten bleiben) und 3 Spalten. Das Ausgangsobjekt `penguins` enthält weiterhin 344 x 8 Beobachtungen bzw. Variablen. Wir haben das Objekt ja nicht mit einem Zuweisungspfeil überschrieben, sondern uns die Berechnung bloss als Ergebnis ausgeben lassen. Alternativ hätten wir die Berechnung auch unter einem neuen Objekt speichern können, damit es bestehen bleibt (z.B. berechnung_a1_1 \<- penguins \|\> filter(species == "Gentoo") \|\> select(species, island, body_mass_g)
 :::
 
 ### 🧭 A1.2: Eine Spalte mit `rename()` umbenennen
@@ -237,7 +237,7 @@ Für Gramm → Kilogramm teilt ihr durch 1000, für Millimeter → Zentimeter du
 
 ::: {.callout-note collapse="true" title="Musterlösung A1.3"}
 ```{r}
-# a) Zusätzliche Spalte: ursprüngliche Gramms bleiben erhalten
+# a) Zusätzliche Spalte: ursprüngliche Grammwerte bleiben erhalten
 penguins |>
   mutate(body_mass_kg = body_mass_g / 1000) |>
   select(body_mass_g, body_mass_kg) |>

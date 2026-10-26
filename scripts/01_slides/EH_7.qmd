@@ -26,7 +26,7 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 ![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ::: notes
-Willkommen zur siebten Einheit. Heute sind wir schon in der Hälfte des Semesters angekommen und machen einmal bewusst etwas anderes als in den vergangenen Wochen: Wir arbeiten heute nicht primär an unserem Forschungsprojekt weiter, sondern trainieren einmal die Werkzeige, die wir dafür brauchen.
+Willkommen zur siebten Einheit. Heute sind wir schon in der Hälfte des Semesters angekommen und machen einmal bewusst etwas anderes als in den vergangenen Wochen: Wir arbeiten heute nicht primär an unserem Forschungsprojekt weiter, sondern trainieren einmal die Werkzeuge, die wir dafür brauchen.
 
 Ihr habt letzte Woche die grundlegenden dplyr-Funktionen kennengelernt und die notwendigen Transformationen im Processing-Skript vorgenommen.
 
@@ -94,7 +94,7 @@ Am Schluss gibt es Abgabehinweise und Informationen zu einem freiwilligen Wettbe
 <br>
 
 | Unsere Frage | Funktion | Wirkung |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Welche **Beobachtungen** möchten wir behalten? | `filter()` | Zeilen auswählen |
 | Welche **Variablen** interessieren uns? | `select()` | Spalten auswählen |
 | Wie soll eine **Variable heissen**? | `rename()` | Spaltenname ändern |
@@ -124,10 +124,10 @@ Diese Funktionen haben also unterschiedliche Aufgaben. Gemeinsam ist ihnen allen
 <br>
 
 | Funktion | Leitfrage | Wirkung |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `arrange()` | In welcher Reihenfolge sollen die **Zeilen** stehen? | Zeilen sortieren |
 | `relocate()` | Wo sollen bestimmte **Spalten** stehen? | Spalten verschieben |
-| `summarise()` | Welche Kennwerte fasse unsere Daten zusammen? | Beobachtungen zu Kennwerten verdichten |
+| `summarise()` | Welche Kennwerte fassen unsere Daten zusammen? | Beobachtungen zu Kennwerten verdichten |
 | `group_by()` | Für welche Gruppen sollen Berechnungen getrennt erfolgen? | Gruppierung festlegen |
 
 <br>
@@ -143,7 +143,7 @@ Die ersten beiden betreffen die Reihenfolge:
 
 -   relocate() verschiebt die Spalten in ihrer Anordnung.
 
-Bei de verändern also nur die Darstellungsweise der Daten, verändern diese selbst aber nicht. Es werden Zeilen oder Spalten innerhalb des Datensatzes verschoben, ohne dabei inhaltlich etwas zu verändern.
+Beide verändern also nur die Darstellungsweise der Daten, verändern diese selbst aber nicht. Es werden Zeilen oder Spalten innerhalb des Datensatzes verschoben, ohne dabei inhaltlich etwas zu verändern.
 
 Die anderen beiden Funktionen helfen uns, Informationen kompakt zusammenzufassen:
 
@@ -216,7 +216,7 @@ arrange() löscht weder Personen noch ändert es Werte. Es wird nur die Reihenfo
 <br>
 
 ```{r, echo=TRUE, eval=TRUE}
-# Urspüngliche Reihenfolge
+# Ursprüngliche Reihenfolge
 penguins |>
   head(n = 2)
 ```
@@ -224,7 +224,7 @@ penguins |>
 <br>
 
 ```{r, echo=TRUE, eval=TRUE}
-# Sepzies hinter die Insel verschieben
+# Spezies hinter die Insel verschieben
 penguins |>
   relocate(species, .after = island) |>
   head(n = 2)
@@ -323,7 +323,7 @@ penguins |>
 
 ::: {style="font-size: 0.65em;"}
 | Ohne Gruppierung | Mit `group_by(species)` |
-|----|----|
+|------------------------------------|------------------------------------|
 | Alle 344 Pinguine bilden eine Gesamtheit. | Die 344 Pinguine sind drei Arten zugeordnet. |
 | Berechnungen beziehen sich auf alle Pinguine. | Nachfolgende Berechnungen können pro Art erfolgen. |
 :::
@@ -341,7 +341,7 @@ Dafür müssen wir R mitteilen, nach welcher Variable getrennt gerechnet werden 
 
 group_by(species) kennzeichnet die Daten als nach Art gruppiert. Die ursprünglichen 344 Zeilen bleiben bestehen.
 
-group_by() allein erzeugt also noch keine Zusammenfassung. Es verändert, wie nachfolgende Funktionen wie aummarise() ihre Berechnungen ausführen.
+group_by() allein erzeugt also noch keine Zusammenfassung. Es verändert, wie nachfolgende Funktionen wie summarise() ihre Berechnungen ausführen.
 :::
 
 ------------------------------------------------------------------------
@@ -423,6 +423,8 @@ penguins |>
 Nun verbinden wir mehrere neue Funktionen in einer einzigen Pipeline.
 
 Wir beginnen mit den Pinguindaten und gruppieren sie nach Art. Anschliessend berechnen wir pro Art die Anzahl und die mittlere Körpermasse. Zum Schluss sortieren wir diese drei Ergebniszeilen absteigend nach der mittleren Körpermasse. Die schwerste Art steht damit zuoberst.
+
+Hier sehen wir, dass die Gentoo-Pinguine im Datensatz die höchste durchschnittliche Körpermasse aufweisen.
 :::
 
 ------------------------------------------------------------------------
@@ -433,13 +435,17 @@ Wir beginnen mit den Pinguindaten und gruppieren sie nach Art. Anschliessend ber
 
 ![](../../images/dplyr_trainingslabor.png){fig-align="center" width="65%"}
 
+<br>
+
+**Jetzt seid ihr dran:** Öffnet Hands-on 4A auf der Seminarwebseite, ladet die Arbeitsvorlage und den Excel-Datensatz herunter und bearbeitet die Aufgaben in `dplyr_training.qmd`.
+
 ------------------------------------------------------------------------
 
 ## Hausübungen & Ausblick
 
 -   Peer-Feedback Codebook bis **Mi, 28.10.2026 (23:55)**
 
-    -   Ggf. eine Woche Verlängerung
+    -   Falls die Peer-Partnerperson die Codebook-Abgabe um eine Woche verlängert hat, verschiebt sich die Frist auf Mi, 04.11.2026.
 
 <br>
 
