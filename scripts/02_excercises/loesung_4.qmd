@@ -13,7 +13,7 @@ format:
     toc-depth: 2
     code-tools: false
 resources:
-  - downloads/dplyr_training.qmd
+  - raw/dplyr_training.qmd
   - raw/practice_dataset.xlsx
 ---
 
