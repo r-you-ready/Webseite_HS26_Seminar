@@ -211,7 +211,7 @@ Im Datensatz `penguins` sind verschiedene Körpermerkmale in **Gramm (g)** bzw. 
 
 Dafür üben wir nun zwei unterschiedliche Vorgehensweisen.
 
-**a) Eine zusätzliche Variablte mit `mutate()` erstellen**
+**a) Eine zusätzliche Variable mit `mutate()` erstellen**
 
 Die Variable `body_mass_g` enthält die Körpermasse der Pinguine in Gramm.
 
@@ -223,7 +223,7 @@ Lasst euch beide Variablen nebeneinander anzeigen und vergleicht ihre Werte.
 
 Die Schnabellänge (`bill_length_mm`) und die Schnabeltiefe (`bill_depth_mm`) sind momentan in Millimetern gespeichert.
 
-Erstellt ein neues, separates Objekt `penguins_cm`, das auf dem ursprünglichen Datensatz `penguins` basiert. Verwendet `mutate()` in Kombination mit `across()`, um beide Schnabelvarianten mit einer einzigen Berechnung von Millimetern in Zentimeter umzurechnen.
+Erstellt ein neues, separates Objekt `penguins_cm`, das auf dem ursprünglichen Datensatz `penguins` basiert. Verwendet `mutate()` in Kombination mit `across()`, um beide Schnabelvariablen mit einer einzigen Berechnung von Millimetern in Zentimeter umzurechnen.
 
 Die bestehenden Werte dieser beiden Spalten sollen dabei ersetzt werden. Ihr müsst also keine zusätzlichen Spalten erstellen. Benennt diese beiden umgerechneten Spalten danach so um, dass die Einheit **cm** erkennbar ist.
 
@@ -336,7 +336,7 @@ penguins |>
   )
 ```
 
-Mithilfe der Funktion `summarise()` entsteht eine Zeile mit der Gesamtanzahl Pinguinen (n = 344) und der mittleren Körpermasse aller Pinguine. Die Funktion verdichtet die im Datensatz vorhandenen Daten zu einer übersichtlichen Ergebnistabelle.
+Mithilfe der Funktion `summarise()` entsteht eine Zeile mit der Gesamtanzahl Pinguinen (n = 344) und der mittleren Körpermasse aller Pinguine. Die Funktion verdichtet die im Datensatz vorhandenen Daten zu einer übersichtlichen Ergebnistabelle. n() zählt alle 344 Pinguine. Der Mittelwert wird dagegen nur aus den vorhandenen Körpermassenwerten berechnet, weil fehlende Angaben durch `na.rm = TRUE` ignoriert werden.
 
 `mutate()` funktioniert an sich auch, führt jedoch zu einer anderen Darstellungsweise. Die Daten werden hier nicht verdichtet als übersichtliche Ergebnistabelle dargestellt, sondern dem bestehenden Datensatz werden zwei weitere Variablen angefügt, in welcher die zusammengefasste Information auf sämtlichen 344 Zeilen des Datensatzes wiederholt wird. Das ist an sich nicht falsch, aber auch nicht sonderlich nützlich. Auch kann so schnell der falsche Eindruck entstehen, dass es sich um Individualdaten handelt, obschon es eine zusammenfassende Information ist, welche nicht den einzelnen Pinguin betrifft.
 :::
@@ -499,7 +499,7 @@ practice |>
   arrange(desc(mean_education))
 ```
 
-In unserem fiktiven Datensatz gibt es zehn Orte. Lugano steht mit durchschnittlichen 14.25 Ausbildungsjahren ganz oben. Der Wert ist ausschliesslich eine Eigenschaft dieses künstlichen Übungsdatensatzes. `n_personen` zählt jeweils alle Personen des Wohnorts, nicht nur jene mit vollständiger Angabe zu Ausbildungsjahren.
+In unserem fiktiven Datensatz gibt es zehn Orte. Lugano steht mit durchschnittlichen 14.26 Ausbildungsjahren ganz oben. Der Wert ist ausschliesslich eine Eigenschaft dieses künstlichen Übungsdatensatzes. `n_personen` zählt jeweils alle Personen des Wohnorts, nicht nur jene mit vollständiger Angabe zu Ausbildungsjahren.
 :::
 
 ------------------------------------------------------------------------
