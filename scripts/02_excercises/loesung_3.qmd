@@ -25,7 +25,11 @@ Bei Bedarf findest du hier nochmals die Slides zu Einheit 5:
 
 Die Slides für EH6 werden kurz vor dem Seminartermin hochgeladen.
 
-<br>
+::: {=html}
+<iframe src="../01_slides/EH_6.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+
+</iframe>
+:::
 
 ## Bevor ihr beginnt
 
