@@ -94,7 +94,7 @@ Am Schluss gibt es Abgabehinweise und Informationen zu einem freiwilligen Wettbe
 <br>
 
 | Unsere Frage | Funktion | Wirkung |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Welche **Beobachtungen** möchten wir behalten? | `filter()` | Zeilen auswählen |
 | Welche **Variablen** interessieren uns? | `select()` | Spalten auswählen |
 | Wie soll eine **Variable heissen**? | `rename()` | Spaltenname ändern |
@@ -124,7 +124,7 @@ Diese Funktionen haben also unterschiedliche Aufgaben. Gemeinsam ist ihnen allen
 <br>
 
 | Funktion | Leitfrage | Wirkung |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `arrange()` | In welcher Reihenfolge sollen die **Zeilen** stehen? | Zeilen sortieren |
 | `relocate()` | Wo sollen bestimmte **Spalten** stehen? | Spalten verschieben |
 | `summarise()` | Welche Kennwerte fassen unsere Daten zusammen? | Beobachtungen zu Kennwerten verdichten |
@@ -323,7 +323,7 @@ penguins |>
 
 ::: {style="font-size: 0.65em;"}
 | Ohne Gruppierung | Mit `group_by(species)` |
-|------------------------------------|------------------------------------|
+|----|----|
 | Alle 344 Pinguine bilden eine Gesamtheit. | Die 344 Pinguine sind drei Arten zugeordnet. |
 | Berechnungen beziehen sich auf alle Pinguine. | Nachfolgende Berechnungen können pro Art erfolgen. |
 :::
