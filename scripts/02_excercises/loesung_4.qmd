@@ -72,7 +72,7 @@ Ihr könnt die neun zentralen `dplyr`-Funktionen unterscheiden, eine Pipeline mi
 ## ⏱️ Euer Weg durch die 60 Minuten
 
 | Abschnitt | Zeit | Ziel |
-|------------------------|-----------------------:|------------------------|
+|----|---:|----|
 | **A0 – Vorbereitung** | ca. 6 Min. | Dateien organisieren und `penguins` bereitstellen |
 | **A1 – EH6-Funktionen wiederholen** | ca. 14 Min. | `filter()`, `select()`, `rename()`, `mutate()`, `across()` |
 | **A2 – Neue EH7-Funktionen anwenden** | ca. 15 Min. | `arrange()`, `relocate()`, `summarise()`, `group_by()` |
