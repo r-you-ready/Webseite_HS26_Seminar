@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 8"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 8"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -28,9 +28,90 @@ penguins <- palmerpenguins::penguins
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**8. Einheit**, 15.04.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**8. Einheit**, 04.11.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
+
+::: notes
+Willkommen zur achten Einheit.
+
+Letzte Woche habt ihr viel Zeit damit verbracht, die verschiedenen Funktionen aus dplyr selbstständig auszuprobieren. Heute kommt eine andere, sehr wichtige Frage hinzu: Was machen wir, wenn die Daten selbst nicht ganz stimmen?
+
+Im gemeinsamen Forschungsprojekt sind die Originaldaten weitgehend vollständig aufbereitet. Das ist angenehm, aber nicht unbedingt repräsentativ für die Arbeit mit neuen Forschungsdaten. Gerade bei den simulierten Abschlussdaten könnt ihr auf unterschiedliche Datenprobleme treffen.
+
+Heute lernen wir deshabl, verschiedene Datenprobleme systematisch zu erkennen, ihre möglichen Ursachen zu prüfen und Korrekturen zu begründen.
+:::
 
 ------------------------------------------------------------------------
+
+## Wo befinden wir uns?
+
+**AUFBEREITEN: Qualität sichern, bevor wir analysieren**
+
+<br>
+
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
+
+<br>
+
+**EH7:** Mit `dplyr` Daten bearbeiten.
+
+**EH8:** Datenprobleme erkennen und begründet bereinigen.
+
+**EH9:** `mmq_mean` berechnen & Long-Daten aus `pre1` und `pre4` erzeugen.
+
+::: notes
+Wir sind weiterhin im vierten Schritt unseres Forschungsprozessen. Ihr habt inzwischen gelernt, wie wir Daten importieren, zusammenführen, dokumentieren und mit dplyr verändern können.
+
+Was uns noch fehlt, ist ein systematischer Blick auf mögliche Probleme in den Rohdaten. Bevor wir aus einzelnen Fragebogenitems einen Skalenwert berechnen oder ein statistisches Modell schätzen, müssen die dafür verwendeten Daten korrekt interpretiert und ausreichend geprüft sein.
+
+Da in den Originaldaten keine Fehlerquellen vorhanden sind, arbeiten wir heute nicht am Processing-Skript weiter. Wie auch letzte Woche trainieren wir heute einen Denkprozess und unterschiedliche Verarbeitungsschritte, die ihr später auf eure individuell simulierten Abschlussdaten übertragen könnt.
+
+Nächste Woche kehren wir dann wieder zur konkreten Aufbereitung des gemeinsamen Forschungsprojekts zurück und in 2 Wochen führen wir erste Berechnungen durch.
+:::
+
+------------------------------------------------------------------------
+
+## Ein kleiner Datensatz - alles in Ordnung?
+
+**Schaut zuerst nur auf die Daten. Was fällt euch auf?**
+
+<br>
+
+::: {style="font-size:0.95em;"}
+| `code` | `group.x` | `group.y` | `question1` | `proportion_correct` |
+|:------:|:----------|-----------|:-----------:|---------------------:|
+|  101   | control   | control   |     `3`     |                 0.75 |
+|  102   | above     | above     |  `"vier"`   |                 -999 |
+|  102   | above     | above     |  `"vier"`   |                 -999 |
+|  103   | control   | control   |     `2`     |                 1.05 |
+|  104   | below     | below     |     `8`     |                 0.50 |
+|  `NA`  | `NA`      | `NA`      |    `NA`     |                 `NA` |
+:::
+
+<br>
+
+Welche Auffälligkeiten fallen euch auf?
+
+::: notes
+-   Die Person 102 kommt mit identischer Zeile zweimal vor.
+
+-   Die letzte Zeile enthält überhaupt keine Information.
+
+-   group.x und group.y scheinen identische Spalten zu sein. Könnte sein, dass diese durch das Mergen entstanden sind.
+
+-   Bei question1 stehen die Werte von Person 102 als Zahlwort ausgeschrieben in Anführungszeichen.
+
+-   Eine Proportion kann nur Werte zwischen 0 und 1 enthalten. Der Wert -999 ist daher auffällig und auch 1.05 unmöglich.
+
+Mit dieser kleinen Übung haben wir schon den ersten wichtigen Schritt bei der Fehlererkennung erfüllt: Wir beschrieben Auffälligkeiten, bevor wir etwas löschen oder verändern.
+:::
+
+------------------------------------------------------------------------
+
+Ab hier muss der Foliensatz noch überarbeitet werden.
+
+Wird am Freitag oder Samstag gemacht!
 
 ## Heute:
 
