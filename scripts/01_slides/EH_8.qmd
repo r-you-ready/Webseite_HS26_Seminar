@@ -24,6 +24,7 @@ draft: true
 library(tidyverse)
 library(palmerpenguins)
 penguins <- palmerpenguins::penguins
+dat_full <- readr::read_delim("raw/dat_full.csv")
 ```
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
@@ -35,11 +36,11 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 ::: notes
 Willkommen zur achten Einheit.
 
-Letzte Woche habt ihr viel Zeit damit verbracht, die verschiedenen Funktionen aus dplyr selbstständig auszuprobieren. Heute kommt eine andere, sehr wichtige Frage hinzu: Was machen wir, wenn die Daten selbst nicht ganz stimmen?
+Letzte Woche habt ihr viel Zeit damit verbracht, die verschiedenen Funktionen aus dplyr selbstständig auszuprobieren. Heute geht es weniger darum, möglichst viele weitere Funktionen kennenzulernen. Wir beschäftigen uns mit einer Frage, die in jeder empirischen Untersuchung wichtig ist: Was tun wir, wenn unsere Daten nicht so aussehen, wie wir es erwarten?
 
 Im gemeinsamen Forschungsprojekt sind die Originaldaten weitgehend vollständig aufbereitet. Das ist angenehm, aber nicht unbedingt repräsentativ für die Arbeit mit neuen Forschungsdaten. Gerade bei den simulierten Abschlussdaten könnt ihr auf unterschiedliche Datenprobleme treffen.
 
-Heute lernen wir deshabl, verschiedene Datenprobleme systematisch zu erkennen, ihre möglichen Ursachen zu prüfen und Korrekturen zu begründen.
+Heute lernen wir deshalb, verschiedene Datenprobleme systematisch zu erkennen, ihre möglichen Ursachen zu prüfen und Korrekturen zu begründen.
 :::
 
 ------------------------------------------------------------------------
@@ -54,9 +55,9 @@ Heute lernen wir deshabl, verschiedene Datenprobleme systematisch zu erkennen, i
 
 <br>
 
-**EH7:** Mit `dplyr` Daten bearbeiten.
+**EH7:** `dplyr`-Funktionen selbstständig anwenden.
 
-**EH8:** Datenprobleme erkennen und begründet bereinigen.
+**EH8:** Datenprobleme erkennen, erklären und begründet bereinigen.
 
 **EH9:** `mmq_mean` berechnen & Long-Daten aus `pre1` und `pre4` erzeugen.
 
@@ -78,20 +79,11 @@ Nächste Woche kehren wir dann wieder zur konkreten Aufbereitung des gemeinsamen
 
 <br>
 
-::: {style="font-size:0.95em;"}
-| `code` | `group.x` | `group.y` | `question1` | `proportion_correct` |
-|:------:|:----------|-----------|:-----------:|---------------------:|
-|  101   | control   | control   |     `3`     |                 0.75 |
-|  102   | above     | above     |  `"vier"`   |                 -999 |
-|  102   | above     | above     |  `"vier"`   |                 -999 |
-|  103   | control   | control   |     `2`     |                 1.05 |
-|  104   | below     | below     |     `8`     |                 0.50 |
-|  `NA`  | `NA`      | `NA`      |    `NA`     |                 `NA` |
-:::
+![](../../images/EH8_Datensatz.png){fig-align="center" width="50%"}
 
 <br>
 
-Welche Auffälligkeiten fallen euch auf?
+Wie viele Auffälligkeiten findet ihr?
 
 ::: notes
 -   Die Person 102 kommt mit identischer Zeile zweimal vor.
@@ -109,161 +101,297 @@ Mit dieser kleinen Übung haben wir schon den ersten wichtigen Schritt bei der F
 
 ------------------------------------------------------------------------
 
-Ab hier muss der Foliensatz noch überarbeitet werden.
+## Nicht jede Auffälligkeit ist automatisch ein Fehler
 
-Wird am Freitag oder Samstag gemacht!
+**Wir unterscheiden verschiedene Probleme - und brauchen unterschiedliche Prüfungen**
 
-## Heute:
+<br>
 
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
+::: {style="font-size:0.85em;"}
+| Bereich | Woran erkennen wir mögliche Probleme? | Typische Beispiele |
+|------------------|------------------------------|------------------------|
+| **Datenstruktur** | Doppelte Zeilen/IDs, unerwartete Spalten | Leerzeilen, Duplikate, ID- und Spaltenprobleme |
+| **Werte und Kodierung** | Werte passen nicht zum dokumentierten Format | Zahlwörter, unzulässige Codes |
+| **Fehlende Information** | Informationen fehlen oder sind als Platzhalter gespeichert | `NA`, leere Felder, Platzhalter, spezielle Missing-Codes |
+| **Skala und Richtung** | Variablen wurden unterschiedlich skaliert/gepolt | Bereits transformierte oder anders gepolte Variablen |
+:::
+
+<br>
+
+**Entscheidende Frage:** Was wäre laut Studiendesign und Dateninformationen zu erwarten?
+
+::: notes
+Wir können die auffälligen Stellen aus der kleinen Tabelle von vorhin in vier Bereiche einordnen.
+
+-   **Erstens die Struktur:** Sind alle Fälle eindeutig? Gibt es unerwartete Zeilen oder Spalten? Sind also vielleicht einige der IDs doppelt vorhanden? Existieren duplizierte Spalten oder zusätzliche, irrelevante Spalten?
+
+-   **Zweitens die Werte und Kodierungen:** Sind die Datentypen und die Werte einer Variable passend? Sind numerische Variablen wirklich numerisch erfasst?
+
+-   **Drittens fehlende Informationen:** Sind im Datensatz fehlende Werte vorhanden? Wie wird ein fehlender Wert dargestellt und warum könnte er fehlen? Wie können wir damit umgehen?
+
+-   **Viertens noch die Skalierung und Richtung einer Messung:** Sind alle Werte auf derselben Skala erhoben? Oder sind einige Items anders skaliert? Existieren umgepolte Items innerhalb einer Skala?
+
+Nicht jede Auffälligkeit erfordert dieselbe Massnahme. Eine doppelte ID ist bspw. in einem Datensatz mit wiederholten Messungen möglicherweise völlig normal. In einer Datei, die genau eine Zeile pro Versuchsperson enthalten soll, ist sie dagegen ein Warnsignal.
+
+Deshalb braucht ihr bei jeder Datenprüfung die Erwartungen aus dem Datenanalyseplan, dem Codebook und den ergänzenden Studieninformationen. Die Rohdaten allein verraten euch nicht immer, was richtig ist.
 :::
 
 ------------------------------------------------------------------------
 
-## Codebook:
+## Unser Vorgehen bei Datenproblemen
 
--   Metadata
-
--   Response Labels
-
-***Stellt sicher, dass diese Punkte auch ausgefüllt sind für die Schlussabgabe!***
-
-------------------------------------------------------------------------
-
-## Inhalte heute
+**Erst verstehen - dann verändern**
 
 <br>
 
-**Datenaufbereitung mit** `dplyr`
-
--   Vertiefung & Nachtrag
-
-**Fehlende Werte (Missing Data)**
-
--   Problem, Formen & Identifikation
-
--   Ursachen & Umgang
-
-**Berechnungen mit fehlenden Werten**
-
--   Umgang mit `NA` in Funktionen (`na.rm`)
-
-**Skalenberechnung**
-
--   Konzept & wichtige Schritte
-
--   Umsetzung in R
-
-------------------------------------------------------------------------
-
-## Nachtrag: `row.names = FALSE`
-
-`row.names = FALSE` sorgt dafür, dass keine neue Spalte eingefügt wird, die alle Zeilen durchnummeriert (also einen zusätzlichen „Spaltennamen“ erzeugt).
-
-Wenn ihr in eurem `dat_full` als erste Spalte eine Bezeichnung wie „...1“ findet, habt ihr `dat_full` wahrscheinlich ohne das Argument `row.names = FALSE` abgespeichert. Das ist nicht weiter schlimm, sollte aber bereinigt werden (z. B. mit `select()`).
+![](../../images/method.svg){fig-align="center" width="75%"}
 
 <br>
 
-```{r, eval = FALSE, echo=TRUE}
+**1. Erkennen:** Welche Werte, Variablen oder IDs fallen auf?
 
-write.csv(dat_full, "data/raw/dat_full_rownames.csv")
-```
+**2. Abgleichen:** Was erwarten wir laut Codebook und Studiendesign?
 
-```{r, echo = FALSE, message= FALSE}
+**3. Entscheiden:** Fehler, zulässige Besonderheit oder ungeklärter Fall?
 
-dat_full_rownames <- read_csv("data/raw/dat_full_rownames.csv")
-```
+**4. Bereinigen:** Nur fachlich begründete Korrekturen im R-Skript vornehmen.
 
-```{r, echo = TRUE}
-
-dat_full_rownames[1:5, 1:3]
-```
-
-**Entfernen mit select()**
-
-```{r, echo = TRUE, eval = FALSE, message = FALSE}
-
-dat_full_rownames <- dat_full_rownames |> 
-  select(-"...1")
-```
-
-------------------------------------------------------------------------
-
-## Nachtrag: `write.csv2()`
-
-Die beiden Funktionen unterscheiden sich nur in den **verwendeten Trennzeichen**:
-
--   `write.csv()` nutzt **Kommas** als **Spaltentrenner** und **Punkte** als **Dezimaltrennzeichen**.
-
--   `write.csv2()` nutzt **Semikolons** als **Spaltentrenner** und **Kommas** als **Dezimaltrennzeichen**.
-
-**Bottom Line:** Nutzt `write.csv()` – sonst kann es passieren, dass Werte mit Nachkommastellen **nicht korrekt von R interpretiert** werden.
-
-------------------------------------------------------------------------
-
-## Nachtrag: `select()`
-
-Kann **nicht** verwendet werden, um **Rows/Zeilen** auszuwählen! Auswahl von **Spalten!**
-
-Aber: Dafür gibt es Funktionen wie **`slice()`** – allerdings wollen wir in der Regel **keine Zeilen ohne logisches Kriterium** auswählen.
-
-<br>\
-👉 **`filter()`** ist deshalb meist die bessere Option.
-
-```{r, echo = TRUE}
-penguins |>
-  select(bill_depth_mm) |>
-  slice(10) # Auswahl 10. Zeile
-```
-
-------------------------------------------------------------------------
-
-## `arrange()`: Daten sortieren
-
-👉 Sortiert Daten nach einer Variable bzw. Spalte\
-👉 Hilfreich für: **höchste / niedrigste Werte erkennen**
+**5. Kontrollieren:** Sind die Daten danach plausibel und ist der Schritt dokumentiert?
 
 <br>
 
-```{r echo = TRUE}
-# kleinste Werte oben
-penguins |> 
-  arrange(bill_depth_mm) |>
-  head(n = 4)
+**Merksatz:** Eine erfolgreich ausgeführte R-Funktion ist noch kein Beweis für korrekte Daten!
 
-# grösste Werte oben
-penguins |> 
-  arrange(desc(bill_depth_mm)) |>
-  head(n = 4)
-```
+::: notes
+Ich möchte euch für die gesamte Einheit ein festes Vorgehen mitgeben. Wir beginnen nie damit, einfach alle Zeilen zu löschen, die irgendwie merkwürdig aussehen.
+
+Zunächst erkennen wir Auffälligkeiten, dann gleichen wir sie mit den erwarteten Daten ab. Erst danach entscheiden wir, ob ein Fehler vorliegt und welche Korrektur zulässig und angemessen ist.
+
+Die Korrektur gehört in den reproduzierbaren Verarbeitungscode. Anschliessend vergleichen wir den Zustand vor und nach der Änderung: Haben wir nur das Problem behoben oder versehentlich auch andere Daten verändert?
+
+Dieser Ablauf gilt unabhängig davon, ob wir leere Zeilen, doppelte IDs, Textwerte oder bereits skalierte Variablen untersuchen.
+
+In den nächsten Folien sehen wir dafür kurze Beispiele. Die umfangreichere eigenständige Umsetzung übt ihr direkt danach in den Übungen.
+:::
+
+# Probleme mit der Datenstruktur
+
+**Stimmt der Aufbau unseres Datensatzes?**
+
+-   Vollständig leere Zeilen
+
+-   Doppelte Beobachtungen und Personen-IDs
+
+-   Auffällige Spalten und uneinheitliche Join-Schlüssel
 
 ------------------------------------------------------------------------
 
-## `relocate()`: Spalten verschieben
+## Vollständig leere Zeile ≠ einzelne fehlende Angabe
 
-👉 Ändert die Position von Spalten
-
-👉 Wichtige Variablen (z.B. ID, Gruppe) werden nach vorne geholt
-
-👉 Der Datensatz wird übersichtlicher\
+**Fehlt nur ein Wert - oder fehlt eine ganze Beobachtung?**
 
 <br>
 
-```{r, echo = TRUE}
+:::::: columns
+::: {.column width="60%"}
+<br>
 
-penguins |> relocate(bill_depth_mm, .before = island)
-```
+![](../../images/EH8_leere_zeile.png){fig-align="left" width="95%"}
+:::
+
+:::: {.column width="40%"}
+::: eh8-three
+**Erkennen:** Eine vollständig leere Zeile enthält in allen Spalten `NA`.
+
+**Besonderheit:** Hier fehlt nicht nur eine einzelne Antwort, sondern die gesamte Beobachtung. Auch die Personen-ID fehlt - die Zeile lässt sich keiner Person zuordnen.
+
+**Umgang:** Vollständig leere Zeilen können nach Prüfung entfernt werden. Einzelne fehlende Werte bleiben dagegen zunächst erhalten.
+:::
+::::
+::::::
 
 ------------------------------------------------------------------------
 
-## Fehlende Werte
+## Vollständig leere Zeilen mit `dplyr` erkennen
+
+**Wie finden wir Zeilen, in denen sämtliche Angaben fehlen?**
+
+<br>
+
+::::: columns
+::: {.column width="45%"}
+**1. Vollständig leere Zeilen finden**
+
+```{r, echo=TRUE, eval=FALSE}
+
+leere_zeilen <- dat_full |>
+  filter(
+    if_all(everything(), is.na)
+  )
+```
+
+**2. Anzahl bestimmen**
+
+```{r, echo=TRUE, eval=FALSE}
+
+nrow(leere_zeilen)
+# [1] 0
+```
+:::
+
+::: {.column width="55%"}
+**Was passiert hier?**
+
+-   `is.na()` prüft, ob ein Wert fehlt.
+
+-   `everthing()` berücksichtigt alle Spalten.
+
+-   `if_all()` verlangt, dass **alle Spalten einer Zeile** die Bedingung erfüllen.
+
+-   `filter()` wählt diese Zeilen aus.
+
+-   `nrow()` zählt die gefundenen Zeilen.
+:::
+:::::
+
+<br>
+
+**Wir erkennen und zählen vollständig leere Zeilen - wir entfernen noch keine Beobachtungen.**
+
+::: notes
+Auf der vorherigen Folie haben wir eine Person gesehen, bei der nur ein einzelner Wert fehlt, und eine vollständig leere Zeile, bei der sogar die ID fehlt.
+
+Wie können wir solche Zeilen erkennen, ohne unseren gesamten Datensatz manuell durchzugehen?
+
+Dafür nutzen wir filter(), das wir bereits kennen. Neu ist die Funktion if_all().
+
+Mit everything() beziehen wir alle Spalten ein. is.na() überprüft, ob ein Wert fehlt. if_all() sorgt dafür, dass die Bedingung für jede einzelne Spalte der betreffenden Zeile erfüllt sein muss.
+
+Das Ergebnis speichern wir zunächst in einem separaten Objekt namens leere_zeilen. Anschliessend können wir mit nrow() zählen, wie viele solcher Zeilen gefunden wurden.
+
+In unserem unveränderten Originaldatensatz erwarten wir null vollständig leere Zeilen. Bei anderen Daten, bspw. beim Einlesen fehlerhafter Rohdaten, können solche Zeilen aber durchaus vorkommen.
+
+Wichtig ist: Wir haben bislang nichts gelöscht. Zuerst untersuchen wir die Daten. Erst wenn wir sicher sind, dass es sich tatsächlich um vollständig leere Beobachtungen handelt, entscheiden wir über eine Entfernung.
+:::
+
+------------------------------------------------------------------------
+
+## Vollständig leere Zeilen gezielt entfernen
+
+**Erst prüfen, dann bereinigen - und anschliessend kontrollieren**
+
+<br>
+
+**1. Vollständig leere Zeilen entfernen**
+
+```{r, echo=TRUE, eval=FALSE}
+
+data_cb <- data_cb |>
+  filter(!if_all(everything(), is.na))
+```
+
+<br>
+
+::::: columns
+::: {.column width="48%"}
+**Was ist neu?**
+
+-   `!` bedeutet **NICHT** und kehrt die Bedingung um.
+
+-   Wir behalten alle Zeilen, die **nicht vollständig leer** sind.
+
+-   Durch `<-` speichern wir das bereinigte Ergebnis wieder unter `data_cb`.
+:::
+
+::: {.column width="52%"}
+**2. Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+
+data_cb |>
+  filter(if_all(everything(), is.na)) |>
+  nrow()
+
+# Erwartetes Ergebnis: 0
+```
+
+Nach der Bereinigung sollten **keine vollständig leeren Zeilen** mehr vorhanden sein.
+:::
+:::::
+
+**Wichtig:** Einzelne fehlende Antworten bleiben erhalten. Vollständig leere Zeilen sollten möglichst vor dem Zusammenführen der Rohdatensätze entfernt werden.
+
+::: notes
+Auf der vorherigen Folie haben wir gelernt, wie wir vollständig leere Zeilen erkennen und zählen können.
+
+Was machen wir nun, wenn wir tatsächlich solche Zeilen finden?
+
+Wenn wir festgestellt haben, dass es sich um vollständig leere und überflüssige Beobachtungen handelt, können wir diese gezielt entfernen.
+
+Dafür verwenden wir fast denselben Befehl wie zuvor. Neu ist nur das Ausrufezeichen vor if_all().
+
+Das Ausrufezeichen bedeutet nicht. Wir behalten also alle Zeilen, bei denen nicht sämtliche Werte fehlen. Personen, bei denen nur einzelne Werte fehlen, bleiben dadurch erhalten.
+
+Das Ergebnis weisen wir mit dem Zuweosungsoperator wieder data_cb zu. Damit speichern wir die Bereinigung in unserem R-Objekt.
+
+Anschliessend überprüfen wir erneut, wie viele vollständig leere Zeilen noch vorhanden sind. Wenn die Bereinigung erfolgreich war, erhalten wir null.
+
+Besonders wichtig ist auch die Position dieses Schrittes im Forschungsprojekt. Wenn vollständig leere Zeilen bereits in den einzelnen Rohdateien vorkommen, sollten wir sie möglichst vor dem Mergen entfernen.
+:::
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+# Probleme mit Werten & Kodierungen
+
+**Sind die gespeicherten Werte korrekt und interpretierbar?**
+
+-   Zahlen als Text oder Wörter
+
+-   Unzulässige und widersprüchliche Werte
+
+-   Ungeeignete Datentypen und uneinheitliche Kodierungen
+
+------------------------------------------------------------------------
+
+# Fehlende Informationen
+
+**Was tun wir, wenn Angaben fehlen?**
+
+-   Echte `NA`-Werte und spezielle Missing-Codes
+
+-   Möglichkeiten zum Umgang mit fehlenden Werten
+
+-   Rekonstruktion aus vorhandenen Werten
+
+------------------------------------------------------------------------
+
+# Probleme mit Skalen & Richtung
+
+**Sind die Variablen einheitlich und richtig skaliert?**
+
+-   Unterschiedliche oder bereits transformierte Skalen
+
+-   Inverse Kodierung (*Reverse Coding*)
+
+-   Korrekte Vorbereitung der Skalenberechnung
+
+------------------------------------------------------------------------
+
+-   
+
+-   
+
+-   Ab hier muss der Foliensatz noch überarbeitet werden.
+
+Wird am Freitag oder Samstag gemacht!
+
+## 
+
+\
+
+------------------------------------------------------------------------
 
 ### **Wieso müssen wir überhaupt fehlende Werte behandeln?**
 
