@@ -182,7 +182,7 @@ In den nächsten Folien sehen wir dafür kurze Beispiele. Die umfangreichere eig
 
 -   Doppelte Beobachtungen und Personen-IDs
 
--   Auffällige Spalten und uneinheitliche Join-Schlüssel
+-   Auffällige Spalten
 
 ------------------------------------------------------------------------
 
@@ -395,11 +395,11 @@ Wir dürfen deshalb nicht einfach automatisch alle mehrfach vorkommenden IDs ent
 
 ```{r, echo=TRUE, eval=FALSE}
 
-duplikate_zeilen <- data_cb |>
-  filter(duplicated(.))
+sum(duplicated(data_cb))
 
 # Alternative
-sum(duplicated(data_cb))
+duplikate_zeilen <- data_cb |>
+  filter(duplicated(pick(everything())))
 ```
 
 **2. Mehrfach vorkommende IDs finden**
@@ -479,6 +479,50 @@ Nach der Bereinigung sollten **keine duplizierten Zeilen** mehr vorhanden sein. 
 
 ------------------------------------------------------------------------
 
+## Doppelte oder überflüssige Spalten?
+
+**Gehören alle vorhandenen Variablen tatsächlich zu unserem Datensatz?**
+
+<br>
+
+:::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_doppelte_Spalten.png){fig-align="left" width="85%"}
+:::
+
+:::: {.column width="40%"}
+::: eh8-three
+**Erkennen:** `cb_sum_copy` enthält dieselben Werte wie `cb_sum`. Die Variable `device_id` gehört nicht zu den erwarteten Studienvariablen.
+
+**Mögliche Ursache:** Spalten wurden versehentlich kopiert oder beim Export zusätzliche Informationen gespeichert.
+
+**Umgang:** Variablennamen und Inhalte mit der Datenbeschreibung vergleichen. Nur nach Prüfung überflüssige Spalten entfernen.
+:::
+::::
+::::::
+
+::: notes
+Bisher haben wir Probleme betrachtet, die einzelne Zeilen betreffen. Aber auch bei den Spalten eines Datensatzes kann etwas schiefgehen.
+
+Schaut euch zunächst cb_sum und cb_sum_copy an. Beide enthalten in unserem Beispiel dieselben Werte. Möglicherweise wurde die Spalte beim Export versehentlich dupliziert.
+
+Zusätzlich finden wir eine Variable namens device_is. Diese steht nicht in unserer Datenbeschreibung und scheint eine technische Information aus dem Export zu enthalten.
+
+Wenn wir bestätigt haben, dass die Variablen redundant bzw. nicht erforderlich sind, können wir sie gezielt entfernen.
+:::
+
+------------------------------------------------------------------------
+
+Ab hier muss der Foliensatz noch überarbeitet werden.
+
+Wird am Samstag und Sonntag gemacht!
+
+## 
+
+------------------------------------------------------------------------
+
 # Probleme mit Werten & Kodierungen
 
 **Sind die gespeicherten Werte korrekt und interpretierbar?**
@@ -515,67 +559,7 @@ Nach der Bereinigung sollten **keine duplizierten Zeilen** mehr vorhanden sein. 
 
 ------------------------------------------------------------------------
 
--   
-
--   
-
--   Ab hier muss der Foliensatz noch überarbeitet werden.
-
-Wird am Freitag oder Samstag gemacht!
-
-## 
-
 \
-
-------------------------------------------------------------------------
-
-### **Wieso müssen wir überhaupt fehlende Werte behandeln?**
-
--   Viele Funktionen in R funktionieren nur mit vollständigen Datensätzen.
-
--   Kennwerte wie Mittelwerte oder Standardabweichungen können nicht berechnet werden, wenn fehlende Werte enthalten sind.
-
--   Fehlende Werte können Ergebnisse verzerren, insbesondere wenn sie nicht zufällig fehlen.
-
-### **Umgang mit fehlenden Werten:**
-
-1️⃣ Finden -\> Wo sind fehlende Werte?
-
-2️⃣ Verstehen -\> Warum fehlen sie?
-
-3️⃣ Behandeln -\> abhängig von eurem Studiendesign und Fragestellungen
-
-------------------------------------------------------------------------
-
-## Formen fehlender Werte
-
-**In R (Standardfall)**
-
-`NA` = fehlender Wert (*Not Available*)
-
--   Wird von R automatisch erkannt
-
--   Funktionen können damit umgehen
-
-<br>
-
-**Häufige "versteckte" fehlende Werte**
-
--   Werden nicht als NA erkannt!
-
--   `999` oder `-999` -\> Platzhalter
-
--   `""` -\> leere Zellen
-
-------------------------------------------------------------------------
-
-## 1️⃣ Finden & identifizieren fehlender Werte
-
-**Grundidee:** Fehlende Werte müssen zuerst sichtbar gemacht werden.
-
-<br>
-
-**Überblick über alle fehlenden Werte**
 
 ```{r, echo = TRUE}
 table(is.na(penguins))
