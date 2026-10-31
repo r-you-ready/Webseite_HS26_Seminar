@@ -224,7 +224,7 @@ In den nächsten Folien sehen wir dafür kurze Beispiele. Die umfangreichere eig
 
 ```{r, echo=TRUE, eval=FALSE}
 
-leere_zeilen <- dat_full |>
+leere_zeilen <- data_cb |>
   filter(
     if_all(everything(), is.na)
   )
@@ -340,6 +340,142 @@ Besonders wichtig ist auch die Position dieses Schrittes im Forschungsprojekt. W
 :::
 
 ------------------------------------------------------------------------
+
+## Doppelte Zeile ≠ doppelte Personen-ID
+
+**Ist dieselbe Beobachtung doppelt vorhanden - oder gibt es mehrere Beobachtungen pro Person?**
+
+<br>
+
+:::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_doppelte_Zeile.png){fig-align="left" width="85%"}
+:::
+
+:::: {.column width="40%"}
+::: eh8-three
+**Erkennen:** Die Zeilen mit ID `72` sind vollständig identisch (dupliziert). ID `73` kommt ebenfalls zweimal vor, allerdings mit unterschiedlichen Werten bei `pre4`.
+
+**Mögliche Ursache:** Doppelter Datenexport, fehlerhadte Zusammenführung oder tatsächlich mehrere Messungen.
+
+**Umgang:** Vollständig identische Zeilen können nach Prüfung entfernt werden. Bei gleichen IDs mit unterschiedlichen Angaben muss zunächst die Ursache geklärt werden.
+:::
+::::
+::::::
+
+::: notes
+Wir haben gerade gesehen, dass in Datensätzen vollständig leere Zeilen vorkommen können. Ein weiteres häufiges Problem sind doppelte Beobachtungen.
+
+Schauen wir uns zuerst die Person mit der ID 72 an. Diese Person kommt zweimal vor. Wenn wir die beiden Zeilen vergleichen, sehen wir, dass sämtliche Werte identisch sind. Vermutlich wurde hier eine Beobachtung versehentlich zweimal gespeichert.
+
+Bei Person 73 sieht es anders aus. Die ID kommt ebenfalls zweimal vor, aber die Werte bei pre4 unterscheiden sich. Welche dieser beiden Beobachtungen wäre jetzt die richtige? Das können wir anhand des Datensatzes allein nicht entscheiden.
+
+Hier müssen wir berücksichtigen, wie unsere Daten aufgebaut sein sollten. In unserem Wide-Datensatz dat_full erwarten wir genau eine Zeile pro VPN. Zwei unterschiedliche Zeilen mit derselben ID wären deshalb ein Problem, das wir untersuchen müssen.
+
+Später, in unserem Long-Datensatz mit mehreren Messzeitpunkten, darf und muss dieselbe Personen-ID hingegen sogar zweimal vorkommen. Dort gehört dann zu jeder Person und jedem Messzeitpunkt eine eigene Zeile.
+
+Entscheidend ist also nicht allein, ob eine ID mehrfach vorkommt, sondern ob dies zur vorgesehenen Datenstruktur passt.
+
+Wir dürfen deshalb nicht einfach automatisch alle mehrfach vorkommenden IDs entfernen. Sonst riskieren wir, wichtige Informationen zu verlieren.
+:::
+
+------------------------------------------------------------------------
+
+## Doppelte Zeilen mit `dplyr` erkennen
+
+**Doppelte Beobachtungen vor dem Merge erkennen**
+
+<br>
+
+::::: columns
+::: {.column width="45%"}
+**1. Vollständig doppelte Zeilen finden**
+
+```{r, echo=TRUE, eval=FALSE}
+
+duplikate_zeilen <- data_cb |>
+  filter(duplicated(.))
+
+# Alternative
+sum(duplicated(data_cb))
+```
+
+**2. Mehrfach vorkommende IDs finden**
+
+```{r, echo=TRUE, eval=FALSE}
+
+duplikate_ids <- data_cb |>
+  count(code) |>
+  filter(n > 1)
+```
+:::
+
+::: {.column width="55%"}
+**Was passiert hier?**
+
+-   `duplicated(.)` prüft, ob eine ganze Zeile bereits vorher genauso vorkam.
+
+-   `filter()` wählt genau diese vollständig doppelten Zeilen aus.
+
+-   `count(code)` zählt, wie oft jede ID vorkommt.
+
+-   `filter(n > 1)` zeigt nur IDs, die mehrfach vorhanden sind.
+
+-   So unterscheiden wir zwischen echten Dubletten und mehrfach auftretenden IDs.
+:::
+:::::
+
+<br>
+
+**Wir prüfen hier noch nicht, was gelöscht wird - wir machen die Auffälligkeiten zuerst sichtbar.**
+
+------------------------------------------------------------------------
+
+## Vollständig duplizierte Zeilen entfernen
+
+**Nur echte Dubletten ausschliessen - nicht bloss doppelte IDs**
+
+<br>
+
+**1. Vollständig duplizierte Zeilen entfernen**
+
+```{r, echo=TRUE, eval=FALSE}
+
+data_cb <- data_cb |>
+  distinct()
+```
+
+<br>
+
+::::: columns
+::: {.column width="48%"}
+**Was ist neu?**
+
+-   `distinct()` entfernt **vollständig identische Zeilen.**
+
+-   Dabei bleibt jede eindeutige Beobachtung einmal erhalten.
+
+-   Unterschiedliche Zeilen mit derselben ID bleiben weiterhin im Datensatz.
+:::
+
+::: {.column width="52%"}
+**2. Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+sum(duplicated(data_cb))
+
+data_cb |>
+  count(code) |>
+  filter(n > 1)
+```
+
+Nach der Bereinigung sollten **keine duplizierten Zeilen** mehr vorhanden sein. Mehrfach vorkommente IDs können weiterhin existieren.
+:::
+:::::
+
+**Wichtig:** Vollständig duplizierte Zeilen sollten möglichst vor dem Mergen der Rohdatensätze entfernt werden.
 
 ------------------------------------------------------------------------
 
