@@ -598,6 +598,100 @@ Solche Korrekturen führen wir möglichst vor dem Zusammenführen unserer Rohdat
 
 ------------------------------------------------------------------------
 
+## Zahlen als Wörter: Warum ist das ein Problem?
+
+**Sind Zahlen als numerische Variable gespeichert?**
+
+<br>
+
+:::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_zahlen_als_wort.png){fig-align="left" width="85%"}
+:::
+
+:::: {.column width="40%"}
+::: eh8-three
+**Erkennen:** In `question7` stehen Werte wie `"zwei"` und `"vier"` statt numerischer Antwortcodes. Dadurch wird die Spalte als `character` gespeichert.
+
+**Mögliche Ursache:** Unterschiedliche Eingaben oder Export- und Importeinstellungen.
+
+**Umgang:** Beobachtete Werte mit dem Codebook abgleichen, bekannte Zahlwörter eindeutig umkodieren und danach den Datentyp überprüfen.
+:::
+::::
+::::::
+
+**Wichtig:** Korrekturen möglichst bereits in den Rohdaten vor dem Merge durchführen.
+
+::: notes
+Im letzten Block haben wir die Struktur unserer Rohdaten geprüft: doppelte Zeilen, IDs und Spalten. Jetzt wenden wir uns den Werten in den Spalten zu.
+
+In unserem MMQ-Fragebogen erwarten wir für jedes Item Antwortwerte zwischen null und vier. Schaut euch die Variable question7 in diesem fiktiv veränderten Auszug aus data_mmq an. Manche Antworten stehen als Ziffern in Anführungszeichen, andere als ausgeschriebene Wörter wie zwei und vier.
+
+R kann diese Spalte dann als Text, also character, einlesen. Das ist für die spätere Skalenberechnung ein Problem, weil wir mit den Antworten rechnen möchten.
+
+Bevor wir sofort irgendwie in Zahlen umwandeln, müssen wir prüfen, welche Schreibweisen tatsächlich vorkommen und welche Antwortceodes laut Codebook erlaubt sind.
+
+Die Korrektur gehört möglichst in die Aufbereitung des MMQ-Rohdatensatzes vor den Merge.
+:::
+
+------------------------------------------------------------------------
+
+## Textkodierte Werte mit R erkennen
+
+**Wie prüfen wir, ob eine Itemvariable tatsächlich numerisch gespeichert ist?**
+
+<br>
+
+::::: columns
+::: {.column width="53%"}
+**1. Datentyp überprüfen**
+
+```{r, echo=TRUE, eval=FALSE}
+
+class(data_mmq$question7)
+# [1] "character"
+```
+
+**2. Unterschiedliche Werte ansehen**
+
+```{r, echo=TRUE, eval=FALSE}
+
+unique(data_mmq$question7)
+# [1] "1" "zwei" "3" "vier" "0" "2"
+```
+:::
+
+::: {.column width="47%"}
+**Was erfahren wir?**
+
+-   `class()` zeigt, **wie R die Variable gespeichert hat**.
+-   `unique()` zeigt alle **unterschiedlichen gespeicherten Werte**.
+-   Das **Codebook** sagt uns, welche Werte zulässig sind: hier **0 bis 4**.
+:::
+:::::
+
+**Achtung:** `as.numeric("zwei")` ergibt mit einer Warnung `NA` – die eigentlich vorhandene Antwort ginge verloren!
+
+::: notes
+Wie erkennen wir das Problem im R-Skript?
+
+Zuerst überprüfen wir mit class() den technischen Datentyp. In unserem Beispiel erhalten wir character statt numeric.
+
+Mit unique() sehen wir anschliessend, welche unterschiedlichen Werte tatsächlich vorkommen. Das ist wichtig, weil einige Antworten vielleicht als Ziffern in Textform und andere als ausgeschriebene Wörter gespeichert sind.
+
+Das Codebook sagt uns, dass nur Antworten von null bis vier erlaubt sind. Jetzt können wir entscheiden, welche Textwerte sich eindeutig zuordnen lassen.
+
+Ein typischer Fehler ist, as.numeric() sofort auf die gesamte Spalte anzuwenden. Die Zeichenfolge "1" würde R noch interpretieren, das ausgeschriebene Wort "zwei" dagegen nicht. Daraus würde dann ein neuer fehlender Wert entstehen; obwohl die Information eigentlich vorhanden war.
+
+Deshalb lautet die Reihenfolge: Werte prüfen, bekannte Kodierungen zuordnen und erst danach numerisch umwandeln.
+:::
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
 Ab hier muss der Foliensatz noch überarbeitet werden.
 
 Wird am Samstag und Sonntag gemacht!
