@@ -1075,8 +1075,40 @@ Mit mutate() und if_else() ergänzen wir nur diejenigen fehlenden Anteilswerte, 
 
 ------------------------------------------------------------------------
 
-## Bereits transformiert: Nochmals skalieren?
+## Bereits umgerechnet? Nicht nochmals transformieren!
 
 **Eine eigentlich richtige Transformation kann beim zweiten Mal falsch sein**
 
 <br>
+
+::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_bereits_transformiert.png){fig-align="left" width="85%"}
+:::
+
+::: {.column width="40%"}
+**Erkennen:** Einige Ratingvariablen scheinen noch auf der Skala von 0-10 vorzuliegen, während andere bereits auf 0-100 skaliert wurden.
+
+**Mögliche Ursache:** Die Daten wurden teilweise bereits transformiert oder stammen aus unterschiedlich aufbereiteten Dateien.
+
+**Umgang:** Jede Variable vor der Transformation untersuchen. Nur Werte umrechnen, deren Skalierung tatsächlich angepasst werden muss.
+:::
+:::::
+
+**Wichtig:** Bereits korrekt transformierte Variablen dürfen nicht erneut transformiert werden.
+
+::: columns
+Erinnert euch an EH6: Wir haben die fünf Ratingvariablen mit zehn multipliziert, damit sie der Skala von 0 bis 100 entsprechen.
+
+Bei unserem ursprünglichen Datensatz war das richtig. Aber was passiert, wenn wir neue Daten erhalten, bei denen einzelne Variablen bereits transformiert wurden?
+
+In diesem Beispiel fällt auf, dass pre2 und pre4 teilweise Werte über zehn enthalten. Das deutet darauf hin, dass sie möglicherweise schon auf der 0-100-Skala vorliegen.
+
+Würden wir bspw. einen Wert von 75 nochmals transformieren, entstünde 750. Das wäre auf unserer Zielskala offensichtlich unzulässig.
+
+Wir müssen deshalb vor einer Transformation überprüfen, in welchem Datenstand sich jede Variable befindet. Der beobachtete Wertebereich liefert einen wichtigen Hinweis.
+:::
+
+------------------------------------------------------------------------
