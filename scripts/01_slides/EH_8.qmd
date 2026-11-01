@@ -1112,3 +1112,61 @@ Wir müssen deshalb vor einer Transformation überprüfen, in welchem Datenstand
 :::
 
 ------------------------------------------------------------------------
+
+## Skalierungen prüfen und anpassen
+
+**Den Ausgangszustand kennen - dann nur notwendige Transformationen durchführen**
+
+<br>
+
+::::: columns
+::: {.column width="\"45%"}
+**1. Bisherige Werte untersuchen**
+
+```{r, echo=TRUE, eval=FALSE}
+summary(data_ratings[
+  c("pre1", "pre2", "pre3", "pre4", "post")
+])
+```
+
+Zeigt für jede Variable u.a. Minimum, Median und Maximum.
+:::
+
+::: {.column width="55%"}
+**2. Nur notwendige Variablen transformieren**
+
+```{r, echo=TRUE, eval=FALSE}
+data_ratings <- data_ratings |>
+  mutate(
+    across(
+      c(pre1, pre3, post),
+      ~ .x * 10
+    )
+  )
+```
+
+**Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+summary(data_ratings[
+  c("pre1", "pre2", "pre3", "pre4", "post")
+])
+```
+:::
+:::::
+
+Danach sollen alle fünf Ratingvariablen auf derselben dokumentierten Skala von 0-100 vorliegen.
+
+::: columns
+Wie finden wir nun heraus, welche Variablen bereits transformiert wurden?
+
+Zuerst können wir uns mit summary() die Verteilungen und Wertebereiche der fünf Ratingvariablen anzeigen lassen.
+
+Wenn eine Variable ursprünglich auf einer Skala von null bis zehn vorliegen sollte, ist ein Wert von 75 ein deutlicher Hinweis, dass bereits eine Umrechnung stattgefunden hat.
+
+Anschliessend gleichen wir die Ergebnisse mit der Dokumentation ab. Wenn klar ist, welche Variablen noch umgerechnet werden müssen, führen wir die Transformation durch.
+
+Für diese Variablen verwenden wir erneut mutate() und across(), die wir bereits kennen.
+:::
+
+------------------------------------------------------------------------
