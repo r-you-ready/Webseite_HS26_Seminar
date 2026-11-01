@@ -515,13 +515,76 @@ Wenn wir bestätigt haben, dass die Variablen redundant bzw. nicht erforderlich 
 
 ------------------------------------------------------------------------
 
-Ab hier muss der Foliensatz noch überarbeitet werden.
+## Überflüssige Spalten gezielt entfernen
 
-Wird am Samstag und Sonntag gemacht!
+**Variablen zuerst prüfen - anschliessend die benötigte Datenstruktur herstellen**
 
-## 
+<br>
 
-------------------------------------------------------------------------
+**1. Spaltennamen und Inhalte untersuchen**
+
+```{r, echo=TRUE, eval=FALSE}
+# Welche Variablen sind vorhanden?
+names(data_cb)
+
+# Sind die beiden Spalten vollständig identisch?
+identical(data_cb$cb_sum, data_cb$cb_sum_copy)
+# [1] TRUE
+```
+
+<br>
+
+::::: columns
+::: {.column width="48%"}
+**2. Nach Prüfung entfernen**
+
+```{r, echo=TRUE, eval=FALSE}
+data_cb <- data_cb |>
+  select(-cb_sum_copy, -device_id)
+```
+
+**Was passiert hier?**
+
+-   `select()` wählt Spalten aus.
+
+-   Mit `-` schliessen wir bestimmte Spalten aus.
+
+-   `<-` speichert den bereinigten Datensatz.
+:::
+
+::: {.column width="52%"}
+**3. Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+names(data_cb)
+dim(data_cb)
+```
+
+**Erwartetes Ergebnis**
+
+-   Beide Zusatzspalten nicht mehr vorhanden.
+
+-   Die übrigen Variablen bleiben erhalten.
+
+-   Die Anzahl der Beobachtungen bleibt unverändert.
+:::
+:::::
+
+::: notes
+Nachdem wir im Datenausschnitt zwei auffällige Spalten entdeckt haben, möchten wir überprüfen, ob wir sie tatsächlich benötigen.
+
+Zuerst verwenden wir names(), um sämtliche Variablennamen anzuzeigen. Diese vergleichen wir mit den erwarteten Variablen aus unserer Datenbeschreibung.
+
+Danach überprüfen wir mit identical(), ob die beiden Spalten cb_sum und cb_sum_copy tatsächlich in allen Beobachtungen identisch sind. In unserem künstlichen Beispiel ist das der Fall.
+
+Wenn wir zusätzlich bestätigt haben, dass die Kopie redundant ist und device_id nicht für unsere Datenverarbeitung benötigt wird, können wir beide Spalten mit select() entfernen.
+
+Da wir das Ergebnis wieder data_cb zuweisen, wird unser R-Objekt entsprechend verändert.
+
+Anschliessend kontrollieren wir erneut die Variablennamen und Dimensionen des Datensatzes.
+
+Solche Korrekturen führen wir möglichst vor dem Zusammenführen unserer Rohdatensätze durch.
+:::
 
 # Probleme mit Werten & Kodierungen
 
@@ -534,6 +597,10 @@ Wird am Samstag und Sonntag gemacht!
 -   Ungeeignete Datentypen und uneinheitliche Kodierungen
 
 ------------------------------------------------------------------------
+
+Ab hier muss der Foliensatz noch überarbeitet werden.
+
+Wird am Samstag und Sonntag gemacht!
 
 # Fehlende Informationen
 
