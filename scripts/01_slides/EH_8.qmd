@@ -876,12 +876,12 @@ Danach schauen wir uns noch an, was zu tun ist, wenn Informationen tatsächlich 
 :::
 :::::
 
-::: columns
-Die Variable vp_propcorrect beschreibt einen Anteil korrekter Antworten, also einen Wert zwischen null und eins.
+::: notes
+Die Variable vp_propcorrect beschriebt einen Anteil korrekter Antworten, also einen Wert zwischen null und eins.
 
 Bei der Person 74 steht NA. R erkennt diesen Wert als fehlend.
 
-Bei Person 72 steht dagegen minus 99. Das liegt offensichtlich ausserhalb des zulässigen Anteilsbereichs, ist für R aber zunächst eine gewöhnliche Zahl.
+Bei Person 72 steht dagegen -99. Das liegt offensichtlich ausserhalb des zulässigen Anteilsbereichs, ist für R aber zunächst eine gewöhnliche Zahl.
 
 Ein solcher Wert könnte durch einen besonderen Exportcode entstanden sein, der fehlende Messungen kennzeichnet.
 
@@ -933,7 +933,7 @@ data_vp |>
 
 **Achtung:** `na.rm = TRUE` ignoriert echte `NA`-Werte – einen Platzhalter wie `-99` jedoch **nicht**.
 
-::: columns
+::: notes
 Wie finden wir diese Unterschiede mit R?
 
 Zunächst zählen wir mit sum(is.na(...)) die echten NAs. In unserem Beispiel ist nur der Wert von Person 74 ein echtes NA. Der Wert -99 wird dabei nicht mitgezählt.
@@ -987,7 +987,7 @@ range(data_vp$vp_propcorrect, na.rm = TRUE)
 
 **Wichtig:** Die fehlende Information wurde damit korrekt gekennzeichnet, aber nicht rekonstruiert.
 
-::: columns
+::: notes
 Wenn -99 tatsächlich für eine fehlende Angabe steht, können wir den Wert gezielt ersetzen.
 
 Dafür gibt es die Funktion na_if. Damit sagen wir: Falls der Wert -99 lautet, setze an dieser Stelle ein echtes NA. Andere gültige Zahlen bleiben erhalten.
@@ -1049,7 +1049,7 @@ data_vp |>
 
 **Wichtig:** Nur eindeutig ableitbare Werte rekonstruieren. Sind die Ausgangsinformationen nicht vorhanden, bleibt der Wert fehlend.
 
-::: columns
+::: notes
 Auf der vorherigen Folie haben wir einen bestätigten Missing-Code in einen echten NA-Wert umgewandelt. Nun stellt sich die Frage, ob dieser Wert tatsächlich fehlend bleiben muss.
 
 NIcht unbedingt. Manchmal fehlt nur eine berechnete Kennzahl, während die zugrunde liegende Information noch vorhanden ist.
@@ -1099,7 +1099,7 @@ Mit mutate() und if_else() ergänzen wir nur diejenigen fehlenden Anteilswerte, 
 
 **Wichtig:** Bereits korrekt transformierte Variablen dürfen nicht erneut transformiert werden.
 
-::: columns
+::: notes
 Erinnert euch an EH6: Wir haben die fünf Ratingvariablen mit zehn multipliziert, damit sie der Skala von 0 bis 100 entsprechen.
 
 Bei unserem ursprünglichen Datensatz war das richtig. Aber was passiert, wenn wir neue Daten erhalten, bei denen einzelne Variablen bereits transformiert wurden?
@@ -1157,7 +1157,7 @@ summary(data_ratings[
 
 Danach sollen alle fünf Ratingvariablen auf derselben dokumentierten Skala von 0-100 vorliegen.
 
-::: columns
+::: notes
 Wie finden wir nun heraus, welche Variablen bereits transformiert wurden?
 
 Zuerst können wir uns mit summary() die Verteilungen und Wertebereiche der fünf Ratingvariablen anzeigen lassen.
@@ -1170,3 +1170,141 @@ Für diese Variablen verwenden wir erneut mutate() und across(), die wir bereits
 :::
 
 ------------------------------------------------------------------------
+
+## Inverse Items: Gleiche Zahlen, unterschiedliche Bedeutung?
+
+**Warum müssen manche Fragebogenitems vor der Skalenbildung umgepolt werden?**
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+![](../../images/EH8_positives_Item.png){fig-align="left" width="85%"}
+
+<br>
+
+![](../../images/EH8_negatives_Item.png){fig-align="left" width="85%"}
+
+**Problem:** Derselbe Antwortwert kann je nach Itemformulierung eine gegenteilige inhaltliche Bedeutung besitzen.
+:::
+
+::: {.column width="45%"}
+**Erkennen:** Items können dieselbe Eigenschaft in entgegengesetzter Richtung erfassen.
+
+**Besonderheit:** Ein hoher Zahlenwert steht nicht bei jedem Item für eine hohe Ausprägung derselben Eigenschaft.
+
+**Umgang:** Vor der gemeinsamen Skalenberechnung müssen alle Items in die gewünschte inhaltliche Richtung gebracht werden.
+:::
+:::::
+
+::: notes
+Stellt euch vor, wir möchten die subjektive Gedächtnisfähigkeit mit mehreren Aussagen untersuchen. Bei der ersten Aussage bedeutet eine hohe Zustimmung, dass sich eine Person eine gute Gedächtnisfähigkeit zuschreibt.
+
+Bei der zweiten Aussage ist es genau umgekehrt: Eine hohe Zustimmung bedeutet, dass die Person häufig Dinge vergisst.
+
+Obwohl beide Personen denselben Antwortwert von vier vergeben könnten, bedeutet dieser Wert bei den beiden Aussagen etwas Unterschiedliches.
+
+Wenn wir nun einfach einen Mittelwert aus solchen Items bilden, würden wir gegensätzliche Bedeutungen miteinander vermischen.
+
+Deshalb müssen wir vor der Skalenbildung sicherstellen, dass die Werte aller Items in dieselbe gewünschte Richtung zeigen. Dafür verwenden wir das sogenannte Reverse Coding, also die Umpolung inverser Items.
+:::
+
+------------------------------------------------------------------------
+
+## Wie erkennen wir inverse Items?
+
+**Entscheidend sind die Itembedeutung, die Kodierung und die Informationen im Codebook**
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+<br>
+
+![](../../images/EH8_inverse_Items.png){fig-align="left" width="85%"}
+:::
+
+::: {.column width="45%"}
+**Erkennen:** Bei manchen Variablen fällt die Endung `_r` auf. Sie kann auf eine inverse Itemkodierung hinweisen.
+
+**Besonderheit:** An den Zahlen allein erkennen wir nicht, ob ein Item umgepolt werden muss oder bereits umgepolt wurde.
+
+**Umgang:** Itemformulierungen, Antwortskala und aktuelle Kodierung im Codebook prüfen. Erst danach entscheiden, ob eine Umpolung erforderlich ist.
+:::
+:::::
+
+**Zusätzliche Kontrolle:** Bei der Berechnung von Cronbachs Alpha können negative Item-Skala-Korrelationen auf falsch gepolte Items hinweisen.
+
+::: notes
+Jetzt schauen wir uns kurz an, wie solche Items in einem tatsächlichen Forschungsdatensatz erkennbar sein können.
+
+Im Beispiel sehen wir mehrere Fragebogenvariablen. Zwei davon besitzen die Endung \_r. Eine solche Kennzeichnung kann darauf hinweisen, dass die Items eine besondere Kodierung besitzen.
+
+Allerdings müssen wir hier genau unterscheiden. Ein Item kann erstens inhaltlich umgekehrt formuliert sein. Zweitens können seine Antwortwerte bereits numerisch umgepolt worden sein.
+
+Das ist nicht dasselbe. Wenn eine Umpolung bereits durchgeführt wurde, wäre eine zweite Umpolung falsch.
+:::
+
+------------------------------------------------------------------------
+
+## Inverse Items umpolen und kontrollieren
+
+**Gleiche inhaltliche Richtung herstellen, bevor mehrere Items zusammengefasst werden**
+
+<br>
+
+**1. Prinzip der Umpolung bei einer 0–4-Skala**
+
+| Ursprünglicher Wert | 0   | 1   | 2   | 3   | 4   |
+|---------------------|-----|-----|-----|-----|-----|
+| Nach Umpolung       | 4   | 3   | 2   | 1   | 0   |
+
+**Berechnungsregel:** `neuer_wert = 4 - alter_wert`
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+**2. Umpolung durchführen**
+
+```{r, echo=TRUE, eval=FALSE}
+data_mmq <- data_mmq |>
+  mutate(
+    across(
+      c(question7_r, question12_r),
+      ~ 4 - .x
+    )
+  )
+```
+:::
+
+::: {.column width="45%"}
+**Was passiert hier?**
+
+-   `4 - .x` kehrt die Werte einer **0-4-Skala** um.
+
+-   `mutate()` verändert die ausgewählten Variablen.
+
+-   `across()` wendet dieselbe Umrechnung auf mehrere Items an.
+
+-   Fehlende Werte (`NA`) bleiben erhalten.
+:::
+:::::
+
+**Wichtig:** Nur Items umpolen, bei denen dies tatsächlich notwendig ist. Keine bereits umgepolten Werte erneut umpolen.
+
+::: notes
+Wir wissen jetzt, weshalb inverse Items eine besondere Behandlung benötigen. Wie können wir die Richtung der Werte nun umkehren?
+
+Bei einer Skala von 0 bis 4 verwenden wir die Regel 4 - den ursprünglichen Wert.
+
+Aus 0 wird 4, aus 1 wird 3 und aus 4 wird 0. Der mittlere Wert 2 bleibt unverändert.
+
+Bei mehreren Items eignet sich mutate() in Kombination mit across(). Die Formel wird auf alle angegebenen Variablen angewendet.
+
+In unserem Forschungsprojekt erfolgt diese Vorbereitung vor der Berechnung von mmq_mean. Die ausführliche Skalenberechnung behandeln wir nächste Woche.
+:::
+
+------------------------------------------------------------------------
+
+Noch Folien ergänzen zum Abschluss!!!! Wird morgen (Montag) noch erledigt!
