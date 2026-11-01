@@ -690,15 +690,151 @@ Deshalb lautet die Reihenfolge: Werte prüfen, bekannte Kodierungen zuordnen und
 
 ------------------------------------------------------------------------
 
+## Zahlwörter rekodieren & Ergebnis prüfen
+
+**Erst eindeutig zuordnen - dann in Zahlen umwandeln**
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+**1. Bekannte Zahlwörter rekodieren**
+
+```{r, echo=TRUE, eval=FALSE}
+data_mmq <- data_mmq |>
+  mutate(
+    question7 = case_when(
+      question7 == "zwei" ~ "2",
+      question7 == "vier" ~ "4",
+      TRUE ~ question7
+    ),
+    question7 = as.numeric(question7)
+  )
+```
+:::
+
+::: {.column width="45%"}
+**2. Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+class(data_mmq$question7)
+# [1] "numeric"
+
+range(data_mmq$question7, na.rm = TRUE)
+# [1] 0 4
+```
+:::
+:::::
+
+<br>
+
+**Was passiert hier?**
+
+-   `case_when()` ersetzt **eindeutig bekannte Schreibweisen**.
+-   `TRUE ~ question7` lässt übrige Werte zunächst unverändert.
+-   `as.numeric()` macht daraus anschliessend **numerische Werte**.
+
+**Wichtig:** Das ist noch kein Reverse Coding!
+
+::: notes
+Wir haben nun erkannt, dass in der Spalte question7 einige Antwortwerte als Zahlwörter gespeichert wurden. Wie korrigieren wir das?
+
+Mit mutate() und case_when() ordnen wir die beiden zuvor überprüften Wörter eindeutig den gültigen Antwortcodes zu: zwei wird zu zwei als Zahl und vier wird zu vier als Zahl. Alle anderen Werte bleiben durch die letzte Regel zunächst unverändert.
+
+Erst danach verwenden wir as.numeric(). Damit haben wir wieder eine numerische Itemvariable, mit der wir später rechnen können.
+
+Anschliessend kontrollieren wir, ob der Datentyp stimmt und ob der Wertebereich innerhalb der zulässigen Antwortskala liegt.
+
+Das ist noch kein Reverse Coding: Wir stellen hier nur den ursprünglich gemeinten Antwortcode wieder her. Ob einzelne Items zusätzlich umgepolt werden müssen, besprechen wir später getrennt.
+:::
+
 ------------------------------------------------------------------------
 
-Ab hier muss der Foliensatz noch überarbeitet werden.
+## Ungültiger Wert ≠ ungewöhnlich hoher Wert
 
-Wird am Samstag und Sonntag gemacht!
+**Eine auffällige Zahl ist erst dann ein Fehler, wenn sie den zulässigen Wertebereich verletzt**
 
-# Fehlende Informationen
+<br>
 
-**Was tun wir, wenn Angaben fehlen?**
+::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_Wert_ausserhalb_Range.png){fig-align="left" width="85%"}
+:::
+
+::: {.column width="40%"}
+**Erkennen:** `cb_propcorrect` ist ein Anteil von **0 bis 1**. `0.96` ist hoch, aber zulässig; `1.12` ist unmöglich.
+
+**Mögliche Ursache:** Eingabe-, Berechnungs-, Import- oder Skalierungsfehler.
+
+**Umgang:** Den Wert anhand der Dateninformationen und der Quelle prüfen. **Nicht eigenmächtig auf 1 setzen.**
+:::
+:::::
+
+**Merke:** Entscheidend ist der *theoretisch zulässige Bereich* – nicht, ob ein Wert ungewöhnlich aussieht.
+
+::: notes
+Nach den uneinheitlich gespeicherten Antwortcodes schauen wir nun auf numerische Angaben, die zwar als Zahl gespeichert sind, aber inhaltlich unzulässig sein können.
+
+Die Variable cb_propcorrect enthält den Anteil korrekter Antworten einer Person. Bei einem Anteil sind grundsätzlich Werte zwischen null und eins zulässig. Für Person 72 steht 0.96. Das ist ein hoher, aber vollkommen möglicher Anteil. Für Person 73 steht dagegen 1.12, also rechnerisch 112% korrekte Antworten. Das ist für einen solchen Anteil nicht möglich.
+
+Die Ursache für diesen Wert kennen wir dadurch aber noch nicht. Es könnte bspw. ein Eingabe- oder Berechnungsfehler sein oder ein Wert, der in einer anderen Einheit gespeichert wurde. Wir müssen deshalb die Dateninformationen und nach Möglichkeit die Quelle überprüfen. Den Wert einfach auf 1 zu setzen wäre nicht begründet.
+:::
+
+------------------------------------------------------------------------
+
+## Ungültige Werte mit R erkennen
+
+**Zuerst mit dem dokumentierten Wertebereich abgleichen**
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+**1. Beobachteten Wertebereich prüfen**
+
+```{r, echo=TRUE, eval=FALSE}
+range(data_cb$cb_propcorrect, na.rm = TRUE)
+# Im fiktiven Beispiel: 0.64 1.12
+```
+
+**2. Unzulässige Werte anzeigen**
+
+```{r, echo=TRUE, eval=FALSE}
+data_cb |>
+  filter(
+    cb_propcorrect < 0 |
+      cb_propcorrect > 1
+  )
+```
+:::
+
+::: {.column width="45%"}
+**Was passiert hier?**
+
+-   `range()` zeigt den kleinsten und grössten beobachteten Wert.
+-   `< 0` und `> 1` prüfen die **theoretischen Grenzen**.
+-   `|` bedeutet **ODER**: Schon eine verletzte Grenze reicht aus.
+-   `filter()` zeigt die betroffenen Beobachtungen an.
+:::
+:::::
+
+**Wichtig:** Die Befehle dienen zunächst der **Diagnose**. Die Daten werden nicht verändert.
+
+Sind die Werte unzulässig und keine verlässliche Korrektur möglich, können sie als `NA` kodiert werden.
+
+::: notes
+Wir beginnen wir immer mit der Diagnose. Mit range() prüfen wir den beobachteten Bereich. In unserem Beispiel finden wir einen Maximalwert von 1.12.
+
+Mit filter() lassen wir un nun gezielt solche Fälle anzeigen, in denen der Antail unter null oder über eins liegt. Das senkrechte Zeichen bedeutet ODER. Es reicht, wenn eine der beiden Bedingungen zutrifft.
+
+Wir verändern dadurch noch keine Daten. Unser Ziel ist zunächst, die betroffenen Personen oder Werte zu identifizieren und ihre Ursache zu prüfen.
+:::
+
+# Probleme mit fehlenden Informationen
+
+**Was tun wir, wenn Angaben fehlen oder als Platzhalter gespeichert sind?**
 
 -   Echte `NA`-Werte und spezielle Missing-Codes
 
@@ -706,7 +842,226 @@ Wird am Samstag und Sonntag gemacht!
 
 -   Rekonstruktion aus vorhandenen Werten
 
+::: notes
+Nach der Prüfung von Werte und Kodierungen kommen wir nun zur dritten Kategorie: fehlende Informationen. Wir kennen NA bereits aus unseren bisherigen Übungen.
+
+Allerdings ist nicht jede fehlende Angabe im Datensatz zwingend auch als echtes NA gespeichert. Manchmal werden stattdessen besondere Zahlen oder Zeichenfolgen verwendet.
+
+Diese müssen wir erkennen, bevor wir Mittelwerte berechnen oder Datensätze zusammenführen. Wir besprechen erst den Unterschied zwischen NA und einem möglichen Platzhalter, dann das Erkennen und die begründete Rekodierung.
+
+Danach schauen wir uns noch an, was zu tun ist, wenn Informationen tatsächlich fehlen.
+:::
+
 ------------------------------------------------------------------------
+
+## „Fehlend“ - aber erkennt das R auch?
+
+**Echtes `NA` oder versteckter Missing-Code?**
+
+<br>
+
+::::: columns
+::: {.column width="60%"}
+<br>
+
+![](../../images/EH8_NA_Missing.png){fig-align="left" width="85%"}
+:::
+
+::: {.column width="40%"}
+**Erkennen:** In `vp_propcorrect` steht bei ID 74 `NA`, bei ID 72 dagegen `-99`. Gültige Anteile liegen zwischen **0 und 1.**
+
+**Mögliche Ursache:** Eine Software speichert fehlende Angaben als besonderen Zahlencode. R liest diesen zunächst als Zahl ein.
+
+**Umgang:** Bedeutung anhand der Dateninformationen überprüfen. **Nur bestätigte Missing-Codes** in `NA` umwandeln.
+:::
+:::::
+
+::: columns
+Die Variable vp_propcorrect beschreibt einen Anteil korrekter Antworten, also einen Wert zwischen null und eins.
+
+Bei der Person 74 steht NA. R erkennt diesen Wert als fehlend.
+
+Bei Person 72 steht dagegen minus 99. Das liegt offensichtlich ausserhalb des zulässigen Anteilsbereichs, ist für R aber zunächst eine gewöhnliche Zahl.
+
+Ein solcher Wert könnte durch einen besonderen Exportcode entstanden sein, der fehlende Messungen kennzeichnet.
+
+Wenn seine Bedeutung bestätigt ist, dürfen wir den Wert in ein NA umwandeln.
+:::
+
+------------------------------------------------------------------------
+
+## Versteckte Missing-Codes mit R erkennen
+
+**Wie unterscheiden wir echte `NA`-Werte von auffälligen Zahlencodes?**
+
+<br>
+
+::::: columns
+::: {.column width="53%"}
+**1. Echte `NA`-Werte zählen**
+
+```{r, echo=TRUE, eval=FALSE}
+sum(is.na(data_vp$vp_propcorrect))
+# Im fiktiven Beispiel: 1
+```
+
+**2. Wertebereich prüfen**
+
+```{r, echo=TRUE, eval=FALSE}
+range(data_vp$vp_propcorrect, na.rm = TRUE)
+# Im Beispiel: -99.0  0.9
+```
+
+**3. Auffällige Werte anzeigen**
+
+```{r, echo=TRUE, eval=FALSE}
+data_vp |>
+  filter(vp_propcorrect < 0 |
+         vp_propcorrect > 1)
+```
+:::
+
+::: {.column width="47%"}
+**Was erfahren wir?**
+
+-   `is.na()` erkennt **echte** fehlende Werte.
+-   `range()` zeigt den kleinsten und grössten beobachteten Wert.
+-   `filter()` zeigt Werte **ausserhalb des zulässigen Bereichs**.
+-   Ob `-99` tatsächlich „fehlend“ bedeutet, klären wir mit der **Datenbeschreibung**.
+:::
+:::::
+
+**Achtung:** `na.rm = TRUE` ignoriert echte `NA`-Werte – einen Platzhalter wie `-99` jedoch **nicht**.
+
+::: columns
+Wie finden wir diese Unterschiede mit R?
+
+Zunächst zählen wir mit sum(is.na(...)) die echten NAs. In unserem Beispiel ist nur der Wert von Person 74 ein echtes NA. Der Wert -99 wird dabei nicht mitgezählt.
+
+Danach prüfen wir mit range() den beobachteten Wertebereich. Weil die Variable einen Anteil zwischen 0 und 1 beschreiben soll, macht uns der negative Wert aufmerksam. Mit filter() lassen wir uns die betreffenden Beobachtungen anzeigen.
+
+Eine wichtige Konsequenz ist: Selbst wenn wir bei einer Berechnung na.rm gleich TRUE setzen, würde -99 nicht übersprungen, sondern als Zahl mitgerechnet. So könnten bspw. Mittelwerte massiv verfälscht werden.
+:::
+
+------------------------------------------------------------------------
+
+## Bestätigte Missing-Codes gezielt in `NA` umwandeln
+
+**Erst Bedeutung klären - dann rekodieren und kontrollieren**
+
+<br>
+
+**1. Nur nach Prüfung umkodieren**
+
+```{r, echo=TRUE, eval=FALSE}
+# Wenn -99 für fehlend steht
+data_vp <- data_vp |>
+  mutate(vp_propcorrect = na_if(vp_propcorrect, -99))
+```
+
+<br>
+
+::::: columns
+::: {.column width="48%"}
+**Was ist neu?**
+
+-   `na_if(x, -99)` macht aus dem bestätigten Platzhalter ein echtes `NA`.
+-   Andere Werte bleiben unverändert.
+-   `<-` speichert das bereinigte Ergebnis in `data_vp`.
+:::
+
+::: {.column width="52%"}
+**2. Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+sum(is.na(data_vp$vp_propcorrect))
+# Im fiktiven Beispiel: 2
+
+range(data_vp$vp_propcorrect, na.rm = TRUE)
+# Im Beispiel: 0.5  0.9
+```
+
+**Erwartet:** Der Platzhalter ist verschwunden; die gültigen Werte liegen weiterhin zwischen 0 und 1.
+:::
+:::::
+
+**Wichtig:** Die fehlende Information wurde damit korrekt gekennzeichnet, aber nicht rekonstruiert.
+
+::: columns
+Wenn -99 tatsächlich für eine fehlende Angabe steht, können wir den Wert gezielt ersetzen.
+
+Dafür gibt es die Funktion na_if. Damit sagen wir: Falls der Wert -99 lautet, setze an dieser Stelle ein echtes NA. Andere gültige Zahlen bleiben erhalten.
+
+Anschliessend kontrollieren wir die Anzahl fehlender Werte und den gültigen Wertebereich.
+
+Wir haben die fehlende Information damit korrekt gekennzeichnet, aber noch nicht rekonstruiert. Ob man Werte aus anderen Informationen wiederherstellen kann, besprechen wir im nächsten Schritt.
+:::
+
+------------------------------------------------------------------------
+
+## Fehlende Werte rekonstruieren
+
+**Fehlt die Information vollständig - oder nur eine daraus berechnete Variable?**
+
+<br>
+
+::::: columns
+::: {.column width="\"45%"}
+**Ausgangslage nach der Bereinigung**
+
+| `code` | `vp_sum` | `vp_propcorrect` |
+|--------|---------:|-----------------:|
+| 72     |       18 |             `NA` |
+| 74     |     `NA` |             `NA` |
+
+**Bekannte Berechnungsregel:**
+
+\[ \text{Anteil korrekt} = \frac{\text{Anzahl korrekt}}{36} \]
+
+-   **ID 72:** 18 / 36 = **0.50** → rekonstruierbar.
+-   **ID 74:** Ausgangswert fehlt → bleibt `NA`.
+:::
+
+::: {.column width="55%"}
+**Fehlenden Wert gezielt ergänzen**
+
+```{r, echo=TRUE, eval=FALSE}
+data_vp <- data_vp |>
+  mutate(
+    vp_propcorrect = if_else(
+      is.na(vp_propcorrect) &
+        !is.na(vp_sum),
+      vp_sum / 36,
+      vp_propcorrect
+    )
+  )
+```
+
+**Ergebnis kontrollieren**
+
+```{r, echo=TRUE, eval=FALSE}
+data_vp |>
+  filter(code %in% c(72, 74)) |>
+  select(code, vp_sum, vp_propcorrect)
+```
+:::
+:::::
+
+**Wichtig:** Nur eindeutig ableitbare Werte rekonstruieren. Sind die Ausgangsinformationen nicht vorhanden, bleibt der Wert fehlend.
+
+::: columns
+Auf der vorherigen Folie haben wir einen bestätigten Missing-Code in einen echten NA-Wert umgewandelt. Nun stellt sich die Frage, ob dieser Wert tatsächlich fehlend bleiben muss.
+
+NIcht unbedingt. Manchmal fehlt nur eine berechnete Kennzahl, während die zugrunde liegende Information noch vorhanden ist.
+
+In unserem Beispiel enthält vp_sum die Anzahl korrekter Antworten. vp_propcorrect ist der Anteil korrekter Antworten. Wenn wir sicher wissen, dass dieser Anteil durch Division der korrekten Antworten durch 36 gültige Durchgänge berechnet wurde, lässt sich der fehlende Anteilswert wiederherstellen.
+
+Bei ID 72 sind 18 korrekte Antworten vorhanden. Der Anteil beträgt dadurch 0.50.
+
+Bei ID 74 fehlen hingegen beide Informationen, weshalb wir den Wert nicht rekonstruieren können.
+
+Mit mutate() und if_else() ergänzen wir nur diejenigen fehlenden Anteilswerte, für die die benötigte Ausgangsinformation vorhanden ist.
+:::
 
 # Probleme mit Skalen & Richtung
 
@@ -720,259 +1075,8 @@ Wird am Samstag und Sonntag gemacht!
 
 ------------------------------------------------------------------------
 
-\
+## Bereits transformiert: Nochmals skalieren?
 
-```{r, echo = TRUE}
-table(is.na(penguins))
-```
-
-→ Anzahl fehlender vs. vorhandener Werte im Datensatz
+**Eine eigentlich richtige Transformation kann beim zweiten Mal falsch sein**
 
 <br>
-
-**Fehlende Werte pro Variable**
-
-```{r, echo = TRUE}
-
-colSums(is.na(penguins))
-```
-
-→ Welche Variablen enthalten wie viele fehlende Werte?
-
-------------------------------------------------------------------------
-
-## 2️⃣ Fortgeschritten: Nachvollziehen!
-
-<br>
-
-**Missing Completely at Random (MCAR) - komplett zufällig**
-
-Fehlende Werte entstehen rein zufällig & haben keinen Zusammenhang mit anderen Daten
-
-→ Messgerät fällt zufällig aus\
-<br>
-
-**Missing at Random (MAR) - abhängig von beobachteten Daten**
-
-Fehlende Werte hängen mit anderen beobachteten Variablen zusammen, jedoch nicht mit den fehlenden Variablen selbst.
-
-→ Jüngere Personen beantworten eine Frage seltener\
-<br>
-
-**Missing Not at Random (MNAR) - abhängig vom fehlenden Wert selbst**
-
-Fehlende Werte stehen in direktem Zusammenhang mit den nicht beobachteten (fehlenden) Werten selbst.
-
-→ Personen mit hoher Angst brechen Angststudie frühzeitig ab
-
-::: notes
-MCAR: Während einer Online-Studie bricht bei einigen Teilnehmenden zufällig die Internetverbindung ab, sodass ihre Antworten fehlen. → Das Fehlen ist rein zufällig und unabhängig von ihren Eigenschaften oder Antworten.
-
-MAR: In einer Befragung zu Stress und Schlafqualität überspringen jüngere Teilnehmende häufiger Fragen zur Schlafdauer. → Das Fehlen hängt mit dem beobachteten Merkmal *Alter* zusammen, aber nicht mit der tatsächlichen Schlafdauer.
-
-MNAR: Bei einer Angststudie brechen Teilnehmende mit besonders hoher Angst die Untersuchung ab, bevor sie den Angstfragebogen ausfüllen. → Das Fehlen hängt direkt mit dem nicht beobachteten Wert der Angstvariable zusammen.
-:::
-
-------------------------------------------------------------------------
-
-## **Mögliche Ansätze, um mit Missings umzugehen:**
-
-<br>
-
-**Fehlende Werte entfernen**\
-Achtung: Je nach Analysemethode kann bereits **ein einziger fehlender Wert** dazu führen, dass eine ganze Versuchsperson aus der Analyse ausgeschlossen wird!
-
-<br>
-
-**Fehlende Werte imputieren**\
-Das bedeutet, fehlende Werte **durch geschätzte Werte zu ersetzen** (z. B. Mittelwert, Regression, Multiple Imputation).\
-→ Das üben wir **nicht in diesem Seminar**.
-
-------------------------------------------------------------------------
-
-## Fehlende Werte bei Berechnungen beachten
-
-<br>
-
-Viele R-Funktionen können fehlende Werte automatisch ausschliessen, z. B. mit `na.rm = TRUE`
-
-<br>
-
-```{r, eval = TRUE, echo = TRUE}
-
-x <- c(1, NA)
-
-mean(x, na.rm = FALSE)
-```
-
-→ Fehlende Werte werden in die Berechnung einbezogen (default-Einstellung); ergibt NA als Mittelwert
-
-<br>
-
-```{r, eval = TRUE, echo = TRUE}
-mean(x, na.rm = TRUE)
-```
-
-→ Fehlende Werte werden explizit von der Berechnung ausgeschlossen; ergibt 1 als Mittelwert
-
-------------------------------------------------------------------------
-
-## Skalenberechnung
-
-<br>
-
-Damit wir unsere Analysen sinnvoll durchführen können, müssen wir oft **Skalen berechnen**, also mehrere Items zu einem Gesamtwert zusammenfassen.
-
-<br>
-
-**Schritte:**
-
-1️⃣ **Transformation der Antwortformate** (z.B. von „Trifft häufig zu“ zu numerischen Werten).
-
-<br>
-
-2️⃣ **Beachtung von Reverse-Codierungen** (z.B. beim Konstrukt *Gewissenhaftigkeit*: Item „Ich bin bequem, neige zur Faulheit“ muss umgepolt werden).
-
-<br>
-
-3️⃣ **Berechnung der Skalenwerte** (z.B. durch Mittelwertbildung der entsprechenden Items).
-
-------------------------------------------------------------------------
-
-## 1️⃣ Transformation in numerische Werte
-
-<br>
-
-**Beispiel:** 8 Items eines Fragebogens (question_1 bis question_8) liegen als Textantworten auf einer 5-stufigen Likert-Skala vor. Diese sollen nun in numerische Werte (1 bis 5) umgewandelt werden.
-
-<br>
-
-```{r, eval = FALSE, echo = TRUE}
-dat <- dat |>
-  mutate(
-    across(
-      question_1:question_8,
-      ~ recode(.,
-        "trifft gar nicht zu" = 1,
-        "trifft eher nicht zu" = 2,
-        "teils/teils" = 3,
-        "trifft eher zu" = 4,
-        "trifft völlig zu" = 5
-      )
-    )
-  )
-```
-
-→ Alle Items werden in einem Schritt transformiert.
-
-→ Voraussetzung für jede weitere Analyse.
-
-------------------------------------------------------------------------
-
-## 2️⃣ Umpolung von Items (Reverse Coding)
-
-<br>
-
-**Ausgangssituation:** Fragebogen mit 12 Items (q_1 bis q_12) auf einer 4-stufigen Skala. Davon sind Item 2 und Item 5 noch negativ formuliert bzw. invers codiert.
-
-**Problem:** Ohne Umpolung zeigen die Items in unterschiedliche Richtungen und der Skalenwert wird falsch!
-
-```{r, eval = FALSE, echo = TRUE}
-dat <- dat |>
-  mutate(
-    across(
-      c(q_2, q_5),
-      ~ case_when(
-        . == 1 ~ 4,
-        . == 2 ~ 3,
-        . == 3 ~ 2,
-        . == 4 ~ 1
-      )
-    )
-  )
-```
-
-------------------------------------------------------------------------
-
-## 3️⃣ Berechnung von Skalenwerten
-
-<br>
-
-**Einfache Variante:**
-
-```{r, eval = FALSE, echo=TRUE}
-
-dat_full <- dat_full |> 
-  mutate(mmq_mean = (question1 + question2 + question3 + question4 + question5 + question6 + 
-                     question7 + question8 + question9 + question10 + question11 +
-                     question12 + question13 + question14 + question15 + question16 +
-                     question17 + question18)/18)
-```
-
-<br>
-
-**Sparsamere Varianten:** `dplyr`-Funktion verwenden, um z.B. nicht alle Variablen auszuschreiben
-
-```{r, eval = FALSE, echo=TRUE}
-#Sparsamere Alternative:
-dat_full <- dat_full |> 
-  mutate(mmq_mean = rowMeans(select(dat_full, starts_with("question")),
-                             na.rm = TRUE))
-
-#Sparsamere Alternative:
-dat_full <- dat_full |>
-  mutate(mmq_mean = rowMeans(across(question1:question18),
-                             na.rm = TRUE))
-
-#Sparsamere Alternative:
-dat_full <- dat_full %>%
-  rowwise() %>%
-  mutate(mmq_mean = mean(c_across(starts_with("question")),
-                         na.rm = TRUE))
-```
-
-::: notes
-na.rm = TRUE bedeutet, dass für eine Person ein Skalenwert berechnet wird wenn es mind. 1 vorhandenen Wert gibt
-
-Wenn na.rm = FALSE, dann wird kein Skalenwert für eine Person berechnet wenn es mind 1 fehlenden Wert gibt
-
-c_across(), sodass die Spalten (columns) ausgewählt werden.
-:::
-
-------------------------------------------------------------------------
-
-## Heute haben wir:
-
-...weitere Funktionen von `dplyr` kennen gelernt
-
-... Fehlende Werte und deren Umgang angeschaut
-
-... Skalenberechnung angeschaut
-
-------------------------------------------------------------------------
-
-## Congrats you mastered `dplyr`!!
-
-<br>
-
-![](../../images/EH_8/logo.png){fig-align="center" width="300"}
-
-------------------------------------------------------------------------
-
-## Bis nächstes Mal
-
-<br>
-
-**R-Hausübung 1**
-
--   Abgabe: **Mi,** **22.04.2026**
-
--   via ILIAS (Ordner: Abgaben)
-
--   Anschliessend individuelles Feedback von uns
-
-<br>
-
-**Hands-on Block 4**
-
--   fertigstellen
