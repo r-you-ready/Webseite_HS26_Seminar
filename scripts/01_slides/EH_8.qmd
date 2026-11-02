@@ -1307,4 +1307,22 @@ In unserem Forschungsprojekt erfolgt diese Vorbereitung vor der Berechnung von m
 
 ------------------------------------------------------------------------
 
-Noch Folien ergänzen zum Abschluss!!!! Wird morgen (Montag) noch erledigt!
+## Wo korrigieren wir Datenprobleme im Forschungsprojekt?
+
+**Die richtige Position hängt davon ab, wann wir das Problem erkennen & zuverlässig beheben können**
+
+<br>
+
+![](../../images/EH8_Datenprobleme_Prozesslogik.png){fig-align="center" width="85%"}
+
+<br>
+
+**So früh wie möglich, sie spät wie nötig!** Es gibt nicht immer nur eine richtige Lösung.
+
+------------------------------------------------------------------------
+
+Folie zu Hands-on 4B
+
+------------------------------------------------------------------------
+
+Folie Ausblick HU und Programm nächste Woche
