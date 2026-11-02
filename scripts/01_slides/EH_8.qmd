@@ -79,7 +79,7 @@ Nächste Woche kehren wir dann wieder zur konkreten Aufbereitung des gemeinsamen
 
 <br>
 
-![](../../images/EH8_Datensatz.png){fig-align="center" width="50%"}
+![](../../images/EH8_Datensatz.png){fig-align="center" width="100%"}
 
 <br>
 
@@ -319,6 +319,8 @@ Nach der Bereinigung sollten **keine vollständig leeren Zeilen** mehr vorhanden
 :::
 :::::
 
+<br>
+
 **Wichtig:** Einzelne fehlende Antworten bleiben erhalten. Vollständig leere Zeilen sollten möglichst vor dem Zusammenführen der Rohdatensätze entfernt werden.
 
 ::: notes
@@ -475,7 +477,9 @@ Nach der Bereinigung sollten **keine duplizierten Zeilen** mehr vorhanden sein. 
 :::
 :::::
 
-**Wichtig:** Vollständig duplizierte Zeilen sollten möglichst vor dem Mergen der Rohdatensätze entfernt werden.
+<br>
+
+**Wichtig:** Duplizierte Zeilen möglichst vor dem Mergen der Rohdatensätze entfernen.
 
 ------------------------------------------------------------------------
 
@@ -671,6 +675,8 @@ unique(data_mmq$question7)
 -   Das **Codebook** sagt uns, welche Werte zulässig sind: hier **0 bis 4**.
 :::
 :::::
+
+<br>
 
 **Achtung:** `as.numeric("zwei")` ergibt mit einer Warnung `NA` – die eigentlich vorhandene Antwort ginge verloren!
 
@@ -931,6 +937,8 @@ data_vp |>
 :::
 :::::
 
+<br>
+
 **Achtung:** `na.rm = TRUE` ignoriert echte `NA`-Werte – einen Platzhalter wie `-99` jedoch **nicht**.
 
 ::: notes
@@ -945,7 +953,7 @@ Eine wichtige Konsequenz ist: Selbst wenn wir bei einer Berechnung na.rm gleich 
 
 ------------------------------------------------------------------------
 
-## Bestätigte Missing-Codes gezielt in `NA` umwandeln
+## Missing-Codes gezielt in `NA` umwandeln
 
 **Erst Bedeutung klären - dann rekodieren und kontrollieren**
 
@@ -1006,7 +1014,7 @@ Wir haben die fehlende Information damit korrekt gekennzeichnet, aber noch nicht
 <br>
 
 ::::: columns
-::: {.column width="\"45%"}
+::: {.column width="55%"}
 **Ausgangslage nach der Bereinigung**
 
 | `code` | `vp_sum` | `vp_propcorrect` |
@@ -1014,15 +1022,16 @@ Wir haben die fehlende Information damit korrekt gekennzeichnet, aber noch nicht
 | 72     |       18 |             `NA` |
 | 74     |     `NA` |             `NA` |
 
+<br>
+
 **Bekannte Berechnungsregel:**
 
-\[ \text{Anteil korrekt} = \frac{\text{Anzahl korrekt}}{36} \]
-
--   **ID 72:** 18 / 36 = **0.50** → rekonstruierbar.
--   **ID 74:** Ausgangswert fehlt → bleibt `NA`.
+$$
+\text{Anteil korrekt} = \frac{\text{Anzahl korrekt}}{36}
+$$
 :::
 
-::: {.column width="55%"}
+::: {.column width="45%"}
 **Fehlenden Wert gezielt ergänzen**
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -1047,7 +1056,9 @@ data_vp |>
 :::
 :::::
 
-**Wichtig:** Nur eindeutig ableitbare Werte rekonstruieren. Sind die Ausgangsinformationen nicht vorhanden, bleibt der Wert fehlend.
+<br>
+
+**Wichtig:** Nur eindeutig ableitbare Werte rekonstruieren. Ohne Ausgangsinformationen bleibt der Wert fehlend.
 
 ::: notes
 Auf der vorherigen Folie haben wir einen bestätigten Missing-Code in einen echten NA-Wert umgewandelt. Nun stellt sich die Frage, ob dieser Wert tatsächlich fehlend bleiben muss.
@@ -1120,7 +1131,7 @@ Wir müssen deshalb vor einer Transformation überprüfen, in welchem Datenstand
 <br>
 
 ::::: columns
-::: {.column width="\"45%"}
+::: {.column width="45%"}
 **1. Bisherige Werte untersuchen**
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -1155,6 +1166,8 @@ summary(data_ratings[
 :::
 :::::
 
+<br>
+
 Danach sollen alle fünf Ratingvariablen auf derselben dokumentierten Skala von 0-100 vorliegen.
 
 ::: notes
@@ -1178,17 +1191,13 @@ Für diese Variablen verwenden wir erneut mutate() und across(), die wir bereits
 <br>
 
 ::::: columns
-::: {.column width="55%"}
-![](../../images/EH8_positives_Item.png){fig-align="left" width="85%"}
-
-<br>
-
-![](../../images/EH8_negatives_Item.png){fig-align="left" width="85%"}
+::: {.column width="60%"}
+![](../../images/EH8_positiv_negativ_Item.png){fig-align="left" width="95%"}
 
 **Problem:** Derselbe Antwortwert kann je nach Itemformulierung eine gegenteilige inhaltliche Bedeutung besitzen.
 :::
 
-::: {.column width="45%"}
+::: {.column width="40%"}
 **Erkennen:** Items können dieselbe Eigenschaft in entgegengesetzter Richtung erfassen.
 
 **Besonderheit:** Ein hoher Zahlenwert steht nicht bei jedem Item für eine hohe Ausprägung derselben Eigenschaft.
@@ -1225,15 +1234,17 @@ Deshalb müssen wir vor der Skalenbildung sicherstellen, dass die Werte aller It
 :::
 
 ::: {.column width="45%"}
-**Erkennen:** Bei manchen Variablen fällt die Endung `_r` auf. Sie kann auf eine inverse Itemkodierung hinweisen.
+**Erkennen:** Endung `_r` kann auf eine inverse Itemkodierung hinweisen.
 
 **Besonderheit:** An den Zahlen allein erkennen wir nicht, ob ein Item umgepolt werden muss oder bereits umgepolt wurde.
 
-**Umgang:** Itemformulierungen, Antwortskala und aktuelle Kodierung im Codebook prüfen. Erst danach entscheiden, ob eine Umpolung erforderlich ist.
+**Umgang:** Itemformulierungen, Antwortskala & aktuelle Kodierung im Codebook prüfen. Erst danach entscheiden, ob Umpolung erforderlich ist.
 :::
 :::::
 
-**Zusätzliche Kontrolle:** Bei der Berechnung von Cronbachs Alpha können negative Item-Skala-Korrelationen auf falsch gepolte Items hinweisen.
+<br>
+
+**Zusätzliche Kontrolle:** Bei Cronbachs Alpha können negative Item-Skala-Korrelationen auf falsch gepolte Items hinweisen.
 
 ::: notes
 Jetzt schauen wir uns kurz an, wie solche Items in einem tatsächlichen Forschungsdatensatz erkennbar sein können.
@@ -1253,18 +1264,18 @@ Das ist nicht dasselbe. Wenn eine Umpolung bereits durchgeführt wurde, wäre ei
 
 <br>
 
+::::: columns
+::: {.column width="50%"}
 **1. Prinzip der Umpolung bei einer 0–4-Skala**
-
-| Ursprünglicher Wert | 0   | 1   | 2   | 3   | 4   |
-|---------------------|-----|-----|-----|-----|-----|
-| Nach Umpolung       | 4   | 3   | 2   | 1   | 0   |
-
-**Berechnungsregel:** `neuer_wert = 4 - alter_wert`
 
 <br>
 
-::::: columns
-::: {.column width="55%"}
+![](../../images/EH8_Umpolung.png){fig-align="left" width="85%"}
+
+<br> **Berechnungsregel:** `neuer_wert = 4 - alter_wert`
+:::
+
+::: {.column width="50%"}
 **2. Umpolung durchführen**
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -1276,22 +1287,20 @@ data_mmq <- data_mmq |>
     )
   )
 ```
-:::
-
-::: {.column width="45%"}
-**Was passiert hier?**
 
 -   `4 - .x` kehrt die Werte einer **0-4-Skala** um.
 
--   `mutate()` verändert die ausgewählten Variablen.
+-   `mutate()` verändert ausgewählte Variablen.
 
--   `across()` wendet dieselbe Umrechnung auf mehrere Items an.
+-   `across()` wendet Umrechnung auf mehrere Items an.
 
 -   Fehlende Werte (`NA`) bleiben erhalten.
 :::
 :::::
 
-**Wichtig:** Nur Items umpolen, bei denen dies tatsächlich notwendig ist. Keine bereits umgepolten Werte erneut umpolen.
+<br>
+
+**Wichtig:** Keine bereits umgepolten Werte erneut umpolen.
 
 ::: notes
 Wir wissen jetzt, weshalb inverse Items eine besondere Behandlung benötigen. Wie können wir die Richtung der Werte nun umkehren?
@@ -1317,7 +1326,7 @@ In unserem Forschungsprojekt erfolgt diese Vorbereitung vor der Berechnung von m
 
 <br>
 
-**So früh wie möglich, sie spät wie nötig!** Es gibt nicht immer nur eine richtige Lösung.
+**So früh wie sinnvoll, sie spät wie nötig!** Es gibt nicht immer nur eine richtige Lösung.
 
 ------------------------------------------------------------------------
 
