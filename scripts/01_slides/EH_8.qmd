@@ -109,7 +109,7 @@ Mit dieser kleinen Übung haben wir schon den ersten wichtigen Schritt bei der F
 
 ::: {style="font-size:0.85em;"}
 | Bereich | Woran erkennen wir mögliche Probleme? | Typische Beispiele |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Datenstruktur** | Doppelte Zeilen/IDs, unerwartete Spalten | Leerzeilen, Duplikate, ID- und Spaltenprobleme |
 | **Werte und Kodierung** | Werte passen nicht zum dokumentierten Format | Zahlwörter, unzulässige Codes |
 | **Fehlende Information** | Informationen fehlen oder sind als Platzhalter gespeichert | `NA`, leere Felder, Platzhalter, spezielle Missing-Codes |
@@ -1332,7 +1332,7 @@ In unserem Forschungsprojekt erfolgt diese Vorbereitung vor der Berechnung von m
 
 ## Nun: Fehlerlabor
 
-<br>**N**
+<br>
 
 ![](../../images/fehlerlabor.png){fig-align="center" width="65%"}
 

@@ -81,7 +81,7 @@ Ihr könnt die neun zentralen `dplyr`-Funktionen unterscheiden, eine Pipeline mi
 ## ⏱️ Euer Weg durch die 60 Minuten
 
 | Abschnitt | Zeit | Ziel |
-|------------------------|-----------------------:|------------------------|
+|----|---:|----|
 | **A0 – Vorbereitung** | ca. 6 Min. | Dateien organisieren und `penguins` bereitstellen |
 | **A1 – EH6-Funktionen wiederholen** | ca. 14 Min. | `filter()`, `select()`, `rename()`, `mutate()`, `across()` |
 | **A2 – Neue EH7-Funktionen anwenden** | ca. 15 Min. | `arrange()`, `relocate()`, `summarise()`, `group_by()` |
@@ -673,7 +673,7 @@ Arbeitet in `fehlerlabor_vorlage.qmd` und in einem **separaten Übungsordner**. 
 In der **simulierten Studie «Lernumgebung und Konzentration»** bearbeiten 24 Personen eine kurze Konzentrationsaufgabe – entweder **mit Hintergrundmusik** oder **in Ruhe**. Anschliessend liegen Leistungsangaben, subjektive Ratings und Antworten auf drei kurze Lernfokus-Fragen vor. Wir interessieren uns ausschliesslich dafür, ob die Daten **korrekt aufbereitet** sind; es handelt sich nicht um echte Forschungsergebnisse.
 
 | Tabellenblatt in der Datendatei | Wichtige Inhalte | Beobachtungseinheit |
-|:-----------------------|:-----------------------|:-----------------------|
+|:---|:---|:---|
 | `leistung` | Personen-ID, Bedingung, korrekte Aufgaben, abgeleiteter Anteil, drei Ratings und Aufzeichnungsstatus | eine **freigegebene** Aufzeichnung je Person |
 | `fragebogen` | Personen-ID und drei Items zur Konzentration beim Lernen | eine Antwortzeile je Person |
 
@@ -686,7 +686,7 @@ Nach dem Fehlerlabor könnt ihr die erwartete Datenstruktur anhand eines Codeboo
 ## ⏱️ Zeitplan
 
 | Abschnitt | Richtzeit | Schwerpunkt |
-|:------------------------|------------------:|:----------------------------|
+|:---|---:|:---|
 | **B0 – Studie und Codebook verstehen** | ca. 7 Min. | Erwartete Daten kennenlernen und importieren |
 | **B1 – Datenstruktur** | ca. 15 Min. | Leere Zeilen, Duplikate, IDs, Zusatzspalten |
 | **B2 – Werte und Kodierung** | ca. 11 Min. | Zahlwörter, Datentypen, ungültige Ratings |
