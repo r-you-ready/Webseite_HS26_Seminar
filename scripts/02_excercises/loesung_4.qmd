@@ -10,11 +10,14 @@ draft: false
 format:
   html:
     toc: true
-    toc-depth: 2
+    toc-depth: 3
     code-tools: false
 resources:
   - raw/dplyr_training.qmd
   - raw/practice_dataset.xlsx
+  - raw/fehlerlabor_vorlage.qmd
+  - raw/fehlerlabor_daten.xlsx
+  - raw/fehlerlabor_codebook.xlsx
 ---
 
 ```{r, include=FALSE}
@@ -72,7 +75,7 @@ Ihr könnt die neun zentralen `dplyr`-Funktionen unterscheiden, eine Pipeline mi
 ## ⏱️ Euer Weg durch die 60 Minuten
 
 | Abschnitt | Zeit | Ziel |
-|----|---:|----|
+|------------------------|-----------------------:|------------------------|
 | **A0 – Vorbereitung** | ca. 6 Min. | Dateien organisieren und `penguins` bereitstellen |
 | **A1 – EH6-Funktionen wiederholen** | ca. 14 Min. | `filter()`, `select()`, `rename()`, `mutate()`, `across()` |
 | **A2 – Neue EH7-Funktionen anwenden** | ca. 15 Min. | `arrange()`, `relocate()`, `summarise()`, `group_by()` |
@@ -628,3 +631,916 @@ Speichert `dplyr_training.qmd`. **Rendert** es zum Schluss möglichst einmal vol
 **Heute nicht verändert:** das gemeinsame `processing.qmd` und der aufbereitete `dat_full`-Datensatz.
 
 **Ausblick:** In EH8 wenden wir unsere Kenntnisse auf **problematische Daten** an. Wir üben, Fehler zu erkennen, Korrekturen zu begründen und anschliessend die Daten erneut zu prüfen.
+
+------------------------------------------------------------------------
+
+# Teil 2: Fehlerlabor: Datenprobleme erkennen und begründet beheben
+
+## 🧭 Wo befinden wir uns?
+
+**Projektphase: AUFBEREITEN - Qualität sichern, bevor wir analysieren**
+
+In EH8 habt ihr vier Bereiche möglicher Datenprobleme kennengelernt:
+
+1.  Probleme mit der Datenstruktur
+
+2.  Probleme mit Werten & Kodierungen
+
+3.  Probleme mit fehlenden Werten
+
+4.  Probleme mit Skalen & Richtung
+
+In diesem Fehlerlabor untersucht ihr einen eigens konstruierten Datensatz. Ihr entschiedet selbst, welche Auffälligkeiten wirklich Fehler sind und an welcher Stelle ihr sie korrigieren könnt.
+
+Wir folgen stets denselben 5 Schritten:
+
+**1. Erkennen → 2. Mit dem Codebook abgleichen → 3. Entscheiden → 4. Begründet bereinigen → 5. Kontrollieren.**
+
+::: callout-important
+**Eigenständiges Übungsmaterial – nicht euer gemeinsames Forschungsprojekt.**
+
+Arbeitet in `fehlerlabor_vorlage.qmd` und in einem **separaten Übungsordner**. Verändert weder das gemeinsame `code/processing.qmd` noch die Originaldaten des Grinschgl-Projekts. Das Fehlerlabor ist unbenotet; es gibt keine formale Abgabe. Alle Personen und Messwerte sind vollständig simuliert.
+:::
+
+## 🧪 Die fiktive Studie in Kürze
+
+In der **simulierten Studie «Lernumgebung und Konzentration»** bearbeiten 24 Personen eine kurze Konzentrationsaufgabe – entweder **mit Hintergrundmusik** oder **in Ruhe**. Anschliessend liegen Leistungsangaben, subjektive Ratings und Antworten auf drei kurze Lernfokus-Fragen vor. Wir interessieren uns ausschliesslich dafür, ob die Daten **korrekt aufbereitet** sind; es handelt sich nicht um echte Forschungsergebnisse.
+
+| Tabellenblatt in der Datendatei | Wichtige Inhalte | Beobachtungseinheit |
+|:-----------------------|:-----------------------|:-----------------------|
+| `leistung` | Personen-ID, Bedingung, korrekte Aufgaben, abgeleiteter Anteil, drei Ratings und Aufzeichnungsstatus | eine **freigegebene** Aufzeichnung je Person |
+| `fragebogen` | Personen-ID und drei Items zur Konzentration beim Lernen | eine Antwortzeile je Person |
+
+**Eure erste Aufgabe:** Lernt die **Erwartungen** aus dem Codebook kennen, bevor ihr die Rohdaten als fehlerhaft oder korrekt bewertet. Die Rohdateien sind absichtlich nicht vollständig bereinigt.
+
+## 🎯 Lernziele
+
+Nach dem Fehlerlabor könnt ihr die erwartete Datenstruktur anhand eines Codebooks bestimmen, vollständig leere und doppelte Zeilen unterscheiden, Konflikte bei IDs begründet lösen, Spaltennamen und Datentypen vereinheitlichen, Zahlwörter und spezielle Missing-Codes rekodieren, ungültige Werte ohne unbegründete Ersetzungen behandeln, eindeutig berechenbare Werte rekonstruieren, die beiden Rohdatentabellen korrekt zusammenführen sowie Skalierungen und inverse Itemkodierungen kontrollieren.
+
+## ⏱️ Zeitplan
+
+| Abschnitt | Richtzeit | Schwerpunkt |
+|:------------------------|-----------------:|:----------------------------|
+| **B0 – Studie und Codebook verstehen** | ca. 7 Min. | Erwartete Daten kennenlernen und importieren |
+| **B1 – Datenstruktur** | ca. 15 Min. | Leere Zeilen, Duplikate, IDs, Zusatzspalten |
+| **B2 – Werte und Kodierung** | ca. 11 Min. | Zahlwörter, Datentypen, ungültige Ratings |
+| **B3 – Fehlende Informationen** | ca. 10 Min. | Missing-Codes und begründete Rekonstruktion |
+| **B4 – Merge und Kontrolle** | ca. 7 Min. | Eindeutige Join-Schlüssel, 24 Personen |
+| **B5 – Skala und Richtung** | ca. 8 Min. | Bereits skalierte Variablen, inverses Item |
+| **B6 – Abschluss** | ca. 2 Min. | Validieren, speichern, rendern |
+| **Kernpfad** | **60 Min.** |  |
+| **⭐ Freiwillige Vertiefung** | **ca. 30 Min.** | Weitere Diagnosen und Transfer; auch in EH9 möglich |
+
+Die Zeiten sind Orientierungshilfen. Arbeitet nicht möglichst schnell, sondern **nachvollziehbar**. Zu jeder Aufgabe gibt es einen aufklappbaren **Tipp** und eine **Musterlösung**. Versucht die Aufgabe zuerst eigenständig.
+
+## 📂 Downloads und Arbeitsorte
+
+Für dieses Fehlerlabor benötigt ihr drei Dateien:
+
+Arbeitsvorlage `fehlerlabor_vorlage.qmd` Download über ILIAS (Ordner Woche 8)
+
+<a href="raw/fehlerlabor_daten.xlsx" download="fehlerlabor_daten.xlsx" class="btn btn-primary">📥 Simulierte Übungsdaten (`fehlerlabor_daten.xlsx`)</a> – **zwei Tabellenblätter** mit zusammengehörenden Rohdaten.
+
+<a href="raw/fehlerlabor_codebook.xlsx" download="fehlerlabor_codebook.xlsx" class="btn btn-primary">📥 Vollständiges Codebook (`fehlerlabor_codebook.xlsx`)</a> - Studiendesign, erwartete Variablen, Wertebereiche und Antwortlabels.
+
+Legt **ausserhalb** des gemeinsamen Forschungsprojekts folgenden Ordner an:
+
+``` text
+fehlerlabor/
+├── fehlerlabor_vorlage.qmd
+└── data/
+    ├── fehlerlabor_daten.xlsx
+    └── fehlerlabor_codebook.xlsx
+```
+
+Öffnet in RStudio `fehlerlabor_vorlage.qmd` und bearbeitet die Aufgaben direkt in den vorbereiteten Code-Chunks. Die bereitgestellte Excel-Datei wir **nicht manuell verändert:** Korrekturen schreibt ihr in Quarto mit R. Das Codebook ist eure **Nachschlagequelle**, nicht ein zu korrigierendes Arbeitsblatt.
+
+::: {.callout-tip collapse="true" title="Falls Pakete fehlen oder die Pfade nicht funktionieren"}
+Installiert fehlende Pakete einmalig in der **R-Konsole** (nicht in einem Quarto-Chunk):
+
+``` r
+install.packages(c("tidyverse", "readxl"))
+```
+
+In der Vorlage ist `library(tidyverse)` bereits enthalten. Die Excel-Dateien lest ihr mit `readxl::read_excel()` ein. Die Pfade sind relativ zum Speicherort von `fehlerlabor_vorlage.qmd`; `data/fehlerlabor_daten.xlsx` funktioniert nur, wenn die Ordnerstruktur stimmt.
+:::
+
+------------------------------------------------------------------------
+
+# B0: Studie und Codebook verstehen
+
+### 🧭 B0.1: Welche Daten sollten wir erwarten?
+
+**Arbeitsort: `data/fehlerlabor_codebook.xlsx`**, zunächst ohne R.
+
+Öffnet die Tabellenblätter `Metadata`, `Codebook`, `response_labels` und `Datenregeln`. Beantwortet anhand der Dokumentation diese Fragen:
+
+1.  Was wird in der simulierten Studie untersucht und wie viele **eindeutige Personen** sollten vorhanden sein?
+2.  Welche beiden Rohdatentabellen gibt es und wie können wir Personen zwischen ihnen zuordnen?
+3.  Was bedeuten `correct_n` und `accuracy_rate` und wie hängt der Anteil von der Anzahl korrekter Antworten ab?
+4.  Welche Skalen besitzen die drei `confidence_`-Variablen? Welches Item ist invers formuliert?
+5.  Was bedeutet der Exportstatus `final` beziehungsweise `entwurf`?
+
+**Grundsatz:** Das Codebook beschreibt den **erwarteten, fachlich korrekten Zustand**. Die Rohdaten können bewusst davon abweichen. Die technischen Datentypen im Codebook beziehen sich auf den Zustand **nach** begründeter Bereinigung.
+
+::: {.callout-tip collapse="true" title="Tipp B0.1"}
+Ihr findet die Antwort zu Stichprobe und Studiendesign im Blatt `Metadata`; den Wertebereich und die Berechnungsregel in den Feldern *Theoretical minimum*, *Theoretical maximum* und *Composition of item*. Im Blatt `response_labels` werden die Bedeutung der Bedingungen und Aufzeichnungsstatus erklärt. Die Itembeschreibungen enthalten die Richtung der Formulierung.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B0.1"}
+-   Eine vollständig simulierte Kurzstudie zu Lernbedingungen und Konzentration mit **24 eindeutigen Personen** (Codes 201–224); je 12 in `musik` und `ruhe`.
+-   Die Excel-Datei enthält `leistung` und `fragebogen`. Zusammengehören sie über die Personen-ID (nach Vereinheitlichung `code`). Erwartet wird **eine gültige Zeile je Person und Tabelle**.
+-   `correct_n`: ganzzahlige Anzahl korrekter Antworten aus 20 Aufgaben (0–20). `accuracy_rate`: daraus abgeleiteter Anteil, **`correct_n / 20`** (0–1).
+-   `confidence_pre` und `confidence_follow`: **0–10**; `confidence_post`: **bereits 0–100**. `item_distract_r` ist negativ formuliert und im Rohdatenblatt **noch nicht** umgepolt.
+-   `final`: gültige freigegebene Aufzeichnung; `entwurf`: vorläufige Aufzeichnung, die nicht ausgewertet wird.
+:::
+
+### 🧭 B0.2: Beide Rohdatentabellen selbst einlesen
+
+Lest aus `data/fehlerlabor_daten.xlsx` die **beiden Excel-Tabellenblätter** mit `readxl::read_excel()` ein. Nennt eure unveränderten Importobjekte `leistung_roh` und `fragebogen_roh`.
+
+Erstellt anschliessend Arbeitskopien `leistung` und `fragebogen`. Mit diesen beiden Objekten werdet ihr von nun an arbeiten. Die unveränderten Importobjekte dienen für spätere Vergleiche.
+
+Untersucht mit `dim()`, `names()` und `glimpse()` die Struktur. **Warum entsprechen die Dimensionen möglicherweise nicht der erwarteten Stichprobe?**
+
+::: {.callout-tip collapse="true" title="Tipp B0.2"}
+Mit `readxl::read_excel("data/fehlerlabor_daten.xlsx", sheet = "leistung")` lest ihr ein bestimmtes Tabellenblatt ein. Eine Kopie entsteht beispielsweise mit `leistung <- leistung_roh`. Die unbearbeiteten Objekte bleiben für spätere Vergleiche erhalten.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B0.2"}
+```{r, echo=TRUE, eval=FALSE}
+leistung_roh <- readxl::read_excel(
+  "data/fehlerlabor_daten.xlsx", sheet = "leistung"
+)
+fragebogen_roh <- readxl::read_excel(
+  "data/fehlerlabor_daten.xlsx", sheet = "fragebogen"
+)
+leistung <- leistung_roh
+fragebogen <- fragebogen_roh
+
+dim(leistung)      # 27 Zeilen, 10 Spalten
+dim(fragebogen)    # 24 Zeilen,  4 Spalten
+names(leistung)
+glimpse(fragebogen)
+```
+
+Die **27 Zeilen** von `leistung` sind ein Diagnosehinweis, kein Beweis für 27 Teilnehmende. Die vorgesehenen 24 Personen ergeben sich aus dem Studienprotokoll und müssen mit der tatsächlichen Datenstruktur abgeglichen werden.
+:::
+
+```{r, include=TRUE}
+leistung_roh <- readxl::read_excel(
+  "raw/fehlerlabor_daten.xlsx",
+  sheet = "leistung"
+)
+
+fragebogen_roh <- readxl::read_excel(
+  "raw/fehlerlabor_daten.xlsx",
+  sheet = "fragebogen"
+)
+
+leistung <- leistung_roh
+fragebogen <- fragebogen_roh
+```
+
+------------------------------------------------------------------------
+
+# B1: Probleme mit der Datenstruktur
+
+**Wiederholung aus EH8:** Eine vollständig leere Zeile ist nicht dasselbe wie eine einzelne fehlende Antwort. Vollständig identische Zeilen sind etwas anderes als unterschiedliche Zeilen mit derselben Personen-ID.
+
+**Für einen Personen-Wide-Datensatz erwarten wir genau eine gültige Aufzeichnung pro Code.**
+
+### 🧭 B1.1: Vollständig leere Zeilen erkennen und entfernen
+
+Untersucht `leistung`: Gibt es Zeilen, deren Werte ausnahmslos fehlen?
+
+Zeigt sie an, zählt sie und entfernt sie erst dann aus dem **Arbeitsobjekt `leistung`**. Prüft die Anzahl leerer Zeilen danach erneut.
+
+**Reflexion:** Weshalb wäre ein pauschales `drop_na()` über alle Spalten hier problematisch?
+
+::: {.callout-tip collapse="true" title="Tipp B1.1"}
+`filter(if_all(everything(), is.na))` findet vollständig leere Zeilen; `nrow()` zählt sie. Mit `!` vor `if_all(...)` kehrt ihr die Auswahl um. Ein allgemeines Entfernen aller Zeilen mit irgendeinem `NA` würde auch Personen mit nur einer fehlenden Antwort ausschliessen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B1.1"}
+```{r}
+# Objekt mit der Anzahl vollkommen leerer Zeilen erstellen
+leere_zeilen <- leistung |>
+  filter(if_all(everything(), is.na))
+
+
+# Anzeigen
+nrow(leere_zeilen)
+# Es existiert eine vollkommen leere Zeile (sämtliche Angaben NA).
+
+
+# Vollkommen leere Zeile aus dem Arbeitsobjekt entfernen
+leistung <- leistung |>
+  filter(!if_all(everything(), is.na))
+
+
+# Anzahl Zeilen danach
+nrow(leistung)
+# Das Objekt enthält nun noch 26 Zeilen.
+
+
+# Vollkommen leere Zeilen
+leistung |>
+  filter(if_all(everything(), is.na))
+# Check: Nun existieren keine vollkommen leeren Zeilen mehr.
+```
+
+`drop_na()` über alle Spalten würde zusätzlich Personen mit einzelnen fehlenden Leistungs- oder Ratingwerten ausschliessen. Das wäre nicht fachlich begründet.
+
+Wir wollen in diesem Schritt nur vollkommen leere Zeilen ausschliessen, die auch keine Personen-ID enthalten.
+:::
+
+### 🧭 B1.2: Duplizierte Zeilen von mehrfachen IDs unterscheiden
+
+Prüft zuerst die Zahl **vollständig identischer (duplizierter) Zeilen** in `leistung`.
+
+Untersucht dann, welche `participant_id` mehrfach vorkommt. Vergleicht die betreffenden Beobachtungen einschliesslich `record_status` mit den Studienregeln.
+
+Entfernt nach der Prüfung die vollständig duplizierten Zeilen. Behaltet anschliessend je Person nur die **freigegebene** Aufzeichnung. Kontrolliert, ob noch doppelte IDs vorhanden sind.
+
+**Wichtig:** Verwendet **nicht** `distinct(participant_id, .keep_all = TRUE)`, solange ihr unterschiedliche Aufzeichnungen mit derselben ID nicht inhaltlich geklärt habt.
+
+::: {.callout-tip collapse="true" title="Tipp B1.2"}
+`sum(duplicated(leistung))` zählt die überflüssigen vollständigen Wiederholungen. `count(participant_id) |> filter(n > 1)` zeigt doppelte Schlüssel. `distinct()` entfernt vollständige Dubletten; danach bestimmt `record_status`, welche der unterschiedlichen Aufzeichnungen auswertbar ist.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B1.2"}
+```{r}
+# Anzahl vollständig duplizierter Zeilen
+sum(duplicated(leistung))
+# Eine Zeile ist vollständig dupliziert
+
+
+# Welche Personen-IDs kommen mehrfach vor?
+leistung |>
+  count(participant_id) |>
+  filter(n > 1)
+# ID 205 und 211 kommen jeweils doppelt vor
+
+
+# Die beiden identifizierten Fälle inspizieren
+leistung |>
+  filter(participant_id %in% c(205, 211)) |>
+  arrange(participant_id, record_status)
+# ID 205 ist vollständig duplizert. Eine Zeile kann daher entfernt werden. Bei ID 211 ist eine Zeile nur ein Entwurf (record_status). Diese kann auch entfernt werden.
+
+
+# Vollständig identische Wiederholung entfernen
+leistung <- leistung |>
+  distinct()
+# So kommt die ID 205 nur noch einmal vor.
+
+
+# Nur freigegebene Aufzeichnung bei ID 211 behalten
+leistung <- leistung |>
+  filter(record_status == "final")
+# So wird der Entwurf bei ID 211 entfernt.
+
+
+# Kontrolle: Duplizierte Zeilen vorhanden?
+sum(duplicated(leistung))
+# Es sind keine duplizierten Zeilen mehr vorhanden.
+
+
+# Kontrolle: Doppelte IDs vorhanden?
+leistung |>
+  count(participant_id) |>
+  filter(n > 1)
+# Es sind auch keine Personen-IDs mehr doppelt.
+
+
+# Anzahl Reihen
+nrow(leistung)
+# Der Datensatz verfügt nun über 24 einzigartige Personen-IDs.
+```
+
+Die Personen-ID **205** liegt zweimal in vollständig identischen Zeilen vor. Die ID wurde also wahrscheinlich beim Export der Daten einfach dupliziert.
+
+Die Personen-ID **211** liegt ebenfalls doppelt vor, wobei hier aber die Zeilen nicht einfach dupliziert sind. Die Werte in verschiedenen Variablen unterscheiden sich voneinander. In der Variable `record_status` sehen wir aber, dass eine Aufzeichnung `final` ist, die andere bloss ein `entwurf`. Gemäss Codebook ist nur die finale Aufzeichnung relevant, weswegen wir gezielt den Entwurf vor der weiteren Bearbeitung der Daten entfernen müssen.
+:::
+
+### 🧭 B1.3: Spaltennamen, Zusatzspalten und Join-Schlüssel prüfen
+
+Vergleicht die Ergebnisse von `names(leistung)` mit dem Codebook. Findet eine kopierte Spalte, eine nicht benötigte technische Zusatzspalte sowie zwei abweichende Variablennamen.
+
+Kontrolliert vor dem Entfernen, ob die kopierte Spalte in allen Zeilen mit ihrem Original übereinstimmt.
+
+Bereinigt die Spaltennamen. Entfernt nach der Prüfung die redundante Spalte, die technische Zusatzspalte und die nun nicht mehr benötigte Prüfvariable `record_status`.
+
+Vereinheitlicht schliesslich den Typ der Personen-Codes in beiden Tabellen.
+
+**Kontrolle:** `leistung` soll jetzt **24 Zeilen und 7 Spalten** enthalten.
+
+::: {.callout-tip collapse="true" title="Tipp B1.3"}
+Die erwarteten Variablennamen stehen im Blatt `Codebook`. `identical()` vergleicht zwei ganze Spalten. `rename(neuer_name = alter_name)` verändert den Namen, `select(-...)` schliesst Spalten aus. Schaut mit `class()` nach, wie die IDs in beiden Tabellen gespeichert sind. `as.character()` eignet sich hier zur Typvereinheitlichung.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B1.3"}
+```{r}
+# Variablennamen mit Codebook vergleichen
+names(leistung)
+
+
+# Gibt es eine vollständg kopierte Spalte? (correct_n_copy deutet vom Namen her darauf hin)
+identical(leistung$correct_n, leistung$correct_n_copy)
+# Die beiden Spalten sind wirklich exakt identisch. Die Kopie darf also bereinigt werden.
+
+
+# Welchen Datentyp haben die Personen-Codes in den beiden Datensätzen?
+class(leistung$participant_id)
+class(fragebogen$code)
+# Die participant_id im Leistungs-Fragebogen ist numerisch, der code im Fragebogen ist ein character.
+
+
+# Sämtliche Bereinigungsschritte in einer Pipe durchführen (Zuerst Variablennamen umbenennen, danach Personen-ID als character, danach nicht mehr benötigte Spalten weg)
+leistung <- leistung |>
+  rename(
+    code = participant_id,
+    accuracy_rate = accuracy_rte
+  ) |>
+  mutate(code = as.character(code)) |>
+  select(-correct_n_copy, -device_id, -record_status)
+
+
+# Dimenstionen prüfen
+dim(leistung)
+# Der Datensatz verfügt nun über 24 Zeilen und 7 Spalten.
+
+
+# Datentypen der Personen-ID prüfen
+class(leistung$code)
+class(fragebogen$code)
+# Die Personen-ID in beiden Datensätzen ist nun ein character, der gleich benannt ist. Der Merge über die Personen-ID sollte also funktionieren.
+```
+
+**Warum vor dem Merge?** Um zwei Datensätze verlässlich miteinander zusammenzuführen, brauchen wir übereinstimmende Join-Schlüssel. Deswegen sorgen wir mit diesem Schritt dafür, dass die Personen-ID in beiden Datensätzen gleich heisst (gemäss Codebook) und über denselben Datentypen verfügt.
+
+Auch sollten Rohdatenprobleme nicht erst in den zusammengeführten Datensatz übernommen werden.
+
+Die Zusatzspalten werden nicht allein aufgrund eines fremden Namens entfernt: die redundante Information und fehlende Relevanz wurden zuvor anhand des Codebooks geprüft.
+:::
+
+------------------------------------------------------------------------
+
+# B2: Probleme mit Werten und Kodierungen
+
+**Wiederholung aus EH8:** Ein gespeicherter Zahlenwert kann trotzdem als `character` vorhanden sein. Ein ungewöhnlicher Wert ist nicht automatisch falsch; ein Wert ausserhalb des dokumentierten Bereichs muss dagegen fachlich geprüft werden.
+
+### 🧭 B2.1: Zahlwörter erkennen und eindeutig umkodieren
+
+Untersucht die Variable `item_interest` im Blatt `fragebogen`. Welche Werte und welcher Datentyp liegen tatsächlich vor?
+
+Ordnet die eindeutig bekannten Zahlwörter wieder den numerischen Codes aus dem Codebook zu. **Erst danach** konvertiert ihr die Variable zu einem numerischen Typ.
+
+**Kontrolle:** Sind neue fehlende Werte entstanden? Liegen alle vorhandenen Werte zwischen 0 und 4?
+
+::: {.callout-tip collapse="true" title="Tipp B2.1"}
+`class()` und `unique()` zeigen Typ und Ausprägungen. Mit `case_when()` können bekannte Wörter durch ihre Ziffernfolgen ersetzt werden; erst danach folgt `as.numeric()`. Vergleicht die Zahl fehlender Werte vor und nach der Konvertierung.
+:::
+
+::: {.callout-tip collapse="true" title="Musterlösung B2.1"}
+```{r}
+# Datentyp der Variablen überprüfen
+class(fragebogen$item_interest)
+# Es handelt sich um einen character. Dies deutet auf ein Problem hin, da die Variable eigentlich numerische Werte enthalten sollte.
+
+
+# Welche Ausprägungen kommen vor?
+unique(fragebogen$item_interest)
+# "3" "2" "4" "zwei" "1" und "vier"
+
+
+# Wie viele fehlende Werte exisiteren vor der Umwandlung?
+fehlend_vorher <- sum(is.na(fragebogen$item_interest))
+# Es exisiteren keine fehlenden Werte.
+
+
+# Zahlwörter in Zahlen konvertieren (zuerst als character, danach einheitlich umwandeln)
+fragebogen <- fragebogen |>
+  mutate(
+    item_interest = case_when(
+      item_interest == "zwei" ~ "2",
+      item_interest == "vier" ~ "4",
+      TRUE ~ item_interest
+    ),
+    item_interest = as.numeric(item_interest)
+  )
+
+
+# Kontrolle Datentyp
+class(fragebogen$item_interest)
+# Die Variable ist nun numerisch.
+
+
+# Range nach Umwandlung prüfen
+range(fragebogen$item_interest)
+# Die Variable verfügt über einen Range von 1-4, was im theoretisch möglichen Range [0,4] liegt.
+
+
+# Sind neue fehlende Werte entstanden?
+sum(is.na(fragebogen$item_interest)) == fehlend_vorher
+# Es sind keine neuen fehlenden Werte durch die Umwandlung hinzugekommen.
+```
+
+**Begründung:** Nicht sofort einfach die Funktion `as.numeric()` auf unbekannte Wörter anwenden. Dadurch würdem sämtliche Antworten, welche nicht als Zahl ausgeschrieben sind, ungewollt zu `NA` werden. Erst nach erfolgter Umwandlung darf der Datentyp geändert werden.
+:::
+
+### 🧭 B2.2: Unzulässige Ratings von gültigen hohen Werten unterscheiden
+
+Die Variable `confidence_pre` soll laut Codebook im Rohzustand zwischen **0 und 10** liegen. Sucht nach Werten ausserhalb dieses Bereichs.
+
+Findet ihr einen ungewöhnlich hohen, aber noch gültigen Wert?
+
+Entscheidet, was mit dem wirklich unzulässigen Wert geschehen darf, wenn **keine verlässliche Korrekturquelle** vorliegt.
+
+**Wichtig:** Nicht einfach auf 10 begrenzen und nicht die ganze Person ausschliessen.
+
+::: {.callout-tip collapse="true" title="Tipp B2.2"}
+`range()` zeigt den beobachteten Bereich, `filter(confidence_pre < 0 | confidence_pre > 10)` die tatsächlich unzulässigen Werte. Im Studienprotokoll steht, wie mit unplausiblen Ratings ohne Quellbeleg umzugehen ist.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B2.2"}
+```{r}
+# Werte in absteigender Reihenfolge anzeigen
+leistung |>
+  select(code, confidence_pre) |>
+  arrange(desc(confidence_pre))
+
+
+# Range der Variablen prüfen
+range(leistung$confidence_pre, na.rm = TRUE)
+# Der Range der Variable liegt zwischen 4.4 und 12.0. Gemäss Codebook ist der theoretisch mögliche Range aber zwischen 0 und 10.
+
+
+# Welche Personen haben Werte ausserhalb des möglichen Wertebereichs?
+leistung |>
+  filter(confidence_pre < 0 | confidence_pre > 10) |>
+  select(code, confidence_pre)
+# Die Person 213 hat einen Wert von 12. Dies ist gemäss Codebook unzulässig.
+
+
+# Unzulässigen Wert in NA umwandeln
+leistung <- leistung |>
+  mutate(
+    confidence_pre = if_else(
+      confidence_pre < 0 | confidence_pre > 10,
+      NA, confidence_pre
+    )
+  )
+
+
+# Prüfen
+leistung |>
+  filter(code %in% c("213", "217")) |>
+  select(code, confidence_pre)
+# 217 behält den hohen, aber zulässigen Wert. Bei 213 ist der unzulässige Wert jetzt NA.
+```
+
+Bei ID **213** ist ein Wert von `12` auf einer 0-10-Skala unzulässig. Ohne verlässliche Korrekturquelle darf der Wert gemäss Codebook nicht einfach auf 10 gesetzt werden, sondern muss als `NA` klassifiziert werden. Die Person wird nicht einfach ausgeschlossen, sondern bloss dieser Wert als fehlend klassifiziert.
+
+Bei ID **217** wird ein Wert von `9.8` beobachtet. Dieser Wert ist zwar auffällig hoch, aber noch zulässig und bleibt deswegen unverändert.
+:::
+
+------------------------------------------------------------------------
+
+# B3: Probleme mit fehlenden Informationen
+
+**Wiederholung aus EH8:** Ein echtes `NA` wird von der Funktion `is.na()` zuverlässig erkannt. Ein spezieller Missing-Code ist für R hingegen zunächst nur eine Zahl. Er wird von R nicht automatisch als fehlender Wert erkannt, sondern in Funktionen wie jede andere Zahl auch behandelt.
+
+Fehlende Information kennzeichnen und einen Wert aus zuverlässigen Ausgangsdaten rekonstruieren sind zwei unterschiedliche Schritte.
+
+### 🧭 B3.1: Missing-Code und ungültigen Anteil unterscheiden
+
+Untersucht die Variable `accuracy_rate` im Tabellenblatt `leistung`. Laut Codebook muss diese Variable Werte zwischen 0 und 1 enthalten.
+
+**Schritt 1: Auffälligkeiten finden**
+
+Zählt zunächst, wie viele echte `NA`-Werte bereits vorhanden sind. Kontrolliert anschliessend den Wertebereich und zeigt Werte ausserhalb des theoretisch möglichen Ranges an.
+
+**Schritt 2: Auffälligkeiten einordnen**
+
+Vergleicht die gefundenen Werte mit dem Codebook. Ihr solltet zwei unterschiedliche Fälle entdecken:
+
+-   Missing-Code: Ein bestimmter Zahlenwert wird verwendet, um eine fehlende Angabe zu kennzeichnen. R erkennt diesen Wert aber noch nicht als `NA`.
+
+-   Ungültiger Anteil: Ein anderer Wert liegt ausserhalb des möglichen Bereichs und kann deshalb kein gütiger Anteil sein.
+
+**Schritt 3: Werte als fehlend kennzeichnen**
+
+Wandelt den dokumentierten Missing-Code in `NA` um. Ersetzt auch den ungültigen Anteilswert zunächst durch `NA`, da wir seinen tatsächlichen Wert noch nicht kennen.
+
+Alle übrigen Werte und Beobachtungen sollen erhalten bleiben.
+
+**💡 Wichtig:** Ein ungültiger Anteil muss nicht dauerhaft fehlen. Manchmal lässt er sich aus anderen, verlässlichen Angaben rekonstruieren. Ob das hier möglich ist, untersuchen wir in der nächsten Aufgabe.
+
+::: {.callout-tip collapse="true" title="Tipp B3.1"}
+`sum(is.na(...))`, `range(..., na.rm = TRUE)` und `filter(... < 0 | ... > 1)` diagnostizieren unterschiedliche Dinge. In der Codebook-Spalte *Missing code* steht, welche Zahl tatsächlich „fehlend“ bedeutet. `na_if()` ersetzt einen bestätigten Code; `if_else()` kann einen fachlich nachweislich ungültigen Wert gezielt auf `NA` setzen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B3.1"}
+```{r}
+# Wie viele echte NA bestehen?
+sum(is.na(leistung$accuracy_rate))
+# Im Datensatz sind zwei echte NA vorhanden.
+
+
+# Welchen Range besitzen die vorhandenen Werte?
+range(leistung$accuracy_rate, na.rm = TRUE)
+# Die vorhandenen Werte haben einen Range von -99 bis 1.2. Der theoretisch mögliche Range hingegen liegt zwischen 0 und 1.
+
+
+# Welche Beobachtungen liegen ausserhalb des theoretischen Ranges[0,1]
+leistung |>
+  filter(accuracy_rate < 0 | accuracy_rate > 1) |>
+  select(code, correct_n, accuracy_rate)
+# ID 216 hat einen Wert von -99; ID 219 einen Wert von 1.2. In der Variable correct_n ist aber in beiden Fällen eine gültige Beobachtung vorhanden.
+
+
+# Dokumentierte Missing Codes und unzulässige Werte als NA kennzeichnen
+leistung <- leistung |>
+  mutate(
+    accuracy_rate = na_if(accuracy_rate, -99),
+    accuracy_rate = if_else(
+      !is.na(accuracy_rate) &
+        (accuracy_rate < 0 | accuracy_rate > 1),
+      NA, accuracy_rate
+    )
+  )
+
+
+# Kontrolle, wie viele NA jetzt vorhanden sind
+sum(is.na(leistung$accuracy_rate))
+# nun sind vier NA vorhanden.
+```
+
+Gemäss Codebook steht der Wert `-99` für einen **speziellen Missing-Code**.
+
+Ein Wert von `1.20` steht dagegen nicht für einen speziellen Missing-Code, sondern ist nachweislich ein unmöglicher Anteil.
+
+Beide Fälle werden zunächst als fehlend gekennzeichnet.
+
+Die Primärdaten dürfen bei einer anschliessenden Rekonstruktion nur berücksichtigt werden, wenn sie plausibel und verlässlich sind.
+:::
+
+### 🧭 B3.2: Eindeutig berechenbare Werte rekonstruieren
+
+Prüft die Dokumentation der Variablen `correct_n` und `accuracy_rate`.
+
+Berechnet **ausschliesslich** fehlende Anteilswerte, wenn `correct_n` vorhanden und gemäss theoretisch möglichem Range gültig ist. Bereits vorhandene gültige Anteile dürft ihr nicht verändern.
+
+Vergleicht anschliessend die Werte der Codes `216`, `218`, `219` und `220`. Bei welcher Person lässt sich der Anteil nicht rekonstruieren - und weshalb?
+
+::: {.callout-tip collapse="true" title="Tipp B3.2"}
+Die Berechnungsregel lautet `correct_n / 20`. Nutzt `if_else(is.na(accuracy_rate) & !is.na(correct_n), correct_n / 20, accuracy_rate)`. Fehlt auch `correct_n`, könnt ihr die ursprüngliche Aufgabenleistung nicht erfinden. Kontrolliert zuletzt, ob die vorhandenen Anteile zum jeweiligen Zählwert passen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B3.2"}
+```{r}
+# Fehlende Anteilswerte berechnen
+leistung <- leistung |>
+  mutate(
+    accuracy_rate = if_else(
+      is.na(accuracy_rate) & !is.na(correct_n),
+      correct_n / 20,
+      accuracy_rate
+    )
+  )
+# So wird der Anteilswert nur berechnet, wenn die accuracy_rate momentan einen fehlenden Wert aufweist, correct_n aber vorhanden ist. Sonstige Werte werden unverändert beibehalten.
+
+
+# Personen-IDs miteinander vergleichen
+leistung |>
+  filter(code %in% c("216", "218", "219", "220")) |>
+  select(code, correct_n, accuracy_rate)
+# Nur bei Person 218 wurde keine accuracy_rate berechnet, weil dort kein gültiger Wert für correct_n vorliegt. Bei den restlichen Personen konnte der Wert rekonstruiert werden.
+
+
+# Fehlende Werte prüfen
+sum(is.na(leistung$accuracy_rate))
+# Wie vorhin gezeigt, exisitert bei der Person 218 ein fehlender Wert.
+```
+
+Bei der Person mit der ID **218** fehlen sowohl die primär erhobene Zahl korrekter Aufgaben als auch der davon abgeleitete Anteil. Eine Rekonstruktion ist somit nicht möglich.
+
+Eine fehlende Antwort führt aber nicht automatisch zum Ausschluss dieser Person.
+:::
+
+------------------------------------------------------------------------
+
+# B4: Zusammenführen und kontrollieren
+
+### 🧭 B4.1: Die beiden bereinigten Rohdatentabellen zusammenführen
+
+Überprüft jetzt die Personen-IDs in den beiden Tabellenblättern `leistung` und `fragebogen`. Sind die Datentypen gleich? Gibt es Codes, die nur in einer der beiden Tabellen vorkommen?
+
+Führt die Daten anschliessend über `code` zusammen und nennt den Wide-Datensatz `dat_clean`.
+
+**Checkpoint:** Wie viele Zeilen und Spalten besitzt `dat_clean`? Weshalb wäre ein Merge vor dem Entfernen der doppelte Ausfzeichnungen problematisch gewesen?
+
+::: {.callout-tip collapse="true" title="Tipp B4.1"}
+`anti_join()` zeigt Beobachtungen ohne passenden Join-Schlüssel in der anderen Tabelle. `full_join(..., by = "code")` führt beide Tabellen zusammen. Prüft nach dem Join `dim()` und `count(code) |> filter(n > 1)`. Die ID-Typen wurden bereits in B1 vereinheitlicht.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B4.1"}
+```{r}
+# Datentyp der ID-Variablen anzeigen
+class(leistung$code)
+class(fragebogen$code)
+# Beide ID-Variablen heissen gleich und sind als character gespeichert.
+
+
+# Gibt es Codes, die nur in einer der beiden Tabellen vorkommen?
+anti_join(leistung, fragebogen, by = "code")
+anti_join(fragebogen, leistung, by = "code")
+# Es gibt in beiden Tabellenblättern keinen Personen, die im jeweils anderen Datensatz nicht vorkommen. Wichtig ist hier, dass anti_join() nur zur Kontrolle verwendet wird, nicht zum Erstellen des resultierenden Gesamtdatensatzes! Es findet keine Zuweisung (<- ) statt.
+
+
+# Gesamtdatensatz dat_clean erstellen
+dat_clean <- leistung |>
+  full_join(fragebogen, by = "code")
+
+
+# Dimensionen von dat_clean prüfen
+dim(dat_clean)
+# 24 Beobachtungen und 10 Spalten
+
+
+# Gibt es mehrfach vorkommende IDs?
+dat_clean |>
+  count(code) |>
+  filter(n > 1)
+# Es gibt keine doppelten Personen-IDs.
+```
+
+Wenn jede Person pro Ausgangsdatensatz genau einmal vorkommt, kann der Wide-Merge der beiden Tabellen pro Person genau eine resultierende Zeile erzeugen. Die Zuordnung der Personen ist eindeutig.
+
+Würde man doppelte IDs vor dem Join ignorieren, könnten zusätzliche oder sogar vervielfachte Zeilen entstehen, weil die Zuordnung nicht mehr eindeutig ist.
+:::
+
+------------------------------------------------------------------------
+
+# B5: Probleme mit Skalen und Richtung
+
+**Wiederholung aus EH8:** Ein beobachteter Wertebereich ist ein Hinweis auf eine Skalierung, aber kein alleiniger Beweis.
+
+Manche Items sind negativ formuliert; bevor man sie zu einem gleichgerichteten Score zusammenfast, muss man ihre aktuelle Kodierung kennen.
+
+### 🧭 B5.1: Bereits transformierte Ratings richtig behandeln
+
+Vergleicht nochmals die ursprünglichen Skalen der drei `confidence_`-Variablen im Codebook. Ihr möchtet sie alle auf einer **Zielskala von 0-100** haben. Welche der Spalten darf nicht noch einmal mit zehn multipliziert werden?
+
+Transformiert nur die wirklich benötigten Spalten im zusammengeführten `dat_clean`. Kontrolliert die Wertebereiche und erläutert, warum eine automatische Entscheidung allein anhand des Maximums einer Variable riskant ist.
+
+::: {.callout-tip collapse="true" title="Tipp B5.1"}
+Im Codebook sind `confidence_pre` und `confidence_follow` als 0–10 dokumentiert, `confidence_post` bereits als 0–100. Mit `mutate(across(c(...), ~ .x * 10))` könnt ihr genau die benötigten Spalten umrechnen. Nach der Transformation bleiben vorhandene `NA`-Werte erhalten.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B5.1"}
+```{r}
+# Überblick über die drei Confidence-Variablen
+summary(dat_clean[c("confidence_pre", "confidence_post",
+                    "confidence_follow")])
+# Es ist ersichtlich, dass confidence_post bereits transformiert ist.
+
+
+# confidence_pre und confidence_follow transformieren
+dat_clean <- dat_clean |>
+  mutate(
+    across(c(confidence_pre, confidence_follow), ~ .x * 10)
+  )
+
+
+# Erneuter Überblick über die drei Confidence-Variablen
+summary(dat_clean[c("confidence_pre", "confidence_post",
+                    "confidence_follow")])
+# Nun verfügen sämtliche der drei Variablen über die richtige Skalierung.
+```
+
+`confidence_post` liegt im Rohdatensatz gemäss Codebook bereits auf der 0-100-Skala und bleibt deswegen unverändert. Die beiden anderen Ratings werden von **0-10** auf **0-100** umgerechnet.
+
+Eine automatische Entscheidung nur anhand des Maximalwerts einer Variable ist riskant, weil eine Variable auch zufällig nur niedrige beobachtete Werte besitzen und trotzdem schon formatiert worden sein kann. Ausschlaggeben sollte hier die Dokumentation sein.
+:::
+
+### 🧭 B5.2: Inverses Item erkennen, umpolen und prüfen
+
+Lest im Codebook die Formulierungen der drei Lernfokus-Items.
+
+Welches Item ist negativ formuliert? Klärt auch, ob es im bereitgestellten Rohdatensatz bereits umgepolt ist.
+
+Erstellt im `dat_clean` eine **neue Spalte** namens `item_distract_scored`, die das negativ formulierte Item auf einer 0-4-Skala in dieselbe Richtung wie die beiden übrigen Items bringt. Die Rohantwort `item_distract_r` bleibt zum Vergleicht erhalten.
+
+Prüft anhand von mindestens drei Personen, ob die Umrechnung stimmt.
+
+::: {.callout-tip collapse="true" title="Tipp B5.2"}
+Laut Codebook ist `item_distract_r` invers **formuliert**, aber die gespeicherten Rohwerte sind noch nicht umgepolt. Bei der Skala von 0 bis 4 gilt `neuer_wert = 4 - alter_wert`. Eine neue Spalte ist ein guter Weg, Vorher und Nachher nebeneinander zu prüfen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B5.2"}
+```{r}
+# Neue Spalte item_distract_scored erstellen
+dat_clean <- dat_clean |>
+  mutate(item_distract_scored = 4 - item_distract_r)
+
+
+# Die Umkodierung prüfen (anhand der ersten sechs Personen)
+dat_clean |>
+  select(code, item_distract_r, item_distract_scored) |>
+  head()
+```
+
+Laut Codebook ist `item_distract_r` invers **formuliert**, aber die gespeicherten Rohwerte sind noch nicht umgepolt.
+
+Die Umrechnung hat gemäss Inspektion des Datensatzes funktioniert. Aus `0 → 4`, aus `1 → 3`, aus `3 → 1` und aus `4 → 0`. Eine zwei bleibt eine zwei.
+:::
+
+------------------------------------------------------------------------
+
+# B6: Checkpoint und Reproduzierbarkeit
+
+### 🧭 B6.1: Das Ergebnis kontrollieren und abspeichern
+
+Kontrolliert eure wichtigsten Ergebnisse und speichert den bereinigten Datensatz unter `data/processed/fehlerlabor_clean.csv`. Rendert anschliessend `fehlerlabor_vorlage.qmd` **von oben bis unten**. Funktioniert alles auch nach einem Neustart und ohne manuelle Eingriffe in Excel?
+
+**Euer Ziel:** **24 Zeilen und 11 Spalten**, eindeutige Personen-IDs, gültige Wertebereiche und nur begründet verbleibende `NA`-Werte.
+
+::: {.callout-tip collapse="true" title="Tipp B6.1"}
+Mit `stopifnot()` könnt ihr überprüfbare Erwartungen absichern. Ein Ordner entsteht mit `dir.create(..., recursive = TRUE, showWarnings = FALSE)`. Danach könnt ihr mit `readr::write_csv()` schreiben. Schaut besonders auf die noch verbleibenden fehlenden Werte: Nicht alle müssen oder können verschwinden.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung B6.1"}
+```{r, echo=TRUE, eval=FALSE}
+stopifnot(
+  nrow(dat_clean) == 24,
+  ncol(dat_clean) == 11,
+  dplyr::n_distinct(dat_clean$code) == 24,
+  sum(is.na(dat_clean$accuracy_rate)) == 1
+)
+
+dir.create("data/processed", recursive = TRUE, showWarnings = FALSE)
+readr::write_csv(dat_clean, "data/processed/fehlerlabor_clean.csv")
+```
+
+**Kontrolle:** 24 Personen, 11 Variablen, keine doppelten IDs; die Rate fehlt nur noch, wenn auch die primäre Aufgabenleistung fehlt (ID 218). Bei ID 213 ist ein ungültiges Pre-Rating begründet `NA`; bei ID 210 fehlt eine einzelne Fragebogenantwort. **Diese Personen bleiben im Datensatz.**
+:::
+
+------------------------------------------------------------------------
+
+# ⭐ Freiwillige Vertiefungen
+
+Die folgenden Aufgaben könnt ihr direkt nach dem Kernpfad oder in einer weiteren Übungsphase in EH9 bearbeiten. Sie dienen der freiwilligen Vertiefung und sind **keine Voraussetzung für das nächste Kapitel im gemeinsamen Forschungsprojekt.**
+
+### ⭐ V1: Eine kleine Forschungsfrage mit den bereinigten Daten beantworten
+
+**Fragestellung:** Welche Bedingung weist in unserem simulierten Datensatz den höheren durchschnittlichen Anteil korrekter Antworten auf?
+
+Erstellt eine nach dem Mittelwert absteigend sortierte Ergebnistabelle mit `condition`, der Anzahl Personen, der Anzahl vorhandener Anteilswerte und der durchschnittlichen `accuracy_rate`.
+
+Achtet auf die unterschiedlichen Nenner und erklärt, warum dieser Vergleich **keine wissenschaftliche Schlussfolgerung über Musik** erlaubt.
+
+::: {.callout-tip collapse="true" title="Tipp V1"}
+`group_by(condition)`, `summarise()`, `n()`, `sum(!is.na(accuracy_rate))` und `mean(accuracy_rate, na.rm = TRUE)` liefern die benötigten Werte. Mit `arrange(desc(...))` sortiert ihr das Ergebnis.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung V1"}
+```{r}
+dat_clean |>
+  group_by(condition) |>
+  summarise(
+    n_personen = n(),
+    n_gueltige_anteile = sum(!is.na(accuracy_rate)),
+    mittlere_accuracy = mean(accuracy_rate, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(desc(mittlere_accuracy))
+```
+
+Im simulierten Datensatz liegt `ruhe` mit ungefähr **0.771** vor `musik` mit ungefähr **0.723**. Beide Bedingungen umfassen zwölf Personen, aber bei `musik` sind nur elf Anteilswerte vorhanden. Die Daten sind vollständig erfunden; daraus darf kein realer Effekt abgeleitet werden.
+
+Zudem handelt es sich hier nur um deskriptive Ergebnisse. Ob sich die beiden Mittelwerte wirklich statistisch signifikant voneinander unterscheiden, müsste mit einem geeigneten statistischen Inferenztest untersucht werden.
+:::
+
+### ⭐ V2: Wie verändert sich die Selbsteinschätzung?
+
+**Fragestellung:** in welcher Lernbedingung steigt die subjektive Einschätzung der eigenen Konzentrationsleistung von vor der Aufgabe bis direkt danach im Durchschnitt stärker an?
+
+Verwendet die Variablen `confidence_pre` und `confidence_post` aus eurem bereinigten Datensatz `dat_clean`.
+
+Berechnet zunächst für jede Person die Veränderung zwischen den beiden Messzeitpunkten:
+
+**Veränderung = Einschätzung nach der Aufgabe - Einschätzung vor der Aufgabe**
+
+Erstellt anschliessend eine übersichtliche Ergebnistabelle, die für jede Lernbedingung die folgenden Informationen enthält:
+
+-   Anzahl Personen
+
+-   Anzahl Personen mit zwei vorhandenen Ratings
+
+-   Durchschnittliche Veränderung der Selbsteinschätzung
+
+Sortiert die Bedingungen nach der durchschnittlichen Veränderung, beginnend mit dem höchsten Wert.
+
+**Kontrollfrage:** Warum können sich die Anzahl der Personen und die Anzahl der gültigen Vergleiche unterscheiden?
+
+Das Ergebnis soll nicht dauerhaft in `data_clean` gespeichert werden.
+
+::: {.callout-tip collapse="true" title="Tipp V2"}
+Überlegt, welche Funktion eine neue Variable berechnet und welche Funktionen anschliessend eine gruppierte Zusammenfassung ermöglichen.
+
+Mit `mutate()` könnt ihr die Veränderung berechnen. Verwendet anschliessend `group_by`, `summarise()` und `arrange()`.
+
+Achtet bei der Mittelwertberechnung auf fehlende Werte. Beide Ratingvariablen liegen in `dat_clean` bereits auf der Skala von 0-100.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung V2"}
+```{r}
+dat_clean |>
+  mutate(
+    veraenderung = confidence_post - confidence_pre
+  ) |>
+  group_by(condition) |>
+  summarise(
+    n_personen = n(),
+    n_gueltige_vergleiche = sum(!is.na(veraenderung)),
+    mittlere_veraenderung = mean(veraenderung, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(desc(mittlere_veraenderung))
+```
+
+**Interpretation:** In beiden Bedingungen steigt die durchschnittliche Selbsteinschätzung nach der Aufgabe um ungefähr sechs Punkte auf der 0-100-Skala. Der Unterschied zwischen den beiden Bedingungen ist sehr gering.
+
+Bei einer Person in der Bedingung `ruhe` fehlt das ursprüngliche Rating. Deshalb kann für diese Person keine Veränderung berechnet werden. Sie bleibt aber im Datensatz erhalten.
+
+Da es sich um vollständig simulierte Daten handelt, lassen sich aus diesem Vergleich keine wissenschaftlichen Schlussfolgerungen über den Einfluss von Musik ableiten. Auch fehlt eine inferenzstatistische Absicherung des beobachteten Unterschieds zwischen den beiden Gruppen.
+:::
+
+### ⭐ V3: Wie viele Personen berichten eine geringe Ablenkbarkeit?
+
+**Fragestellung:** In welcher Lernbedingung berichten anteilig mehr Personen, dass sie sich beim Lernen eher wenig ablenken lassen?
+
+Verwendet dafür die bereits umgepolte Variable `item_distract_scored` aus eurem Datensatz `dat_clean`.
+
+Erinnert euch: Die ursprüngliche Aussage lautete: *"Beim Lernen lasse ich mich leicht ablenken*.*"* Nach der Umpolung bedeuten **höhere Werte eine geringere berichtete Ablenkbarkeit.**
+
+Für diese Übung betrachten wir die Werte **3 und 4** als hohe Werte auf der umgepolten Skala.
+
+Erstellt eine Ergebnistabelle mit:
+
+-   der Lernbedingung (`condition`),
+
+-   der Anzahl vorhandener Antworten,
+
+-   der Anzahl Personen mit einem Wert von 3 oder 4,
+
+-   dem entsprechenden prozentualen Anteil.
+
+Sortiert die Bedingungen nach dem prozentualen Anteil, beginnend mit dem höchsten Wert.
+
+Verändert auch hier den ursprünglichen Datensatz nicht.
+
+::: {.callout-tip collapse="true" title="Tipp V3"}
+Ihr könnt mit einem Vergleich wie `item_distract_scored >= 3` prüfen, welche Personen einen hohen Wert aufweisen.
+
+R behandelt das Ergebnis dieses Vergleichs als `TRUE` oder `FALSE`. Mit `sum()` könnt ihr zählen, wie viele Personen die Bedingung erfüllen.
+
+Berechnet anschliessend den prozentualen Anteil:
+
+`Anteil = Anzahl hoher Wert / Anzahl gültiger Antworten * 100`
+
+Mit `group_by()`, `summarise()` und `arrange()` könnt ihr alles in einer Pipeline kombinieren.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung V2"}
+```{r}
+dat_clean |>
+  group_by(condition) |>
+  summarise(
+    n_antworten = sum(!is.na(item_distract_scored)),
+    n_hohe_werte = sum(item_distract_scored >= 3, na.rm = TRUE),
+    anteil_prozent = round(
+      n_hohe_werte / n_antworten *100, 1
+    ),
+    .groups = "drop"
+  ) |>
+  arrange(desc(anteil_prozent))
+```
+
+**Interpretation:** In der Bedingung `ruhe` weisen 50% der Personen einen hohen Wert auf der umgepolten Ablenkungsskala auf. In der Bedingung `musik` sind es 25%.
+
+Die Werte 3 und 4 haben wir hier ausschliesslich für den deskriptiven Vergleich ausgewählt. Sie stellen keinen wissenschaftlich validierten Grenzwert dar.
+:::
+
+------------------------------------------------------------------------
+
+## ✅ Abschluss: Was nehmt ihr aus dem Fehlerlabor mit?
+
+Ihr habt einen Datensatz **nicht einfach repariert**, sondern bei jeder Auffälligkeit zuerst mit der Dokumentation geprüft, **ob und wie eine Korrektur zulässig ist**. Eure Verarbeitung bleibt im Quarto-Skript nachvollziehbar; die ursprüngliche Excel-Datei und das mitgelieferte Codebook sind unverändert.
+
+**Entscheidende Regel:** Datenprobleme werden **so früh wie sinnvoll, so spät wie nötig** behoben. Nicht jede Korrektur muss zwingend vor dem Merge stattfinden; die Schlüssel für den Join und Probleme, die den Merge verfälschen könnten, sollten jedoch möglichst vorher bereinigt werden.
+
+**Ausblick auf EH9:** Im gemeinsamen Forschungsprojekt werden wir `mmq_mean` berechnen und ausschliesslich `pre1` und `pre4` für den Long-Datensatz verwenden. Das Fehlerlabor ist davon unabhängig und kann mit den freiwilligen Vertiefungen abgeschlossen werden.
