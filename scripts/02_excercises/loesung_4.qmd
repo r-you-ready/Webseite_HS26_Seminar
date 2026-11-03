@@ -34,7 +34,13 @@ Bei Bedarf findest du hier nochmals die Slides zu Einheit 7:
 </iframe>
 :::
 
-Die Slides für EH8 werden kurz vor dem Seminartermin hochgeladen.
+Und hier noch die Slides zu Einheit 8:
+
+::: {=html}
+<iframe src="../01_slides/EH_8.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+
+</iframe>
+:::
 
 <br>
 
@@ -680,7 +686,7 @@ Nach dem Fehlerlabor könnt ihr die erwartete Datenstruktur anhand eines Codeboo
 ## ⏱️ Zeitplan
 
 | Abschnitt | Richtzeit | Schwerpunkt |
-|:------------------------|-----------------:|:----------------------------|
+|:------------------------|------------------:|:----------------------------|
 | **B0 – Studie und Codebook verstehen** | ca. 7 Min. | Erwartete Daten kennenlernen und importieren |
 | **B1 – Datenstruktur** | ca. 15 Min. | Leere Zeilen, Duplikate, IDs, Zusatzspalten |
 | **B2 – Werte und Kodierung** | ca. 11 Min. | Zahlwörter, Datentypen, ungültige Ratings |
