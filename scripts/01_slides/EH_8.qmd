@@ -1330,8 +1330,30 @@ In unserem Forschungsprojekt erfolgt diese Vorbereitung vor der Berechnung von m
 
 ------------------------------------------------------------------------
 
-Folie zu Hands-on 4B
+## Nun: Fehlerlabor
+
+<br>**N**
+
+![](../../images/fehlerlabor.png){fig-align="center" width="65%"}
+
+<br>
+
+**Jetzt seid ihr dran:** Öffnet Hands-on 4B auf der Seminarwebseite, ladet die Arbeitsvorlage, den Excel-Datensatz und das Codebook herunter und bearbeitet die Aufgaben in `fehlerlabor_vorlage.qmd`.
 
 ------------------------------------------------------------------------
 
-Folie Ausblick HU und Programm nächste Woche
+## Hausübungen & Ausblick
+
+-   R Hausübung I um eine Woche verschoben: **NEU 18.11.2026!**
+
+    -   Unterlagen dazu ab heute auf der Webseite
+
+    -   Abgabe wie gewohnt auf ILIAS
+
+    -   Personalisierte Rückmeldung zu Korrektheit und Code-Stil von uns
+
+<br>
+
+**Weitere Schritte:**
+
+-   **EH9 (11.11.):** MMQ-Skalenwert berechnen und Long-Daten aus **`pre1` und `pre4`** erzeugen.
