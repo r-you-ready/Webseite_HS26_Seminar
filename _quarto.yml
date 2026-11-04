@@ -5,6 +5,7 @@ project:
   resources:
     - PDFs
     - scripts/02_excercises/downloads/*.qmd
+    - scripts/02_excercises/downloads/*.zip
   render:
     - "*.qmd"
     - "scripts/**/*.qmd"
@@ -63,6 +64,8 @@ website:
             text: "Codebook (21.10.2026)"
           - href: scripts/02_excercises/peer_feedback_codebook.qmd
             text: "Peer-Feedback Codebook (28.10.2026)"
+          - href: scripts/02_excercises/hausuebung_1_webseite.qmd
+            text: "R Übung I (18.11.2026)"
       - href: scripts/04_misc/wettbewerb_cheatsheet.qmd
         text: "Wettbewerb: R-Cheatsheet"
       - href: scripts/04_misc/Bedarfsanalyse.qmd

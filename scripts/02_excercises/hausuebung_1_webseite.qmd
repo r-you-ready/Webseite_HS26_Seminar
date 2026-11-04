@@ -1,0 +1,68 @@
+---
+title: "R-Hausübung 1"
+subtitle: "Vom Rohdatensatz zu nachvollziehbaren Skalenwerten"
+lang: de-CH
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+In der ersten R-Hausübung setzt du die bisher behandelten Schritte der Datenaufbereitung **eigenständig an einem zusammenhängenden Datensatz** um. Ziel ist nicht (nur) ein korrektes Ergebnis, sondern ein **verständliches, gut strukturiertes und reproduzierbares Quarto-Dokument**. Die dafür benötigten Verfahren kennst du aus dem Seminar.
+
+::: {.callout-important title="Abgabe und Bewertung"}
+**Abgabefrist:** Mittwoch, **18. November 2026** **23:55 Uhr**\
+**Abgabeort:** **ILIAS**\
+**Bearbeitungszeit:** ungefähr **2 Stunden**\
+**Bewertung:** maximal **4 Punkte**
+:::
+
+## Arbeitsauftrag
+
+Bearbeite die Aufgaben in der mitgelieferten Quarto-Datei selbstständig. Du arbeitest mit einem **simulierten Fragebogendatensatz** und durchläufst den Weg von den Rohdaten bis zu einem aufbereiteten Datensatz mit Skalenwerten.
+
+Achte besonders darauf, dass deine Arbeitsschritte nachvollziehbar sind: Prüfe deine Ergebnisse, begründe Entscheidungen kurz und verwende eine klare, gut lesbare Struktur. Wir schauen uns bei der Korrektur auch die **Qualität und den Stil deines R-Codes** an.
+
+## Materialien herunterladen
+
+[**ZIP-Paket für R-Hausübung 1 herunterladen**](downloads/hausuebung_1_studierendenpaket.zip)
+
+Das ZIP-Paket enthält ein vorbereitetes **RStudio-Projekt**, die **Quarto-Aufgabenstellung** sowie den **unveränderten Übungsdatensatz**. Die Ordner für Rohdaten und bearbeitete Daten sind bereits angelegt.
+
+## So startest du
+
+1.  **Lade das ZIP-Paket herunter und entpacke es** vollständig auf deinem Computer. Arbeite nicht direkt innerhalb der ZIP-Datei und auch nicht im Downloads-Ordner.
+2.  **Öffne `hausuebung_1.Rproj`** aus dem entpackten Ordner in RStudio.
+3.  **Öffne `hausuebung_1_studierende.qmd`.** In dieser Datei findest du alle fachlichen Aufgaben und die dafür vorgesehenen R-Codeblöcke.
+4.  **Ergänze deinen Code und deine kurzen Antworten** direkt im Quarto-Dokument. Arbeite möglichst mit den im Seminar behandelten Vorgehensweisen. Die zugehörige CSV-Datei liegt bereits unter `data/raw/fake_bfi_dataset.csv`.
+5.  **Kontrolliere deine Arbeit und rendere das Quarto-Dokument** über **Render** in RStudio. Dabei soll eine HTML-Datei entstehen. Lass die Ordnerstruktur und die Rohdatei unverändert; speichere neu erzeugte Daten im Ordner `data/processed/`.
+
+::: {.callout-tip title="Wenn eine Aufgabe nicht vollständig gelingt"}
+Zeige deinen bisherigen Lösungsversuch und beschreibe kurz, was nicht funktioniert oder woran du zweifelst. Wenn eine fehlerhafte Codezeile das Rendern verhindert, kannst du sie nach einem dokumentierten Versuch auskommentieren. Uns ist ein nachvollziehbarer eigener Lösungsweg wichtiger als eine scheinbar perfekte, nicht erklärbare Lösung.
+:::
+
+## Was musst du auf ILIAS abgeben?
+
+Gib **ein ZIP-Archiv mit deinem vollständigen RStudio-Projektordner** ab, beispielsweise `Nachname_Vorname_RHU1.zip`. Darin sollen mindestens diese Dateien enthalten sein:
+
+-   die **bearbeitete Quarto-Datei** (`.qmd`) mit deinem R-Code und deinen kurzen Antworten;
+-   die **gerenderte HTML-Datei** (`.html`), sofern das Rendern gelingt;
+-   die **RStudio-Projektdatei** (`.Rproj`);
+-   der **unveränderte Rohdatensatz** in `data/raw/`;
+-   deine erstellte **Ergebnisdatei** in `data/processed/`, sofern du bis zu diesem Schritt gekommen bist.
+
+**Wichtig:** Lade nicht nur die HTML-Datei hoch. Wir benötigen auch den **R-Code**, damit wir deine einzelnen Schritte nachvollziehen und dir gezieltes Feedback geben können.
+
+## Worauf achten wir bei der Bewertung?
+
+Die Hausübung wird mit **maximal 4 Punkten** bewertet. Wir berücksichtigen sowohl die fachliche Bearbeitung als auch die Art, wie du die Aufgaben in R löst und dokumentierst.
+
+| Schwerpunkt | Darauf achten wir |
+|----|----|
+| **Daten aufbereiten** | Auffälligkeiten prüfen, Bereinigungsschritte begründen und Ergebnisse kontrollieren |
+| **Daten auswerten** | Passende Zusammenfassungen erstellen, Items korrekt vorbereiten und Skalenwerte berechnen |
+| **Reproduzierbarkeit und Code-Qualität** | Logische Reihenfolge, verständliche Objektnamen, übersichtlicher Code und ein möglichst vollständig ausführbares Quarto-Dokument |
+
+Du musst **keine zusätzlichen R-Funktionen recherchieren**, um die Hausübung zu bearbeiten. Greife auf die Seminarunterlagen zurück und überlege jeweils selbst, welches der bereits bekannten Werkzeuge zur Aufgabe passt.
+
+Selbstverständlich darfst du aber alternative Funktionen verwenden, wenn du dies gerne möchtest!
