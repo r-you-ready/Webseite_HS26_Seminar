@@ -1009,7 +1009,7 @@ Ordnet die eindeutig bekannten Zahlwörter wieder den numerischen Codes aus dem 
 `class()` und `unique()` zeigen Typ und Ausprägungen. Mit `case_when()` können bekannte Wörter durch ihre Ziffernfolgen ersetzt werden; erst danach folgt `as.numeric()`. Vergleicht die Zahl fehlender Werte vor und nach der Konvertierung.
 :::
 
-::: {.callout-tip collapse="true" title="Musterlösung B2.1"}
+::: {.callout-note collapse="true" title="Musterlösung B2.1"}
 ```{r}
 # Datentyp der Variablen überprüfen
 class(fragebogen$item_interest)
