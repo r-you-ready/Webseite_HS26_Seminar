@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 9"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 9"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -16,572 +16,514 @@ format:
     progress: true
     controls: true
     embed-resources: true
-bibliography: references.bib
-draft: true
+draft: false
 ---
 
 ```{r, echo = FALSE, message=FALSE}
 
 library(tidyverse)
 library(palmerpenguins)
-
-
-bfi_10_data <- read_delim("raw/bfi_10_data.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-bfi_10 <- drop_na(bfi_10_data)
-
-
-penguins <- penguins
+penguins <- palmerpenguins::penguins
+dat_full <- readr::read_delim("raw/dat_full.csv")
 ```
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**9. Einheit**, 22.04.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**9. Einheit**, 11.11.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ------------------------------------------------------------------------
 
-## Heute:
+## Fortsetzung Fehlerlabor
 
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
-:::
+<br>
+
+![](../../images/fehlerlabor.png){fig-align="center" width="65%"}
+
+<br>
+
+**Ca. 30 Minuten: Weiterarbeit Fehlerlabor**
 
 ------------------------------------------------------------------------
 
-## Fragen zu Hands On Block 4?
+## Wo befinden wir uns?
 
-Neue Variablen im Codebook ergänzen bzw. anpassen
+**AUFBEREITEN: Die letzten Schritte vor dem Wechsel zur Datenanalyse**
 
-![](../../images/EH_7/Bild1.png){fig-align="center" width="411"}
+<br>
+
+![](../../images/Workflow_EH4.png){fig-align="center" width="75%"}
+
+<br>
+
+**Bisher:** Daten zusammengeführt, dokumentiert und transformiert.
+
+**Heute:** Zurück zum gemeinsamen Forschungsprojekt - wir vervollständigen `processing.qmd`.
+
+**Nächste Woche:** Wir beginnen, unsere Daten zu beschrieben und zu visualisieren.
+
+------------------------------------------------------------------------
+
+## Zwei letzte Schritte vor der Analyse
+
+**Heute vervollständigen wir `processing.qmd`**
+
+<br>
+
+![](../../images/EH9_Einstieg.png){fig-align="center" width="65%"}
+
+<br>
+
+**Ergebnis heute:** `dat_full.csv` (mit `mmq_mean`) und `dat_long.csv` im Processed-Ordner.
+
+------------------------------------------------------------------------
+
+## Warum berechnen wir überhaupt Skalenwerte?
+
+**Mehrere Items sollen gemeinsam ein psychologisches Merkmal erfassen**
+
+<br>
+
+![](../../images/EH9_Skalenwerte.png){fig-align="center" width="65%"}
+
+<br>
+
+-   **Item:** einzelne Frage bzw. Aussage im Fragebogen
+
+-   **Skalenwert:** zusammenfassender Wert für eine Person
+
+-   **Mittelwert:** bleibt auf der ursprünglichen Antwortskala (hier 0-4)
 
 ::: notes
-mmq_mean & Pre Ratings
+Unser MMQ-Fragebogen besteht in den bereitgestellten Daten aus 18 Items. Wir möchten aber nicht 18 isolierte Variablen miteinander vergleichen, sondern einen gemeinsamen Kennwert pro Person bilden.
+
+Der Mittelwert behält die ursprüngliche 0-4-Skala bei und ist deshalb einfacher interpretierbar als ein Summenwert.
 :::
 
 ------------------------------------------------------------------------
 
-## Genzplyr 💅
+## Erst prüfen, dann mitteln
 
-Falls euch die `dplyr()` Funktionen zu Öde sind 😄[genzplyr](https://hadley.github.io/genzplyr/) - Hadley Wickham
+**Vor der Skalenberechnung müssen Antwortformat, Polung und fehlende Werte geklärt sein**
 
-![](../../images/EH_9/Genzplyr.png){fig-align="center"}
+<br>
+
+![](../../images/EH9_Voraussetzungen_Skalenwert.png){fig-align="center" width="85%"}
+
+<br>
+
+**Merke:** Items erst korrekt kodieren und polen – dann zusammenfassen.
 
 ------------------------------------------------------------------------
 
-## Info: Masterarbeiten zu vergeben!
+## Von Textantworten zu Zahlen
 
-:::::: columns
-::: {.column width="33%"}
-![](../../images/EH_10/MA_1.png)
+**Likert-Skalen verwenden häufig textbasierte Antwortkategorien - für statistische Auswertungen brauchen wir numerische Codes**
+
+![](../../images/EH9_Likert.png){fig-align="center" width="85%"}
+
+**Wichtig:** Die numerischen Codes müssen der inhaltlichen Reihenfolge der Antwortkategorien entsprechen.
+
+<br>
+
+**Hinweis:** Dies ist ein allgemeines Beispiel. Unsere MMQ-Daten sind bereits numerisch kodiert.
+
+::: notes
+Viele Fragebögen arbeiten mit sprachlich formulierten Antwortkategorien, vor allem bei Likert-Skalen.
+
+Damit wir Mittelwerte berechnen oder andere statistische Analysen durchführen können, brauchen wir numerische Werte.
+
+Wichtig ist, dass die Reihenfolge inhaltlich korrekt bleibt: von niedriger Zustimmung zu hoher Zustimmung.
+
+Das hier ist ein allgemeines Beispiel. Unsere MMQ-Daten liegen bereits numerisch vor, deshlab müssen wir diesen Schritt dort nicht erneut durchführen.
 :::
 
-::: {.column width="33%"}
-![](../../images/EH_10/MA_2.png)
-:::
-
-::: {.column width="33%"}
-![](../../images/EH_10/MA_3.png)
-:::
-::::::
-
 ------------------------------------------------------------------------
 
-## Inhalte heute
+## So kodieren wir Textantworten in R
+
+**Mit `case_when()` übersetzen wir textbasierte Antwortkategorien in numerische Werte**
 
 <br>
 
-**1. Daten strukturieren**
-
--   Wide- vs. Long-Format verstehen
-
--   Daten gezielt transformieren
-
-**2. Datenqualität prüfen**
-
--   Verteilungen beurteilen (Schiefe, Kurtosis)
-
--   Ausreisser erkennen
-
--   Skalenreliabilität einschätzen
-
-------------------------------------------------------------------------
-
-## Wie können Daten organisiert sein?
-
-**Zwei typische Formate:**
-
--   Wide Format
-
--   Long Format
-
-👉 *Beide enthalten die gleichen Informationen – **aber unterschiedlich strukturiert.***
-
-------------------------------------------------------------------------
-
-## Wide vs. Long
-
-![](../../images/EH_10/Datenformat.png){fig-align="center" width="411"}
-
-**Wide:** eine Zeile = eine Person
-
-**Long:** eine Zeile = eine Messung
-
-------------------------------------------------------------------------
-
-## Warum ist das Datenformat entscheidend?
-
-<br>
-
-**Viele statistische Analysen erwarten Long Format**
-
--   Jede Zeile = eine Beobachtung
-
--   notwendig bei mehreren Messzeitpunkten pro Person
-
-**Beispiel: Veränderung über die Zeit**
-
--   Person 1: T1 → T2 → T3
-
--   Person 2: T1 → T2 → T3
-
-→ Jede Messung muss **eine eigene Zeile** sein
-
-------------------------------------------------------------------------
-
-## Wide to Long Tranformation:
-
--   Messzeitpunkte werden untereinander statt nebeneinander angeordnet
-
--   Die ID wird für jede Messung wiederholt
-
--   **Ergebnis:** eine Zeile = eine Messung
-
-![](../../images/EH_9/variables.png){fig-align="center" width="1200"}
-
-------------------------------------------------------------------------
-
-## **Transformation: Wide** → **Long**
-
-<br>
-
-**Wie müssen wir den folgenden Datensatz transformieren, um ihn ins Long Format zu bekommen?**
-
-<br>
-
-| *id* | *messzeitpunkt_t1* | *messzeitpunkt_t2* | *messzeitpunkt_t3* |
-|------|--------------------|--------------------|--------------------|
-| 1    | 10                 | 14                 | 18                 |
-| 2    | 12                 | 15                 | 17                 |
-| 3    | 9                  | 13                 | 15                 |
-| 4    | 11                 | 12                 | 16                 |
-
-------------------------------------------------------------------------
-
-## **Wide** → **Long mit `pivot_longer()`**
-
-**Zentrale Argumente:**
-
--   **`cols`**: Welche Spalten werden gestapelt?
-
--   **`names_to`**: Name der neuen Variable (z.B. Messzeitpunkt)
-
--   **`values_to`**: Neue Variable für die Werte
-
-```{r}
-df_wide <- data.frame(
-  id = 1:4,
-  messzeitpunkt_t1 = c(10, 12, 9, 11),
-  messzeitpunkt_t2 = c(14, 15, 13, 12),
-  messzeitpunkt_t3 = c(18, 17, 15, 16)
-)
-```
-
-```{r, echo = TRUE, eval = TRUE}
-df_long <- df_wide |>
-  pivot_longer(
-    cols = starts_with("messzeitpunkt_t"),
-    names_to = "messzeitpunkt",
-    values_to = "score"
+```{r, echo=TRUE, eval=FALSE}
+beispiel_daten <- beispiel_daten |>
+  mutate(
+    across(
+      question_1:question_8,
+      ~ case_when(
+        .x == "stimme gar nicht zu"  ~ 0,
+        .x == "stimme eher nicht zu" ~ 1,
+        .x == "teils / teils"        ~ 2,
+        .x == "stimme eher zu"       ~ 3,
+        .x == "stimme völlig zu"     ~ 4,
+        .default = NA_real_
+      )
+    )
   )
-
-df_long
 ```
 
-::: notes
-notwendig für dat_full um 2x3 ANOVA zu berechnen
-:::
+<br>
+
+-   `mutate()` verändert die bestehenden Variablen
+
+-   `across()` wendet dieselbe Transformation auf mehrere Items an
+
+-   `case_when()` weist jeder Textantwort ihren entsprechenden numerischen Wert zu
+
+-   `.x` bezeichnet jeweils die gerade bearbeitete Itemspalte
 
 ------------------------------------------------------------------------
 
-## **Wide** → **Long mit `pivot_longer()`**
+## Inverse Items richtig umpolen
+
+**Vor der Skalenberechnung müssen alle Items in dieselbe inhaltliche Richtung zeigen**
 
 <br>
 
 ::::: columns
 ::: {.column width="50%"}
-![](../../images/EH_10/wide_datensatz.png)
+**1. Prinzip der Umpolung (0-4)**
+
+![](../../images/EH8_Umpolung.png){fig-align="left" width="90%"}
+
+<br>
+
+**Berechnungsregel:** `neuer_wert = 4 - alter_wert`
 :::
 
 ::: {.column width="50%"}
-![](../../images/EH_10/long_datensatz.png)
+**2. Umpolung in R (Beispiel)**
+
+```{r, echo=TRUE, eval=FALSE}
+beispiel_daten <- beispiel_daten |>
+  mutate(
+    across(
+      c(item_2, item_5),
+      ~ 4 - .x
+    )
+  )
+```
+
+-   `across()` wählt die noch umzupolenden Items aus
+
+-   `4 - .x` kehrt ihre Werte um; `NA` bleibt `NA`
 :::
 :::::
 
+<br>
+
+**Für unser MMQ:** Keine zusätzliche Umpolung in den Originaldaten.
+
+::: notes
+Wir wissen nun, wie wir Antworten numerisch kodieren und wie wir inverse Items bei Bedarf umpolen. Damit sind die wichtigsten Voraussetzungen für die Skalenberechnung geklärt.
+
+Unsere MMQ-Originaldaten liegen bereits numerisch vor und wir nehmen keine zusätzliche Umpolung vor. Jetzt wollen wir aus den 18 vorhandenen Itemwerten einen gemeinsamen Skalenwert pro Person berechnen.
+:::
+
 ------------------------------------------------------------------------
 
-## Umgekehrter Fall: Long → Wide mit **`pivot_wider()`**
+## Ein Mittelwert für jede Person
 
-👉 Daten wieder in eine **übersichtlichere Tabellenform** bringen
+**Unsere 18 MMQ-Items liegen bereits numerisch vor**
 
 <br>
 
-**Zentrale Argumente:**
+![](../../images/EH9_mmq_mittelwert.png){fig-align="center" width="90%"}
 
--   **`names_from`**: Werte aus dieser Spalte (`messzeitpunkt`) werden wieder zu Spaltennamen
+<br>
 
--   **`values_from`**: Werte aus dieser Spalte (`score`) füllen die neu entstandenen Spalten
+::::: columns
+::: {.column width="49%"}
+**`mean()`** bildet einen Mittelwert **über Personen** – beispielsweise für `question1`.
+:::
 
-```{r echo = TRUE}
-df_wide_again <- df_long |> 
-  pivot_wider(
-    names_from = messzeitpunkt,
-    values_from = score
+::: {.column width="51%"}
+**`rowMeans()`** bildet einen Mittelwert **über Items innerhalb jeder Person**.
+:::
+:::::
+
+<br>
+
+**Für unseren Skalenwert `mmq_mean` brauchen wir `rowMeans()`.**
+
+::: notes
+Wir haben bereits gesehen, weshalb mehrere Items zu einem Skalenwert zusammengefasst werden und welche Voraussetzungen dabei gelten.
+
+Für unser gemeinsames Projekt liegen die 18 MMQ-Items question1 bis question18 numerisch auf einer Skala von 0 bis 4 vor.
+
+Wie genau wollen wir nun mitteln? Nicht alle Personen innerhalb einer Itemspalte, sondern alle relevanten Items innerhalb einer Person.
+
+mean() ist nützlich, wenn wir bspw. den Durchschnitt einer Itemspalte über alle Personen hinweg berechnen wollen.
+
+Für unser Vorhaben brauchen wir dagegen pro Person einen eigenen Wert. Das leistet rowMeans().
+:::
+
+------------------------------------------------------------------------
+
+## `mmq_mean` mit `rowMeans()` berechnen
+
+**Wir ergänzen den MMQ-Mittelwert als neue Variable in unserem bestehenden `dat_full`**
+
+<br>
+
+```{r, echo=TRUE, eval=FALSE}
+dat_full <- dat_full |>
+  mutate(
+    mmq_mean = rowMeans(across(question1:question18))
   )
 
-df_wide_again
+# Alternative
+dat_full <- dat_full |>
+  mutate(
+    mmq_mean = rowMeans(across(starts_with("question")))
+  )
 ```
 
-------------------------------------------------------------------------
+<br>
 
-## Paket tidyr
+:::::: columns
+::: {.column width="33%"}
+**`across()`**\
+Wählt die **18 Itemspalten** aus.
+:::
 
-![](../../images/clipboard-3012076459.png){fig-align="center" width="148"}
+::: {.column width="33%"}
+**`rowMeans()`**\
+Bildet einen **Mittelwert je Person**.
+:::
 
-`pivot_longer()` und `pivot_wider()` stammen aus dem Paket tidyr → Teil des tidyverse
+::: {.column width="34%"}
+**`mutate()`**\
+Ergänzt **`mmq_mean`** in `dat_full`.
+:::
+::::::
 
-[Cheatsheet tidyr](https://rstudio.github.io/cheatsheets/tidyr.pdf)
+<br>
 
-Umgang mit fehlenden Werten: `drop_na()`, `replace_na()` stammen auch aus tidyr
+**Ergebnis prüfen:** 159 × 36 → 159 × 37; Skalenwerte zwischen 0-4
 
-------------------------------------------------------------------------
-
-## Wichtige Funktionen für die Datenaufbereitung:
-
-aus [Einführung in R, Kapitel 4.1](https://methodenlehre.github.io/einfuehrung-in-R/chapters/04-tidyverse.html)
-
-![](../../images/Datenaufbereitung.png){fig-align="center"}
-
-------------------------------------------------------------------------
-
-## Hands On!
-
--   Code korrigieren / verbessern
-
--   Long Transformationen
+**Danach:** Codebook um `mmq_mean` ergänzen
 
 ------------------------------------------------------------------------
 
-## Datenqualität:
+## Dieselben Ratings - zwei Datenformate
 
-1.  Schiefe (Skewness)
-2.  Wölbung (Kurtosis)
-3.  Normalverteilung der Residuen
-4.  Ausreisseranalyse
-5.  Skalenreliabilität
+**Für unsere spätere Mixed ANOVA ordnen wir** `pre1` **und `pre4` neu an**
 
-👉 **Datenqualität bestimmt die Qualität der Ergebnisse**
+<br>
 
-Paket: `psych`
+![](../../images/EH9_wide_long_vergleich.png){fig-align="center" width="90%"}
+
+<br>
+
+**Die ausgewählten Messwerte bleiben gleich, nur ihre Anordnung verändert sich.**
 
 ::: notes
-psych sollte aus Diagnostik bekannt sein. Beinhaltet zb. Funktionen zu Schiefe, Kurtosis, Reliabilität
+Wir haben soeben aus 18 MMQ-Items einen Skalenwert pro Person berechnet.
+
+Für unsere zweite Analyseanforderung brauchen wir etwas anderes: nicht einen zusammengefassten Wert, sondern die beiden einzelnen Ratings pre1 und pre4 jeder Person.
+
+Das sind die beiden subjektiven Leistungseinschätzungen, die wir später über die Messzeitpunkte hinweg vergleichen.
+
+Auf der linken Seite sehen wir den Wide-Datensatz: Eine Zeile entspricht hier einer Person. Ihre Messungen liegen in zwei verschiedenen Spalten.
+
+Rechts sehen wir das Long-Format: Eine Zeile entspricht hier einer Person zu genau einem Messzeitpunkt. Dadurch erscheint code 1 zweimal, einmal mit pre1 und einmal mit pre4. Die Gruppenzugehörigkeit bleibt dabei natürlich dieselbe.
+
+Wichtig ist, dass wir hier nur die ausgewählten Ratings betrachten. Die beiden vollständigen Datensätze enthalten natürlich viele weitere Variablen.
 :::
 
 ------------------------------------------------------------------------
 
-## 1. Schiefe (Skewness)
+## Warum brauchen wir das Long-Format?
 
-**Funktion `skew()`**
-
--   beschreibt die Asymmetrie der Verteilung
-
-👉 **rechtsschief (linkssteil):** Die meisten Werte liegen links (klein), einige wenige hohe Werte ziehen die Verteilung nach rechts
-
-👉 **linksschief (rechtssteil):** Die meisten Werte liegen rechts (hoch), einige wenige niedrige Werte ziehen die Verteilung nach links
+**Unsere Mixed ANOVA verbindet Gruppenunterschiede mit Messwiederholungen**
 
 <br>
 
-[![](../../images/EH_9/Schiefe.png){fig-align="center"}](https://de.wikipedia.org/wiki/Schiefe_(Statistik)#/media/Datei:Rechtsschief.svg)
-
-------------------------------------------------------------------------
-
-## 2. Wölbung (Kurtosis)
-
-**Funktion `kurtosi()`**
-
--   beschreibt die Form der Verteilung
-
-👉 **steilgipflig:** viele Werte nahe am Mittelwert
-
-👉 **flachgipflig:** breitere Verteilung
+![](../../images/EH9_mixed_design.png){fig-align="center" width="85%"}
 
 <br>
 
-![](../../images/clipboard-2777451693.png){fig-align="center"}
+**Heute:** Wir bereiten mit `code`, `group`, `timepoint` und `rating` nur die Datenstruktur vor. Die **ANOVA** folgt in EH13.
 
 ::: notes
-Kurtosis: Je kleiner der Wert, desto flacher ist die Kurve, je höher, desto steiler. Negative Werte sind dabei nicht möglich. Eine Normalverteilung hat eine Kurtosis von 3.
-:::
+Die Mixed ANOVA besitzt einen Between-Subjects-Faktor und einen Within-Subjects-Faktor.
 
-:::: notes
-::: notes
-Eine Schiefe nahe 0 und eine Kurtosis von etwa 3 sprechen für eine Normalverteilung. Statt der Kurtosis wird oft der Exzess betrachtet. Dabei wird von der Kurtosis der Wert 3 abgezogen, sodass eine Normalverteilung den Wert 0 hat. Werte \< 0 sprechen für einen im Vergleich zur Normalverteilung flacheren, Werte \> 0 für einen steileren Verlauf
-:::
-::::
+-   Zwischen den Personen unterscheiden wir drei experimentelle Gruppen: above, control und below. Jede Person gehört genau einer dieser Gruppen an.
 
-------------------------------------------------------------------------
-
-## 3. Normalverteilung der Residuen
-
--   Voraussetzung für viele statistische Tests
-
-<br>
-
-#### Formen der Überprüfung:
-
--   **Visuelle Verfahren**: z.B. QQ-Plot
-
--   **Formale Tests**: z.B. Shapiro-Wilk –\> "veraltete" Methode, zu konservativ bei grossen Stichproben
-
-------------------------------------------------------------------------
-
-## 3. Normalverteilung der Residuen
-
-👉 Ein Residuum ist die Differenz zwischen beobachtetem und vorhergesagtem Wert (Vorhersageabweichung)
-
-```{r}
-model_1 <- lm(body_mass_g ~ bill_length_mm + sex, data = penguins)
-
-residuals <- rstandard((model_1))
-hist(residuals)
-```
-
-::: notes
-Ein Residuum beschreibt, wie stark sich ein tatsächlicher Wert von dem Wert unterscheidet, den unser mathematisches Modell vorhersagt.
-
-Wenn wir zum Beispiel einen Wert vorhersagen und die Beobachtung ist etwas höher oder tiefer, dann ist genau diese Differenz das Residuum.
-
-Gute Modelle haben tendenziell kleine Residuen – das heisst, ihre Vorhersagen liegen nahe an den tatsächlichen Werten.
-
-Für viele statistische Verfahren ist es wichtig, dass diese Residuen zufällig verteilt sind und ungefähr einer Normalverteilung folgen. 
+-   Innerhalb derselben Person haben wir verschiedene Ratings, von denen für die Mixed ANOVA pre1 und pre4 relevant sind.
 :::
 
 ------------------------------------------------------------------------
 
-## 3. Visuelle Form der Überprüfung: QQ-Plot
+## **Wide** → **Long: Animation**
 
-**Zweck:** QQ-Plots prüfen, ob die Daten einer theoretischen Verteilung (z. B. Normalverteilung) folgen.
+**Wie genau findet die Transformation statt?**
 
--   **X-Achse:** **Theoretische Quantile**
+<br>
 
--   **Y-Achse:** **Beobachtete (empirische) Datenquantile**
+![](../../images/EH9_animation.gif){fig-align="center" width="65%"}
 
-```{r}
-qqnorm(residuals)
-qqline(residuals)
+------------------------------------------------------------------------
+
+## **Wide** → **Long mit `pivot_longer()`**
+
+**Aus den Spalten `pre1` und `pre4` werden die Variablen `timepoint` und `rating`**
+
+<br>
+
+```{r, echo=TRUE, eval=FALSE}
+dat_long <- dat_full |>
+  pivot_longer(
+    cols = c(pre1, pre4),
+    names_to = "timepoint",
+    values_to = "rating"
+  )
 ```
 
+<br>
+
+:::::: columns
+::: {.column width="33%"}
+**`cols`**
+
+Welche Spalten werden untereinander angeordnet?
+
+`pre1`, `pre4`
+:::
+
+::: {.column width="33%"}
+**`names_to`**
+
+Wie heisst die neue Spalte mit den Messzeitpunkten?
+
+`timepoint`
+:::
+
+::: {.column width="34%"}
+**`values_to`**
+
+Wie heisst die neue Spalte mit den Ratings?
+
+`rating`
+:::
+::::::
+
+<br>
+
+**Wichtig:** `dat_long` entsteht **zusätzlich**. Unser vollständiger Wide-Datensatz `dat_full` bleibt erhalten.
+
 ::: notes
-Der QQ-Plot und das Histogramm zeigen, dass die Residuen insgesamt nahe an einer Normalverteilung liegen, jedoch im linken Extrembereich **etwas mehr Werte** (heavy tail) und im rechten Extrembereich **etwas weniger Werte** (light tail) aufweisen. Diese Abweichungen sind gering, sodass parametrische Analysen weiterhin angemessen sind.
+Über `cols` geben wir an, welche Spalten wir untereinander anordnen: pre1 und pre4.
+
+Mit `names_to` bestimmen wir den Namen der neuen Variable, in der die bisherigen Spaltennamen stehen.
+
+Mit `values_to` benennen wir die gemeinsame Wertespalte rating.
+
+Die Informationen zu Person und Gruppe werden für beide Messungen übernommen.
+
+Mit dem Zuweisungspfeil erstellen wir ein neues Objekt namens dat_long. Da dieses einen anderen Objektnamen hat, wird dat_full nicht überschrieben, sondern ein zusätzlicher Datensatz erstellt.
+
+Die anderen Rating-Spalten pre2, pre3 und post bleiben im vollständigen Wide-Datensatz erhalten, werden aber in dieser Long-Version nicht benötigt.
 :::
 
 ------------------------------------------------------------------------
 
-## 4. Ausreisser
+## Was verändert sich beim Umformen?
 
-👉 Ausreisser sollten vor der Analyse klar definiert werden (z.B. Präregistrierung / Datenanalyseplan)
-
-<br>
-
-#### Mögliche Kriterien:
-
--   Werte ausserhalb von ± SD vom Mittelwert
-
--   Visuelle Ausreisser in Boxplots und/oder Scatterplots
+**Wir haben weiterhin dieselben Personen - aber zwei Messzeilen pro Person**
 
 <br>
 
-#### Wichtig:
+![](../../images/EH9_zeilen_anzahl.png){fig-align="center" width="65%"}
 
-👉 Extreme Werte nicht unüberlegt entfernen!
+<br>
 
-Die Entscheidung hängt von Kontext und Fragestellung ab
-
-**Mehr dazu in @leys2019**
-
-------------------------------------------------------------------------
-
-## 4. Ausreisser
-
-```{r, echo=FALSE}
-
-new_penguin <- tibble(
-  species = "Adelie",
-  island = "XX",
-  bill_length_mm = 1,
-  bill_depth_mm = 1,
-  flipper_length_mm = 170,
-  body_mass_g = 7200,
-  sex = "male",
-  year = 1990
-)
-
-penguins <- bind_rows(penguins, new_penguin)
-
-penguins_dropped <- drop_na(penguins)
-
-```
-
-#### **Streudiagramme/Scatterplots**
-
-```{r echo = TRUE}
-
-ggplot(data = penguins_dropped, aes( x = flipper_length_mm, y = body_mass_g))+
-  geom_point()
-```
-
-------------------------------------------------------------------------
-
-## 4. Ausreisser
-
-#### **boxplot**
-
-```{r}
-ggplot(penguins_dropped, aes(x = "", y = body_mass_g)) +
-  geom_boxplot()
-
-```
+**Wichtig:** Derselbe `code` kommt nun zweimal vor - das ist beabsichtigt!
 
 ::: notes
-„Ein Ausreißer ist ein Wert, der stark von den übrigen Daten abweicht.\
-Wichtig ist: Ein solcher Wert kann verschiedene Ursachen haben.
-
-Manchmal handelt es sich um Fehler – zum Beispiel falsche Eingaben oder Messprobleme. In solchen Fällen kann es sinnvoll sein, den Wert zu entfernen.
-
-In anderen Fällen ist der Wert jedoch real und gehört zur Population – er ist einfach selten oder extrem. Dann sollte er **nicht einfach gelöscht werden**, da er wichtige Informationen enthalten kann.
-
-Deshalb gilt:\
-👉 Man muss immer prüfen, *warum* ein Wert auffällig ist – und nicht nur, *dass* er auffällig ist.“
-
-Beispiel:
-
-Ein Pinguin, der von Menschen gefüttert wurde und deshalb ungewöhnlich schwer ist, könnte tatsächlich nicht mehr gut zur Zielpopulation passen.
-
-ABER: Ein besonders großer oder schwerer Pinguin innerhalb der natürlichen Variation wäre hingegen **kein Fehler**, sondern ein echter Extremwert.
+Jede der 159 Personen liefert genau zwei Ratings. Deshalb erhalten wir 318 Zeilen, aber weiterhin 159 unterschiedliche Personen.
 :::
 
 ------------------------------------------------------------------------
 
-## 4. Interpretation von Ausreissern
+## Und zurück? `pivot_wider()`
 
-#### **Ausreisser können unterschiedliche Ursachen haben:**
-
--   Messfehler oder falsche Daten → prüfen und ggf. entfernen
-
--   Seltene, aber reale Beobachtungen → behalten
-
-👉 **Nicht jeder extreme Wert ist ein Ausreisser!**
-
-------------------------------------------------------------------------
-
-## 5. Skalenreliabilität
-
-#### **Was bedeutet Skalenreliabilität?**
-
-Mehrere Items einer Skala sollen dasselbe Konstrukt messen
-
--   Beispiel: Skala zur *Extraversion*\
-    → „Ich bin gesellig“\
-    → „Ich gehe gerne auf andere zu“\
-    → „Ich fühle mich in Gruppen wohl“
-
-**Zentrale Frage:**
-
-👉 Messen diese Items wirklich das Gleiche?
-
-**Idee:**
-
--   Wenn Items gut zusammenpassen → hohe Reliabilität
-
--   Wenn Items unterschiedlich sind → niedrige Reliabilität
-
-------------------------------------------------------------------------
-
-## 5. Skalenreliabilität: Cronbach's Alpha
-
-→ Wichtiger Wert: **raw_alpha** (hier: 0.76)
-
-⚠️ Hinweis: Cronbach’s Alpha wird typischerweise für Skalen mit mehreren Items berechnet (hier nur 2 Items → eingeschränkte Aussagekraft)
+**Freiwillige Vertiefung: Die Transformation lässt sich auch wieder umkehren**
 
 <br>
 
-```{r echo=TRUE}
-bfi_10_extra <- bfi_10_data |>
-  select(bfi_extra_1_r, bfi_extra_2)
-
-psych::alpha(bfi_10_extra, check.keys = TRUE)
+```{r, echo=TRUE, eval=FALSE}
+dat_wide_check <- dat_long |>
+  pivot_wider(
+    names_from = timepoint,
+    values_from = rating
+  )
 ```
 
-------------------------------------------------------------------------
-
-## 5. Skalenreliabilität: Weitere Formen der Reliabilität
-
 <br>
 
-**Alternatives Mass der internen Konsistenz**
+::::: columns
+::: {.column width="50%"}
+**`names_from`**
 
--   [McDonalds Omega](McDonald's%20Omega%20(ω)%20https://dorsch.hogrefe.com/stichwort/mcdonalds-omega-o) (Alternative zu Cronbach's Alpha)
+Die Werte aus `timepoint` werden wieder zu den Spalten `pre1` und `pre4`.
+:::
 
-<br>
+::: {.column width="50%"}
+**`values_from`**
 
-**Weitere Reliabilitätsarten:**
-
--   **Test-Retest Reliabilität:** → Stabilität über die Zeit
--   **Split-half Reliabilität:** → Konsistenz zwischen Itemhälften
-
-<br>
-
-Mehr Infos dazu: [Psychometrics in R](https://bookdown.org/annabrown/psychometricsR/exercise5.html) & [Björn Walther](https://bjoernwalther.com/cronbachs-alpha-in-r-berechnen/)
+Die Werte aus `rating` füllen diese beiden Spalten.
+:::
+:::::
 
 ::: notes
-In diesem Beispiel werden nur zwei Items verwendet - wir gehen davon aus dass bfi_extra_1_r schon rekodiert wurde. Anonsten könnte man das auch im alpha befehl weiter spezifizieren.
+Die Gegenfunktion zu pivot_longer heisst pivot_wider.
+
+Aus den beiden Werten der Variable timepoint erzeugt sie wieder zwei Spalten. Die Ratingwerte werden den jeweiligen Spalten zugewiesen.
 :::
 
 ------------------------------------------------------------------------
 
-## Heute haben wir:
+## Zwei Datensätze für die Analyse
 
--   Wide to long Transformationen gemacht - **You mastered the tidyr!**
+**Wir vervollständigen unser bestehendes `processing.qmd` und speichern beide Ergebnisse**
 
-    ![](../../images/tidyr.png){width="156"}
+<br>
 
--   Datenqualitätsindikatoren kennengelernt
+![](../../images/EH9_processing_ausgaben.png){fig-align="center" width="65%"}
+
+<br>
+
+**Speicherort: `data/processed/`**
+
+Die beiden Dateien werden ganz am Ende des Processing-Skripts gespeichert.
+
+------------------------------------------------------------------------
+
+## Nun: Hands-on 5A
+
+**Arbeitsort: euer bestehendes `code/processing.qmd` im Forschungsprojekt**
+
+<br>
+
+1.  **`mmq_mean` ergänzen:** Mittelwert aus `question1` bis `question18` pro Person.
+2.  **`dat_long` erstellen:** Nur `pre1` und `pre4` verwenden.
+3.  **Kurz kontrollieren:** 159 × 37 (Wide), 318 × 37 (Long).
+4.  **Speichern, rendern, dokumentieren:** Beide CSV-Dateien nach `data/processed/`; Codebook um `mmq_mean` ergänzen.
+
+<br>
+
+Für den Long-Datensatz muss kein Codebook erstellt werden!
 
 ------------------------------------------------------------------------
 
-## Bis nächste Woche
+## Hausübungen & Ausblick
 
--   Muddiest Points Umfrage bis Sonntag 23:55
--   Bei weiteren Fragen zu den bisherigen Inhalten: Forum nutzen & Lars kontaktieren
+<br>
 
-**Optional / Empfehlung**
+-   **Optional:** Umfrage Muddiest Points II bis Sonntag, 15.11.26 (ILIAS Woche 9)
 
--   Keine HÜ → Nutzt die Zeit, um Inhalte zu vertiefen oder nachzuholen
-
-------------------------------------------------------------------------
+-   **R Übung 1:** bis Mittwoch, 18.11.26

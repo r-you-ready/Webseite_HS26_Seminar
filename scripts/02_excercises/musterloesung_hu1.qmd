@@ -1,0 +1,427 @@
+---
+title: "Musterlösung R-Hausübung 1"
+subtitle: "Vom Rohdatensatz zu nachvollziehbaren Skalenwerten"
+author: "Laura Hirt"
+lang: de-CH
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-copy: true
+execute:
+  echo: true
+  message: false
+editor: source
+---
+
+In dieser Hausübung bearbeitest du einen **simulierten Fragebogendatensatz**: Du untersuchst die Rohdaten, bereitest sie auf, beschreibst die Stichprobe und berechnest schliesslich Skalenwerte. Halte deine Überlegungen und Kontrollergebnisse dort fest, wo danach gefragt wird.
+
+## Informationen zum Datensatz
+
+Der Datensatz enthält demografische Angaben und 44 Items aus fünf Big-Five-Bereichen. **Alle Daten sind erfunden** und eignen sich nicht für inhaltliche Aussagen über reale Personen oder psychologische Zusammenhänge.
+
+| Variable(n) | Bedeutung |
+|----|----|
+| `Gender` | Selbstberichtete Geschlechtskategorie (`female`, `male`, `non-binary`, `other`); leere Zellen bedeuten fehlende Angaben. |
+| `Age` | Alter in Jahren. In die Auswertung werden schlussendlich nur Personen ab 18 Jahren eingeschlossen. |
+| `Ort`, `Ort_2` | Zwei im Datenexport enthaltene Spalten mit Postleitzahlangaben. |
+| `extra_`, `agree_`, `consc_`, `neuro_`, `open_` | Itemgruppen zu Extraversion, Verträglichkeit, Gewissenhaftigkeit, Neurotizismus und Offenheit. |
+| Endung `_r` | Kennzeichnet ein invers formuliertes Item. **Diese Items wurden im Datensatz noch nicht umgepolt.** |
+| Leere Itemzellen | Fehlende Antworten (`NA`), keine gültigen Skalenwerte. |
+
+**Information zum Export:** Bei der Erstellung des Übungsdatensatzes wurden einzelne vollständige Beobachtungen versehentlich mehrfach exportiert. In **diesem dokumentierten Fall** dürfen nach entsprechender Prüfung die vollständig identischen Zeilen als technische Duplikate entfernt werden. Bei echten Forschungsdaten wäre diese Entscheidung ohne weitere Informationen nicht zulässig.
+
+## Aufgabe 1: Rohdaten importieren und kennenlernen
+
+**1.1** Importiere `data/raw/fake_bfi_dataset.csv` in R. Die Datei verwendet ein **Semikolon** als Trennzeichen. Speichere die unveränderten eingelesenen Daten im Objekt `dat_raw`.
+
+```{r}
+#| label: Rohdaten-importieren
+
+library(readr)
+library(tidyverse)
+
+dat_raw <- readr::read_delim(
+  "data/raw/fake_bfi_dataset.csv",
+  delim = ";"
+)
+```
+
+**1.2** Verschaffe dir einen Überblick über die Struktur des Datensatzes. Wie viele Beobachtungen und Variablen enthält er? Welche Antwortmöglichkeiten weist beispielsweise das Item `extra_1` auf? Beschreibe die wichtigsten Eigenschaften und Bestandteile des Datensatzes kurz.
+
+```{r}
+#| label: Erster-Eindruck-Dimension
+
+dim(dat_raw)
+glimpse(dat_raw)
+summary(dat_raw)
+```
+
+**Meine Bestandsaufnahme:** Der Datensatz verfügt über 45 Observationen und 48 Variablen. Nebst einigen demographischen Angaben zur Person enthält er insgesamt 44 Items zu den fünf Big-Five-Dimensionen. Dabei verfügt jede der Dimensionen über 9 Items, nur Openness über 8. Es sind einige invers-codierte Items sowie fehlende Werte ersichtlich.
+
+## Aufgabe 2: Daten prüfen und bereinigen
+
+Erstelle für die folgenden Bearbeitungsschritte ein neues Datenobjekt `dat_clean`. Die ursprünglichen Daten in `dat_raw` sollen unverändert erhalten bleiben. Dadurch sind spätere Vergleiche mit den Originaldaten möglich.
+
+**2.1** Prüfe, ob im Datensatz **vollständig identische Zeilen** vorkommen und, falls ja, wie viele. Entferne die dokumentierten Exportduplikate und kontrolliere das Ergebnis.
+
+```{r}
+#| label: Duplizierte-Zeilen-prüfen
+
+# dat_clean erstellen
+dat_clean <- dat_raw
+
+# Vollständig duplizierte Zeilen prüfen
+sum(duplicated(dat_clean))
+
+# Welche Zeilen sind dupliziert?
+duplikate <- dat_clean |>
+  count(across(everything())) |>
+  filter(n > 1)
+
+duplikate
+
+# Duplizierte Zeilen entfernen
+dat_clean <- dat_clean |>
+  distinct()
+
+# Erneut prüfen
+sum(duplicated(dat_clean))
+```
+
+**Meine Beobachtungen und Kommentare:** Im Datensatz `dat_clean` bestehen 4 duplizierte Zeilen. Wenn ich mir diese Zeilen ausgeben lasse, kann ich danach im DAtensatz genau prüfen, um welche Beobachtungen es sich handelt. Da in diesem Datensatz keine Personen-ID vorhanden ist, können nicht einfach Personen-IDs auf mehrfaches Vorkommen untersucht werden.
+
+Nach dem Entfernen der duplizierten Zeilen verfügt der Datensatz neu über 41 Observationen (zuvor 45). Nach erneuter Prüfung gibt es keine duplizierten Zeilen mehr.
+
+**2.2** Prüfe, ob die Variablen `Ort` und `Ort_2` tatsächlich dieselben Informationen enthalten. Entferne gegebenenfalls die überflüssige Spalte und benenne `Ort` in `Postleitzahl` um.
+
+```{r}
+#| label: Duplizierte-Spalten-prüfen
+
+# Spalten auf Duplikat testen
+identical(dat_clean$Ort, dat_clean$Ort_2)
+
+# Überflüssige Spalte entfernen und Ort umbenennen
+dat_clean <- dat_clean |>
+  select(-Ort_2) |>
+  rename(Postleitzahl = Ort)
+
+# Variablen prüfen
+names(dat_clean)
+```
+
+**Meine Beobachtungen und Kommentare:** Die beiden Variablen `Ort` und `Ort_2` enthalten exakt dieselbe Information. Wahrscheinlich wurde also `Ort_2` beim Datenexport als Duplikat erzeugt. Da diese Variable keine zusätzliche Information beinhaltet, kann sie gelöscht werden. Dies geschieht hier im gleichen Verarbeitungsschritt, in dem auch die verbleibende Ortsvariable noch umbenannt wird.
+
+Mit dem Kontrollschritt wird geprüft, ob die überflüssige Variable entfernt und die verbleibende Variable korrekt umbenannt wurde.
+
+**2.3** Beschränke die Stichprobe auf **volljährige Personen**. Kontrolliere anschliessend die Anzahl verbleibender Beobachtungen.
+
+```{r}
+#| label: Minderjährige-Personen-ausschliessen
+
+# Untersuchen, wie viele minderjährige Personen vorhanden sind
+dat_clean |>
+  filter(Age < 18)
+
+# Minderjährige Personen ausschliessen
+dat_clean <- dat_clean |>
+  filter(Age >= 18)
+
+# Kontrolle, ob immer noch minderjährige Personen vorhanden sind
+dat_clean |>
+  filter(Age < 18)
+```
+
+**Meine Beobachtungen und Kommentare:** Zuerst prüfe ich, wie viele minderjährige Personen momentan noch im Datensatz enthalten sind. Damit kann ich anschliessend beim Ausschluss prüfen, ob die korrekte Anzahl an Personen ausgeschlossen wurde.
+
+Insgesamt sind drei der Personen minderjährig. Nach Ausschluss verfügt der Datensatz korrekterweise noch über 38 anstelle von 41 Personen.
+
+**2.4** Wandle `Gender` und `Postleitzahl` in **Faktoren** um. Ergänze eine Variable `Altersgruppe` mit den beiden Kategorien **`18-39`** (18 bis 39 Jahre) und **`40+`** (ab 40 Jahren).
+
+```{r}
+#| label: Faktoren-erstellen
+
+dat_clean <- dat_clean |>
+  mutate(
+    Gender = as.factor(Gender),
+    Postleitzahl = as.factor(Postleitzahl),
+    Altersgruppe = as.factor(if_else(Age < 40, "18-39", "40+"))
+  )
+
+# Prüfen, ob Datentyp stimmt
+class(dat_clean$Gender)
+class(dat_clean$Postleitzahl)
+class(dat_clean$Altersgruppe)
+levels(dat_clean$Altersgruppe)
+```
+
+**Meine Beobachtungen und Kommentare:** `Gender` und `Postleitzahl` wurden korrekt zu Faktoren umgewandelt. Die neu erstellte Variable `Altersgruppe` wurde auch direkt als Faktor erstelle und die beiden Gruppen als Levels erstellt.
+
+### Kontrollfragen
+
+Wie viele Beobachtungen stehen vor und nach der Bereinigung zur Verfügung? Weshalb dürfen in diesem Datensatz die vollständig identischen Zeilen entfernt werden, fehlende Einzelantworten jedoch nicht automatisch?
+
+**Meine Antwort:** Da wir den ursprünglichen `dat_raw` nicht überschrieben haben, können wir diesen mit dem bereinigten Datensatz `dat_clean` vergleichen.
+
+Vor der Bereinigung enthielt der Datensatz insgesamt **45 Beobachtungen**. Durch das Entfernen von vier vollständig duplizierten Zeilen und den Ausschluss von drei minderjährigen Personen reduziert sich die Anzahl auf **38 Beobachtungen.**
+
+Die vollständig identischen Zeilen dürfen in diesem Übungsdatensatz entfernt werden, da es sich um künstlich erzeugte Duplikate handelt. Diese stellen keine zusätzlichen unabhängigen Beobachtungen dar und würden die Ergebnisse der Analysen verfälschen.
+
+Fehlende Einzelantworten dürfen dagegen nicht automatisch zum Ausschluss ganzer Beobachtungen führen. EIne Person kann bspw. eine einzelne Frage nicht beantwortet haben, während ihre übrigen Angaben weiterhin gültig und für die Analysen relevant sind. Würden wir sämtliche Personen mit mindestens einem fehlenden Wert entfernen, gingen unnötig viele Informationen verloren.
+
+## Aufgabe 3: Stichprobe beschreiben
+
+**3.1** Erstelle ein neues Objekt `dat_demo`, das ausschliesslich `Age`, `Altersgruppe`, `Gender` und `Postleitzahl` enthält. Verwende dieses Objekt für die folgenden Auswertungen in Aufgabe 3.
+
+```{r}
+#| label: dat_demo-erstellen
+
+dat_demo <- dat_clean |>
+  select(Age, Altersgruppe, Gender, Postleitzahl)
+```
+
+**3.2** Ermittle **für jede Postleitzahl** die Anzahl Personen und das durchschnittliche Alter. Zeige die Ergebnisse in einer Tabelle, die **absteigend nach dem Durchschnittsalter** sortiert ist.
+
+```{r}
+#| label: Personen-und-Alter-nach-Postleitzahl
+
+dat_demo |>
+  group_by(Postleitzahl) |>
+  summarise(
+    Personen = n(),
+    Durchschnittsalter = round(mean(Age, na.rm = TRUE), 2)
+  ) |>
+  arrange(desc(Durchschnittsalter))
+```
+
+**Meine Beobachtungen und Kommentare:** Erstens fällt auf, dass die verschiedenen Quartiere mit unterschiedlich vielen Personen vertreten sind. Insgesamt addieren sich die Personen auf 38, es ging also keine Person verloren in der Berechnung.
+
+Die Quartiere sind unterschiedlich alt, von beinahe 55 Jahren im Schnitt zu nur gut 40 Jahren.
+
+**3.3** Bestimme, wie häufig die einzelnen Kategorien von `Gender` vorkommen. Berücksichtige in deiner Übersicht auch Personen, die keine Angabe gemacht haben.
+
+```{r}
+#| label: Gender-Kategorien
+
+dat_demo |>
+  count(Gender)
+```
+
+**Meine Beobachtungen und Kommentare:** In der bereinigten Stichprobe befinden sich insgesamt 38 Personen. Davon geben 13 Personen `male`, 11 Personen `female`, 8 Personen `non-binary` und 3 Personen `other` als Geschlechtskategorie an. Bei weiteren 3 Personen fehlt diese Angabe (`NA`).
+
+Die fehlenden Werte werden in der Häufigkeitstabelle ebenfalls berücksichtigt, sodass die Summe aller Kategorien der gesamten Stichprobengrösse entspricht.
+
+### Ergebnisfrage
+
+Welche Postleitzahl weist das höchste Durchschnittsalter auf, und auf wie vielen Personen beruht dieser Mittelwert?
+
+**Meine Antwort:** Das höchste Durchschnittsalter weist die Postleitzahl `3001` auf. Dieser Mittelwert beruht auf den Altersangaben von 3 Personen.
+
+## Aufgabe 4: Fehlende Werte untersuchen
+
+**4.1** Ermittle die **Gesamtzahl fehlender Einzelwerte** in `dat_clean`. Bestimme zusätzlich, wie viele Werte jeweils in `Gender` und `extra_9` fehlen.
+
+```{r}
+#| label: Fehlende-Werte
+
+# Gesamtzahl fehlender Werte
+sum(is.na(dat_clean))
+
+# Fehlende Werte in Gender
+sum(is.na(dat_clean$Gender))
+
+# Fehlende Werte in extra_9
+sum(is.na(dat_clean$extra_9))
+```
+
+**Meine Beobachtungen und Kommentare:** Im bereinigten Datensatz fehlen insgesamt 19 Einzelwerte. Davon entfallen 3 auf die Variable `Gender` und 2 auf das Fragebogenitem `extra_9`.
+
+**4.2** Für diese Hausübung sollen Personen mit einzelnen fehlenden Itemantworten **nicht pauschal ausgeschlossen** und fehlende Angaben zu `Gender` **nicht durch eine erfundene Kategorie ersetzt** werden.
+
+**Begründe diese Entscheidungen in 1–2 Sätzen:** Fehlende Einzelwerte bedeuten nicht, dass die gesamte Beobachtung unbrauchbar ist. Die übrigen Angaben der betroffenen Personen können weiterhin für die Datenanalyse verwendet werden.
+
+## Aufgabe 5: Items umkodieren und umpolen
+
+Die 44 Fragebogenitems liegen zunächst als **Antworttexte** vor. Für die spätere Skalenbildung sollen sie gemäss folgender Zuordnung numerisch kodiert werden:
+
+| Antwortkategorie        | Wert |
+|-------------------------|-----:|
+| Stimme gar nicht zu     |    1 |
+| Stimme eher nicht zu    |    2 |
+| Neutral                 |    3 |
+| Stimme eher zu          |    4 |
+| Stimme voll und ganz zu |    5 |
+
+**5.1** Erstelle das Objekt `dat_numeric`. Wandle darin **alle 44 Itemvariablen** in die angegebenen Zahlenwerte um. Die demografischen Variablen sollen unverändert bleiben; fehlende Antworten bleiben fehlend.
+
+```{r}
+#| label: dat_numeric-erstellen
+
+# Alle 44 Itemvariablen in Zahlenwerte umwandeln
+dat_numeric <- dat_clean |>
+  mutate(
+    across(
+      extra_1:neuro_9_r,
+      ~ case_when(
+        .x == "Stimme gar nicht zu" ~ 1,
+        .x == "Stimme eher nicht zu" ~ 2,
+        .x == "Neutral" ~ 3,
+        .x == "Stimme eher zu" ~ 4,
+        .x == "Stimme voll und ganz zu" ~ 5
+      )
+    )
+  )
+
+# Ergebnisse kontrollieren
+glimpse(dat_numeric)
+
+# Überprüfen. ob die fehlenden Werte geblieben sind
+sum(is.na(dat_clean))
+sum(is.na(dat_numeric))
+```
+
+**5.2** Erstelle aus `dat_numeric` das Objekt `dat_reversed`. Pole darin **nur die mit `_r` gekennzeichneten Items** um, damit bei allen Items hohe Werte in dieselbe inhaltliche Richtung weisen. Für die hier verwendete Skala gilt folgende Zuordnung:
+
+| Vorher | Nachher |
+|-------:|--------:|
+|      1 |       5 |
+|      2 |       4 |
+|      3 |       3 |
+|      4 |       2 |
+|      5 |       1 |
+
+```{r}
+#| label: dat_reversed-erstellen
+
+dat_reversed <- dat_numeric |>
+  mutate(
+    across(
+      ends_with("_r"),
+      ~ 6 - .x
+    )
+  )
+```
+
+**5.3** Kontrolliere deine Aufbereitung. Überprüfe dabei mindestens, ob die Items nun numerisch sind, die gültigen Werte **zwischen 1 und 5** liegen, die fehlenden Werte erhalten geblieben sind und die Umpolung **ausschliesslich** die betreffenden Items verändert hat. Vergleiche dazu mindestens ein Item mit und eines ohne `_r`.
+
+```{r}
+#| label: Kontrolle-der-Umpolung
+
+# Datentypen überprüfen
+dat_reversed |>
+  select(extra_1:neuro_9_r) |>
+  glimpse()
+
+# Wertebereiche überprüfen
+dat_reversed |>
+  select(extra_1:neuro_9_r) |>
+  summary()
+
+# Fehlende Werte vergleichen
+sum(is.na(dat_clean))
+sum(is.na(dat_numeric))
+sum(is.na(dat_reversed))
+
+# Ein umgepoltes Item vergleichen
+table(
+  Vorher = dat_numeric$agree_1_r,
+  Nachher = dat_reversed$agree_1_r,
+  useNA = "ifany"
+)
+
+# Ein nicht umgepoltes Item vergleichen
+identical(
+  dat_numeric$extra_1,
+  dat_reversed$extra_1
+)
+
+# Alle nicht umgepolten Variablen kontrollieren
+identical(
+  dat_numeric |> select(-ends_with("_r")),
+  dat_reversed |> select(-ends_with("_r"))
+)
+```
+
+**Kontrollfrage:** Was passiert bei der Umpolung mit dem Wert 1 und was mit `NA`?
+
+**Meine Antwort:**
+
+## Aufgabe 6: Skalenmittelwerte berechnen
+
+Erstelle aus `dat_reversed` das Objekt `dat_scores`. Ergänze **für jede Person** die Mittelwerte der Items aus den fünf Bereichen:
+
+-   `extraversion`
+-   `vertraeglichkeit`
+-   `gewissenhaftigkeit`
+-   `neurotizismus`
+-   `offenheit`
+
+**6.1** Berechne die fünf Skalenwerte jeweils aus den zugehörigen Items. Verwende **die bereits umgepolten Werte**. Wenn einzelne Antworten fehlen, soll der Mittelwert für diese Übung aus den **vorhandenen Itemantworten** gebildet werden. Die ursprünglichen Itemspalten bleiben erhalten.
+
+```{r}
+#| label: dat_scores-erstellen
+
+dat_scores <- dat_reversed |>
+  mutate(
+    extraversion = rowMeans(
+      select(dat_reversed, starts_with("extra_")),
+      na.rm = TRUE
+    ),
+    vertraeglichkeit = rowMeans(
+      select(dat_reversed, starts_with("agree_")),
+      na.rm = TRUE
+    ),
+    gewissenhaftigkeit = rowMeans(
+      select(dat_reversed, starts_with("consc_")),
+      na.rm = TRUE
+    ),
+    neurotizismus = rowMeans(
+      select(dat_reversed, starts_with("neuro_")),
+      na.rm = TRUE
+    ),
+    offenheit = rowMeans(
+      select(dat_reversed, starts_with("open_")),
+      na.rm = TRUE
+    )
+  )
+```
+
+**6.2** Prüfe, ob fünf neue Skalenvariablen hinzugekommen sind. In welchem Wertebereich dürfen die berechneten Mittelwerte liegen? Untersuche mindestens die Verteilungen von `extraversion` und `offenheit`.
+
+```{r}
+#| label: Kontrolle-der-Skalenmittelwerte
+
+# Datenstruktur kontrollieren
+glimpse(dat_scores)
+
+# Anzahl der Variablen vor und nach der Berechnung
+ncol(dat_reversed)
+ncol(dat_scores)
+
+# Verteilungen der beiden Skalen untersuchen
+dat_scores |>
+  select(extraversion, offenheit) |>
+  summary()
+```
+
+**Meine Plausibilitätsprüfung:** Durch die Berechnung der Skalenmittelwerte wurden dem Datensatz fünf neue Variablen hinzugefügt. Der Datensatz `dat_scores` enthält nun 53 Variablen und weiterhin 38 Beobachtungen. Die ursprünglichen Itemvariablen sind erhalten geblieben.
+
+Da die einzelnen Items Werte zwischen 1 und 5 annehmen, müssen auch die daraus berechneten Mittelwerte innerhalb dieses Wertebereichs liegen.
+
+Die Überprüfung der Skalen Extraversion und Offenheit zeigt, dass dies der Fall ist. Die Extraversion weist Werte zwischen 2.00 und 4.33 auf, während die Offenheit Werte zwischen 2.13 und 4.13 annimmt.
+
+Durch die Verwendung von `na.rm = TRUE` werden bei der Berechnung der Skalenmittelwerte einzelne fehlende Itemantworten nicht berücksichtigt. Der Mittelwert wird somit anhand der vorhandenen Antworten der jeweiligen Personen berechnet.
+
+## Aufgabe 7: Ergebnis speichern
+
+Speichere `dat_scores` als **`data/processed/bfi_aufbereitet.csv`**. Achte darauf, dass die ursprüngliche Datei in `data/raw/` unverändert erhalten bleibt.
+
+```{r}
+#| label: dat_scores-speichern
+
+# Bereinigten Datensatz als CSV-Datei speichern
+write_csv(
+  dat_scores,
+  "data/processed/bfi_aufbereitet.csv"
+)
+```
