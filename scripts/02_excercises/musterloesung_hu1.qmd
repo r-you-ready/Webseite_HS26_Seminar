@@ -21,7 +21,7 @@ In dieser Hausübung bearbeitest du einen **simulierten Fragebogendatensatz**: D
 Der Datensatz enthält demografische Angaben und 44 Items aus fünf Big-Five-Bereichen. **Alle Daten sind erfunden** und eignen sich nicht für inhaltliche Aussagen über reale Personen oder psychologische Zusammenhänge.
 
 | Variable(n) | Bedeutung |
-|----|----|
+|------------------------------------|------------------------------------|
 | `Gender` | Selbstberichtete Geschlechtskategorie (`female`, `male`, `non-binary`, `other`); leere Zellen bedeuten fehlende Angaben. |
 | `Age` | Alter in Jahren. In die Auswertung werden schlussendlich nur Personen ab 18 Jahren eingeschlossen. |
 | `Ort`, `Ort_2` | Zwei im Datenexport enthaltene Spalten mit Postleitzahlangaben. |
@@ -35,7 +35,16 @@ Der Datensatz enthält demografische Angaben und 44 Items aus fünf Big-Five-Ber
 
 **1.1** Importiere `data/raw/fake_bfi_dataset.csv` in R. Die Datei verwendet ein **Semikolon** als Trennzeichen. Speichere die unveränderten eingelesenen Daten im Objekt `dat_raw`.
 
-```{r}
+```{r, include = FALSE}
+library(tidyverse)
+
+dat_raw <- readr::read_delim(
+  "raw/fake_bfi_dataset.csv",
+  delim = ";"
+)
+```
+
+```{r, echo=TRUE, eval=FALSE}
 #| label: Rohdaten-importieren
 
 library(readr)
