@@ -1,21 +1,32 @@
 ---
-title: "Hands On – Tidy & Transform / Analyze (Einheiten 9 und 10)"
-editor: visual
-bibliography: references.bib
+title: "Hands-on Block 5: Vom Processing zur Analyse (Einheiten 9 & 10)"
 filters:
   - conditional_content
 show_solutions: false
-draft: true
 format:
   html:
     code-tools: false
+draft: true
 ---
 
-```{r, echo = TRUE, results = 'hide', message = FALSE, warning = FALSE}
+```{r, include = FALSE}
 library(tidyverse)
-library(here)
 
-dat_full <- read_csv(here("data/raw/dat_full.csv"))
+dat_full <- readr::read_delim("raw/dat_full.csv")
+
+# Aufbereitungsschritte
+dat_full <- dat_full |>
+  mutate(
+    across(
+      c(pre1, pre2, pre3, pre4, post),
+      ~ .x * 10
+    )
+  )
+
+dat_full <- dat_full |>
+  rename(
+    group = group_all,
+    cvstm_sum = csvtm_sum)
 ```
 
 Bei Bedarf finden sich hier nochmal die Slides zur EH9:
@@ -26,858 +37,295 @@ Bei Bedarf finden sich hier nochmal die Slides zur EH9:
 </iframe>
 :::
 
-Und hier die Slides zur EH10:
+Die Folien der EH10 werden kurz vor dem Termin hochgeschalten.
 
-::: {=html}
-<iframe src="../01_slides/EH_10.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+# Teil 1: Die Datenaufbereitung abschliessen
 
-</iframe>
-:::
+*Bearbeitung nach EH9*
 
-# Lernziele
+## 🧭 Wo befinden wir uns?
 
-✅ dplyr: Repetition
+**Projektphase: AUFBEREITEN → ANALYSIEREN**
 
-✅ Duplizierte Werte entfernen
+In Hands-on 2 und 3 habt ihr aus sieben Rohdatensätzen den gemeinsamen `dat_full` erstellt und die benötigten Variablen transformiert.
 
-✅ Long & Wide Transformationen
+In EH7 und EH8 habt ihr die Datenbearbeitung und den Umgang mit Datenproblemen an separaten Übungsdaten geübt.
 
-✅ Datenqualitätsindkatoren berechnen
+Jetzt kehren wir zum **gemeinsamen Forschungsprojekt** zurück. Für unsere späteren statistischen Analysen fehlen noch zwei Ergebnisse:
 
-✅ Abbildungen für Ausreisseranalysen
+1.  `mmq_mean`: ein MMQ-Skalenwert aus 18 Items für jede Person.
 
-✅ Tabellen
+2.  `dat_long`: ein zusätzlicher Datensatz, in dem `pre1` und `pre4` untereinanderstehen.
+
+Heute ergänzen wir diese beiden Schritte im bestehenden `processing.qmd`. In EH10 beginnen wir dann mit der Beschreibung und Visualisierung der aufbereiteten Daten in `analysis.qmd`.
 
 ::: callout-important
-Für die heutigen Übungen benötigen wir `dat_full`! Lese diesen ein.
+**Arbeitsort: Euer vorhandenes Grinschgl-R-Projekt → `code/processing.qmd`.**
+
+-   Erstellt **weder ein neues R-Projekt noch ein zweites Processing-Skript**.
+-   Verändert die Dateien unter `data/raw/` nicht.
+-   Die Übungsseite hier ist eure **Anleitung**. Den eigentlichen R-Code ergänzt ihr in **eurem eigenen Processing-Dokument**.
 :::
 
-# **Duplizierte Werte entfernen**
+## 🎯 Lernziele und Zeitplan
 
-In manchen Datensätzen kann es vorkommen, dass Werte mehrfach auftreten (z.B. wenn eine ID mehrmals vorkommt). Um dies zu bereinigen, müssen wir zunächst die Duplikate identifizieren und sie anschliessend bearbeiten oder entfernen.
+Nach Teil 1 könnt ihr einen Mittelwert über mehrere Items **pro Person** berechnen, `pivot_longer()` auf die beiden benötigten Ratingvariablen anwenden, die entstandenen Datensätze kontrollieren und beide Ergebnisse reproduzierbar speichern.
 
-Im nächsten Schritt duplizieren wir exemplarisch drei zufällige Zeilen aus unserem Datensatz **dat_full**. Diese künstlich erzeugten Duplikate werden wir danach wieder bereinigen.
+| Aufgabe | Was macht ihr?                                         |   Richtzeit |
+|:---------------------|:----------------------------|---------------------:|
+| **A0**  | Bisheriges Processing öffnen und Arbeitsstelle finden  |  ca. 2 Min. |
+| **A1**  | `mmq_mean` berechnen                                   |  ca. 5 Min. |
+| **A2**  | `dat_long` erzeugen                                    |  ca. 5 Min. |
+| **A3**  | Wide und Long kontrollieren                            |  ca. 5 Min. |
+| **A4**  | Beide Dateien speichern, Codebook ergänzen und rendern | ca. 10 Min. |
 
-Führe diesen Code-Chunk aus: Danach sollte dein **dat_full** 162 Beobachtungen enthalten.
+Die Zeiten dienen zur Orientierung. Falls ihr nicht fertig werdet, könnt ihr am bestehenden Skript weiterarbeiten. Die **aufklappbaren Tipps** helfen euch bei einem ersten Problem; die **Musterlösungen** sind zur Selbstkontrolle gedacht.
+
+## A0: Ausgangszustand und Einfügeort bestimmen
+
+### 🧭 A0.1: Wo ergänzen wir die beiden neuen Schritte?
+
+Öffnet euer R-Projekt und darin `code/processing.qmd`. Sucht die bisherigen Verarbeitungsschritte und den Abschnitt, in dem `dat_full.csv` gespeichert wird.
+
+**Überlegt zuerst:** Was muss vor dem Speichern passieren, damit in der CSV-Datei tatsächlich der neue MMQ-Skalenwert enthalten ist?
+
+Bis zum heutigen Arbeitsschritt sollte euer `dat_full` **159 Personen × 36 Variablen** enthalten. Insbesondere sollten `group` bereits so heissen und die Ratings `pre1`, `pre2`, `pre3`, `pre4` und `post` schon auf **0–100** umgerechnet sein.
+
+::: {.callout-tip collapse="true" title="Tipp A0.1: Die richtige Reihenfolge"}
+Die neuen Schritte gehören **nach** die bisherigen Umbenennungen und Rating-Transformationen, aber **vor** das endgültige Speichern. Den vorhandenen Speicherschritt für `dat_full.csv` bei Bedarf nach unten verschieben – **nicht ein zweites Mal hinzufügen**.
+
+Wenn ihr im Environment bereits transformierte Ratings habt, führt nicht einfach den alten `× 10`-Code erneut auf diesem Objekt aus. Für einen sauberen Durchlauf startet ihr wieder bei den unveränderten Rohdaten und führt die Verarbeitungsschritte in der richtigen Reihenfolge aus.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung A0.1"}
+Die Reihenfolge in `processing.qmd` lautet am Schluss:
+
+``` text
+Rohdaten importieren und zusammenführen
+  ↓
+Bisherige Umbenennungen und Ratings × 10
+  ↓
+mmq_mean berechnen                  ← HEUTE
+  ↓
+dat_long mit pre1 und pre4 erzeugen ← HEUTE
+  ↓
+Ergebnisse prüfen
+  ↓
+dat_full.csv und dat_long.csv speichern
+```
+
+Der vorhandene Speicherschritt für `dat_full` gehört **hinter** die Berechnung von `mmq_mean`.
+:::
+::::
+
+## A1: Den MMQ-Skalenwert berechnen
+
+### 🧭 A1.1: Aus 18 Items wird ein Wert pro Person
+
+In den Originaldaten liegen die MMQ-Items `question1` bis `question18` bereits **numerisch auf einer Skala von 0 bis 4** vor. Eine zusätzliche Textkodierung oder Umpolung ist für diesen gemeinsamen Originaldatensatz nicht vorgesehen.
+
+**Eure Aufgabe:** Ergänzt in `processing.qmd` eine Pipeline, die aus den 18 MMQ-Items für jede Person einen Mittelwert bildet und ihn als neue Variable `mmq_mean` in `dat_full` dauerhaft speichert.
+
+::: {.callout-tip collapse="true" title="Tipp A1.1"}
+Verwendet die Funktionen `mutate()`, `across()` und `rowMeans()`. Die 18 Items bleiben als einzelne Spalten im Datensatz erhalten.
+
+`across(question1:question18)` wählt die nebeneinanderliegenden MMQ-Itemspalten aus. `rowMeans()` mittelt **innerhalb jeder Zeile**, und `mutate()` ergänzt das Ergebnis als neue Variable. Anders als `mean()` berechnet `rowMeans()` hier **nicht einen einzigen Mittelwert über alle Personen**.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung A1.1"}
+Ergänzt einmalig an der passenden Stelle eures vorhandenen Processing-Skripts:
 
 ```{r}
-set.seed(123)   
-
-dup_rows <- dat_full |> 
-  slice_sample(n = 3)
-
-dat_full <- bind_rows(dat_full, dup_rows)
+dat_full <- dat_full |>
+  mutate(
+    mmq_mean = rowMeans(across(question1:question18))
+  )
 ```
 
-Es gibt mehrere Arten und Weisen, Duplikate zu identifizieren. Verwende die `dplyr`-Funktion `count()`, um die einzelnen IDs zu zählen. Gib dir anschliessend mit `filter()` diejenigen aus, die mehr als einmal vorkommen.
+Der neue Wide-Datensatz besitzt jetzt 159 Zeilen und 37 Spalten. Es wurde keine Person entfernt und kein MMQ-Item überschrieben.
 
-```{r echo = TRUE, eval = FALSE}
-dat_full |> 
-  count(XXXX) |> 
-  filter(XXX)
-```
+Die neue Variable steht standardmässig immer an letzter Stelle der Spalten. Wenn diese von ihrer Reihenfolge her verschoben werden soll (z.B . direkt hinter `question18`), kennt ihr mittlerweile eine Funktion, um deren Position direkt zu bestimmen.
+:::
+::::
+
+### 🧭 A1.2: Einen konkreten Skalenwert nachvollziehen
+
+Prüft mit einem kurzen R-Befehl den Skalenwert für die Person mit `code == 1`.
+
+**Kontrollfrage:** Bei dieser Person ergeben die 18 MMQ-Antworten zusammen 47 Punkte. Welchen Wert sollte `mmq_mean` daher ungefähr besitzen?
+
+::: {.callout-tip collapse="true" title="Tipp A1.2"}
+Berechnet `47 / 18`. Den gespeicherten Wert könnt ihr beispielsweise mit `filter()` und `select()` ansehen. Für diese Kontrolle benötigt ihr **keine zusätzliche dauerhafte Variable**.
+:::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
+::: {.callout-note collapse="true" title="Musterlösung A1.2"}
 ```{r}
+47 / 18
+
 dat_full |>
-  count(code) |> 
-  filter(n > 1)
+  filter(code == 1) |>
+  select(code, mmq_mean)
 ```
+
+Für diese Person ergibt sich `mmq_mean≈ 2.61`.
+
+Da die Items Werte von 0 bis 4 besitzen, muss auch der Mittelwert innerhalb von 0 bis 4 liegen.
 :::
 ::::
 
-Entferne die Duplikate wieder, indem du z.B. `unique()` auf den Datensatz anwendest. `unique()` entfernt vollständig identische Zeilen und behält nur eine davon.
+## A2: Einen Long-Datensatz erzeugen
+
+![](../../images/EH9_animation.gif){fig-align="center" width="65%"}
+
+### 🧭 A2.1: `pre1` und `pre4` untereinander anordnen
+
+Für die spätere Mixed ANOVA benötigen wir die subjektiven Leistungseinschätzungen zu zwei Messzeitpunkten (`pre1` und `pre4`) im Long-Format.
+
+**Eure Aufgabe:** Erzeugt aus dem bereits erweiterten `dat_full` mit `pivot_longer()` ein neues Objekt namens `dat_long`. Dabei wird der Wide-Datensatz nicht überschrieben!
+
+-   `cols`: Nur die beiden Ratingvariablen `pre1` und `pre4` umformen.
+
+-   `names_to`: Die neue Zeitvariable soll `timepoint` heissen.
+
+-   `values_to`: Die neue Wertespalte soll `rating` heissen.
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE}
-dat_full <- unique(dat_full)
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Alternative: Falls du Duplikate nur auf Basis einer bestimmten Variable (z.B. ID) entfernen möchtest, kannst du `duplicated()` verwenden. Dadurch bleibt pro ID nur die erste Zeile erhalten.
-
-```{r echo = TRUE, eval = TRUE}
-dat_full <- dat_full[!duplicated(dat_full$code), ]
-```
-:::
-
-# dplyr: Code korrigieren und verbessern
-
-**Dieser Code funktioniert nicht. Korrigiere ihn. Achte dabei auf Syntaxfehler.**
-
-```{r, echo = TRUE, eval = FALSE}
-dat_full |>
-  select(code, post, strategies)
-  filter(strtegies = "1")
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r echo = TRUE, eval = TRUE}
-dat_full |>
-  select(code, post, strategies) |>
-  filter(strategies == 1)
-```
-:::
-::::
-
-**Dieser Code funktioniert, ist jedoch sehr umständlich und ineffizient. Verwende `dplyr`-Funktionen, um ihn kürzer und übersichtlicher zu gestalten.**
-
-```{r echo = TRUE, eval = FALSE}
-dat_full |>
-  summarise(
-    Gesamtmittelwert = mean(
-      c(
-        question1, question2, question3, question4, question5,
-        question6, question7, question8, question9, question10,
-        question11, question12, question13, question14, question15,
-        question16, question17, question18
-      )
-    )
-  )
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-
-dat_full |>
-  summarise(
-    Gesamtmean = mean(across(starts_with("question")))
-  )
-```
-:::
-::::
-
-# Wide → Long: Daten umformen
-
-## Übungen zur Datenkonversion
-
-📖[R4DS - Kapitel 5.3](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting)
-
-📖[Einführung in R - Kapitel 3.1.3](https://methodenlehre.github.io/einfuehrung-in-R/chapters/03-data_frames.html#manuelle-konversion-von-wide-zu-long)
-
-In vielen Datensätzen liegen Messungen nebeneinander in mehreren Spalten vor (Wide-Format). Für viele Analysen ist es jedoch sinnvoller, diese Daten in ein Long-Format zu überführen.
-
-👉 In dieser Aufgabe wandelst du mehrere Variablen zur Leistungseinschätzung (Pre1 - Post) in ein Long-Format um.
-
-### Schritt 1: Daten verstehen
-
-Schau dir zuerst die relevanten Variablen im Datensatz an:
-
-```{r, echo = TRUE, eval = FALSE}
-dat_full |> 
-  select(code, pre1, pre2, pre3, pre4, post) |> 
-  head()
-```
-
-👉 Überlege dir: Was stellen die Variablen pre1 bis pre4 und post dar? Warum könnte es sinnvoll sein, diese in eine gemeinsame Struktur zu bringen?
-
-### Schritt 2: Wide → Long Transformation
-
-Wandle die Variablen pre1, pre2, pre3, pre4 und post in ein Long-Format um.
-
-👉 Dein Ziel: Eine neue Spalte, die angibt, zu welchem Zeitpunkt die Messung gehört. Eine zweite Spalte mit dem jeweiligen Wert der Einschätzung
-
-👉 Hinweis: Du musst in `pivot_longer()` drei Dinge festlegen: Welche Spalten umgeformt werden sollen, Wie die neue Spalte für den Zeitpunkt heissen soll, Wie die Spalte mit den Werten heissen soll
-
-👉 Speichere das Ergebnis in einem neuen Datensatz df_long.
-
-```{r, echo = TRUE, eval = FALSE}
-df_long <- dat_full |>
-  pivot_longer(
-    cols = XXXX,
-    names_to = "XXXX",
-    values_to = "XXXX"
-  )
-```
-
-### Schritt 3: Ergebnis prüfen
-
-Schau dir den neuen Datensatz an:
-
-```{r, echo = TRUE, eval = FALSE}
-df_long |> 
-  head()
-```
-
-👉 Fragen zur Kontrolle: Wie viele Zeilen hat der Datensatz jetzt im Vergleich zu vorher? Was steht in der neuen Spalte für den Messzeitpunkt? Wie hat sich die Struktur der Daten verändert?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-df_long <- dat_full |>
-  pivot_longer(
-    cols = c(pre1, pre2, pre3, pre4, post),
-    names_to = "time_rating",
-    values_to = "rating"
-  )
-```
-:::
-::::
-
-## Weiterführende Übungen zur Datenkonversion
-
-Im vorherigen Schritt hast du die 5 Messzeitpunkte in ein Long-Format umgewandelt. Das war nur für Übungszwecke, d.h. wir brauchen diesen Long-Datensatz nicht für unsere weiteren Analysen.
-
-Nun übst du das Vorgehen noch einmal mit nur **zwei Messzeitpunkten** - den resultierenden Datensatz werden wir für unsere weiteren Analysen benötigen (Berechnung der 2x3 ANOVA).
-
-### Schritt 4: Zwei ausgewählte Messzeitpunkte ins Long-Format bringen
-
-Wandle den Datensatz noch einmal in ein Long-Format um, dieses Mal aber nur auf Basis der Spalten pre1 und pre4. Dies wird zu einem späteren Zeitpunkt für die Reanalyse der 2x3 ANOVA von Grinschgl et al. (2020) benötigt!
-
-👉 Ziel: Die beiden Messzeitpunkte sollen in einer gemeinsamen Spalte stehen (time_rating) Die zugehörigen Werte sollen in einer zweiten Spalte gespeichert werden
-
-👉 Speichere das Ergebnis erneut in df_long.
-
-```{r, echo = TRUE, eval = FALSE}
-df_long <- dat_full |>
-  pivot_longer(
-    cols = XXXX,
-    names_to = "XXXX",
-    values_to = "XXXX"
-  )
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-df_long <- dat_full |>
+::: {.callout-note collapse="true" title="Musterlösung A2.1"}
+```{r}
+dat_long <- dat_full |>
   pivot_longer(
     cols = c(pre1, pre4),
-    names_to = "time_rating",
+    names_to = "timepoint",
     values_to = "rating"
   )
 ```
+
+`code`, `group`, `mmq_mean` und alle anderen nicht umgeformten Variablen bleiben erhalten. Sie werden für die zwei Messungen derselben Person in den Long-Zeilen wiederholt.
 :::
 ::::
 
-### Schritt 5: Messzeitpunkt als Faktor definieren
+## A3: Ist das Ergebnis wie erwartet?
 
-Für viele Analysen soll die Variable mit den Messzeitpunkten nicht als Zeichenvariable, sondern als Faktor vorliegen.
+### 🧭 A3.1: Wide und Long kurz kontrollieren
 
-Wandle deshalb die Spalte time_rating in einen Faktor um.
+Überprüft anhand geeigneter R-Befehle die vier Kontrollfragen:
 
-```{r, echo = TRUE, eval = FALSE}
-df_long$time_rating <- XXXX(df_long$time_rating)
+| Kontrollfrage | Erwartetes Ergebnis für unsere Originaldaten |
+|:--------------------------------|:-----------------------------------|
+| Wie gross ist `dat_full`? | **159 Zeilen × 37 Spalten** |
+| Wie gross ist `dat_long`? | **318 Zeilen × 37 Spalten** |
+| Wie viele verschiedene Personen enthält `dat_long`? | **159** |
+| Wie oft kommen `pre1` und `pre4` in `timepoint` vor? | **je 159-mal** |
+
+Lasst euch ausserdem die ersten **vier** Zeilen mit den Variablen `code`, `group`, `timepoint` und `rating` anzeigen. Könnt ihr die vier Zeilen den ursprünglichen `pre1`- und `pre4`-Werten zuordnen?
+
+::: {.callout-tip collapse="true" title="Tipp A3.1"}
+Ihr kennt `dim()`, `table()`, `head()` und `select()` bereits. Mit `n_distinct()` zählt ihr verschiedene Personen-IDs.
+
+Dieselbe Personen-ID taucht im Long-Format **zweimal** auf – einmal pro Messzeitpunkt. Das ist hier **gewollt** und kein Duplikatfehler.
+:::
+
+::: {.content-visible when-meta="show_solutions"}
+```{r}
+dim(dat_full)                         
+dim(dat_long)                         
+n_distinct(dat_long$code)             
+table(dat_long$timepoint)             
+
+dat_long |>
+  select(code, group, timepoint, rating) |>
+  head(4)
 ```
+
+**Warum 37 Spalten in beiden Datensätzen?** `pivot_longer()` ersetzt hier die beiden Spalten `pre1` und `pre4` durch zwei neue Spalten (`timepoint`, `rating`); alle übrigen Spalten bleiben enthalten.
+:::
+
+## A4: Speichern, dokumentieren und reproduzieren
+
+### 🧭 A4.1: Beide Dateien an der richtigen Stelle speichern
+
+Kontrolliert den bestehenden Speicherschritt für `dat_full.csv`: Er muss nach der Berechnung von `mmq_mean` stehen.
+
+Ergänzt darunter einen zweiten Speicherschritt für `dat_long.csv`.
+
+Beide Dateien gehören in `data/processed/`.
+
+::: {.callout-tip collapse="true" title="Tipp A4.1"}
+Das Objekt `dat_full` wird unter dem Dateinamen `dat_full.csv` gespeichert, `dat_long` unter `dat_long.csv`. Der Speicherort wird relativ zur **Projektwurzel** angegeben. Verschiebt einen vorhandenen Speicherschritt, statt ihn zu duplizieren.
+:::
+
+:::: {.callout-tip collapse="true" title="Tipp A4.1"}
+::: {.callout-note collapse="true" title="Musterlösung A4.1"}
+Diese beiden Befehle stehen am Ende der Processing-Pipeline, nachdem beide Datenobjekte erstellt und geprüft wurden:
+
+```{r, echo=TRUE, eval=FALSE}
+readr::write_csv(
+  dat_full,
+  here::here("data", "processed", "dat_full.csv")
+)
+
+readr::write_csv(
+  dat_long,
+  here::here("data", "processed", "dat_long.csv")
+)
+```
+
+Falls der erste Befehl bereits im Skript steht, **verwendet ihn weiter** und achtet lediglich auf seine richtige Position. Ergänzt `dat_long.csv` als zweite Ausgabe.
+:::
+::::
+
+### 🧭 A4.2: Codebook aktualisieren und vollständig rendern
+
+Öffnet euer Codebook für `dat_full` und ergänzt die neu berechnete Variable `mmq_mean`.
+
+Dokumentiert mindestens nachvollziehbar, aus welchen Items der Wert berechnet wurde, wie er berechnet wurde und welcher theoretische Wertebereich gilt.
+
+**Danach:** Speichert euer `processing.qmd` und rendert es **vollständig**. Kontrolliert anschliessend, ob beide CSV-Dateien unter `data/processed/` vorhanden und aktuell sind.
+
+::: {.callout-tip collapse="true" title="Tipp A4.2"}
+`mmq_mean` gehört als neue Variable ins **Codebook des Wide-Datensatzes**. Für `dat_long` erstellt ihr **kein neues Codebook**.
+
+Falls die gespeicherte `dat_full.csv` noch 36 Variablen hat, steht das Speichern vermutlich **vor** der neuen Berechnung. Falls die Ratings plötzlich ausserhalb von 0–100 liegen, prüft, ob ihr die `× 10`-Transformation mehrfach auf bereits veränderte Werte angewendet habt.
+:::
+
+## ✅ Checkpoint nach EH9
+
+Euer `processing.qmd` erzeugt jetzt **reproduzierbar zwei aufbereitete Dateien** aus den ursprünglichen sieben Rohdatensätzen:
+
+| Datei | Inhalt | Verwendung in den nächsten Einheiten |
+|:-----------------------|:-----------------------|:-----------------------|
+| `data/processed/dat_full.csv` | 159 Personen × 37 Variablen, neu mit `mmq_mean` | Gruppenvergleiche und weitere Analysen |
+| `data/processed/dat_long.csv` | 318 Messzeilen × 37 Variablen, neu mit `timepoint` und `rating` | Mixed ANOVA mit `pre1` und `pre4` |
+
+**Für EH10:** Ihr müsst **keine neuen Rohdaten importieren oder erneut transformieren**. Im `analysis.qmd` arbeitet ihr mit den beiden gespeicherten, aufbereiteten Dateien weiter.
+
+## ⭐ Freiwillige Vertiefung: Zurück ins Wide-Format
+
+Zum Verständnis könnt ihr `dat_long` probeweise wieder in ein Wide-Format zurückverwandeln. Verwendet dazu `pivot_wider()` und speichert das Ergebnis **nur temporär** als `dat_wide_check` – keine dritte Datei im Projekt.
+
+Überlegt: Aus welcher Variable entstehen wieder die Spalten `pre1` und `pre4`, und woher kommen die dazugehörigen Zahlenwerte?
+
+::: {.callout-tip collapse="true" title="Tipp zur Vertiefung"}
+Bei `pivot_wider()` gibt `names_from` die Spalte mit den **künftigen Spaltennamen** und `values_from` die Spalte mit den **einzutragenden Messwerten** an.
+:::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-df_long$time_rating <- factor(df_long$time_rating)
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Warum ist das sinnvoll? Ein Faktor signalisiert R, dass es sich bei time_rating um eine kategoriale Variable handelt. Das ist für viele statistische Analysen wichtig, damit die Gruppen korrekt interpretiert werden. Das Umwandeln in einen Faktor muss erneut ausgeführt werden, wenn R neu geöffnet wird.
-:::
-
-### Schritt 6: Long-Datensatz speichern
-
-Speichere den Long-Datensatz als .csv-Datei ab. Diesen Datensatz werden wir in den nächsten Woche benötigen!
-
-👉 Achte darauf, dass keine zusätzliche Spalte mit Zeilennummern gespeichert wird.
-
-```{r, echo = TRUE, eval = FALSE}
-write.csv(df_long, "processed/data_long.csv", row.names = XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = FALSE}
-write.csv(df_long, "processed/data_long.csv", row.names = FALSE)
-```
-:::
-::::
-
-### Schritt 7: Zurück ins Wide-Format
-
-Wandle den Datensatz nun mit `pivot_wider()` wieder zurück ins Wide-Format. Dies dient nur Übungszwecken.
-
-👉 Verwende dabei: names_from, um festzulegen, aus welcher Spalte die neuen Spaltennamen kommen values_from, um festzulegen, welche Werte in diese Spalten geschrieben werden
-
-👉 Speichere das Ergebnis in einem neuen Datensatz df_wide.
-
-```{r, echo = TRUE, eval = FALSE}
-df_wide <- df_long |>
+::: {.callout-note collapse="true" title="Musterlösung zur Vertiefung"}
+```{r}
+dat_wide_check <- dat_long |>
   pivot_wider(
-    names_from = XXXX,
-    values_from = XXXX
-  )
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-df_wide <- df_long |>
-  pivot_wider(
-    names_from = time_rating,
+    names_from = timepoint,
     values_from = rating
   )
+
+dat_wide_check |>
+  select(code, pre1, pre4) |>
+  head(2)
 ```
+
+Die Werte von `pre1` und `pre4` stehen wieder nebeneinander.
 :::
 ::::
-
-# Datenqualität und erste Diagnostik
-
-In diesem Abschnitt untersuchst du verschiedene Eigenschaften der Daten. Dazu gehören:
-
--   die Form von Verteilungen
--   die Prüfung von Residuen in einem Regressionsmodell
--   die interne Konsistenz eines Fragebogens (Skalenreliabilität)
--   graphische Darstellung von Verteilungen und Zusammenhängen
-
-## Verteilungen beschreiben: Skewness und Kurtosis
-
-Mit Schiefe und Kurtosis kann beschrieben werden, wie stark eine Verteilung von der Normalverteilung abweicht.
-
-### Schritt 1: Paket laden
-
-Für die folgenden Analysen benötigst du das Paket `psych`.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-# install.packages("psych")
-library(psych)
-```
-:::
-::::
-
-### Schritt 2: Schiefe und Kurtosis gruppenweise berechnen
-
-Berechne für die Variable „Öffnungen des Modellfensters“ (mean_rl_all) die Schiefe und Kurtosis getrennt für die drei Gruppen.
-
-👉 Verwende dafür `group_by()` und `summarise()`.
-
-```{r, echo = TRUE, eval = FALSE}
-summary_table <- dat_full |>
-  group_by(XXXX) |>
-  summarise(
-    schiefe = XXXX(mean_rl_all),
-    kurtosis = XXXX(mean_rl_all)
-  )
-
-summary_table
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-summary_table <- dat_full |>
-  group_by(group_all) |>
-  summarise(
-    schiefe = psych::skew(mean_rl_all),
-    kurtosis = psych::kurtosi(mean_rl_all)
-  )
-
-summary_table
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Zur Einordnung: Eine Schiefe nahe 0 spricht für eine annähernd symmetrische Verteilung. Eine Kurtosis nahe 3 spricht dafür, dass die Verteilung in ihrer Wölbung ungefähr einer Normalverteilung ähnelt.
-:::
-
-## Residuen eines Regressionsmodells prüfen
-
-Bei linearen Regressionsmodellen prüft man häufig, ob die Residuen ungefähr normalverteilt sind.
-
-📖Siehe auch: [Normalverteilung der Residuen bei der Regression in R testen](https://bjoernwalther.com/normalverteilung-der-residuen-bei-der-regression-in-r-testen/)
-
-### Schritt 1: Regressionsmodell berechnen
-
-Berechne ein lineares Regressionsmodell, in dem Cognitive Offloading (mean_rl_all) durch die Arbeitsgedächtnisleistung (cvstm_propcorrect) vorhergesagt wird.
-
-```{r, echo = TRUE, eval = FALSE}
-
-reg_fit <- lm(XXXX ~ XXXX, data = dat_full)
-
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-reg_fit <- lm(mean_rl_all ~ cvstm_propcorrect, data = dat_full)
-```
-:::
-::::
-
-### Schritt 2: Standardisierte Residuen speichern
-
-Speichere die standardisierten Residuen des Modells mit `rstandard()`.
-
-```{r, echo = TRUE, eval = FALSE}
-residuals <- XXXX(reg_fit)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-residuals <- rstandard(reg_fit)
-```
-:::
-::::
-
-### Schritt 3: Histogramm der Residuen
-
-Stelle die standardisierten Residuen in einem Histogramm dar.
-
-```{r, echo = TRUE, eval = FALSE}
-hist(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-hist(residuals)
-```
-:::
-::::
-
-👉 Frage zur Interpretation: Wirkt die Verteilung der Residuen im Histogramm ungefähr symmetrisch und glockenförmig?
-
-### Schritt 4: QQ-Plot der Residuen
-
-Erstelle zusätzlich einen QQ-Plot und ergänze die Referenzgerade.
-
-```{r, echo = TRUE, eval = FALSE}
-qqnorm(XXXX)
-qqline(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-qqnorm(residuals)
-qqline(residuals)
-```
-:::
-::::
-
-👉 Frage zur Interpretation: Liegen die Punkte ungefähr auf der Geraden, oder gibt es deutliche Abweichungen?
-
-## Skalenreliabilität
-
-Nun prüfst du die Interne Konsistenz eines Fragebogens.
-
-📖 [Psychometrics in R](https://bookdown.org/annabrown/psychometricsR/exercise5.html) & [Björn Walther](https://bjoernwalther.com/cronbachs-alpha-in-r-berechnen/)
-
-### Schritt 1: Relevante Items auswählen
-
-Speichere alle Variablen des MMQ in einem neuen Data Frame mmq_vars.
-
-👉 Wähle dazu alle Spalten aus, die mit "question" beginnen.
-
-```{r, echo = TRUE, eval = FALSE}
-mmq_vars <- dat_full |>
-  select(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-mmq_vars <- dat_full |>
-  select(starts_with("question"))
-```
-:::
-::::
-
-### Schritt 2: Cronbach's Alpha berechnen
-
-Verwende die Funktion `alpha()` aus dem Paket `psych`, um Cronbach's Alpha für den Fragebogen zu berechnen.
-
-👉 Achte in der Ausgabe besonders auf den Wert raw_alpha. Dieser sollte mit dem Wert in @grinschgl2021 übereinstimmen!
-
-```{r, echo = TRUE, eval = FALSE}
-psych::alpha(XXXX)
-```
-
-::: callout-warning
-Achtung: Wenn du das Paket ggplot2 geladen hast, kann es in seltenen Fällen zu Namenskonflikten kommen. Verwende deshalb hier sicherheitshalber psych::alpha().
-:::
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-psych::alpha(mmq_vars)
-```
-:::
-::::
-
-### Schritt 3: McDonald's Omega berechnen
-
-Berechne nun zusätzlich McDonald's Omega mit der Funktion `omega()` aus dem Paket `psych`.
-
-```{r, echo = TRUE, eval = FALSE}
-psych::omega(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-psych::omega(mmq_vars)
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Hinweis: `alpha()` und `omega()` sind zwei verschiedene Kennwerte der Internen Konsistenz. Während Cronbach's Alpha sehr häufig berichtet wird, basiert Omega stärker auf einem Faktorenmodell.
-:::
-
-::: {.callout-note collapse="true"}
-## PDF Grinschgl et al. (2021): Multifactorial Memory Questionnaire
-
-<iframe src="../../PDFs/Grinschgl2020.pdf" width="100%" height="500px">
-
-</iframe>
-
-Tipp: Die Ausgabe von `alpha()` ist relativ umfangreich. Besonders wichtig ist hier der Wert raw_alpha.
-:::
-
-------------------------------------------------------------------------
-
-## Verteilungen und Zusammenhänge graphisch darstellen
-
-Mit graphischen Darstellungen lassen sich Verteilungen, Ausreisser und Zusammenhänge zwischen Variablen schnell prüfen.
-
-### Überblick über wichtige ggplot2-Geoms
-
-| **Geom** | **Funktion** | **Einsatzbereich** |
-|------------------------|------------------------|------------------------|
-| geom_point() | Streudiagramm | Zwei numerische Variablen vergleichen (x = Var1, y = Var2) |
-| geom_line() | Liniendiagramm | Werteverlauf über kontinuierliche x-Achse darstellen |
-| geom_bar() | Balkendiagramm | Häufigkeiten oder Aggregationen für Kategorien (x = Gruppe) |
-| geom_histogram() | Histogramm | Verteilung einer numerischen Variable (x = Wert) |
-| geom_boxplot() | Boxplot | Verteilungen über Gruppen vergleichen (x = Gruppe, y = Wert) |
-
-::: {.callout-note collapse="true"}
-## Cheatsheet ggplot2
-
-<iframe src="../../PDFs/ggplot.pdf" width="100%" height="500px">
-
-</iframe>
-:::
-
-Für einfache Graphiken kann auch die Base-R-Funktion `plot()` verwendet werden. Für die folgenden Aufgaben empfehlen wir aber `ggplot()`, da es flexibler und einheitlicher ist.
-
-### Schritt 1: Scatterplot erstellen
-
-Erstelle ein Streudiagramm für den Zusammenhang zwischen Cognitive Offloading (Öffnungen des Modellfensters - `mean_rl_all`) und der Arbeitsgedächtnisleistung (Feature Switch Detection Task - `cvstm_propcorrect`).
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = dat_full, aes(x = XXXX, y = XXXX)) +
-  geom_XXXX()
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-ggplot(data = dat_full, aes(x = mean_rl_all, y = cvstm_propcorrect)) +
-  geom_point()
-```
-:::
-::::
-
-Versuche zu erkennen, ob es Aussreisser gibt die, den Zusammenhang zwischen den Variablen verzerren könnten.
-
-### Schritt 2: Boxplot für eine einzelne Variable
-
-Erstelle einen Boxplot für die Variable mean_rl_all.
-
-👉 Boxplots eignen sich auch gut, um mögliche Ausreisser bei einzelnen Variablen sichtbar zu machen.
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = dat_full, aes(y = XXXX)) +
-  geom_XXXX()
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-ggplot(data = dat_full, aes(y = mean_rl_all)) +
-  geom_boxplot()
-```
-:::
-::::
-
-❗Ob und wie Ausreißer ausgeschlossen werden, sollte möglichst vorab festgelegt werden, zum Beispiel in einer Präregistrierung oder in einem Datenanalyseplan.
-
-### Schritt 3: Boxplot nach Gruppen
-
-Lass dir den Boxplot von mean_rl_all getrennt nach den drei Experimentalgruppen anzeigen.
-
-👉 Dafür muss die Gruppenzugehörigkeit auf die x-Achse und die numerische Variable auf die y-Achse.
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = dat_full, aes(x = XXXX, y = XXXX)) +
-  geom_boxplot()
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-ggplot(data = dat_full, aes(x = group_all, y = mean_rl_all)) +
-  geom_boxplot()
-```
-:::
-::::
-
-### Freiwillige Vertiefung
-
-Erweitere den Scatterplot aus Schritt 1 um folgende Elemente:
-
--   Färbe die Datenpunkte nach Gruppenzugehörigkeit ein mit `color()`
-
--   Füge einen Titel hinzu mit `ggtitle()`
-
--   Beschrifte beide Achsen mit `ylab()` und `xlab()`
-
--   Verwende `theme_minimal()`
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(data = dat_full, aes(x = XXXX, y = XXXX, color = XXXX)) +
-  geom_point() +
-  theme_minimal() +
-  ggtitle("XXXX") +
-  xlab("XXXX") +
-  ylab("XXXX")
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-ggplot(data = dat_full, aes(x = mean_rl_all, y = cvstm_propcorrect, color = group_all)) +
-  geom_point() +
-  theme_minimal() +
-  ggtitle("Zusammenhang zwischen Cognitive Offloading und Arbeitsgedächtnisleistung") +
-  xlab("Öffnungen des Modellfensters") +
-  ylab("Arbeitsgedächtnisleistung")
-```
-:::
-::::
-
-# Tabellen
-
-In diesem Abschnitt erstellst du Tabellen mit deskriptiver Statistik und lernst, wie du sie übersichtlich formatieren kannst. Anschliessend erzeugst du eine APA-konforme Korrelationstabelle.
-
-## Deskriptive Tabellen erstellen
-
-### Schritt 1: Paket laden
-
-Für die Tabellenerstellung mit `kable()` benötigst du das Paket `knitr`. (ggf. muss davor das Paket `xfun` geupdatet werden!)
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-# install.packages("knitr")
-library(knitr)
-```
-:::
-::::
-
-### Schritt 2: Deskriptive Statistik berechnen
-
-Erstelle zunächst einen Data Frame mit deskriptiver Statistik für die vier Variablen des Pattern Copy Task. Berechne dafür die Mittelwerte getrennt nach den drei Gruppen.
-
-👉 Verwende dazu `group_by()` und `summarise()`.
-
-```{r, echo = TRUE, eval = FALSE}
-summary_table <- dat_full |>
-  group_by(XXXX) |>
-  summarise(
-    "Mean Openings of Model Window" = mean(XXXX),
-    "Mean Initially Correctly Copied Items" = mean(XXXX),
-    "Mean Initial Encoding Duration (sec)" = mean(XXXX),
-    "Mean Trial Duration (sec)" = mean(XXXX)
-  )
-
-summary_table
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-summary_table <- dat_full |>
-  group_by(group_all) |>
-  summarise(
-    "Mean Openings of Model Window" = mean(mean_rl_all),
-    "Mean Initially Correctly Copied Items" = mean(mean_e1_all),
-    "Mean Initial Encoding Duration (sec)" = mean(mean_d1_all),
-    "Mean Trial Duration (sec)" = mean(mean_d_all)
-  )
-
-summary_table
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Falls fehlende Werte im Datensatz vorhanden sind, musst du bei `mean()` zusätzlich na.rm = TRUE angeben.
-:::
-
-### Schritt 3: Tabelle darstellen
-
-Wende nun `kable()` auf den Data Frame mit der deskriptiven Statistik an, um eine übersichtliche Tabelle auszugeben.
-
-```{r, echo = TRUE, eval = FALSE}
-knitr::kable(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-knitr::kable(summary_table)
-```
-:::
-::::
-
-### Schritt 4: Tabelle formatieren
-
-Schau dir die Hilfefunktion an und formatiere die Tabelle nun weiter. Nimm dabei mindestens folgende Anpassungen vor:
-
--   Vergib verständliche Spaltennamen mit `col.names`
-
--   Runde auf 2 Nachkommastellen mit `digits`
-
--   Ergänze eine passende Tabellenüberschrift mit `caption`
-
-```{r, echo = TRUE, eval = FALSE}
-knitr::kable(
-  summary_table,
-  col.names = c("XXXX", "XXXX", "XXXX", "XXXX", "XXXX"),
-  digits = XXXX,
-  caption = "XXXX"
-)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-knitr::kable(
-  summary_table,
-  col.names = c(
-    "Gruppe",
-    "Durchschnittliche Modellöffnungen",
-    "Durchschnittlich korrekt kopierte Items",
-    "Durchschnittliche Enkodierungszeit",
-    "Durchschnittliche Trialdauer"
-  ),
-  digits = 2,
-  caption = "Deskriptivstatistik zum Cognitive Offloading"
-)
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-Mit `?kable` kannst du dir die Hilfeseite anzeigen lassen und weitere Formatierungsmöglichkeiten anschauen.
-:::
-
-## APA-konforme Tabellen für statistische Analysen
-
-Mit dem Paket `apaTables` lassen sich Tabellen erstellen, die sich gut für Berichte nach APA-Richtlinien eignen.
-
-**📑Referenz:** <https://dstanley4.github.io/apaTables/articles/apaTables.html>
-
-### Schritt 1: Paket laden
-
-Lade das Paket `apaTables`.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-# install.packages("apaTables")
-library(apaTables)
-```
-:::
-::::
-
-### Schritt 2: Relevante Variablen auswählen
-
-Erstelle einen neuen Data Frame, der nur die Proportion Correct Variablen der drei Arbeitsgedächtnistests enthält.
-
-👉 Wähle dafür die passenden Spalten mit `select()` aus.
-
-```{r, echo = TRUE, eval = FALSE}
-prop_correct_vars <- dat_full |>
-  select(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-prop_correct_vars <- dat_full |>
-  select(ends_with("correct"))
-```
-:::
-::::
-
-### Schritt 3: APA-konforme Korrelationstabelle erstellen
-
-Wende `apa.cor.table()` auf den neuen Data Frame an.
-
-👉 Dadurch erhältst du eine Korrelationstabelle im APA-Stil.
-
-```{r, echo = TRUE, eval = FALSE}
-apa.cor.table(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-apa.cor.table(prop_correct_vars)
-```
-:::
-::::
-
-### Schritt 4: Tabelle als Word-Datei speichern
-
-Speichere die Korrelationstabelle nun als Word-Datei ab.
-
-👉 Gib dafür mit `filename` einen Dateinamen an.
-
-👉 Speichere die Datei am besten in einem passenden Ausgabeordner
-
-```{r, echo = TRUE, eval = FALSE}
-apa.cor.table(
-  prop_correct_vars,
-  filename = "XXXX"
-)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = FALSE}
-apa.cor.table(
-  prop_correct_vars,
-  filename = "outputs/propcorrtable.docx"
-)
-```
-:::
-::::
-
-::: {.callout-note collapse="true"}
-apaTables kann auch für andere statistische Ausgaben verwendet werden, zum Beispiel für Regressionsmodelle. Für ANOVAs verwenden wir im weiteren Verlauf jedoch ein anderes Paket.
-:::
-
-------------------------------------------------------------------------
-
-# Zusatzübungen für die Extra-Schnellen
-
--   Versuche Tabelle 1 aus dem Paper (Grinschgl et al., 2020) möglichst ident zu reproduzieren und als Word-Datei abzuspeichern
-
--   Erstelle eine Abbildung deiner Wahl und versuche dabei möglichst viele APA-Richtlinien zu missachten.
-
-------------------------------------------------------------------------
-
-# Zum Schluss
-
-Speichere am Ende deiner Übungen dein Skript ab, damit deine Änderungen nicht verloren gehen 😉
