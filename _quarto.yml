@@ -42,6 +42,8 @@ website:
             text: "Einheit 7 - 28.10.2026"
           - href: scripts/01_slides/EH_8.qmd
             text: "Einheit 8 - 04.11.2026"
+          - href: scripts/01_slices/EH_9.qmd
+            text: "Einheit 9 - 11.11.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 
@@ -53,6 +55,8 @@ website:
             text: "Hands-on 3 (Woche 5 - 6)"
           - href: scripts/02_excercises/loesung_4.qmd
             text: "Hands-on 4 (Woche 7 - 8)"
+          - href: scripts/02_excercises/loesung_5.qmd
+            text: "Hands-on 5 (Woche 9 - 10)"
       - href: hausuebungen.qmd
         text: "Hausübungen"
         contents:
