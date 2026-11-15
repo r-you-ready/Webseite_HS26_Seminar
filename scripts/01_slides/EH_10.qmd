@@ -1,6 +1,6 @@
 ---
-title: "R u Ready? FS2026 | Psychologie der Digitalisierung - Einheit 10"
-author: Sandra Grinschgl, Laura Hirt, Lars Schilling
+title: "R u Ready? HS2026 | Psychologie der Digitalisierung - Einheit 10"
+author: Sandra Grinschgl, Laura Hirt, Jan-Pierre Pahnke
 format: 
   revealjs:
     title-slide-attributes:
@@ -16,22 +16,25 @@ format:
     progress: true
     controls: true
     embed-resources: true
-bibliography: references.bib
-draft: true
+draft: false
 ---
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-library(palmerpenguins)
-library(apaTables)
-
-penguins <- palmerpenguins::penguins
-
-bfi_10_data <- read_delim("raw/bfi_10_data.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 dat_full <- read_csv("raw/dat_full.csv")
+dat_full <- dat_full |>
+  rename(group = group_all,
+         cvstm_sum = csvtm_sum) |>
+  mutate(
+    across(
+      c(pre1, pre2, pre3, pre4, post),
+      ~ .x * 10
+    ),
+    mmq_mean = rowMeans(across(question1:question18))
+  )
 
-dat_full_long <- dat_full |>
+dat_long <- dat_full |>
       pivot_longer(
         cols = c(pre1, pre4),
         names_to = "time_rating",
@@ -41,21 +44,67 @@ dat_full_long <- dat_full |>
 
 ## R u Ready? Reproduzierbare Datenaufbereitung und -analyse mit R
 
-FS 2026<br><br><br> **LV-Leitung**: Dr. Sandra Grinschgl / MSc. Laura Hirt<br> **Tutor**: BSc. Lars Schilling<br><br><br>**10. Einheit**, 29.04.2026
+HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beider Seminargruppen:** MSc. Laura Hirt<br> **Tutor**: BSc. Jan-Pierre Pahnke<br><br><br>**10. Einheit**, 18.11.2026
+
+![](images/ryouready_logo.png){fig-align="center" width="306"}
 
 ------------------------------------------------------------------------
 
-## Heute:
+## Wo befinden wir uns?
 
-::: {style="width:100%; height:80vh; background:#777; padding:20px; box-sizing:border-box; border-radius:10px; overflow:auto; "}
-```{=html}
-<embed
-    src="../../PDFs/Syllabus.pdf#view=FitH&navpanes=0&toolbar=0"
-    type="application/pdf"
-    style="width:100%; height:220vh; border:0; display:block; background:white;"
-  >
-```
+**ANALYSIEREN: Von aufbereiteten Daten zu wissenschaftlichen Ergebnissen**
+
+<br>
+
+![](../../images/Workflow_EH10.png){fig-align="center" width="75%"}
+
+<br>
+
+**Bisher:** Wir haben unsere Forschungsdaten in `processing.qmd` aufbereitet.
+
+**Ab heute:** Wir beschreiben, visualisieren und analysieren unsere Ergebnisse in `analysis.qmd`.
+
+::: notes
+In den vergangenen Einheiten haben wir unsere sieben Rohdatensätze zusammengeführt, Variablen dokumentiert, Daten transformiert und die benötigten Analysevariablen erstellt.
+
+Letzte Woche haben wir die Datenaufbereitung abgeschlossen. Wir besitzen nun zwei Datensätze, die wir für unterschiedliche Auswertungen benötigen.
+
+Heute beginnt die nächste Phase unseres Forschungsprojekts: Wir möchten herausfinden, welche Ergebnisse unsere Daten zeigen. Dabei testen wir heute noch keine Hypothesen, sondern lernen einmal, wie wir Daten deskriptiv beschreiben und visualisieren können.
 :::
+
+------------------------------------------------------------------------
+
+## Zwei Skripte - zwei unterschiedliche Aufgaben
+
+**Von der Datenaufbereitung zur wissenschaftlichen Auswertung**
+
+<br>
+
+![](../../images/Processing_zu_Analyse.png){fig-align="center" width="75%"}
+
+<br>
+
+**Die Verbindung:** `data/processed/` enthält die aufbereiteten Daten für unsere Analysen.
+
+::: notes
+Wir haben in den vergangenen Einheiten hauptsächlich in unserem Processing-Skript gearbeitet. Dort haben wir die sieben Rohdatensätze eingelesen, zusammengeführt und die Variablen systematisch aufbereitet.
+
+Am Ende der letzten Woche haben wir die beiden aufbereiteten Datensätze gespeichert: dat_full im Wide-Format und dat_long im Long-Format.
+
+Diese beiden Dateien bilden jetzt die Grundlage für unser Analyseskript. Wir beginnen also nicht nochmals mit den Rohdaten, sondern verwenden die bereits aufbereiteten Daten, um die Ergebnisse aus der Studie zu reproduzieren.
+
+Dabei werden wir zunächst deskriptive Kennwerte berechnen und unsere Ergebnisse als Tabellen und Abbildungen darstellen. In den nächsten Einheiten folgen dann die statistischen Analysen.
+
+Wichtig ist: Die beiden Skripte erfüllen unterschiedliche Aufgaben, gehören aber zum selben reproduzierbaren Forschungsprojekt.
+:::
+
+------------------------------------------------------------------------
+
+## Wir beginnen mit den aufbereiteten Daten
+
+**Untertitel**
+
+Ab hier müssen die Folien noch überarbeitet werden. Wird am Montag gemacht!
 
 ------------------------------------------------------------------------
 
