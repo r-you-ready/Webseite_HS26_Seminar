@@ -471,6 +471,10 @@ Die verschiedenen Bestandteile einer ggplot-Graphik werden mit einem Pluszeichen
 
 ------------------------------------------------------------------------
 
+##  {data-background-iframe="../../PDFs/cheatsheet_ggplot2.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
 ## Schritt 1: Daten auswählen
 
 **`ggplot` erhält einen Data Frame - zunächst entsteht eine leere Zeichenfläche**
@@ -522,232 +526,204 @@ ggplot(
 ::: notes
 Nun legen wir über aes, kurz für aesthetic mapping, die visuellen Zuordnungen fest. Auf der x-Achse sollen unsere drei Gruppen stehen.
 
-Auf der y-Achse
+Auf der y-Achse möchten wir die Mittelwerte der Modellfensteröffnungen anzeigen, die wir im Tabellenteil als mean-rl_all_M berechnet haben.
+
+Die gewählten Variablen stammen alle aus dem Data Frame, den wir ggplot übergeben haben.
+
+Noch fehlen allerdings die grafischen Elemente. Deshalb sehen wir zwar die Achsen, aber noch keine Balken.
 :::
 
 ------------------------------------------------------------------------
+
+## Schritt 3: Die Mittelwerte darstellen
+
+**geom\_\*() bestimmt die Darstellungsform**
+
+<br>
+
+`geom_col()` zeichnet unsere bereits berechneten Mittelwerte als Balken:
+
+```{r, echo=TRUE}
+ggplot(
+  table1_descriptives,
+  aes(
+    x = group,
+    y = mean_rl_all_M)
+  ) +
+  geom_col(fill = "grey70",
+           color = "grey30"
+)
+```
 
 ::: notes
-Next, we need to tell ggplot() how the information from our data will be visually represented. The mapping argument of the ggplot() function defines how variables in your dataset are mapped to visual properties (aesthetics) of your plot. The mapping argument is always defined in the aes() function, and the x and y arguments of aes() specify which variables to map to the x and y axes. For now, we will only map flipper length to the x aesthetic and body mass to the y aesthetic. ggplot2 looks for the mapped variables in the data argument, in this case, penguins.
+Erst jetzt legen wir fest, wie die Werte aussehen sollen.
+
+Wir verwenden geom_col(), weil wir die Gruppenmittelwerte bereits berechnet haben. Die Höhe jedes Balkens entspricht dem Wert in mean_rl_all_M.
+
+Die feste Einstellung fill = grey70 färbt alle Balken gleich, color setzt den Rand.
+
+Das Pluszeichen verbindet den Geom mit dem bereits begonnenen Plot.
 :::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Weitere Layer: Fehlerbalken
+
+**Mit `geom_errorbar()` können wir zusätzlich die Streuung der Messwerte zeigen**
 
 <br>
 
-**Schritt 3: geoms() - Wie wird es dargestellt?**
-
--   `geom_*()` bestimmt die Darstellungsform
-
--   z.B.: Punkte, Linien, Balken
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point()
+```{r, echo=TRUE}
+ggplot(table1_descriptives,
+       aes(x = group,
+           y = mean_rl_all_M)) + 
+  geom_col(fill = "grey70",
+           color = "grey30") +
+  geom_errorbar(
+    aes(
+      ymin = mean_rl_all_M - mean_rl_all_SD,
+      ymax = mean_rl_all_M + mean_rl_all_SD
+    ),
+    width = 0.18
+       )
 ```
+
+**Hier: M ± + SD.** In Abbildung 4 des Papers sind die Fehlerbalken dagegen M ± 1 SE.
 
 ::: notes
-To do so, we need to define a geom: the geometrical object that a plot uses to represent data. These geometric objects are made available in ggplot2 with functions that start with geom\_. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (geom_bar()), line charts use line geoms (geom_line()), boxplots use boxplot geoms (geom_boxplot()), scatterplots use point geoms (geom_point()), and so on.
+Eine Grafik kann mehrere grafische Layer enthalten. Mit geom_errorbar ergänzen wir nun Fehlerbalken.
+
+Dafür benötigen wir eine untere Grenze (ymin) und eine obere Grenze (ymax). In unserem Beispiel verwenden wir die bereits berechnete Standardabweichung aus Tabelle 1. So sehen wir die Streuung der individuellen Werte um den Gruppenmittelwert.
 :::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## `aes()`: global vs. im Layer?
 
-<br>
+::::: columns
+::: {.column width="49%"}
+**Feste Farbe**
 
-**Das wichtigste Prinzip: + fügt Layer hinzu**
-
--   Jede neue Zeile = ein neuer Layer
-
--   Die Grafik wird schrittweise erweitert
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point() +
-  geom_smooth()
+```{r, echo=TRUE}
+ggplot(table1_descriptives,
+       aes(x = group,
+           y = mean_rl_all_M)) + 
+  geom_col(fill = "grey70",
+           color = "grey30") +
+  geom_errorbar(
+    aes(
+      ymin = mean_rl_all_M - mean_rl_all_SD,
+      ymax = mean_rl_all_M + mean_rl_all_SD
+    ),
+    width = 0.18
+       )
 ```
+:::
 
-------------------------------------------------------------------------
+::: {.column width="51%"}
+**Farbe nach Gruppe**
 
-## Argumente von `ggplot()`
-
-<br>
-
-**aes(): global vs. im Layer**
-
--   Mapping kann:
-
-    -   **für alles gelten (global)**
-
-    -   nur für einzelne Layer gelten
-
-```{r, echo = TRUE, eval = FALSE}
-#| fig-height: 3
-#| fig-width: 5
-# global
-ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point()
+```{r, echo=TRUE}
+ggplot(table1_descriptives,
+       aes(x = group,
+           y = mean_rl_all_M)) + 
+  geom_col(aes(fill = group),
+           color = "grey30") +
+  geom_errorbar(
+    aes(
+      ymin = mean_rl_all_M - mean_rl_all_SD,
+      ymax = mean_rl_all_M + mean_rl_all_SD
+    ),
+    width = 0.18
+       )
 ```
+:::
+:::::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Welche Darstellung passt zu unserer Frage?
+
+**Die Wahl des Geoms hängt davon ab, welche Daten und welche Forschungsfrage wir haben**
 
 <br>
 
-**aes(): global vs. im Layer**
+-   1 kategoriale Variable: `geom_bar()`, `geom_col()`
 
--   Mapping kann:
+-   1 kontinuierliche Variable: `geom_histogram()`
 
-    -   für alles gelten (global)
+-   2 kategoriale Variablen: `geom_count()`
 
-    -   **nur für einzelne Layer gelten**
+-   2 numerische Variablen: `geom_point()`, `geom_line()`
 
-```{r, echo = TRUE, eval = FALSE}
-#| fig-height: 3
-#| fig-width: 5
-# im Layer
-ggplot(penguins) + 
-  geom_point(aes(x = body_mass_g, y = bill_length_mm))
-```
+-   1 kategoriale + 1 metrische Variable: `geom_boxplot()`, `geom_violin()`
+
+::: notes
+ggplot2 bietet viele unterschiedliche Geoms. Wir müssen sie nicht alle im Detail kennen. Enscheidend ist, dass wir die Darstellung anhand der Fragestellung auswählen.
+:::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Wie gestalten wir eine lesbare Abbildung?
 
-<br>
+**Mit `labs()` und `theme_*()` machen wir die Grafik verständlich und übersichtlich**
 
-**Welche `geom` für welche Daten?**
-
--   Je nach Art der Daten und der gewünschten Darstellungsart auszuwählen:
-
-    -   1 kategoriale Variable: `geom_bar()`
-
-    -   1 kontinuierliche Variable: `geom_histogram()`
-
-    -   2 kategoriale Variablen: `geom_count()`
-
-    -   2 metrische Variablen: `geom_point()`, `geom_line()`
-
-    -   1 kategoriale + 1 metrische Variable: `geom_boxplot()`, `geom_violin()`
-
-------------------------------------------------------------------------
-
-## Argumente von `ggplot()`
-
-<br>
-
-**Weitere Layer: Labels, Design, Modelle**
-
--   Der Plot wird Schritt für Schritt erweitert
-
--   Inhalt vs. Darstellung trennen
-
-```{r, echo = TRUE, eval = FALSE}
-+ labs(
-  title = "Relationship Between Body Mass and Bill Length",
-  x = "Body Mass (g)",
-  y = "Bill Length (mm)")
-+ theme_classic()
-+ geom_smooth(method = "lm")
-```
-
-→ Mit `theme_` können [verschiedene Formatierungen](https://ggplot2.tidyverse.org/reference/ggtheme.html) gewählt werden. `theme_classic` wird typischerweise für APA7 passende Formatierungen gewählt.
-
-------------------------------------------------------------------------
-
-## Argumente von `ggplot()`
-
-<br>
-
-**Ein vollständiger ggplot**
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  theme_classic() +
+```{r, echo=TRUE}
+p_offloading <- ggplot(
+  table1_descriptives,
+  aes(x = group, y = mean_rl_all_M)
+) +
+  geom_col(fill = "grey70", color = "grey30") +
+  geom_errorbar(
+    aes(ymin = mean_rl_all_M - mean_rl_all_SD,
+        ymax = mean_rl_all_M + mean_rl_all_SD),
+    width = 0.18
+  ) +
   labs(
-    title = "Relationship Between Body Mass and Bill Length",
-    x = "Body Mass (g)",
-    y = "Bill Length (mm)"
-    )
+    title = "Modellfensteröffnungen nach Feedbackgruppe",
+    x = "Feedbackgruppe",
+    y = "Modellfensteröffnungen (M)"
+  ) +
+  theme_classic()
 ```
+
+```{r, echo=FALSE}
+p_offloading
+```
+
+::: notes
+Die Daten und die grafschen Elemente stehen bereits.
+
+Nun müssen wir die Abbildung für andere Menschen verständlich machen. Mit labs() vergeben wir sinnvolle Achsentitel.
+
+Mit theme_classic() wählen wir eine reduzierte Gestaltung ohne unnötige Hintergrundelemente.
+
+Wir speichern das fertige Grafikobjekt als p_offloading. Dadurch können wir es jederzeit erneut anzeigen oder als Datei exportieren, ohne den gesamten Code zu kopieren.
+:::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Abbildungen speichern und übertragen
+
+**Mit `ggsave()` exportieren wir unser Plot-Objekt in die bestehende Projektstruktur**
 
 <br>
-
-**Komplexere Kombinationen**
-
--   Kombination von verschiedenen Layers/Geoms
-
-```{r, echo = TRUE, eval = FALSE}
-penguins_plot <- ggplot(penguins, aes(x = island, y = body_mass_g, color = island, shape = sex)) +
-  geom_boxplot() +
-  geom_jitter(alpha = 0.5) +
-  theme_classic() +
-  labs(title = "Body Mass Per Island and Species", x = "Island", y = "Body Mass (g)")
-
-penguins_plot
-```
-
-------------------------------------------------------------------------
-
-## Abbildungen speichern
 
 ```{r, echo = TRUE, eval=FALSE}
-
-ggsave(filename = "my_first_plot.png", plot = penguins_plot)
+ggsave(
+  filename = here::here("data", "outputs", "plots", "offloading_means.png"),
+  plot = p_offloading,
+  width = 7, height = 4, dpi = 300
+)
 ```
 
-------------------------------------------------------------------------
+<br>
 
-## Weitere Ressourcen zu ggplot2:
-
-**Zum Nachschlagen**
-
--   [**ggplot2 Cheatsheet**](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)\
-    Überblick über häufige Funktionen, Geoms und Einstellungen
-
--   [**Auflistung von Argumenten**](https://ggplot2.tidyverse.org/reference/index.html)\
-    Hilfreich, wenn ihr wissen wollt, welche Optionen eine Funktion hat
-
-**Zum Vertiefen**
-
--   [**Data Visualization: A Practical Introduction**](https://socviz.co/)
-
--   **R for Data Science – Kapitel „[Exploratory data analysis](https://r4ds.hadley.nz/EDA.html)“**\
-    Einführung in die Grundlogik von ggplot2
-
--   **R for Data Science – Kapitel „[Layers](https://r4ds.hadley.nz/layers)“**\
-    Vertiefung zu Layern, Geoms, Mappings und Themes
-
-**Für Inspiration**
-
--   [**Top 50 ggplot2 Visualizations**](https://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html#Waffle%20Chart)\
-    Beispiele für unterschiedliche Plot-Typen
+![](../../images/EH10_Projekt.png){fig-align="center" width="85%"}
 
 ------------------------------------------------------------------------
 
-## Heute haben wir:
-
--   Muddiest Points besprochen
-
--   Basics der Datenvisualisierungen kennengelernt
-
-    -   Erstellung von Tabellen
-
-    -   `ggplot()`
-
-**Reminder: Beim Abschlussprojekt müsst ihr 1 Tabelle oder Abbildung nach Wahl zu den simulierten Daten abgeben. –\> Details folgen!**
-
-------------------------------------------------------------------------
+Noch anpassen!
 
 ## R-Hausübung 2
 
