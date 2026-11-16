@@ -21,6 +21,7 @@ draft: false
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(ggplot2)
 
 dat_full <- read_csv("raw/dat_full.csv")
 dat_full <- dat_full |>
@@ -50,6 +51,14 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 
 ------------------------------------------------------------------------
 
+Folie zu Ausfall Anfang Dezember mit Optionen
+
+------------------------------------------------------------------------
+
+##  {data-background-iframe="../../PDFs/Muddiest_Points_II.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
+
+------------------------------------------------------------------------
+
 ## Wo befinden wir uns?
 
 **ANALYSIEREN: Von aufbereiteten Daten zu wissenschaftlichen Ergebnissen**
@@ -74,13 +83,13 @@ Heute beginnt die nächste Phase unseres Forschungsprojekts: Wir möchten heraus
 
 ------------------------------------------------------------------------
 
-## Zwei Skripte - zwei unterschiedliche Aufgaben
+## Zwei Skripte - zwei andere Aufgaben
 
 **Von der Datenaufbereitung zur wissenschaftlichen Auswertung**
 
 <br>
 
-![](../../images/Processing_zu_Analyse.png){fig-align="center" width="75%"}
+![](../../images/Processing_zu_Analyse.png){fig-align="center" width="85%"}
 
 <br>
 
@@ -102,311 +111,421 @@ Wichtig ist: Die beiden Skripte erfüllen unterschiedliche Aufgaben, gehören ab
 
 ## Wir beginnen mit den aufbereiteten Daten
 
-**Untertitel**
-
-Ab hier müssen die Folien noch überarbeitet werden. Wird am Montag gemacht!
-
-Unbedingt noch Folie zu Ausfall Anfang Dezember mit Optionen.
-
-Auch Integration der Muddiest Points II.
-
-------------------------------------------------------------------------
-
-## Inhalte heute
+**Im Analysis-Skript lesen wir die Ergebnisse unserer Datenaufbereitung ein**
 
 <br>
 
--   Besprechung der Muddiest Points II
-
--   Check-in: Hands-on Block 5
-
--   Datenvisualisierung: Tabellen & Abbildungen
-
-------------------------------------------------------------------------
-
-##  {data-background-iframe="../../PDFs/Muddiest_Points_II.pdf#view=FitH&navpanes=0&toolbar=0" data-background-interactive=""}
-
-------------------------------------------------------------------------
-
-## Check-in: Hands-on Block 5
-
-Haben alle einen Long Datensatz (e.g. dat_full_long) mit 318 Zeilen = 2 Zeilen pro Versuchsperson?
-
-Wenn nicht:
-
-```{r echo = TRUE}
-dat_full_long <- dat_full |> 
-  pivot_longer(cols = c(pre1, pre4),
-               names_to = "time_rating",         
-               values_to = "rating")
-```
-
-❗Falls ihr bis Ende Lektion noch nicht den LONG Datensatz erstellt und gespeichert habt - meldet euch bei uns
-
-------------------------------------------------------------------------
-
-## Datenvisualisierung: Tabellen
+![](../../images/EH10_Code_Einlesen.png){fig-align="center" width="95%"}
 
 <br>
 
-Es gibt die Möglichkeit, APA-konforme Tabellen direkt in R zu erstellen
+-   **Welche Funktion zum Einlesen der Daten kommt bei `1`?**
+
+-   **Was muss bei `2` stehen?**
+
+------------------------------------------------------------------------
+
+## Wir beginnen mit den aufbereiteten Daten
+
+**Im Analysis-Skript lesen wir die Ergebnisse unserer Datenaufbereitung ein**
 
 <br>
 
-**Schritt 1: Deskriptive Tabelle erstellen mit `summarize`**
+::::: columns
+::: {.column width="50%"}
+**Codeblock**
 
-*Ziel: Deskriptive Kennwerte (Mean, Min und Max der Körpermasse) pro Gruppe berechnen*
-
-```{r echo=TRUE}
-penguins_full <- drop_na(penguins)
-
-penguins_summary <- penguins_full |> 
-  group_by(species) |>
-  summarize(mean_body_mass = mean(body_mass_g),
-            min_body_mass = min(body_mass_g),
-            max_body_mass = max(body_mass_g)
-            )
-
-penguins_summary
-```
-
-------------------------------------------------------------------------
-
-## Datenvisualisierung: Tabellen
-
-**Schritt 2: `kable` auf deskriptive Tabelle anwenden**
-
-*Ziel: Deskriptive Tabelle formatieren und beschriften*
-
-```{r, echo = TRUE}
-library(knitr)
-
-penguins_summary |>
-  kable(
-    caption = "Summary of penguin body mass by species",
-    digits = 1,
-    col.names = c("Species", "Mean body mass (g)", "Min", "Max")
-  )
-```
-
-<br>
-
-Weitere Formatierungsmöglichkeiten in der Hilfefunktion ersichtlich!
-
-------------------------------------------------------------------------
-
-## [`apaTables`](https://dstanley4.github.io/apaTables/articles/apaTables.html): APA-Tabellen für statistische Analysen
-
-<br>
-
-**Warum apaTables?** Für inferenzstatistische Ergebnisse (z.B. Korrelationen) benötigen wir APA-konforme Tabellen.
-
-→ Auch anwendbar auf Regressionen und ANOVAs
-
-<br>
-
-**Schritt 1: Relevante Variablen für die Korrelation auswählen**
-
-*Beispiel: drei metrische Variablen für eine Korrelationsanalyse auswählen*
-
-```{r, echo = TRUE, eval = TRUE}
-penguins_subset <- penguins |>
-  select(bill_length_mm, bill_depth_mm, flipper_length_mm)
-```
-
-------------------------------------------------------------------------
-
-## [`apaTables`](https://dstanley4.github.io/apaTables/articles/apaTables.html): APA-Tabellen für statistische Analysen
-
-<br>
-
-**Schritt 2: Korrelationstabelle für ausgewählte Variablen erstellen und speichern**
-
-*Berechnet Korrelationen, Mittelwerte und Standardabweichungen und formatiert diese im APA-Stil*
-
-```{r, echo = TRUE, eval = TRUE}
-library(apaTables)
-
-apa.cor.table(penguins_subset, filename = "cor_table.docx")
-```
-
-------------------------------------------------------------------------
-
-## Datenvisualisierung: Abbildungen (Fortsetzung in EH 11)
-
-![](../../images/EH_10/ggplot.png){fig-align="center" width="186"}
-
--   ggplot2 ist das zentrale Paket für Datenvisualisierung in R
-
--   Ermöglicht die Erstellung von z.B. Scatterplots, Balkendiagrammen und Liniengrafiken
-
-------------------------------------------------------------------------
-
-## Visualisierungen: Reproduktion der Abbildungen aus Grinschgl et al. (2021)
-
-```{r echo=FALSE}
-dat_full <- dat_full |>    
-  mutate(
-    mmq_mean = rowMeans(
-      across(starts_with("question"), .names = "{col}"),
-      na.rm = TRUE
-    )
-  )
-
-group_summary <- dat_full %>%
-  group_by(group_all) %>%
-  summarize(
-    mean_mmq = mean(mmq_mean, na.rm = TRUE),
-    se_mmq = sd(mmq_mean, na.rm = TRUE) / sqrt(sum(!is.na(mmq_mean)))
-  )
-
-```
-
-```{r, echo = FALSE}
-ggplot(group_summary, aes(x = group_all, y = mean_mmq)) +
-  geom_col(fill = "gray", color = "black") + 
-  geom_errorbar(
-    aes(ymin = mean_mmq - se_mmq, ymax = mean_mmq + se_mmq),  
-    width = 0.2,
-    color = "black"
-  ) +
-  labs(
-    x = "Group",
-    y = "Mean MMQ",
-    title = "Group Means of Mean MMQ with SE Error Bars"
-  ) +
-  theme_minimal() +
-  ylim(0, 4)
-```
-
-→ Solche publizierten Grafiken können wir mit ggplot2 selbst erstellen!
-
-------------------------------------------------------------------------
-
-## Visualisierungen: Reproduktion der Abbildungen aus Grinschgl et al. (2021)
-
-```{r, echo=FALSE}
-descriptives <- dat_full_long |> 
-  group_by(group_all, time_rating) |> 
-  summarize(N = length(rating),
-               mean_d = mean(rating),
-               sd_d   = sd(rating),
-               se_d   = sd_d / sqrt(N)
+```{r, echo=TRUE, eval=FALSE}
+# Wide-Datensatz
+dat_full <- readr::read_csv(
+  here::here("data", "processed", "dat_full.csv")
 )
 
-descriptives$group_all <- factor(descriptives$group_all, c("above", "control", "below"))
-
-rate_plot <- descriptives |> 
-  ggplot(aes(x = time_rating, 
-             y = mean_d, 
-             group = group_all)) 
-
-rate_plot +
-  geom_line(aes(color = group_all, linetype = group_all), size = 1.2) +
-  geom_errorbar(aes(ymin = mean_d - se_d, ymax = mean_d + se_d), width = .1) +
-  scale_color_manual(values = c("green4", "red", "black")) +
-  theme_classic() +
-  labs(title = "Subjective Performance Ratings ") +
-  ylab("Percentile Rank") +
-  xlab("Time") +
-  theme(plot.title = element_text(hjust = 0.5, size = 12, face = "bold"), 
-        axis.text = element_text(size = 11), axis.title = element_text(size = 14)) +
-  labs(colour = "Feedback Group", linetype = "Feedback Group", shape = "Feedback Group") 
+# Long-Datensatz
+dat_long <- readr::read_csv(
+  here::here("data", "processed", "dat_long.csv")
+)
 ```
+:::
 
-→ Auch komplexe Grafiken können wir mit ggplot2 schrittweise reproduzieren
+::: {.column width="50%"}
+**Kontrolle**
 
-------------------------------------------------------------------------
+Bspw. mit der Funktion `dim()`
 
-## `ggplot2()`: Eine Grammatik für Grafiken
+![](../../images/EH10_Kontrolle.png){fig-align="center" width="95%"}
+:::
+:::::
 
 <br>
 
--   Plots werden **schrittweise aufgebaut**
-
--   Jede Grafik besteht aus:
-
-    -   Daten
-
-    -   Aesthetic Mappings → *Was wird dargestellt?*
-
-    -   Layers → *Wie wird es dargestellt?*
-
-------------------------------------------------------------------------
-
-## `ggplot2()` - Cheatsheet Statistik
-
-:::::: {style="display: flex; justify-content: space-between; gap: 1rem;"}
-::: {style="flex: 1;"}
-```         
-```
-
-![](../../images/EH_10/ggplot1.png)
-:::
-
-::: {style="flex: 1;"}
-```         
-```
-
-![](../../images/EH_10/ggplot2.png)
-:::
-
-::: {style="flex: 1;"}
-```         
-```
-
-![](../../images/EH_10/ggplot3.png)
-:::
-::::::
+**Wir arbeiten direkt mit den aufbereiteten Dateien aus `data/processed/`.**
 
 ::: notes
-With ggplot2, you begin a plot with the function ggplot(), defining a plot object that you then add layers to. The first argument of ggplot() is the dataset to use in the graph and so ggplot(data = penguins) creates an empty graph that is primed to display the penguins data, but since we haven’t told it how to visualize it yet, for now it’s empty. This is not a very exciting plot, but you can think of it like an empty canvas you’ll paint the remaining layers of your plot onto.
+In den vergangenen Einheiten haben wir unsere Daten in `processing.qmd` aufbereitet und anschliessend als zwei Dateien gespeichert.
 
-Next, we need to tell ggplot() how the information from our data will be visually represented. The mapping argument of the ggplot() function defines how variables in your dataset are mapped to visual properties (aesthetics) of your plot. The mapping argument is always defined in the aes() function, and the x and y arguments of aes() specify which variables to map to the x and y axes. For now, we will only map flipper length to the x aesthetic and body mass to the y aesthetic. ggplot2 looks for the mapped variables in the data argument, in this case, penguins.
+Genau diese beiden Dateien lesen wir nun im `analysis.qmd` wieder ein.
 
-To do so, we need to define a geom: the geometrical object that a plot uses to represent data. These geometric objects are made available in ggplot2 with functions that start with geom\_. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms (geom_bar()), line charts use line geoms (geom_line()), boxplots use boxplot geoms (geom_boxplot()), scatterplots use point geoms (geom_point()), and so on.
+Das ist ein wichtiger Unterschied zu den ersten Einheiten: Wir beginnen hier nicht nochmals mit den Rohdaten, sondern arbeiten direkt mit den Ergebnissen unserer Datenaufbereitung weiter.
 
-Zusammenhang bedeutet die Verwendung von +, dass wir einzelne Elemente eines Plot-Objektes zusammenfügen.
+Die Kontrolle ist wichtig, damit wir früh merken, falls beim Speichern oder Einlesen etwas nicht stimmt.
 :::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Welche Variablen werden zu Faktoren?
+
+**Unsere geplanten Analysen bestimmen, wie wir die Variablen in R behandeln**
+
+![](../../images/EH10_Faktoren.png){fig-align="center" width="95%"}
+
+::: notes
+Wir haben unsere beiden aufbereiteten Datensätze nun im Analysis-Skript eingelesen. Bevor wir die Daten statistisch auswerten, müssen wir entscheiden, welche Variablen wir als Faktoren behandeln.
+
+Dafür schauen wir uns an, welche Analysen wir in unserem Forschungsprojekt durchführen möchten.
+
+Zunächst werden wir sechs One-Way ANOVAs berechnen. Bei allen vergleichen wir dieselben drei Feedbackgruppen miteinander. Diese Gruppenzugehörigkeit ist unser Between-Subjects-Faktor und wird deshalb in R als Faktor definiert. Was sich zwischen den sechs ANOVAs verändert, ist die abhängige Variable. Wir untersuchen verschiedene Masse des Cognitive Offloading, die Trial Duration, den MMQ und die Arbeitsgedächtnisleistung. Diese Messvariablen bleiben numerisch, weil wir ihre Mittelwerte vergleichen möchten.
+
+Für diese Analysen verwenden wir unseren Wide-Datensatz dat_full.
+
+Bei der Mixed ANOVA kommt nun ein zweiter Faktor hinzu. Wir vergleichen nicht nur verschiedene Feedbackgruppen, sondern untersuchen auch, wie sich die subjektiven Leistungseinschätzungen zwischen zwei Zeitpunkten verändern.
+
+Die Gruppenzugehörigkeit ist weiterhin unser Between-Subjects-Faktor. Der Messzeitpunkt ist dagegen ein Within-Subjects-Faktor, weil dieselbe Person zu beiden Zeitpunkten eine Einschätzung abgegeben hat. Deshalb benötigen wir zusätzlich die Personenerkennung code, damit R die zwei Messungen derselben Person zuordnen kann. Wir behandeln code deswegen auch als Faktor. Die eigentliche AV rating bleibt hingegen numerisch.
+
+Daraus ergibt sich auch, warum wir nicht einfach alle kategorialen Variablen unseres Datensatzes umwandeln. strategies ist zwar ketegorial, wir aber in unseren ANOVAs nicht als Faktor verwendet. Entscheidend ist also immer die Rolle einer Variable in der Analyse.
+:::
+
+------------------------------------------------------------------------
+
+## Welche Variablen werden zu Faktoren?
+
+**Konsequenz für unser Analysis-Skript**
 
 <br>
 
-**Schritt 1: ggplot() + Daten**
+![](../../images/EH10_Faktoren_Datensatz.png){fig-align="center" width="95%"}
 
--   Wir starten immer mit einem Datensatz
+<br>
 
--   Es passiert noch nichts sichtbares!
+**Für unser Analysis-Skript:** Die benötigten Faktoren definieren wir einmal zentral nach dem Datenimport - die Umsetzung folgt in Hands-on 5B.
 
-```{r, echo = TRUE, eval = TRUE}
-library(ggplot2)
+# Deskriptivstatistik & wissenschaftliche Tabellen
 
-ggplot(data = penguins)
+**1. Kennwerte berechnen**
+
+**2. Tabellendarstellung vorbereiten**
+
+**3. Tabelle gestalten**
+
+::: notes
+Wichtig ist mir hier, dass ihr einmal dir grundsätzliche Funktion der Schritte versteht. Die Tabelle, die wir hier erstellen werden, sieht vom Layout her nicht identisch aus zur Tabelle in der Studie. Dies ist dann eure Aufgabe in den Übugnen.
+:::
+
+------------------------------------------------------------------------
+
+## Was zeigt uns Tabelle 1?
+
+**Die Studie berichtet Mittelwerte und Standardabweichungen für drei Feedbackgruppen**
+
+<br>
+
+![](../../images/EH10_Tabelle_1.png){fig-align="center" width="95%"}
+
+<br>
+
+**Unser Ziel:** Alle Mittelwerte und Standardabweichungen aus Tabelle 1 in einem gemeinsamen Data Frame berechnen.
+
+::: notes
+Wir haben unsere beiden Datensätze eingelesen und wissen nun, wie wir sie für die späteren Analysen vorbereiten.
+
+Bevor wir mit den statistischen Tests beginnen, möchten wir uns zunächst anschauen, welche Ergebnisse unsere Daten überhaupt zeigen.
+
+Dafür nehmen wir einmal Tabelle 1 aus dem Originalpaper. Wir sehen hier fünf Messvariablen. Für jede dieser Variablen werden die Ergebnisse getrennt für die drei Feedbackgruppen dargestellt. Dabei werden jeweils zwei Kennwerte angegeben: der Mittelwert und die Standardabweichung. Den Mittelwert verwenden wir, um das durchschnittliche Ergebnis zu beschrieben. Die Standardabweichung zeigt uns, wie stark die individuellen Werte innerhalb einer Gruppe streuen.
+
+Genau diese Kennwerte möchten wir nun mit unseren Originaldaten selbst berechnen und darstellen.
+:::
+
+------------------------------------------------------------------------
+
+## Wie berechnen wir alle Kennwerte?
+
+**Mit `group_by()`** **und** `summarise()` **fassen wir die Daten gruppenweise zusammen**
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+
+table1_descriptives <- dat_full |>
+  group_by(group) |>
+  summarise(
+    mean_rl_all_M = mean(mean_rl_all, na.rm = TRUE),
+    mean_rl_all_SD = sd(mean_rl_all, na.rm = TRUE),
+    mean_e1_all_M = mean(mean_e1_all, na.rm = TRUE),
+    mean_e1_all_SD = sd(mean_e1_all, na.rm = TRUE),
+    mean_d1_all_M = mean(mean_d1_all, na.rm = TRUE),
+    mean_d1_all_SD = sd(mean_d1_all, na.rm = TRUE),
+    mean_d_all_M = mean(mean_d_all, na.rm = TRUE),
+    mean_d_all_SD = sd(mean_d_all, na.rm = TRUE),
+    cvstm_propcorrect_M = mean(cvstm_propcorrect, na.rm = TRUE),
+    cvstm_propcorrect_SD = sd(cvstm_propcorrect, na.rm = TRUE)
+  )
+```
+
+<br>
+
+**Wichtig:** Nur ein möglicher Code von vielen!
+
+------------------------------------------------------------------------
+
+## Was haben wir berechnet?
+
+**Ein neuer Data Frame enthält alle Mittelwerte und Standardabweichungen der drei Gruppen**
+
+<br>
+
+```{r, echo=TRUE}
+# Dimensionen
+dim(table1_descriptives)
+```
+
+<br>
+
+```{r, echo=TRUE}
+# Ausgabe
+table1_descriptives
+```
+
+<br>
+
+**Ergebnis:** Drei Gruppenzeilen und zehn Kennwertspalten - alle benötigten Werte in einem Data Frame.
+
+::: notes
+Schauen wir uns an, was unsere Berechnung erzeugt hat:
+
+Wir erhalten einen neuen Data Frame mit drei Zeilen und elf Spalten. Jede Zeile entspricht einer Feedbackgruppe.
+
+Zusätzlich zu group haben wir zehn weitere Spalten: Für jede unserer fünf Messvariablen wurde eine Mittelwertspalte und eine Spalte mit den SD erstellt.
+
+Wir sehen hier nur einen Ausschnitt der Ausgane. Die restlichen Kennwerte befinden sich aber ebenfalls im selben Data Frame.
+
+Damit haben wir alle benötigten Ergebnisse für Tabelle 1 bereits berechnet. Nun möchten wir diese Information noch übersichtlicher darstellen.
+:::
+
+------------------------------------------------------------------------
+
+## Vom Data Frame zur Tabelle
+
+**`kable()` stellt unsere bereits berechneten Kennwerte als Tabelle dar**
+
+<br>
+
+![](../../images/EH10_kable.png){fig-align="center" width="95%"}
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+knitr::kable(table1_descriptives)
 ```
 
 ::: notes
-With ggplot2, you begin a plot with the function ggplot(), defining a plot object that you then add layers to. The first argument of ggplot() is the dataset to use in the graph and so ggplot(data = penguins) creates an empty graph that is primed to display the penguins data, but since we haven’t told it how to visualize it yet, for now it’s empty. This is not a very exciting plot, but you can think of it like an empty canvas you’ll paint the remaining layers of your plot onto.
+Wir haben nun alle Mittelwerte und SD berechnet und in table1_descriptives gespeichert.
+
+Für einen wissenschaftlichen Bericht möchten wir diese Ergebnisse aber als übersichtliche Tabelle darstellen.
+
+Dafür verwenden wir die Funktion kable() aus dem Paket knitr.
+
+Das Vorgehen ist einfach: Wir übergeben der Funktion unseren bereits erstellten Data Frame. Wichtig ist, dass kable() keine statistischen Kennwerte berechnet. Die Funktion verändert auch nicht die Werte in unserem Data Frame, sondern bereitet sie für die Darstllung auf.
+
+Wir haben deshalb zwei unterschiedliche Arbeitsschritte: Zuerst berechnen wir die Ergebnisse, anschliessend gestalten wir ihre Darstellung.
 :::
 
 ------------------------------------------------------------------------
 
-## Argumente von `ggplot()`
+## Wie gestalten wir unsere Tabelle?
+
+**Mit wenigen Argumenten können wir die Darstellung unserer Ergebnisse anpassen**
 
 <br>
 
-**Schritt 2: aes() - Was wird geplottet?**
-
--   `aes()` = Aesthetic mappings
-
--   Variablen werden den Achsen zugewiesen
-
-```{r, echo = TRUE, eval = TRUE}
-ggplot(penguins,
-       aes(x = body_mass_g, y = bill_length_mm))
+```{r, echo=TRUE}
+knitr::kable(
+  table1_descriptives,
+  digits = 2,
+  caption = "Deskriptive Kennwerte nach Feedbackgruppe"
+)
 ```
+
+<br>
+
+**Die Kennwerte bleiben unverändert - nur ihre Darstellung wird angepasst.**
+
+::: notes
+Unsere Tabelle ist nun erstellt. Mit verschiedenen Argumenten können wir sie noch übersichtlicher gestalten.
+
+-   Mit digits bestimmen wir, auf wie viele Nachkommastellen die numerischen Kennwerte angezeigt werden. Da im Paper zwei Nachkommastellen verwendet werden, wählen wir hier digits = 2.
+
+-   Mit caption können wir eine aussagekräftige Tabellenüberschrift ergänzen.
+
+Wichtig ist, dass diese Anpassungen nur die Darstellung betreffen. Die berechneten Kennwerte bleiben unverändert.
+
+Damit haben wir nun eine vollständige Tabelle mit allen benötigten Kennwerten aus Tabelle 1 erstellt. Sie sieht zwar noch etwas anders aus als im Paper, enthält aber dieselben Informationen.
+:::
+
+------------------------------------------------------------------------
+
+## Hinweis Abschlussarbeit
+
+<br><br>
+
+In der Abschlussarbeit könnt ihr die Darstellung anschliessend noch stärker an die Originalpublikation anpassen, beispielsweise indem ihr die Messvariablen untereinander und die drei Feedbackgruppen nebeneinander darstellt.
+
+<br>
+
+**Die Anforderungen sind somit gut erfüllt - Maximalpunktzahl durch eigene Anpassungen**
+
+<br>
+
+Für heute ist aber v.a. wichtig, dass ihr die grundlegenden Schritte verstanden habt: Kennwerte berechnen, in einem Data Frame speichern und anschliessend mit `kable()` darstellen.
+
+# Datenvisualisierung: Abbildungen
+
+<br>
+
+![](../../images/EH_10/ggplot.png){fig-align="center" width="4cm" height="4.5cm"}
+
+------------------------------------------------------------------------
+
+## Warum Ergebnisse auch visualisieren?
+
+**Abbildungen machen Unterschiede zwischen den Feedbackgruppen schneller erkennbar**
+
+<br>
+
+::::: columns
+::: {.column width="38%"}
+**Aus Tabelle 1:** Modellfensteröffnungen
+
+| Feedbackgruppe |    M |
+|:---------------|-----:|
+| Control        | 5.14 |
+| Below-average  | 5.39 |
+| Above-average  | 5.10 |
+:::
+
+::: {.column width="62%"}
+![](../../images/EH10_Balken.png){fig-align="center" width="100%"}
+:::
+:::::
+
+**Unsere Frage:** Wie visualisieren wir die bereits berechneten Gruppenmittelwerte?
+
+::: notes
+Wir haben in Tabelle 1 die Mittelwerte und SD aller fünf Messvariablen berechnet. Eine Tabelle ist ideal, wenn wir genau Werte nachschlagen möchten.
+
+Eine Abbildung lässt uns Muster und Unterschiede häufig schneller erkennen. Hier nehmen wir bewusst ein Beispiel, das wir gerade schon ausgewertet haben: die Modellfensteröffnungen in den drei Feedbackgruppen.
+
+Wir brauchen dazu keine neuen Rohdaten und keine neue Berechnung. Wir verwenden die Spalte mean_rl_all_M unseres bereits erzeugten Data Frames.
+:::
+
+------------------------------------------------------------------------
+
+## `ggplot2`: Eine Grammatik für Grafiken
+
+**Mit `ggplot2` setzen wir eine Grafik Schritt für Schritt aus Bausteinen zusammen**
+
+<br>
+
+-   **Daten:** Aus welchem Objekt stammen die Daten?
+
+    -   `ggplot(data = ...)`
+
+-   **Aesthetic Mappings:** Welche Variablen sollen dargestellt werden?
+
+    -   `aes(x = ..., y = ...)`
+
+-   **Geom:** Wie sollen die Daten dargestellt werden?
+
+    -   `geom_col()`
+
+-   **Gestaltung:** Wie sollen die Daten sonst noch gestaltet werden?
+
+    -   `labs()` / `theme_*()`
+
+<br>
+
+**Merke:** Mit `+` fügen wir der Grafik weitere Elemente (*Layer*) hinzu.
+
+::: notes
+Die grundlegende Idee von ggplot2 ähnelt einem Baukastensystem:
+
+-   Zuerst wählen wir die Daten
+
+-   Dann bestimmen wir mit aes, welche Variablen auf den Achsen erscheinen
+
+-   Ein sogenannten Geom legt fest, ob wir Balken, Punkte oder Linien zeichnen
+
+-   Danach können wir Beschriftungen, Fehlerbalken und andere Gestaltungselemente ergänzen
+
+Die verschiedenen Bestandteile einer ggplot-Graphik werden mit einem Pluszeichen verbunden.
+:::
+
+------------------------------------------------------------------------
+
+## Schritt 1: Daten auswählen
+
+**`ggplot` erhält einen Data Frame - zunächst entsteht eine leere Zeichenfläche**
+
+<br>
+
+```{r, echo=TRUE, eval=TRUE}
+ggplot(
+  data = table1_descriptives
+)
+```
+
+<br>
+
+`data`: Unser Data Frame mit den berechneten Kennwerten.
+
+**Noch fehlen:** die Variablen und die Art ihrer Darstellung.
+
+::: notes
+Wir starten mit genau demselben Ergebnisobjekt, das wir im Tabellenteil erzegt haben.
+
+Dieses enthält eine Zeile pro Feedbackgruppe und insgesamt 11 Spalten.
+
+Mit ggplot(data = table1_descriptives) legen wir fest, aus welchem Data Frame die Grafik ihre Informationen beziehen soll.
+
+Mehr passiert zunächst nicht. Wir haben weder eine Achse mit Variablen belegt noch bestimmt, wie die Werte dargestellt werden sollen.
+:::
+
+------------------------------------------------------------------------
+
+## Schritt 2: Variablen zuordnen
+
+**Mit `aes()` legen wir fest, welche Variablen auf x- und y-Achse erscheinen**
+
+<br>
+
+```{r, echo=TRUE}
+ggplot(
+  table1_descriptives,
+  aes(
+    x = group,
+    y = mean_rl_all_M
+  )
+)
+```
+
+**Wichtig: `aes()`** ordnet Variablen zu - es zeichnet noch keine Balken.
+
+::: notes
+Nun legen wir über aes, kurz für aesthetic mapping, die visuellen Zuordnungen fest. Auf der x-Achse sollen unsere drei Gruppen stehen.
+
+Auf der y-Achse
+:::
+
+------------------------------------------------------------------------
 
 ::: notes
 Next, we need to tell ggplot() how the information from our data will be visually represented. The mapping argument of the ggplot() function defines how variables in your dataset are mapped to visual properties (aesthetics) of your plot. The mapping argument is always defined in the aes() function, and the x and y arguments of aes() specify which variables to map to the x and y axes. For now, we will only map flipper length to the x aesthetic and body mass to the y aesthetic. ggplot2 looks for the mapped variables in the data argument, in this case, penguins.
@@ -424,7 +543,7 @@ Next, we need to tell ggplot() how the information from our data will be visua
 
 -   z.B.: Punkte, Linien, Balken
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point()
 ```
@@ -445,7 +564,7 @@ To do so, we need to define a geom: the geometrical object that a plot uses to 
 
 -   Die Grafik wird schrittweise erweitert
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point() +
   geom_smooth()
@@ -465,7 +584,7 @@ ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
 
     -   nur für einzelne Layer gelten
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 #| fig-height: 3
 #| fig-width: 5
 # global
@@ -487,7 +606,7 @@ ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 
     -   **nur für einzelne Layer gelten**
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 #| fig-height: 3
 #| fig-width: 5
 # im Layer
@@ -546,7 +665,7 @@ ggplot(penguins) +
 
 **Ein vollständiger ggplot**
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -568,7 +687,7 @@ ggplot(penguins,aes(x = body_mass_g, y = bill_length_mm)) +
 
 -   Kombination von verschiedenen Layers/Geoms
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 penguins_plot <- ggplot(penguins, aes(x = island, y = body_mass_g, color = island, shape = sex)) +
   geom_boxplot() +
   geom_jitter(alpha = 0.5) +
