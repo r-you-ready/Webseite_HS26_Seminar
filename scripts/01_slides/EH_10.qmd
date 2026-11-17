@@ -38,7 +38,7 @@ dat_full <- dat_full |>
 dat_long <- dat_full |>
       pivot_longer(
         cols = c(pre1, pre4),
-        names_to = "time_rating",
+        names_to = "timepoint",
         values_to = "rating"
       )
 ```
@@ -215,13 +215,25 @@ Daraus ergibt sich auch, warum wir nicht einfach alle kategorialen Variablen uns
 
 **Für unser Analysis-Skript:** Die benötigten Faktoren definieren wir einmal zentral nach dem Datenimport - die Umsetzung folgt in Hands-on 5B.
 
+------------------------------------------------------------------------
+
+## Wie bauen wir unser Analysis-Skript auf?
+
+**Wir ergänzen unser Skript Schritt für Schritt bis zum Abschluss der Analysen**
+
+<br>
+
+![](../../images/EH10_Tabelle.png){fig-align="center" width="95%"}
+
+<br>
+
+**Unser Ziel:** Ein vollständiges Analysis-Skript, das alle erforderlichen Auswertungen unseres Forschungsprojekts reproduzierbar durchführt.
+
 # Deskriptivstatistik & wissenschaftliche Tabellen
 
 **1. Kennwerte berechnen**
 
-**2. Tabellendarstellung vorbereiten**
-
-**3. Tabelle gestalten**
+**2. Tabelle darstellen**
 
 ::: notes
 Wichtig ist mir hier, dass ihr einmal dir grundsätzliche Funktion der Schritte versteht. Die Tabelle, die wir hier erstellen werden, sieht vom Layout her nicht identisch aus zur Tabelle in der Studie. Dies ist dann eure Aufgabe in den Übugnen.
@@ -295,6 +307,10 @@ dim(table1_descriptives)
 ```
 
 <br>
+
+```{r, include=FALSE}
+table1_descriptives$group <- as.factor(table1_descriptives$group)
+```
 
 ```{r, echo=TRUE}
 # Ausgabe
@@ -379,15 +395,17 @@ Damit haben wir nun eine vollständige Tabelle mit allen benötigten Kennwerten 
 
 ------------------------------------------------------------------------
 
-## Hinweis Abschlussarbeit
+## Tabelle 1 in der Abschlussarbeit
+
+**Korrekte Kennwerte sind die Grundlage - eine möglichst genaue Replikation bringt die volle Punktzahl**
 
 <br><br>
 
-In der Abschlussarbeit könnt ihr die Darstellung anschliessend noch stärker an die Originalpublikation anpassen, beispielsweise indem ihr die Messvariablen untereinander und die drei Feedbackgruppen nebeneinander darstellt.
+**Grundanforderung:** Die Mittelwerte und Standardabweichungen aus Tabelle 1 korrekt berechnen und als Tabelle darstellen.
 
 <br>
 
-**Die Anforderungen sind somit gut erfüllt - Maximalpunktzahl durch eigene Anpassungen**
+**Erweiterte Anforderung:** Zusätzlich die Tabellenstruktur und Gestaltung möglichst genau an die Originalpublikation anpassen.
 
 <br>
 
@@ -604,7 +622,9 @@ Dafür benötigen wir eine untere Grenze (ymin) und eine obere Grenze (ymax). In
 
 ------------------------------------------------------------------------
 
-## `aes()`: global vs. im Layer?
+## **Feste Werte oder Variablen zuordnen?**
+
+**Innerhalb von `aes()` wird eine Variable zugeordnet - ausserhalb legen wir einen festen Wert fest**
 
 ::::: columns
 ::: {.column width="49%"}
@@ -654,15 +674,15 @@ ggplot(table1_descriptives,
 
 <br>
 
--   1 kategoriale Variable: `geom_bar()`, `geom_col()`
-
--   1 kontinuierliche Variable: `geom_histogram()`
-
--   2 kategoriale Variablen: `geom_count()`
-
--   2 numerische Variablen: `geom_point()`, `geom_line()`
-
--   1 kategoriale + 1 metrische Variable: `geom_boxplot()`, `geom_violin()`
+| Was möchten wir zeigen? | Geeigneter Geom |
+|------------------------------------|------------------------------------|
+| Häufigkeiten einer Kategorie | `geom_bar()` |
+| Bereits berechnete Mittelwerte | `geom_col()` |
+| Verteilung einer numerischen Variable | `geom_histogram()` |
+| Messwertverteilungen nach Gruppe | `geom_boxplot()` oder `geom_violin()` |
+| Zusammenhang zweier numerischer Variablen | `geom_point()` |
+| Verlauf über Messzeitpunkte | `geom_line()` |
+| Streuungs- oder Unsicherheitsintervalle | `geom_errorbar()` |
 
 ::: notes
 ggplot2 bietet viele unterschiedliche Geoms. Wir müssen sie nicht alle im Detail kennen. Enscheidend ist, dass wir die Darstellung anhand der Fragestellung auswählen.
@@ -735,14 +755,17 @@ ggsave(
 
 <br>
 
-1.  **`mmq_mean` ergänzen:** Mittelwert aus `question1` bis `question18` pro Person.
-2.  **`dat_long` erstellen:** Nur `pre1` und `pre4` verwenden.
-3.  **Kurz kontrollieren:** 159 × 37 (Wide), 318 × 37 (Long).
-4.  **Speichern, rendern, dokumentieren:** Beide CSV-Dateien nach `data/processed/`; Codebook um `mmq_mean` ergänzen.
+1.  **Analysis vorbereiten:** Datensätze einlesen und Faktoren definieren
+2.  **Tabelle 1 reproduzieren:** Mittelwerte und SD berechnen, mit `kable()` darstellen
+3.  **Abbildung 4 erstellen:** MMQ-Mittelwerte und Standardfehler visualisieren
+4.  **Ergebnisse speichern:** Tabelle und Abbildung in den vorgesehenen Output-Ordner ablegen
+5.  **Analysis überprüfen:** Skript vollständig rendern und Ergebnisse kontrollieren
 
 <br>
 
-Noch anpassen!
+**Heute:** Wir beschreiben und visualisieren unsere Forschungsergebnisse.
+
+**Ab EH11:** Wir lernen, wie wir beobachtete Unterschiede statistisch überprüfen können.
 
 ------------------------------------------------------------------------
 
