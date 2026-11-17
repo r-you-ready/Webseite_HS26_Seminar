@@ -51,7 +51,13 @@ HS 2026<br><br><br> **Seminarleitung**: Dr. Sandra Grinschgl<br> **Leitung beide
 
 ------------------------------------------------------------------------
 
-Folie zu Ausfall Anfang Dezember mit Optionen
+## Seminar am 2. Dezember: Änderung der Morgengruppe
+
+**Der reguläre Termin von 10:15 - 12:00 Uhr entfällt, da der Raum für die BA-Informationstage benötigt wird**
+
+<br>
+
+![](../../images/EH10_Info.png){fig-align="center" width="95%"}
 
 ------------------------------------------------------------------------
 
@@ -723,18 +729,27 @@ ggsave(
 
 ------------------------------------------------------------------------
 
+## Nun: Hands-on 5B
+
+**Arbeitsort: euer bestehendes `code/analysis.qmd` im Forschungsprojekt**
+
+<br>
+
+1.  **`mmq_mean` ergänzen:** Mittelwert aus `question1` bis `question18` pro Person.
+2.  **`dat_long` erstellen:** Nur `pre1` und `pre4` verwenden.
+3.  **Kurz kontrollieren:** 159 × 37 (Wide), 318 × 37 (Long).
+4.  **Speichern, rendern, dokumentieren:** Beide CSV-Dateien nach `data/processed/`; Codebook um `mmq_mean` ergänzen.
+
+<br>
+
 Noch anpassen!
 
-## R-Hausübung 2
+------------------------------------------------------------------------
 
-Abgabe bis Freitag **08.05.2026, 23:55**
+## Hausübungen & Ausblick
 
-Peerfeedback bis Mittwoch **13.05.2026 (vor der Einheit)**
+<br>
 
-**Achtung: Einhalten der Namensvorgaben!**
+-   **R Übung 1:** bis heute um Mitternacht
 
-::: notes
-Namenseinhaltung für Abgabe der Files (da wir diese via R-Funktion öffnen)
-:::
-
-16:15 Gruppe –\> Nächste Woche kommt Laura!
+-   **R Übung 2:** Mittwoch, 02.12.26
