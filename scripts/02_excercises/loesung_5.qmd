@@ -270,7 +270,7 @@ Beide Dateien gehören in `data/processed/`.
 Das Objekt `dat_full` wird unter dem Dateinamen `dat_full.csv` gespeichert, `dat_long` unter `dat_long.csv`. Der Speicherort wird relativ zur **Projektwurzel** angegeben. Verschiebt einen vorhandenen Speicherschritt, statt ihn zu duplizieren.
 :::
 
-:::: {.callout-tip collapse="true" title="Tipp A4.1"}
+:::: {.content-visible when-meta="show_solutions"}
 ::: {.callout-note collapse="true" title="Musterlösung A4.1"}
 Diese beiden Befehle stehen am Ende der Processing-Pipeline, nachdem beide Datenobjekte erstellt und geprüft wurden:
 
@@ -558,7 +558,7 @@ dat_long <- dat_long |>
 
 Ihr könnt auch alle Faktoren nur mit `as.factor` definieren oder bei `group` die Levels auch explizit in ihrer Reihenfolge festlegen.
 
-Hier gibt es kein Richtig oder Falsch.
+Beide Varianten sind korrekt, sofern die Variablen als Faktoren vorliegen und alle ursprünglichen Kategorien erhalten bleiben.
 :::
 ::::
 
@@ -647,7 +647,7 @@ Einzelne Werte können sich aufgrund von Rundungsregeln im letzten Hundertstel v
 :::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Musterlösung B3.1"}
+::: {.callout-note collapse="true" title="Musterlösung B3.2"}
 ```{r, echo=TRUE, eval=TRUE}
 # Dimensionen kontrollieren
 dim(table1_descriptives)
@@ -670,7 +670,7 @@ knitr::kable(
 
 Für eine möglichst genaue Replikation der Originaltabelle könnt ihr eure Darstellung eigenständig weiterentwickeln. Diese Herausforderung geht über die Grundanforderung der heutigen Übung hinaus.
 
-Für die volle Punktzahl bei Tabelle 1 in der Abschlussarbeit ist eine möglichst originalgetreue Darstellung relevant. Sind die Basisanforderungen erfüllt, gibt dies aber bereits einen Grossteil der möglichen Punkte.
+**Hinweis zur Abschlussarbeit:** Werden alle Kennwerte korrekt berechnet und als Tabelle dargestellt, ist die Grundanforderung erfüllt (3/4 der Punkte für diese Aufgabe). Für die volle Punktzahl muss die Darstellung zusätzlich möglichst genau an Tabelle 1 aus der Originalpublikation angepasst werden.
 
 Überlegt anhand der Abbildung aus dem Paper:
 
@@ -694,7 +694,7 @@ Ihr kennt bereits Funktionen zur Umstrukturierung von Data Frames aus EH9. Unter
 
 <br>
 
-![*Quelle: Grinschgl et al. (2020), Tabelle 1, S. 2661; Originalpublikation, CC BY 4.0.*](../../images/EH10_Paper.png){fig-align="center" width="95%"}
+![*Quelle: Grinschgl et al. (2020), Abbildung 4, S. 2662; Originalpublikation, CC BY 4.0.*](../../images/EH10_Paper.png){fig-align="center" width="95%"}
 
 <br>
 
@@ -793,7 +793,7 @@ Ein vorhandenes Plot-Objekt lässt sich erweitern: `p_mmq <- p_mmq + ...`. So m�
 :::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+::: {.callout-note collapse="true" title="Musterlösung B4.3"}
 ```{r, echo=TRUE, eval=TRUE}
 p_mmq <- p_mmq +
   geom_errorbar(
@@ -827,7 +827,7 @@ Falls eure Reihenfolge anders aussieht als im Paper, liegt das wahrscheinlich an
 :::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+::: {.callout-note collapse="true" title="Musterlösung B4.4"}
 ```{r, echo=TRUE, eval=TRUE}
 p_mmq <- p_mmq +
   scale_x_discrete(
@@ -854,14 +854,14 @@ Auch kann euer Code gut von unserem Mustercode abweichen! Dies ist nur eine von 
 
 Speichert das fertige Plot-Objekt `p_mmq` zusätzlich als PNG-Datei unter `data/outputs/plots/figure4_mmq.png`.
 
-Verwendet dazu die Funktion `ggsave()` und setzt eine geeignete Grösse und Auflösung (z.B. 7 x 7 Zoll und 300 dpi).
+Verwendet dazu die Funktion `ggsave()` und setzt eine geeignete Grösse und Auflösung (z.B. 7 x 4 Zoll und 300 dpi).
 
 ::: {.callout-tip collapse="true" title="Tipp B4.5: Export"}
 Erinnert euch an die letzte ggplot2-Folie aus EH10. `filename` enthält den Pfad zur Datei, `plot` das zu speichernde Plot-Objekt, `width` und `height` die Grösse und `dpi` die Auflösung.
 :::
 
 :::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+::: {.callout-note collapse="true" title="Musterlösung B4.5"}
 ```{r, echo=TRUE, eval=TRUE}
 ggsave(
   filename = here::here("data", "outputs", "plots", "figure4_mmq.png"),
