@@ -377,7 +377,7 @@ Eure Ergebnisse sollen in der bestehenden Projektstruktur gespeichert und beim R
 | **B0**  | Analysis-Skript einrichten und gliedern            |  ca. 5 Min. |
 | **B1**  | Aufbereitete Datensätze einlesen und prüfen        |  ca. 5 Min. |
 | **B2**  | Benötigte Faktoren definieren                      |  ca. 6 Min. |
-| **B3**  | Tabelle 1 berechnen, darstellen und exportieren    | ca. 11 Min. |
+| **B3**  | Tabelle 1 berechnen und darstellen                 | ca. 11 Min. |
 | **B4**  | Abbildung 4 schrittweise erstellen und exportieren | ca. 15 Min. |
 | **B5**  | Analysis-Skript vollständig überprüfen             |  ca. 3 Min. |
 
