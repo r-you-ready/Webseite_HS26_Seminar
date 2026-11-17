@@ -44,6 +44,8 @@ website:
             text: "Einheit 8 - 04.11.2026"
           - href: scripts/01_slides/EH_9.qmd
             text: "Einheit 9 - 11.11.2026"
+          - href: scripts/01_slides/EH_10.qmd
+            text: "Einheit 10 - 18.11.2026"
       - href: scripts/02_excercises/Übungen.qmd
         text: "Übungen zu den Einheiten"
         contents: 
