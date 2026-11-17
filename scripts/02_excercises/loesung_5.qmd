@@ -16,17 +16,22 @@ dat_full <- readr::read_delim("raw/dat_full.csv")
 
 # Aufbereitungsschritte
 dat_full <- dat_full |>
+  rename(group = group_all,
+         cvstm_sum = csvtm_sum) |>
   mutate(
     across(
       c(pre1, pre2, pre3, pre4, post),
       ~ .x * 10
-    )
+    ),
+    mmq_mean = rowMeans(across(question1:question18))
   )
 
-dat_full <- dat_full |>
-  rename(
-    group = group_all,
-    cvstm_sum = csvtm_sum)
+dat_long <- dat_full |>
+      pivot_longer(
+        cols = c(pre1, pre4),
+        names_to = "timepoint",
+        values_to = "rating"
+      )
 ```
 
 Bei Bedarf finden sich hier nochmal die Slides zur EH9:
@@ -37,7 +42,13 @@ Bei Bedarf finden sich hier nochmal die Slides zur EH9:
 </iframe>
 :::
 
-Die Folien der EH10 werden kurz vor dem Termin hochgeschalten.
+Und hier die Folien zur EH10:
+
+::: {=html}
+<iframe src="../01_slides/EH_10.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+
+</iframe>
+:::
 
 # Teil 1: Die Datenaufbereitung abschliessen
 
@@ -72,7 +83,7 @@ Heute ergänzen wir diese beiden Schritte im bestehenden `processing.qmd`. In EH
 Nach Teil 1 könnt ihr einen Mittelwert über mehrere Items **pro Person** berechnen, `pivot_longer()` auf die beiden benötigten Ratingvariablen anwenden, die entstandenen Datensätze kontrollieren und beide Ergebnisse reproduzierbar speichern.
 
 | Aufgabe | Was macht ihr?                                         |   Richtzeit |
-|:--------|:-------------------------------------------------------|------------:|
+|:------------------|:---------------------------------|------------------:|
 | **A0**  | Bisheriges Processing öffnen und Arbeitsstelle finden  |  ca. 2 Min. |
 | **A1**  | `mmq_mean` berechnen                                   |  ca. 5 Min. |
 | **A2**  | `dat_long` erzeugen                                    |  ca. 5 Min. |
@@ -214,7 +225,7 @@ dat_long <- dat_full |>
 Überprüft anhand geeigneter R-Befehle die vier Kontrollfragen:
 
 | Kontrollfrage | Erwartetes Ergebnis für unsere Originaldaten |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | Wie gross ist `dat_full`? | **159 Zeilen × 37 Spalten** |
 | Wie gross ist `dat_long`? | **318 Zeilen × 37 Spalten** |
 | Wie viele verschiedene Personen enthält `dat_long`? | **159** |
@@ -228,7 +239,8 @@ Ihr kennt `dim()`, `table()`, `head()` und `select()` bereits. Mit `n_distinct()
 Dieselbe Personen-ID taucht im Long-Format **zweimal** auf – einmal pro Messzeitpunkt. Das ist hier **gewollt** und kein Duplikatfehler.
 :::
 
-::: {.content-visible when-meta="show_solutions"}
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung A3.1"}
 ```{r}
 dim(dat_full)                         
 dim(dat_long)                         
@@ -242,6 +254,7 @@ dat_long |>
 
 **Warum 37 Spalten in beiden Datensätzen?** `pivot_longer()` ersetzt hier die beiden Spalten `pre1` und `pre4` durch zwei neue Spalten (`timepoint`, `rating`); alle übrigen Spalten bleiben enthalten.
 :::
+::::
 
 ## A4: Speichern, dokumentieren und reproduzieren
 
@@ -296,7 +309,7 @@ Falls die gespeicherte `dat_full.csv` noch 36 Variablen hat, steht das Speichern
 Euer `processing.qmd` erzeugt jetzt **reproduzierbar zwei aufbereitete Dateien** aus den ursprünglichen sieben Rohdatensätzen:
 
 | Datei | Inhalt | Verwendung in den nächsten Einheiten |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | `data/processed/dat_full.csv` | 159 Personen × 37 Variablen, neu mit `mmq_mean` | Gruppenvergleiche und weitere Analysen |
 | `data/processed/dat_long.csv` | 318 Messzeilen × 37 Variablen, neu mit `timepoint` und `rating` | Mixed ANOVA mit `pre1` und `pre4` |
 
@@ -329,3 +342,570 @@ dat_wide_check |>
 Die Werte von `pre1` und `pre4` stehen wieder nebeneinander.
 :::
 ::::
+
+------------------------------------------------------------------------
+
+# Teil 2: Erste Ergebnisse unseres Forschungsprojekts
+
+*Bearbeitung nach EH10*
+
+## 🧭 Wo befinden wir uns?
+
+**Projektphase: ANALYSIEREN - Daten beschreiben und visualisieren**
+
+Im ersten Teil dieser Übung habt ihr die Datenaufbereitung in `processing.qmd` abgeschlossen und zwei Datensätze erstellt: `dat_full.csv` und `dat_long.csv`. Diese bilden nun die Grundlage für die Auswertung der Originaldaten aus Grinschgl et al. (2020).
+
+Wir arbeiten weiterhin an unserem gemeinsamen Forschungsprojekt. Ihr benötigt weder einen neuen Übungsdatensatz noch ein zusätzliches Quarto-Dokument. Stattdessen ergänzt ihr Schritt für Schritt euer bestehendes `analysis.qmd`.
+
+::: callout-important
+**Arbeitsort: Grinschgl-R-Projekt → `code/analysis.qmd`**
+
+1.  Öffnet **zuerst** euer R-Projekt über **`ryouready.Rproj`** und anschliessend `code/analysis.qmd` in RStudio.
+2.  Verwendet die aufbereiteten Datensätze aus `data/processed/` – **keine Rohdateien** aus `data/raw/`.
+
+**Voraussetzung:** Falls eure beiden aufbereiteten CSV-Dateien noch fehlen, müsst ihr **zuerst Hands-on 5A beziehungsweise `processing.qmd` vollständig abschliessen und rendern**. Nur dann kann `analysis.qmd` mit den richtigen Daten arbeiten.
+:::
+
+## 🎯 Lernziele und Zeitplan
+
+Nach diesem Hands-on könnt ihr die aufbereiteten Datensätze eigenständig einlesen, notwendige Faktoren begründet festlegen, die Kennwerte aus **Tabelle 1** zusammenfassen, eine lesbare Tabelle mit `kable()` erstellen und **Abbildung 4** mit `ggplot2` und Standardfehlern nachbilden.
+
+Eure Ergebnisse sollen in der bestehenden Projektstruktur gespeichert und beim Rendern reproduziert werden.
+
+| Aufgabe | Was macht ihr?                                     |   Richtzeit |
+|:--------|:---------------------------------------------------|------------:|
+| **B0**  | Analysis-Skript einrichten und gliedern            |  ca. 5 Min. |
+| **B1**  | Aufbereitete Datensätze einlesen und prüfen        |  ca. 5 Min. |
+| **B2**  | Benötigte Faktoren definieren                      |  ca. 6 Min. |
+| **B3**  | Tabelle 1 berechnen, darstellen und exportieren    | ca. 11 Min. |
+| **B4**  | Abbildung 4 schrittweise erstellen und exportieren | ca. 15 Min. |
+| **B5**  | Analysis-Skript vollständig überprüfen             |  ca. 3 Min. |
+
+**So arbeitet ihr:** Versucht, die Aufgaben zunächst selbstständig zu lösen. Bei Bedarf helfen euch die aufklappbaren Tipps und die Folien aus EH10. Überprüft eure Ergebnisse regelmässig, bevor ihr zum nächsten Schritt übergeht.
+
+Die angegebenen Zeiten dienen zur Orientierung. Die möglichst originalgetreue Gestaltung von Tabelle 1 ist eine **zusätzliche Herausforderung** und keine Voraussetzung für die folgenden Aufgaben.
+
+------------------------------------------------------------------------
+
+## B0: Das Analysis-Skript vorbereiten
+
+### 🧭 B0.1: Projekt, Datei und YAML-Header überprüfen
+
+Öffnet euer bestehendes R-Projekt und darin `code/analysis.qmd`. Überprüft den YAML-Header ganz oben in der Datei:
+
+-   Ersetzt bei `author` den Platzhalter durch euren eigenen Namen.
+
+-   Stellt im Abschnitt `execute` sowohl `warning` als auch `message` auf `true`. So werden Warnungen und Meldungen während des Renderns nicht unterdrückt.
+
+::: {.callout-tip collapse="true" title="Tipp B0.1: YAML-Header"}
+Der YAML-Header beginnt und endet mit `---`. Die beiden Einstellungen stehen unter `execute:` und werden eingerückt. `true` wird **ohne Anführungszeichen** geschrieben. Ändert nur die benötigten Angaben und behaltet die übrigen Einstellungen der Projektvorlage bei.
+:::
+
+### 🧭 B0.2: Eine verständliche Gliederung anlegen
+
+Wie unser Processing-Skript soll auch das Analysis-Skript übersichtlich, logische aufgebaut und für andere Personen nachvollziehbar sein.
+
+Die folgenden Abschnitte orientieren sich an der Übersicht aus EH10. Legt diese Struktur in eurem `analysis.qmd` an.
+
+``` markdown
+# Dependencies
+
+# Datenimport und Faktoren
+
+# Deskriptive Auswertungen
+
+## Tabelle 1: Deskriptive Kennwerte
+
+## Abbildung 4: MMQ nach Feedbackgruppe
+
+# Inferenzstatistische Analysen
+
+## One-Way ANOVAs
+
+## Mixed ANOVA
+
+# Session info
+```
+
+**Wichtig:** Das ist **eine mögliche Gliederung**, keine starre Vorgabe! Ihr dürft und sollt euer Skript sinnvoll individualisieren, beispielsweise durch zusätzliche Unterüberschriften, kurze Erklärungen, Kommentare und später auch Ergebnisinterpretationen.
+
+Entscheidend ist, dass eine andere Person jederzeit nachvollziehen kann, welcher Schritt durchgeführt wird, weshalb er notwendig ist und wo die entsprechenden Ergebnisse entstehen.
+
+::: {.callout-tip collapse="true" title="Tipp B0.2: Überschriften oder Code?"}
+Überschriften und erläuternder Text stehen in Quarto **ausserhalb** von R-Code-Chunks. Unter den Überschriften platziert ihr passende R-Code-Chunks. In `Dependencies` ladet ihr eure Pakete (z. B. `tidyverse` und `here`); in `Session info` kann der bereits vorhandene Aufruf `sessionInfo()` stehen bleiben.
+:::
+
+Ergänzt im Abschnitt **Dependencies** selbstständig die jeweils benötigten Pakete.
+
+------------------------------------------------------------------------
+
+## B1: Die aufbereiteten Datensätze einlesen
+
+### 🧭 B1.1: Vom Processing zum Analysis-Skript wechseln
+
+Ihr habt am Ende von Hands-on 5A zwei fertige CSV-Dateien gespeichert. Lest beide im Abschnitt **Datenimport und Faktoren** eures `analysis.qmd` ein. Verwendet die Objektnamen `dat_full` und `dat_long`.
+
+**Überlegt zuerst:**
+
+-   Welche Funktion benötigt ihr zum Einlesen einer CSV-Datei?
+
+-   Welchen relativen Pfad müsst ihr angeben?
+
+::: {.callout-tip collapse="true" title="Tipp B1.1: Dateien einlesen"}
+In EH10 habt ihr `readr::read_csv()` und `here::here()` wiederholt. Der Pfad beginnt in der **Projektwurzel** und führt über `data` und `processed` zu den Dateien `dat_full.csv` beziehungsweise `dat_long.csv`.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B1.1"}
+```{r, echo=TRUE, eval=FALSE}
+dat_full <- readr::read_csv(
+  here::here("data", "processed", "dat_full.csv")
+  )
+
+dat_long <- readr::read_csv(
+  here::here("data", "processed", "dat_long.csv")
+  )
+
+# Ohne here()
+
+dat_full <- readr::read_csv(
+  "../data/processed/dat_full.csv"
+  )
+
+dat_long <- readr::read_csv(
+  "../data/processed/dat_long.csv"
+  )
+```
+:::
+::::
+
+### 🧭 B1.2: Stimmen die eingelesenen Daten?
+
+Prüft mit geeigneten R-Funktionen die folgenden Erwartungen. Weicht ein Ergebnis davon ab, kontrolliert zuerst das **Processing-Skript und die gespeicherten Dateien**, bevor ihr im Analysis-Skript weiterarbeitet.
+
+| Kontrolle                           | Erwartetes Ergebnis         |
+|:------------------------------------|:----------------------------|
+| `dat_full`                          | **159 Zeilen × 37 Spalten** |
+| `dat_long`                          | **318 Zeilen × 37 Spalten** |
+| Verschiedene Personen in `dat_long` | **159**                     |
+| Häufigkeit von `pre1` und `pre4`    | **jeweils 159**             |
+
+Kontrolliert ausserdem, ob in `dat_full` die Variable **`mmq_mean`** vorhanden ist und `dat_long` die Spalten **`timepoint`** und **`rating`** enthält.
+
+::: {.callout-tip collapse="true" title="Tipp B1.2: Geeignete Kontrollfunktionen"}
+Für diese Checks kennt ihr bereits `dim()`, `names()`, `table()` und `n_distinct()`. Mit `table(dat_long$timepoint)` könnt ihr die beiden Messzeitpunkte zählen. In `dat_long` steht jede Person **zweimal** – das ist gewollt und kein Duplikatfehler.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B1.2"}
+```{r, echo=TRUE, eval=TRUE}
+dim(dat_full)
+dim(dat_long)
+dplyr::n_distinct(dat_long$code)
+table(dat_long$timepoint, useNA = "ifany")
+
+"mmq_mean" %in% names(dat_full)
+all(c("timepoint", "rating") %in% names(dat_long))
+```
+:::
+::::
+
+------------------------------------------------------------------------
+
+## B2: Benötigte Faktoren für die Analysen definieren
+
+### 🧭 B2.1: Welche Variablen brauchen wir als Faktoren?
+
+Erinnert euch an **EH6 (Faktoren und Faktorstufen)** und an die Übersicht der geplanten One-Way und Mixed ANOVAs in **EH10.**
+
+| Variable | `dat_full` (One-Way ANOVAs) | `dat_long` (Mixed ANOVA) |
+|:-----------------------|:-----------------------|:-----------------------|
+| `group` | **Faktor**: Feedbackgruppe | **Faktor**: Between-Subjects-Faktor |
+| `timepoint` | Nicht vorhanden | **Faktor**: Within-Subjects-Faktor |
+| `code` | Personen-ID; Umwandlung optional | Personen-ID; als Faktor sinnvoll |
+| Messvariablen / AVs | **Numerisch** (z. B. `mmq_mean`) | **Numerisch** (`rating`) |
+
+**Eure Aufgabe:** Definiert die benötigten Faktoren einmal zentral nach dem Einlesen der Daten in einem eigenen Code-Chunk.
+
+Wir empfehlen, `code` zumindest in `dat_long` als Faktor zu behandeln, damit seine Funktion als Personenerkennung klar ist. Ihr dürft `code` auch in `dat_full` als Faktor festlegen.
+
+::: {.callout-tip collapse="true" title="Tipp B2.1: as.factor() oder factor()?"}
+Beide Wege sind korrekt:
+
+-   `as.factor(x)` wandelt `x` in einen Faktor um; R bestimmt die Stufen automatisch.
+-   `factor(x, levels = c(...))` erlaubt euch, die Reihenfolge der Faktorstufen **bewusst festzulegen**.
+
+Verwendet beispielsweise `mutate()`, um eine bestehende Variable im jeweiligen Data Frame umzuwandeln. Die Reihenfolge der `group`-Stufen kann später relevant sein, etwa für die **Referenzkategorie bei bestimmten Modellkontrasten** oder die **Darstellungsreihenfolge** in Grafiken. Ihr müsst die Levels **jetzt noch nicht explizit setzen**; bei Bedarf könnt ihr sie später anpassen.
+
+Wenn ihr `levels` selbst angebt, müssen die ursprünglichen Gruppenbezeichnungen exakt dazu passen. Andernfalls können unbeabsichtigt `NA` entstehen.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B2.1"}
+```{r, echo=TRUE, eval=TRUE}
+# dat_full
+dat_full <- dat_full |>
+  mutate(group = as.factor(group))
+
+# dat_long
+dat_long <- dat_long |>
+  mutate(
+    group = as.factor(group),
+    timepoint = factor(timepoint, levels = c("pre1", "pre4")),
+    code = as.factor(code)
+  )
+```
+
+Ihr könnt auch alle Faktoren nur mit `as.factor` definieren oder bei `group` die Levels auch explizit in ihrer Reihenfolge festlegen.
+
+Hier gibt es kein Richtig oder Falsch.
+:::
+::::
+
+### 🧭 B2.2: Kontrolliert eure Faktoren
+
+Überprüft nach der Umwandlung **Datentypen und Faktorstufen**. Kontrolliert zudem, ob alle ursprünglichen Gruppen und beide Messzeitpunkte weiterhin vorkommen.
+
+::: {.callout-tip collapse="true" title="Tipp B2.2: Kurze Kontrolle"}
+Verwendet `class()`, `levels()` und `table(..., useNA = "ifany")`. Die drei Gruppen heissen `below`, `control` und `above`; die zwei Messzeitpunkte `pre1` und `pre4`.
+:::
+
+**Denkt daran:** Nicht jede kategoriale Variable muss vorsorglich zum Faktor werden. Zum Beispiel benötigt ihr `strategies` in unseren vorgesehenen ANOVAs nicht als zusätzlichen Gruppenfaktor. Die numerischen abhängigen Variablen sollen numerisch bleiben.
+
+------------------------------------------------------------------------
+
+## B3: Tabelle 1 aus dem Paper reproduzieren
+
+<br>
+
+![*Quelle: Grinschgl et al. (2020), Tabelle 1, S. 2661; [Originalpublikation](https://doi.org/10.1007/s00426-020-01435-9), CC BY 4.0.*](../../images/EH10_Tabelle_1.png){fig-align="center" width="95%"}
+
+<br>
+
+Wir unterscheiden hier bewusst **zwei Anforderungen:**
+
+-   Zuerst berechnet ihr alle Kennwerte korrekt und stellt sie als lesbare Tabelle dar. Damit ist die Basisanforderung erfüllt.
+
+-   Eine möglichst genaue Nachbildung des Original-Layouts ist eine zusätzliche, anspruchsvolle Herausforderung.
+
+### 🧭 B3.1: Einen gemeinsamen Data Frame mit allen Kennwerten erstellen
+
+Arbeitet unter **Deskriptive Auswertungen → Tabelle 1** in `analysis.qmd` mit dem Datensatz `dat_full`.
+
+Bearbeitet die folgenden Aufgaben:
+
+1.  Findet die fünf Messvariablen aus Tabelle 1 anhand des Papers, der Folien und eures Codebooks.
+
+2.  Berechnet für jede Feedbackgruppe **Mittelwert (M) und Standardabweichung (SD)** aller fünf Variablen.
+
+3.  Speichert die Ergebnisse gemeinsam in einem neuen Data Frame namens `table1_descriptives`. Eure Ausgangsdaten bleiben dabei erhalten. Es entsteht ein zusätzliches Objekt im Environment.
+
+Der einfachste Weg ist der aus **EH10**: `group_by(group)` und danach `summarise()` mit je einer Mittelwert- und SD-Berechnung pro Variable. Alternativ könnt ihr die bereits bekannte Funktion `across()` verwenden. **Beide Wege sind korrekt.**
+
+::: {.callout-tip collapse="true" title="Tipp B3.1: Was muss in der Berechnung stehen?"}
+Die fünf Variablen sind:
+
+`mean_rl_all`, `mean_e1_all`, `mean_d1_all`, `mean_d_all` und `cvstm_propcorrect`.
+
+Ein einzelnes Kennwertpaar kann beispielsweise die Spalten `mean_rl_all_M` und `mean_rl_all_SD` erzeugen. Ergänzt dasselbe Prinzip für die übrigen Variablen. Für fehlende Werte könnt ihr `na.rm = TRUE` verwenden. Mit `.groups = "drop"` lässt sich eine eventuell verbleibende Gruppierung des Ergebnis-Data-Frames aufheben.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B3.1"}
+```{r, echo=TRUE, eval=TRUE}
+table1_descriptives <- dat_full |>
+  group_by(group) |>
+  summarise(
+    across(
+      c(mean_rl_all, mean_e1_all, mean_d1_all,
+        mean_d_all, cvstm_propcorrect),
+      list(
+        M  = ~mean(.x, na.rm = TRUE),
+        SD = ~sd(.x, na.rm = TRUE)
+      )
+    ),
+    .groups = "drop"
+  )
+```
+
+Alternativ sind die zehn einzeln formulierten Aufrufe von `mean()` und `sd()` aus EH10 genauso richtig.
+:::
+::::
+
+### 🧭 B3.2: Die Werte kontrollieren und als Tabelle darstellen
+
+Kontrolliert zuerst euren Ergebnis-Data-Frame: Er sollte 3 Zeilen und 11 Spalten enthalten.
+
+Stellt ihn anschliessend mit `knitr::kable()` als Tabelle dar. Achtet auf eine passende Überschrift und zwei Nachkommastellen. Falls ihr weitere Argumente aus EH10 ausprobieren möchtet (`caption`, `col.names`, `align`), dürft ihr die Darstellung gerne anpassen.
+
+**Vergleicht die Kennwerte eurer Tabelle mit Tabelle 1:** Stimmen die Grössenordnungen und die gerundeten Ergebnisse überein?
+
+::: {.callout-tip collapse="true" title="Tipp B3.2: Was macht kable()?"}
+`kable()` berechnet **keine** Mittelwerte oder Standardabweichungen, sondern stellt euren bereits berechneten Data Frame dar. `digits = 2` verändert die **angezeigten** Nachkommastellen, nicht die gespeicherten numerischen Werte. Weil der Data Frame 11 Spalten besitzt, ist die grundlegende Tabelle relativ breit – das ist hier **kein Fehler**.
+
+Einzelne Werte können sich aufgrund von Rundungsregeln im letzten Hundertstel vom Druckbild unterscheiden. Prüft dann zunächst die ungerundeten Werte und die verwendete Berechnung.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B3.1"}
+```{r, echo=TRUE, eval=TRUE}
+# Dimensionen kontrollieren
+dim(table1_descriptives)
+
+# Als Tabelle formatieren
+knitr::kable(
+  table1_descriptives,
+  digits = 2,
+  caption = "Deskriptive Kennwerte nach Feedbackgruppe"
+)
+```
+:::
+::::
+
+**✅ Basisanforderung erfüllt:** Sämtliche M und SD wurden korrekt berechnet und als Tabelle dargestellt. Die Originalpublikation muss an dieser Stelle noch nicht hinsichtlich Zeilen, Spalten oder Tabellenlinien nachgebaut werden.
+
+### ⭐ B3.3: Zusatzherausforderung – Tabelle 1 möglichst genau nachbilden
+
+**Freiwillig und anspruchsvoll - bearbeitet zuerst B4 und B5**
+
+Für eine möglichst genaue Replikation der Originaltabelle könnt ihr eure Darstellung eigenständig weiterentwickeln. Diese Herausforderung geht über die Grundanforderung der heutigen Übung hinaus.
+
+Für die volle Punktzahl bei Tabelle 1 in der Abschlussarbeit ist eine möglichst originalgetreue Darstellung relevant. Sind die Basisanforderungen erfüllt, gibt dies aber bereits einen Grossteil der möglichen Punkte.
+
+Überlegt anhand der Abbildung aus dem Paper:
+
+-   Wie könnte die **Reihenfolge** der fünf Messvariablen und der drei Gruppen angepasst werden?
+
+-   Wie liessen sich die **Variablen als Zeilen** und die **Gruppen als Spalten** anordnen?
+
+-   Wie könnten M und SD als **gemeinsamer Eintrag** `M (SD)` erscheinen?
+
+-   Wie lassen sich Überschriften, Tabellenlinien und Beschriftungen angleichen?
+
+::: {.callout-tip collapse="true" title="Denk- und Rechercheanstösse zur Zusatzherausforderung"}
+Ihr kennt bereits Funktionen zur Umstrukturierung von Data Frames aus EH9. Untersucht, welche Aufgaben `pivot_longer()` und `pivot_wider()` übernehmen können. Für die Darstellung mehrerer Kennwerte in einer Zelle könnten Funktionen zur **Zeichenkettenformatierung** nützlich sein. Schaut euch bei Bedarf auch weitere Optionen von `knitr::kable()` und die Dokumentation von `kableExtra` an.
+
+**Hier gibt es bewusst keine Musterlösung und keine fertige Code-Pipeline.** Findet euren eigenen nachvollziehbaren Weg. Wenn ihr zusätzliche Pakete verwendet, dokumentiert sie in `Dependencies`.
+:::
+
+------------------------------------------------------------------------
+
+## B4 – Abbildung 4 mit `ggplot2` reproduzieren
+
+<br>
+
+![*Quelle: Grinschgl et al. (2020), Tabelle 1, S. 2661; Originalpublikation, CC BY 4.0.*](../../images/EH10_Paper.png){fig-align="center" width="95%"}
+
+<br>
+
+Für diese Abbildung nutzen wir den Datensatz `dat_full` und die in EH9 gebildete Variable `mmq_mean`. Ihr erstellt ein eigenes Plot-Objekt `p_mmq` und entwickelt es Schritt für Schritt weiter.
+
+### 🧭 B4.1: Welche Werte benötigt die Abbildung?
+
+Schaut euch die Originalabbildung an. Welche Informationen werden auf der **x-Achse**, auf der **y-Achse** und durch die **Fehlerbalken** dargestellt?
+
+Berechnet dann mit `group_by()` und `summarise()` für die drei Feedbackgruppen einen gemeinsamen Data Frame `mmq_summary` mit den Spalten:
+
+| Spalte  | Bedeutung                                      |
+|---------|------------------------------------------------|
+| `group` | Feedbackgruppe                                 |
+| `n`     | Anzahl **gültiger MMQ-Werte** in dieser Gruppe |
+| `M`     | Mittelwert von `mmq_mean`                      |
+| `SD`    | Standardabweichung von `mmq_mean`              |
+| `SE`    | Standardfehler des Mittelwerts                 |
+
+Zur Berechnung des Standardfehlers verwendet ihr die Formel:
+
+$$
+SE = \frac{SD}{\sqrt{n}}
+$$
+
+**Achtet darauf:** Bei fehlenden MMQ-Werten muss sich `n` auf die tatsächlich in Mittelwert und SD einbezogenen Beobachtungen beziehen – nicht einfach auf die Anzahl aller Zeilen.
+
+::: {.callout-tip collapse="true" title="Tipp B4.1: Vom Mittelwert zum Standardfehler"}
+Berechnet zuerst gruppenweise `n`, `M` und `SD`. Für `n` könnt ihr mit `sum(!is.na(mmq_mean))` die gültigen MMQ-Werte zählen. Den Standardfehler könnt ihr danach mit `mutate()` aus `SD` und `n` ergänzen. Die Wurzelfunktion in R heisst `sqrt()`.
+
+**Kontrolle für unsere Originaldaten:** Es gibt **53 Personen pro Gruppe**. Die ungefähren MMQ-Mittelwerte sind **2.27** (below), **2.70** (control) und **2.67** (above). Die Standardfehler liegen ungefähr zwischen **0.08 und 0.11**.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B4.1"}
+```{r, echo=TRUE, eval=TRUE}
+mmq_summary <- dat_full |>
+  group_by(group) |>
+  summarise(
+    n = sum(!is.na(mmq_mean)),
+    M = mean(mmq_mean, na.rm = TRUE),
+    SD = sd(mmq_mean, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(SE = SD / sqrt(n))
+
+mmq_summary
+```
+
+Wir haben nun einen Data Frame erstellt, welcher pro Feedbackgruppe die Anzahl Personen, den Mittelwert, die SD und den SE des MMQ-Mittelwerts enthält.
+:::
+::::
+
+### 🧭 B4.2: Die Gruppenmittelwerte als Balken darstellen
+
+Erstellt nun ein neues Plot-Objekt `p_mmq`. Beginnt mit `ggplot()`, ordnet die Feedbackgruppen und ihre Mittelwerte mit `aes()` zu und ergänzt anschliessend `geom_col()`.
+
+**Kontrolliert den Zwischenstand:** Seht ihr drei Balken? Welcher ist am höchsten? Stimmt die Höhe ungefähr mit den Mittelwerten aus `mmq_summary` überein? Was hat `geom_col()` gegenüber dem leeren Plot neu hinzugefügt?
+
+::: {.callout-tip collapse="true" title="Tipp B4.2: Schrittweise statt alles auf einmal"}
+Überlegt, welches Objekt an `data =` übergeben wird, welche Variable auf die x-Achse und welche auf die y-Achse gehört. Mit `geom_col()` verwendet ihr die **bereits berechneten Mittelwerte** – `geom_bar()` würde standardmässig die Beobachtungen zählen.
+
+Ihr könnt das Plot-Objekt nach jedem Schritt mit einer eigenen Zeile `p_mmq` anzeigen. So seht ihr sofort, ob der neue Layer funktioniert.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+```{r, echo=TRUE, eval=TRUE}
+p_mmq <- ggplot(
+  data = mmq_summary,
+  aes(x = group, y = M)
+) +
+  geom_col(fill = "grey75", color = "grey30")
+
+p_mmq
+```
+:::
+::::
+
+### 🧭 B4.3: Fehlerbalken mit ± 1 SE ergänzen
+
+Im Paper zeigen die Fehlerbalken **Mittelwert ± einen Standardfehler (SE).**
+
+Erweitert euer vorhandenes Plot-Objekt `p_mmq` um `geom_errorbar()`. Überlegt dabei:
+
+-   Was ist die **untere Grenze** (`ymin`)?
+
+-   Was ist die **obere Grenze** (`ymax`)?
+
+**Kontrolliert anschliessend den Plot:** Hat jetzt jeder Balken einen Fehlerbalken und ist dieser deutlich kleiner als ein Fehlerbalken mit ±1 SD? Welche Information zeigt der neue Layer zusätzlich zu den Balkenhöhen?
+
+::: {.callout-tip collapse="true" title="Tipp B4.3: Grenzen und Breite"}
+Für die Grenzen benötigt ihr `M - SE` und `M + SE`. Gebt diese beiden Ausdrücke innerhalb von `aes()` an. `width` legt die Breite der kleinen waagrechten Endstücke fest, beispielsweise `width = 0.18`.
+
+Ein vorhandenes Plot-Objekt lässt sich erweitern: `p_mmq <- p_mmq + ...`. So müsst ihr den bisherigen Plot-Code nicht bei jedem Schritt erneut schreiben.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+```{r, echo=TRUE, eval=TRUE}
+p_mmq <- p_mmq +
+  geom_errorbar(
+    aes(ymin = M - SE, ymax = M + SE),
+    width = 0.18
+  )
+
+p_mmq
+```
+:::
+::::
+
+### 🧭 B4.4: Die Abbildung verständlich und möglichst originalgetreu gestalten
+
+Vergleicht eure aktuelle Grafik mit Abbildung 4 aus dem Paper. Ergänzt nun schrittweise:
+
+1.  Aussagekräftige Achsenbeschriftungen mit `labs()`.
+
+2.  Eine geeignete Gestaltung mit einem `theme_*()` eurer Wahl.
+
+3.  Eine y-Achse von 0 bis 4 (entsprechend dem Wertebereich der MMQ-Skala).
+
+4.  Die Gruppen in der Reihenfolge der Originalabbildung.
+
+Die Gestaltung muss nicht pixelgenau identisch sein, aber Werte, Fehlerbalken und deren Bedeutung müssen stimmen.
+
+::: {.callout-tip collapse="true" title="Tipp B4.4: Gestaltungsfunktionen aus EH10"}
+Ihr kennt `labs(x = ..., y = ...)` und `theme_classic()` bereits. Für eine Achse von 0 bis 4 könnt ihr die Optionen von `scale_y_continuous()` oder `coord_cartesian()` untersuchen. Die Gruppenreihenfolge könnt ihr über Faktorstufen oder eine diskrete x-Skala steuern.
+
+Falls eure Reihenfolge anders aussieht als im Paper, liegt das wahrscheinlich an den aktuellen Faktorstufen von `group` und ist **kein Berechnungsfehler**.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+```{r, echo=TRUE, eval=TRUE}
+p_mmq <- p_mmq +
+  scale_x_discrete(
+    limits = c("below", "control", "above"),
+    labels = c("Below-average", "Control", "Above-average")
+  ) +
+  scale_y_continuous(limits = c(0,4), breaks = 0:4) +
+  labs(
+    x = "Feedback Group",
+    y = "Mean MMQ Rating"
+  ) +
+  theme_classic()
+
+p_mmq
+```
+
+Dies ist eine mögliche Gestaltung. Die Grafik kann auch ohne diese genaue Achsenbeschriftung inhaltlich korrekt sein.
+
+Auch kann euer Code gut von unserem Mustercode abweichen! Dies ist nur eine von mehreren Möglichkeiten.
+:::
+::::
+
+### 🧭 B4.5: Die Abbildung speichern
+
+Speichert das fertige Plot-Objekt `p_mmq` zusätzlich als PNG-Datei unter `data/outputs/plots/figure4_mmq.png`.
+
+Verwendet dazu die Funktion `ggsave()` und setzt eine geeignete Grösse und Auflösung (z.B. 7 x 7 Zoll und 300 dpi).
+
+::: {.callout-tip collapse="true" title="Tipp B4.5: Export"}
+Erinnert euch an die letzte ggplot2-Folie aus EH10. `filename` enthält den Pfad zur Datei, `plot` das zu speichernde Plot-Objekt, `width` und `height` die Grösse und `dpi` die Auflösung.
+:::
+
+:::: {.content-visible when-meta="show_solutions"}
+::: {.callout-note collapse="true" title="Musterlösung B4.2"}
+```{r, echo=TRUE, eval=TRUE}
+ggsave(
+  filename = here::here("data", "outputs", "plots", "figure4_mmq.png"),
+  plot = p_mmq,
+  width = 7,
+  height = 4,
+  dpi = 300
+)
+```
+:::
+::::
+
+**Checkpoint B4:** Eure Grafik zeigt die **MMQ-Mittelwerte der drei Gruppen**, Fehlerbalken mit **±1 SE**, einen nachvollziehbaren Wertebereich und verständliche Beschriftungen. Sie erscheint im gerenderten `analysis.qmd` **und** liegt als PNG unter `data/outputs/plots/`.
+
+------------------------------------------------------------------------
+
+## B5 – Alles prüfen und reproduzierbar rendern
+
+### 🧭 B5.1: Funktioniert `analysis.qmd` ohne manuelle Zwischenschritte?
+
+Speichert eure Datei. Startet anschliessend die R-Session neu und rendert **das gesamte `analysis.qmd`** von oben bis unten. Prüft, ob alle Objekte im Skript **selbst** erzeugt werden und keine Objekte aus einer alten R-Session vorausgesetzt werden.
+
+| Prüfung | Erledigt? |
+|:-----------------------------------|:----------------------------------:|
+| Beide Datensätze werden aus `data/processed/` eingelesen. | ☐ |
+| Die benötigten Faktoren sind einmal zentral festgelegt und kontrolliert. | ☐ |
+| `table1_descriptives` enthält **3 Zeilen × 11 Spalten**. | ☐ |
+| Die Tabelle wird im Quarto-Dokument dargestellt. | ☐ |
+| `mmq_summary` enthält **M, SD, n und SE** für jede Gruppe. | ☐ |
+| Die fertige MMQ-Abbildung erscheint im Bericht und liegt unter `data/outputs/plots/figure4_mmq.png`. | ☐ |
+| Das gesamte Dokument rendert ohne Fehler und enthält eine `Session info`. | ☐ |
+
+::: {.callout-tip collapse="true" title="Tipp B5.1: Falls das Rendern nicht funktioniert"}
+Prüft von oben nach unten: Ist das richtige R-Projekt geöffnet? Stimmen die Dateipfade? Sind die Pakete unter `Dependencies` geladen? Wird jedes Objekt **erst erstellt und dann verwendet**? Gibt es das Zielverzeichnis für die Exporte? Sind noch alte, manuell erzeugte Objekte im Spiel?
+
+Die finalen Ergebnisse sollen ausschliesslich aus den beiden gespeicherten CSV-Dateien entstehen. Falls diese fehlerhaft sind, korrigiert zuerst das **Processing**, rendert es erneut und startet dann das **Analysis** von vorne.
+:::
+
+## ✅ Checkpoint nach EH10
+
+Euer `analysis.qmd` besitzt nun eine nachvollziehbare Grundstruktur und erzeugt **erste Ergebnisse unserer gemeinsamen Replikationsstudie**:
+
+-   **Tabelle 1:** Mittelwerte und Standardabweichungen der fünf Messvariablen, getrennt nach Feedbackgruppe.
+-   **Abbildung 4:** MMQ-Gruppenmittelwerte mit Fehlerbalken von ±1 SE.
+-   **Outputs:** Die Abbildung liegt unter `data/outputs/plots/`.
+
+**Wie geht es weiter?** In den nächsten Einheiten ergänzt ihr im **selben Analysis-Skript** die inferenzstatistischen Analysen. Die One-Way ANOVAs und die Mixed ANOVA folgen in **EH12 und EH13**. Es wird dafür **kein neues Skript** benötigt.

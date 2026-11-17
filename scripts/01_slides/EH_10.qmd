@@ -675,7 +675,7 @@ ggplot(table1_descriptives,
 <br>
 
 | Was möchten wir zeigen? | Geeigneter Geom |
-|------------------------------------|------------------------------------|
+|----|----|
 | Häufigkeiten einer Kategorie | `geom_bar()` |
 | Bereits berechnete Mittelwerte | `geom_col()` |
 | Verteilung einer numerischen Variable | `geom_histogram()` |
