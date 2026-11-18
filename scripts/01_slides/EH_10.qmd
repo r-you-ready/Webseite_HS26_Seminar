@@ -675,7 +675,7 @@ ggplot(table1_descriptives,
 <br>
 
 | Was möchten wir zeigen? | Geeigneter Geom |
-|----|----|
+|------------------------------------|------------------------------------|
 | Häufigkeiten einer Kategorie | `geom_bar()` |
 | Bereits berechnete Mittelwerte | `geom_col()` |
 | Verteilung einer numerischen Variable | `geom_histogram()` |
@@ -774,5 +774,3 @@ ggsave(
 <br>
 
 -   **R Übung 1:** bis heute um Mitternacht
-
--   **R Übung 2:** Mittwoch, 02.12.26
