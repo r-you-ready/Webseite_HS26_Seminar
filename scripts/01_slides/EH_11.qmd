@@ -197,7 +197,7 @@ Sowohl die statistische Signifikanz als auch die Effekgrösse gehören zu einer 
 <br>
 
 | Frage | Worauf achten wir? |
-|----|----|
+|------------------------------------|------------------------------------|
 | Was möchten wir wissen? | Zusammenhang, Vorhersage oder Unterschied? |
 | Welche Variablen haben wir? | Numerisch oder kategorial? Welche ist die AV? |
 | Wie wurden die Daten erhoben? | Unabhängige Gruppen oder wiederholte Messungen? |
@@ -252,7 +252,7 @@ Diese Entscheidungen sollten nicht erst beim Blick auf die Ergebnisse getroffen 
 
 ::: {style="font-size:0.85em;"}
 | Forschungsfrage | Verfahren | Im Seminar |
-|----|----|----|
+|----------------------------|----------------------|----------------------|
 | Hängen zwei numerische Variablen zusammen? | Korrelation | EH11 (Training) |
 | Lässt sich eine numerische Variable vorhersagen? | Lineare Regression | EH11 (Training) |
 | Unterschieden sich zwei Gruppen bzw. Messungen? | t-Test | EH12 |
@@ -658,7 +658,7 @@ Wir betrachten also nicht mehr nur den isolierten Zusammenhang zweier Variablen.
 
 ------------------------------------------------------------------------
 
-## Was zeigt die multiple Regression (I)?
+## Was zeigt die multiple Regression?
 
 **Zusätzliche Prädiktoren können sowohl die Modellgüte als auch die Interpretation verändern**
 
@@ -680,7 +680,7 @@ Wir betrachten also nicht mehr nur den isolierten Zusammenhang zweier Variablen.
 
 ------------------------------------------------------------------------
 
-## Was zeigt die multiple Regression (II)?
+## Wie interpretieren wir die multiple Regression?
 
 **Zusätzliche Prädiktoren können sowohl die Modellgüte als auch die Interpretation verändern**
 
@@ -688,7 +688,9 @@ Wir betrachten also nicht mehr nur den isolierten Zusammenhang zweier Variablen.
 
 ![<br>](../../images/EH11_einfach_multipel.png){fig-align="left" width="95%"}
 
-Der Schnabellängen-Koeffizient wird wesentlich kleiner, sobald wir die Flossenlänge berücksichtigen.
+Bei gleicher Schnabellänge geht 1mm mehr Flossenlänge mit einer rund 48g höheren vorhergesagten Körpermasse einher (*b* = 48.14, *p* \< .001).
+
+Bei gleicher Flossenlänge zeigt die Schnabellänge keinen statistisch signifikanten zusätzlichen Zusammenhang mit der Körpermasse.
 
 ::: notes
 Die Ergebnisse sind interessant.
@@ -752,7 +754,7 @@ Wichtig ist, dass jedes neue Modell die Prädiktoren des vorherigen Modells enth
 
 ------------------------------------------------------------------------
 
-## Welches Modell verbessert unsere Vorhersage?
+## Welches Modell beschreibt unsere Daten besser?
 
 **Der Modellvergleich zeigt, ob zusätzliche Prädiktoren statistisch nachweisbar zur Eklärung beitragen**
 
@@ -795,7 +797,7 @@ Wir sollten auch berücksichtigen, wie gross die Verbesserung ist und ob die sta
 <br>
 
 | Voraussetzung | Worauf achten wir? |
-|----|----|
+|----------------------------|--------------------------------------------|
 | Linearität | Die erwartete AV hängt linear von den Prädiktoren ab. |
 | Unabhängigkeit | Die Beobachtungen bzw. Fehler sind unabhängig. |
 | Homoskedastizität | Die Streuung der Residuen bleibt ungefähr konsistent. |
