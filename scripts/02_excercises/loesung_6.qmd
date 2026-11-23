@@ -1,14 +1,13 @@
 ---
-title: "Hands On – Analyze (Einheiten 11 und 12)"
+title: "Hands-on Block 6: Statistische Zusammenhänge und Unterschiede untersuchen (Einheiten 11 & 12)"
+subtitle: "Von Korrelationen und Regressionen zu Mittelwertsvergleichen und ANOVAs"
 editor: visual
-bibliography: references.bib
-filters:
-  - conditional_content
-show_solutions: false
-draft: true
 format:
   html:
+    toc: true
+    toc-depth: 3
     code-tools: false
+draft: false
 ---
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE, warning=FALSE}
@@ -20,7 +19,7 @@ dat_full <- read_csv("data/raw/dat_full.csv")
 dat_long <- read_csv(here::here("scripts/02_excercises/data/processed/data_long.csv"))
 ```
 
-Bei Bedarf finden sich hier nochmal die Slides zur EH11:
+Bei Bedarf findest du hier nochmals die Slides zu Einheit 1:
 
 ::: {=html}
 <iframe src="../01_slides/EH_11.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
@@ -28,1009 +27,734 @@ Bei Bedarf finden sich hier nochmal die Slides zur EH11:
 </iframe>
 :::
 
-Und hier die Slides zur EH12:
+Die Folien zu EH12 werden kurz vor der Vorlesung noch hochgeladen.
 
-::: {=html}
-<iframe src="../01_slides/EH_12.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
+# Teil 1: Trainingslabor Korrelationen und Regressionen
 
-</iframe>
-:::
+*Bearbeitung nach EH11*
 
-# Lernziele
+## 🧭 Wo befinden wir uns?
 
-✅ Visualisierungen mit `ggplot2` systematisch aufbauen
+**Projektphase: ANALYSIEREN - statistische Zusammenhänge verstehen und Modelle beurteilen**
 
-✅ Gruppenmittelwerte mit Fehlerbalken visualisieren
+In EH10 habt ihr die Daten unserer Replikationsstudie beschrieben und visualisiert. In EH12 und EH13 ergänzt ihr die vorgesehenen ANOVAs im gemeinsamen `analysis.qmd`.
 
-✅ Zusammenhänge zwischen zwei metrischen Variablen mit `cor.test()` prüfen
+Heute trainieren wir andere statistische Verfahren: Korrelation und lineare Regression.
 
-✅ einfache und multiple Regressionen mit `lm()` berechnen
-
-✅ zentrale Bestandteile des Regressionsoutputs interpretieren
-
-✅ t-Tests
+Wir verwenden dafür erneut den bekannten Penguins-Datensatz. Die Methoden sind dieselben wir in EH11, aber die Forschungsfrage und die Variablenrollen sind anders als in der Vorlesung. So könnt ihr zeigen, dass ihr das Vorgehen selbstständig übertragen könnt.
 
 ::: callout-important
-Für die heutigen Übungen benötigen wir den **Wide Datensatz** `dat_full` sowie den **Long Datensatz** `dat_long`
+**Eigenständiges Trainingslabor – nicht Teil eurer Grinschgl-Replikation**
+
+Arbeitet im separaten `regression_training.qmd` und verändert **nicht** `code/analysis.qmd` oder `code/processing.qmd`. Ihr benötigt für diese Übung kein neues Grinschgl-Projekt und keine zusätzlichen Forschungsdaten.
 :::
+
+### 🎯 Unsere Forschungsfrage
+
+***Wie gut lässt sich die Schnabellänge eines Pinguins anhand seiner übrigen Körpermerkmale vorhersagen?***
+
+Wir beginnen mit der Flossenlänge, berücksichtigen anschliessend die Schnabeltiefe und prüfen zuletzt, ob die Körpermasse einen zusätzlichen Beitrag leistet. Dabei erstellt ihr auch Grafiken und interpretiert die statistischen Ergebnisse.
+
+### 🎯 Das könnt ihr nach der Übung
+
+Ihr könnt einen Zusammenhang mit **Streudiagramm und Korrelation** untersuchen, einfache und multiple Regressionen mit `lm()` berechnen, **Koeffizienten und R² verständlich interpretieren**, verschachtelte Modelle vergleichen und wichtige **Diagnostikplots** einordnen. Alle Ergebnisse erscheinen reproduzierbar im eigenen Quarto-Dokument.
+
+### ⏱️ Euer Weg durch die 60 Minuten
+
+| Aufgabe | Tätigkeit                                            |   Richtzeit |
+|:-----------------------|:-----------------------|-----------------------:|
+| **A0**  | Penguins-Daten aus einem R-Paket laden und prüfen    |  ca. 5 Min. |
+| **A1**  | Zusammenhang visualisieren und Korrelation berechnen | ca. 10 Min. |
+| **A2**  | Einfache Regression schätzen und grafisch darstellen | ca. 14 Min. |
+| **A3**  | Multiple Regression berechnen und interpretieren     | ca. 12 Min. |
+| **A4**  | Verschachtelte Regressionsmodelle vergleichen        | ca. 10 Min. |
+| **A5**  | Modelldiagnostik und reproduzierbarer Abschluss      |  ca. 9 Min. |
+
+**So arbeitet ihr:** Versucht die Aufgaben zuerst selbstständig und verwendet bei Bedarf den aufklappbaren **Tipp**. Anschliessend könnt ihr eure Lösung mit der eingeklappten **Musterlösung** vergleichen. Schreibt eure Interpretationen als **normalen Quarto-Text ausserhalb von R-Code-Chunks**. Die freiwilligen Vertiefungen gehören **nicht** zur Richtzeit.
+
+### 📂 Arbeitsvorlage und Arbeitsort
+
+1.  Öffnet **ILIAS → Ordner «Woche 11»** und ladet dort die vorbereitete Quarto-Datei **`regression_training.qmd`** herunter.
+2.  Speichert die Datei an einem Ort eurer Wahl und öffnet sie in **RStudio**.
+3.  Bearbeitet sämtliche Aufgaben direkt in dieser Datei und rendert sie am Ende vollständig.
+
+**Ihr benötigt keine weiteren Dateien:** Der Penguins-Datensatz wird direkt aus dem R-Paket `palmerpenguins` geladen. Eine zusätzliche CSV-Datei, ein ZIP-Archiv oder ein separates RStudio-Projekt sind nicht erforderlich.
+
+# A0: Die Trainingsdaten vorbereiten
+
+### 🧭 A0.1: Penguins laden und kennenlernen
+
+1.  Ladet das `tidyverse` und erstellt ein Objekt namens `penguins` aus dem Paket `palmerpenguins`.
+
+2.  Prüft die **Dimensionen, Variablennamen** und **Datentypen**.
+
+3.  Findet die Variablen für **Schnabellänge, Schnabelteife, Flossenlänge** und **Körpermasse**.
+
+::: {.callout-tip collapse="true" title="Tipp A0.1: Paketdaten und Kontrolle"}
+Den Datensatz könnt ihr direkt über `palmerpenguins::penguins` ansprechen. Mit `<-` speichert ihr ihn unter einem eigenen Objektnamen. Für die Kontrolle kennt ihr bereits `dim()`, `names()` und `glimpse()`. `read_csv()` ist hier **nicht** nötig.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A0.1"}
+```{r}
+# tidyverse laden
+library(tidyverse)
+
+# penguins als Datenobjekt erstellen
+penguins <- palmerpenguins::penguins
+
+# Dimensionen prüfen
+dim(penguins)
+
+# Variablennamen prüfen
+names(penguins)
+
+# Datentypen prüfen
+glimpse(penguins)
+```
+
+Der vollständige Datensatz umfasst **344 Pinguine und 8 Variablen**.
+
+`species` ist bereits ein Faktor; auch `sex` liegt im Paket als Faktor vor. Für die heutigen Pflichtmodelle verwenden wir die numerischen Körpermerkmale.
+
+Die Schnabellänge ist in der Variable `bill_length_mm` enthalten, die Schnabeltiefe in `bill_depth_mm`, die Flossenlänge in `flipper_length_mm` und die Körpermasse in `body_mass_g`. Anhand des Variablennamens ist jeweils auch ersichtlich, in welcher Masseinheit die Variable erhoben wurde.
+:::
+
+### 🧭 A0.2: Dieselben Beobachtungen für alle Modelle verwenden
+
+Erstellt aus `penguins` einen neuen Datensatz namens `penguins_training`. Dieser soll vollständige Messwerte in den vier Variablen der Schnabellänge, Schnabeltiefe, Flossenlänge und Körpermasse enthalten.
+
+**Eure Aufgabe:** Entfernt alle Pinguine, bei denen mindestens eine dieser vier Messungen fehlt. Alle übrigen Pinguine und sämtliche Variablen des Originaldatensatzes sollen erhalten bleiben.
+
+**Überlegt:** Weshalb ist es für unseren späteren Modellvergleich wichtig, dass alle Regressionsmodelle mit denselben Pinguinen berechnet werden?
+
+::: {.callout-tip collapse="true" title="Tipp A0.2: Fehlende Werte gezielt entfernen"}
+Mit `tidyr::drop_na()` könnt ihr die Spalten angeben, die vollständig sein müssen. Verwendet nicht einfach `drop_na()` ohne Spaltennamen: Auch in anderen Variablen, z. B. `sex`, gibt es fehlende Angaben, die wir für unsere Pflichtanalysen nicht benötigen.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A0.2"}
+```{r}
+penguins_training <- penguins |>
+  drop_na(bill_length_mm, bill_depth_mm,
+          flipper_length_mm, body_mass_g)
+
+dim(penguins_training)
+```
+
+**Erwartet:** 342 Beobachtungen und weiterhin 8 Variablen.
+
+Bei einem Vergleich verschachtelter Modelle darf die Veränderung nicht darauf zurückzuführen sein, dass plötzlich andere Pinguine berücksichtigt werden. Es müssen also in sämtlichen untersuchten Regressionsmodellen exakt dieselben Pinguine untersucht werden.
+:::
+
+**✅ Checkpoint A0:** `penguins_training` enthält **342 Zeilen**. Ihr kennt die Namen und Masseinheiten der vier Körpermerkmale.
 
 ------------------------------------------------------------------------
 
-# Teil 1: Visualisieren mit `ggplot2`
+# A1: Einen Zusammenhang untersuchen
 
-In diesem Teil wiederholen wir den Aufbau eines `ggplot()` und reproduzieren zwei Abbildungen aus der Studie von @grinschgl2021.
+### 🧭 A1.1: Was zeigt uns ein Streudiagramm?
 
-**Hilfreiche Ressourcen:**
+**Forschungsfrage:** *Hängen Flossenläge und Schnabellänge zusammen?*
 
-[📚 Einführung in R - Kapitel 5](https://methodenlehre.github.io/einfuehrung-in-R/chapters/05-plotting.html)
+Erstellt mit `ggplot2` ein Streudiagramm und speichert es unter `p_scatter`.
 
-[📚 R for Data Science - Kapitel 1](https://r4ds.hadley.nz/data-visualize.html)
+-   **x-Achse:** Flossenlänge in mm
 
-[📚R for Data Science - Kapitel 11](https://r4ds.hadley.nz/communication.html)
+-   **y-Achse:** Schnabellänge in mm
 
-::: {.callout-note collapse="true"}
-### Häufig verwendete Geoms
+-   Jeder Pinguin soll als Punkt dargestellt werden. Beschriftet beide Achsen verständlich.
 
-| Geom | Funktion | Einsatzbereich | Bild / Beispiel |
-|------------------|------------------|------------------|------------------|
-| **geom_point()** | Streudiagramm | Zusammenhang zwischen zwei numerischen Variablen (x = Var1, y = Var2) | ![](../../images/EH_10/geom_point.png) |
-| **geom_jitter()** | Jitter-Plot | Punkte leicht versetzen, um Überlappung zu vermeiden (v. a. bei kategorialem x) | ![](../../images/EH_10/geom_jitter.png) |
-| **geom_line()** | Liniendiagramm | Verlauf über eine kontinuierliche oder geordnete x-Achse | ![](../../images/EH_10/geom_line.png) |
-| **geom_bar()** | Balkendiagramm mit gezählten Häufigkeiten | Häufigkeiten oder Aggregationen für Kategorien (x = Gruppe) | ![](../../images/EH_10/geom_bar.png) |
-| **geom_histogram()** | Histogramm | Verteilung einer numerischen Variable (x = Wert) | ![](../../images/EH_10/geom_histogram.png) |
-| **geom_boxplot()** | Boxplot | Verteilungen zwischen Gruppen vergleichen (x = Gruppe, y = Wert) | ![](../../images/EH_10/geom_boxplot.png) |
+**Schreibt darunter in euer Skript:** Ist der Zusammenhang eher positiv oder negativ? Wirkt die Beziehung ungefähr linear?
+
+::: {.callout-tip collapse="true" title="Tipp A1.1: ggplot2 wiederverwenden"}
+Aus EH10 kennt ihr `ggplot(data = ..., aes(x = ..., y = ...)) + geom_point() + labs(...) + theme_minimal()`. Weist die vollständige Grafik mit `<-` einem Objekt zu und zeigt dieses anschliessend an.
 :::
 
-::: {.callout-note collapse="true"}
-## Cheatsheet ggplot2
-
-<iframe src="../../PDFs/ggplot.pdf" width="100%" height="500px">
-
-</iframe>
-:::
-
-**Im folgenden wollen wir Figure 4 aus @grinschgl2021 reproduzieren:**
-
-```{r, echo = FALSE}
-
-dat_full <- dat_full |> 
-  mutate(mmq_mean = rowMeans(select(dat_full, starts_with("question")), # bedingt, dass neben den 18 Variablen vom mmq sonst keinerlei andere Variablen mit "question" starten
-                             na.rm = TRUE))
-
-group_summary <- dat_full %>%
-  group_by(group_all) %>%
-  summarize(
-    group_mean_mmq = mean(mmq_mean),
-    se_mmq = sd(mmq_mean) / sqrt(n())
-  )
-
-
-group_summary$group_all <- factor(group_summary$group_all,
-                                  levels = c("below", "control", "above"))
-
-ggplot(group_summary, aes(x = group_all, y = group_mean_mmq)) +
-  geom_col(fill = "gray", color = "black") + 
-  geom_errorbar(
-    aes(ymin = group_mean_mmq - se_mmq, ymax = group_mean_mmq + se_mmq),  
-    width = 0.2,
-    color = "black"
-  ) +
-  labs(
-    x = "Feedback Group",
-    y = "Mean MMQ Ratings",
-    title = "Group Means of Mean MMQ with SE Error Bars"
-  ) +
-  ylim(0, 4)+
-  theme_classic()
-```
-
-## Aufgabe 1: Gruppenmittelwerte für den ersten Plot vorbereiten
-
-Bevor wir den Plot erstellen können, müssen wir zunächst einen neuen, kleineren Datensatz vorbereiten. Der Plot soll später **pro Feedback-Gruppe** einen Balken zeigen. Dafür reicht der ursprüngliche Datensatz `dat_full` noch nicht aus, weil darin jede Zeile eine einzelne Person darstellt.
-
-Für den Plot brauchen wir stattdessen einen zusammengefassten Datensatz mit **einer Zeile pro Gruppe.**
-
-Wir möchten also die mittleren MMQ-Ratings für die drei Feedback-Gruppen darstellen. Dafür brauchen wir pro Gruppe:
-
-1.  den Mittelwert von `mmq_mean`
-
-2.  den Standardfehler dieses Mittelwerts
-
-3.  eine sinnvolle Reihenfolge der Gruppen auf der x-Achse
-
-**Instruktionen:**
-
-Im Hands-on Block 4 haben wir bereits mit `dplyr` den MMQ-Skalenwert `mmq_mean` pro Person berechnet.
-
--   Nutze nun die `dplyr`-Funktionen, insbesondere `group_by()`, um den durchschnittlichen MMQ-Wert pro Gruppe (`group_all`) sowie den Standardfehler zu berechnen.
-
--   Formel Standardfehler: **SE = SD / √n**
-
-    → Kann so berechnet werden: `se_mmq = sd(mmq_mean) / sqrt(n))`
-
--   Ergänze den Code unten mit den nötigen Angaben. Lege `group_all` in deinem neuen Datensatz als Faktor fest mit den Levels in der Reihenfolge: "below", "control", "above".
-
-::: {.callout-note collapse="true"}
-Der **Standardfehler des Mittelwerts (SE)** beschreibt, **wie stark der geschätzte Stichprobenmittelwert zufällig vom wahren Populationsmittelwert abweichen kann**. Er ist damit ein **Mass für die Präzision** des Mittelwerts.
-:::
-
-```{r, echo=TRUE, eval = FALSE}
-# mmq_mean pro Experimentalgruppe
-group_summary <- dat_full %>%
-  group_by(XXXX) %>%
-  summarize(
-    group_mean_mmq = mean(XXXX, na.rm = TRUE),
-    se_mmq = sd(XXXX, na.rm = TRUE) / sqrt(n()),
-    .groups = "drop"
-  )
-
-# Faktorstufen in der richtigen Reihenfolge definieren
-group_summary$group_all <- factor(group_summary$group_all,
-                                  levels = c("XXXX", "XXXX", "XXXX"))
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE}
-group_summary <- dat_full %>%
-  group_by(group_all) %>%
-  summarize(
-    group_mean_mmq = mean(mmq_mean, na.rm = TRUE),
-    se_mmq = sd(mmq_mean, na.rm = TRUE) / sqrt(n()),
-    .groups = "drop"
-  )
-
-group_summary$group_all <- factor(group_summary$group_all,
-                                  levels = c("below", "control", "above"))
-```
-:::
-::::
-
-## Aufgabe 2: Balkendiagramm mit Fehlerbalken erstellen
-
-Jetzt erstellen wir den Plot Schritt für Schritt. Ziel ist ein Balkendiagramm, das den mittleren MMQ-Wert pro Feedback-Gruppe inklusive Standardfehler zeigt.
-
-### 2.1 Starte mit `ggplot` und dem Datensatz
-
-Erstelle ein neues `ggplot`-Objekt mit dem Namen `plot_base`. Weise diesem deinen vorhin erstellten Datensatz `group_summary` als Datenbasis zu.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
+::: {.callout-note collapse="true" title="Musterlösung A1.1"}
 ```{r}
-plot_base <- group_summary |> 
-  ggplot()
+p_scatter <- ggplot(penguins_training,
+                    aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(color = "steelblue", alpha = 0.6, size = 2) +
+  labs(x = "Flossenlänge (mm)", y = "Schnabellänge (mm)") +
+  theme_minimal(base_size = 13)
 
-plot_base
+p_scatter
 ```
+
+**Beobachtung:** Über alle drei Pinguinarten hinweg zeigt sich ein deutlicher, ungefähr linearer **positiver** Zusammenhang. Ein Streudiagramm allein sagt aber noch nichts über Kausalität aus.
 :::
-::::
 
-### **2.2 Definiere die Aesthetic Mappings**
+### 🧭 A1.2: Die Pearson-Korrelation berechnen
 
-Lege fest:
+Berechnet für dieselben beiden Variablen die **Pearson-Korrelation** mit `cor.test()`.
 
--   `group_all` soll auf der **x-Achse** liegen
+Findet im Output **r**, den **p-Wert** und das **95%-Konfidenzintervall**. Formuliert einen kurzen Ergebnissatz mit Richtung, Stärke und statistischer Signifikanz des Zusammenhangs.
 
--   `group_mean_mmq` soll auf der **y-Achse** liegen
+::: {.callout-tip collapse="true" title="Tipp A1.2: cor.test() lesen"}
+Die Syntax aus EH11 lautet `cor.test(datensatz$variable_x, datensatz$variable_y, method = "pearson")`. Das geschätzte `cor` ist **r** und zugleich eine standardisierte Effektstärke. Der p-Wert prüft hier die Nullhypothese einer Populationskorrelation von null.
+:::
 
-```{r, echo=TRUE, eval = FALSE}
-plot_base_updated_1 <- plot_base +
-  aes(x = XXXX, y = XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
+::: {.callout-note collapse="true" title="Musterlösung A1.2"}
 ```{r}
-plot_base_updated_1 <- plot_base +
-  aes(x = group_all, y = group_mean_mmq)
-
-plot_base_updated_1
+cor.test(penguins_training$flipper_length_mm,
+         penguins_training$bill_length_mm,
+         method = "pearson")
 ```
+
+**Interpretation:** Zwischen der Flossenlänge und der Schnabellänge der Pinguine besteht ein deutlicher positiver, statistisch signifikanter linearer Zusammenhang (*r* = .656, *p* \< .001, 95%-KI \[.591, .713\], *n* = 342).
+
+Pinguine mit längeren Flossen haben tendenziell auch längere Schnäbel. Das Konfidenzintervall deutet darauf hin, dass der Zusammenhang auch in der Population positiv ist. Aus der Korrelation lässt sich jedoch kein kausaler Zusammenhang ableiten.
 :::
-::::
 
-### **2.3 Füge Balken mit `geom_col()` hinzu**
-
-Damit zeichnest du die Balken für die Gruppenmittelwerte. Setze eine graue Füllfarbe und schwarze Konturen.
-
--   `color =` für Konturen
-
--   `fill =` für die Füllfarben der Balken
-
-```{r, echo=TRUE, eval = FALSE}
-plot_base_updated_2 <- plot_base_updated_1 +
-  geom_col(fill = XXXX, color = XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-plot_base_updated_2 <- plot_base_updated_1 +
-  geom_col(fill = "gray", color = "black")
-
-plot_base_updated_2
-```
-:::
-::::
-
-### **2.4 Füge Fehlerbalken hinzu**
-
-Nutze `geom_errorbar()` und definiere innerhalb von `aes()`:
-
--   `ymin = mean - se` - Füge die passenden Variablen ein.
-
--   `ymax = mean + se` - Füge die passenden Variablen ein.
-
-Passe die Breite der Fehlerbalken mit `width =` an.
-
-```{r, echo=TRUE, eval = FALSE}
-plot_base_updated_3 <- plot_base_updated_2 +
-  geom_errorbar(
-    aes(ymin = XXXX - XXXX, ymax = XXXX + XXXX),  
-    width = XXXX,
-    color = "black"
-  )
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-plot_base_updated_3 <- plot_base_updated_2 +
-  geom_errorbar(
-    aes(ymin = group_mean_mmq - se_mmq, ymax = group_mean_mmq + se_mmq),  
-    width = 0.2,
-    color = "black"
-  )
-
-plot_base_updated_3
-```
-:::
-::::
-
-### **2.5 Beschrifte den Plot und passe das Design an**
-
-Füge mit `labs()` einen Titel sowie Achsenbeschriftungen hinzu. Ergänze ausserdem `theme_classic()`.
-
-```{r, echo=TRUE, eval = FALSE}
-plot_base_updated_4 <- plot_base_updated_3 +
-  labs(
-    x = "XXXX",
-    y = "XXXX",
-    title = "XXXX"
-  ) +
-  XXXX
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-plot_base_updated_4 <- plot_base_updated_3 +
-  labs(
-    x = "Feedback Group",
-    y = "Mean MMQ Ratings",
-    title = "Group Means of Mean MMQ with SE Error Bars"
-  ) +
-  theme_classic()
-```
-:::
-::::
-
-### **2.6 Stelle den Wertebereich der y-Achse ein**
-
-Da die MMQ-Ratings von 0 bis 4 reichen, soll die y-Achse den vollständigen Wertebereich zeigen
-
-```{r, echo=TRUE, eval = FALSE}
-plot_mmq <- plot_base_updated_4 +
-  coord_cartesian(ylim = c(XXXX, XXXX))
-
-# Plot ausgeben lassen
-plot_mmq
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-plot_mmq <- plot_base_updated_4 +
-  coord_cartesian(ylim = c(0, 4))
-
-# Plot ausgeben lassen
-plot_mmq
-```
-:::
-::::
-
-### **2.7 Plot abspeichern**
-
-Speichere den Plot als PNG-Datei ab.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r}
-ggsave(
-  "plot_mmq.png",
-  plot = plot_mmq,
-  width = 10,
-  height = 6,
-  dpi = 300
-)
-```
-:::
-::::
-
-## Aufgabe 3: Verlaufsplot für subjektive Performance Ratings erstellen
-
-Nun reproduzieren wir einen zweiten Plot aus @grinschgl2021. Dafür nutzen wir den Long-Datensatz `dat_long`.
-
-**Ziel:** Die mittleren subjektiven Performance Ratings sollen für jede Feedback-Gruppe über zwei Messzeitpunkte hinweg dargestellt werden.
-
-Dafür brauchen wir pro Feedback-Gruppe und Messzeitpunkt:
-
-1.  die Anzahl gültiger Beobachtungen
-
-2.  den Mittelwert des Ratings
-
-3.  die Standardabweichung
-
-4.  den Standardfehler
-
-**Instruktionen:**
-
--   Lade zuerst den in der letzten Woche gespeicherten *Long-Datensatz*.
-
--   Ersetze anschliessend die Platzhalter **"XXXX"** durch die erforderlichen Werte, um den Plot zu reproduzieren.
-
-```{r, echo = TRUE, eval = FALSE}
-
-descriptives <- dat_long |> 
-  group_by(XXXX, XXXX) |> 
-  summarize(
-    N = sum(!is.na(rating)),
-    mean_d = mean(XXXX, na.rm = TRUE),
-    sd_d   = sd(XXXX, na.rm = TRUE),
-    se_d   = sd_d / sqrt(N),
-    .groups = "drop"
-)
-
-descriptives$group_all <- factor(descriptives$group_all, c("above", "control", "below"))
-
-rate_plot <- descriptives |> 
-  ggplot(aes(
-    x = XXXX, 
-    y = XXXX, 
-    group = XXXX)) 
-
-rate_plot +
-  geom_line(aes(color = group_all, linetype = group_all), linewidth = 1.2) +
-  geom_errorbar(aes(ymin = mean_d - se_d, ymax = mean_d + se_d), width = .1) +
-  scale_color_manual(values = c("green4", "red", "black")) +
-  theme_classic() +
-  labs(
-    title = "XXXXX",
-    x = "XXXX",
-    y = "XXXX"
-    ) +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 12, face = "bold"), 
-    axis.text = element_text(size = 11),
-    axis.title = element_text(size = 14)
-    )
-
-rate_plot
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, message=TRUE, warning= FALSE}
-descriptives <- dat_long |> 
-  group_by(group_all, time_rating) |> 
-  summarize(
-    N = sum(!is.na(rating)),
-    mean_d = mean(rating, na.rm = TRUE),
-    sd_d   = sd(rating, na.rm = TRUE),
-    se_d   = sd_d / sqrt(N),
-    .groups = "drop"
-)
-
-descriptives$group_all <- factor(descriptives$group_all, c("above", "control", "below"))
-
-rate_plot <- descriptives |> 
-  ggplot(aes(
-    x = time_rating, 
-    y = mean_d, 
-    group = group_all)) 
-
-rate_plot +
-  geom_line(aes(color = group_all, linetype = group_all), linewidth = 1.2) +
-  geom_errorbar(aes(ymin = mean_d - se_d, ymax = mean_d + se_d), width = .1) +
-  scale_color_manual(values = c("green4", "red", "black")) +
-  theme_classic() +
-  labs(
-    title = "Subjective Performance Ratings ",
-    x = "Time",
-    y = "Percentile Rank"
-    ) +
-  theme(plot.title = element_text(hjust = 0.5, size = 12, face = "bold"), 
-        axis.text = element_text(size = 11),
-        axis.title = element_text(size = 14))
-
-rate_plot
-```
-:::
-::::
-
-### **3.1 Plot abspeichern**
-
-Speichere den Plot als PNG-Datei ab.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo=TRUE, eval=FALSE}
-ggsave(
-  "rate_plot.png",
-  plot = rate_plot,
-  width = 10,
-  height = 6,
-  dpi = 300
-)
-```
-:::
-::::
+**✅ Checkpoint A1:** Ein Streudiagramm ist sichtbar; ihr könnt erklären, welche Information **r** zusätzlich zum Streudiagramm liefert.
 
 ------------------------------------------------------------------------
 
-# Teil 2: Inferenzstatistik
+# A2: Eine einfache lineare Regression erstellen
 
-In diesem Teil gehen wir von der Visualisierung zur statistischen Prüfung über. Wir fragen also nicht nur, ob ein Muster in den Daten sichtbar ist, sondern ob ein Zusammenhang statistisch geprüft werden kann.
+### 🧭 A2.1: Ein Modell zur Vorhersage der Schnabellänge
 
-::: {.callout-note collapse="true"}
-## Cheatsheets Statistik
+**Neue Forschungsfrage:** *Wie gut lässt sich die Schnabellänge anhand der Flossenlänge vorhersagen?*
 
-<iframe src="../../PDFs/stat_1.pdf" width="100%" height="500px">
+1.  Schätzt mit `lm()` das Modell.
 
-</iframe>
+2.  Speichert es als `model_1` und zeigt mit `summary()` die Ergebnisse an.
 
-<iframe src="../../PDFs/stat_3.pdf" width="100%" height="500px">
+3.  Entscheidet bewusst: Welche Variable steht links von `~`, welche rechts?
 
-</iframe>
+::: {.callout-tip collapse="true" title="Tipp A2.1: Modellformel"}
+`lm(abhängige_variable ~ prädiktor, data = ...)` schätzt die Regressionsgerade. Links steht die **Zielvariable**, rechts der **Prädiktor**. `summary(model_1)` zeigt Koeffizienten und Modellgüte.
 :::
 
-## Aufgabe 4: Korrelationen berechnen und interpretieren
-
-Wir untersuchen den Zusammenhang zwischen zwei metrischen Variablen aus dem Wide-Datensatz:
-
--   `mean_d1_all`: durchschnittliche Dauer der ersten Fensteröffnung (in Sekunden) über die 20 Test-Trials des PCT hinweg
-
--   `mean_d_all`: durchschnittliche Trial-Dauer (in Sekunden) über die 20 Test-rials des PCT hinweg
-
-### 4.1 Erstelle zuerst einen Scatterplot
-
-Bevor du eine Korrelation berechnest, visualisiere den Zusammenhang.
-
-```{r, echo = TRUE, eval = FALSE}
-dat_full |>
-  ggplot(aes(x = XXXX, y = XXXX)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  theme_classic() +
-  labs(
-    x = "Duration until first opening",
-    y = "Total trial duration",
-    title = "Association between first opening duration and total trial duration"
-  )
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = TRUE}
-dat_full |>
-  ggplot(aes(x = mean_d1_all, y = mean_d_all)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  theme_classic() +
-  labs(
-    x = "Duration until first opening",
-    y = "Total trial duration",
-    title = "Association between first opening duration and total trial duration"
-  )
-```
-:::
-::::
-
-### 4.2 Berechne die Pearson-Korrelation
-
-Berechne nun die Korrelation mit `cor.test()`. Du solltest den Code dazu schon aus vorherigen Übungen kennen.
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval = FALSE}
-
-cor.test(dat_full$mean_d1_all, dat_full$mean_d_all)
-
-```
-:::
-::::
-
-### 4.3 Interpretiere den Output
-
-Beantworte anhand des Outputs:
-
-1.  Ist der Zusammenhang positiv oder negativ?
-
-2.  Wie stark ist der Zusammenhang ungefähr?
-
-3.  Ist der Zusammenhang statistisch signifikant?
-
-4.  Wie viele Freiheitsgrade werden angegeben?
-
-5.  Passt das Ergebnis zu deiner Erwartung aus dem Scatterplot?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-In dem von uns gewählten Beispiel wurde die Korrelation von `mean_d1_all` mit `mean_d_all` berechnet. Der Korrelationskoeffizient r beträgt r = 0.78, was auf eine starke positive Korrelation hinweist. Der p-Wert ist p \< 0.001, was darauf hindeutet, dass die Korrelation statistisch signifikant ist. Die Freiheitsgrade (df) betragen 157, was auf die Anzahl der Beobachtungen minus 2 zurückzuführen ist (n-2). Dass die Dauer bis zur ersten Fensteröffnung und die Dauer des gesamten Trials zusammenhängen war inhaltlich zu erwarten.
-:::
-::::
-
-### 4.4 Berechne eine einseitige Korrelation und eine Spearman-Korrelation
-
-Rufe zunächst die Hilfefunktion auf:
-
-```{r, echo=TRUE, eval=FALSE}
-?cor.test
-```
-
-Berechne anschliessend (für die gleichen Varialben wie bei Aufgabe 4.2):
-
-1.  eine einseitige Pearson-Korrelation für einen positiven Zusammenhang
-
-2.  eine Spearman-Korrelation als nicht-prametrische Alternative
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
+::: {.callout-note collapse="true" title="Musterlösung A2.1"}
 ```{r}
-# Für eine einseitige Korrelation kannst du das Argument `alternative` verwenden, z.B. `alternative = "greater"` für eine positive Korrelation.
-cor.test(dat_full$mean_d1_all, dat_full$mean_d_all, alternative = "greater")
-
-# Für die Spearman-Methode kannst du das Argument `method` verwenden, z.B. `method = "spearman"`.
-cor.test(dat_full$mean_d1_all, dat_full$mean_d_all, method = "spearman")
-```
-:::
-::::
-
-### Kurze Wiederholung: Korrelationen
-
-Eine Korrelation beschreibt den Zusammenhang zwischen zwei Variablen.
-
--   r \> 0: positiver Zusammenhang
-
--   r \< 0: negativer Zusammenhang
-
--   r ≈ 0: kein oder kaum linearer Zusammenhang
-
-Der Korrelationskoeffizient liegt zwischen -1 und +1. Je nöher der Wert an -1 oder +1 liegt, desto stärker ist der Zusammenhang.
-
-Für eine Pearson-Korrelation sollten die Variablen metrisch sein, der Zusammenhang sollte ungefähr linear sein und starke Ausreisser sollten vermieden oder begründet untersucht werden. Wenn diese Annahmen nicht gut erfüllt sind, kann eine Spearman-Korrelation sinnvoller sein.
-
-------------------------------------------------------------------------
-
-## Regressionen
-
-::: {.callout-note collapse="true"}
-### **Tabelle: Funktionen für Regressionen und verwandte Analysen in R**
-
-| Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
-| **lm(y \~ x)** | Einfache lineare Regression mit einer abhängigen Variablen *y* und einem Prädiktor *x*. |
-| **lm(y \~ x1 + x2)** | Multiple Regression mit einer abhängigen Variablen *y* und zwei Prädiktoren *x1* und *x2*. |
-| **summary()** | Gibt die Ergebnisse der Regressionsanalyse für ein Regressionsmodell aus. |
-| **confint()** | Konfidenzintervalle für die Regressionskoeffizienten. |
-| **fitted()** | Vorhergesagte Werte des Regressionsmodells. |
-| **resid()** | Residuen des Regressionsmodells. |
-| **predict()** | Vorhergesagte Werte für bestimmte Werte der Prädiktorvariablen. |
-| **anova()** | Vergleicht die Determinationskoeffizienten zweier Regressionsmodelle mit einem F-Test. |
-| **vif()** \* | Variance Inflation Factors (VIF) für jeden Prädiktor; aus dem *car*-Paket. |
-
-\* aus zusätzlichen Paketen
-:::
-
-## Aufgabe 5: Einfache lineare Regression
-
-Eine Korrelation prüft, wie stark zwei Variablen zusammenhängen. Eine Regression formuliert den Zusammenhang gerichteter:
-
-**Kann eine Variable durch eine andere Variable vorhergesagt werden?**
-
-Wir verwenden nun dieselben beiden Variablen wie bei der Korrelation und berechnen eine einfache lineare Regression.
-
--   Abhängige Variable / Outcome: `mean_d1_all`
-
--   Prädiktor: `mean_d_all`
-
-### 5.1 Berechne das Regressionsmodell
-
-```{r, echo=TRUE, eval=FALSE}
-
-model_1 <- lm(XXXX ~ XXXX, data = dat_full)
+model_1 <- lm(bill_length_mm ~ flipper_length_mm,
+              data = penguins_training)
 summary(model_1)
 ```
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-
-model_1 <- lm(mean_d1_all ~ mean_d_all, data = dat_full)
-
-summary(model_1)
-
-```
+Links von `~` steht jeweils die abhängige Variable, rechts der Prädiktor (oder bei einer multiplen Regression auch mehrere Prädiktoren).
 :::
-::::
 
-### 5.2 Interpretiere den Output
+### 🧭 A2.2: Die Regressionskoeffizienten verstehen
 
-Orientiere dich an folgenden Fragen:
+Beantowrtet in eigenen Worten:
 
-1.  Was ist die abhängige Variable?
+1.  Was bedeutet die **Steigung** der Flossenlänge (inklusive Masseinheit)?
 
-2.  Was ist der Prädiktor?
+2.  Welchen Wert liefert der **Intercept**, und weshalb ist er hier inhaltlich kaum sinnvoll interpretierbar?
 
-3.  Ist der Regressionskoeffizient positiv oder negativ?
+3.  Wie viel Prozent der beobachteten Varianz der Schnabellänge erklärt das Modell?
 
-4.  Ist der Prädiktor statistisch signifikant?
+Formuliert anschliessend einen zusammenhängenden Ergebnissatz unter dem R-Code-Chunk.
 
-5.  Wie viel Varianz erklärt das Modell ungefähr? Nutze dafür `Multiple R-squared`.
-
-6.  Wie verhält sich der Determinantionskoeffizient der Regression (R²) zum Korrelationskoeffizienten der Korrelation (aus Übung 2.4)?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=FALSE}
-
-Das Regressionsmodell sagt die Variable mean_d1_all durch den Prädiktor mean_d_all vorher.
-Der Regressionskoeffizient für mean_d_all ist positiv (b = 0.32). Das bedeutet: Wenn mean_d_all um eine Einheit steigt, steigt mean_d1_all im Durchschnitt um etwa 0.32 Einheitem.
-Der Effekt ist statistisch signifikant (p < .001), d.h. der Zusammenhang unterscheidet sich zuverlässig von 0.
-Das Modell erklärt etwa 64% der Varianz in mean_d1_all (R² = 0.64), was auf einen starken Zusammenhang hinweist. Ziehst du die Wurzel von R², bekommst du den Korrelationskoeffizenten von Aufgabe 4.2 (mit ein paar Rundungsunterschieden). 
-
-👉 Insgesamt zeigt sich also: Personen mit längerer Gesamtbearbeitungszeit haben tendenziell auch eine längere Zeit der ersten Fensteröffnung. Ist ja logisch :-)
-```
+::: {.callout-tip collapse="true" title="Tipp A2.2: Koeffizienten und R²"}
+Der geschätzte Koeffizient beschreibt, um wie viele **mm** sich die vorhergesagte Schnabellänge bei **1 mm** mehr Flossenlänge verändert. `Multiple R-squared` ist der Anteil der durch das Modell erklärten Stichprobenvarianz. Der Intercept gilt für eine Flossenlänge von **0 mm**.
 :::
-::::
 
-## Aufgabe 6: Multiple lineare Regression
+::: {.callout-note collapse="true" title="Musterlösung A2.2"}
+**Mögliche Interpretation:** Bei einer um 1mm grösseren Flossenlänge liegt die vorhergesagte Schnabellänge im Mittel um etwa **0.255mm** höher.
 
-Nun ergänzen wir das Modell um einen zweiten Prädiktor. Dadurch prüfen wir, ob beide Prädiktoren gemeinsam zur Vorhersage der abhängigen Variable beitragen.
+Das Modell erklärt ungefähr **43.1%** der beobachteten Varianz der Schnabellänge. Die restliche Varianz ist nicht allein durch die Flossenlänge beschreibbar.
 
--   Abhängige Variable / Outcome: `mean_d1_all`
+Der Intercept beträgt etwa **−7.26 mm**; da 0 mm Flossenlänge weit ausserhalb der beobachteten Werte liegt, ist diese Extrapolation biologisch nicht sinnvoll. Auch kann ein Pinguin kein Negativgewicht haben. Durch eine Zentrierung des Prädiktors wäre der Intercept inhaltlich sinnvoller interpretierbar (Schnabellänge bei durchschnittlicher Flossenlänge).
 
--   Prädiktor 1: `mean_d_all`
-
--   Prädiktor 2: `mean_rl_all`
-
-### 6.1 Berechne das multiple Regressionsmodell
-
-```{r, echo = TRUE, eval=FALSE}
-model_2 <- lm(XXXX ~ XXXX + XXXX, data = dat_full)
-
-summary(model_2)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-model_2 <- lm(mean_d1_all ~ mean_d_all + mean_rl_all, data = dat_full)
-
-summary(model_2)
-```
+**Wichtig:** Ein statistischer Zusammenhang belegt für sich genommen keine Ursache-Wirkungs-Beziehung.
 :::
-::::
 
-### 6.2 Prüfe Multikollinearität mit `vif()`
+### 🧭 A2.3: Unsere Regressionsgerade visualisieren
 
-Bei multipler Regression sollten Prädiktoren nicht zu stark miteinander zusammenhängen. Eine Möglichkeit zur Prüfung ist der Variance Inflation Factor, kurz VIF.
+Verwendet das bestehende Plotobjekt `p_scatter` aus **A1.1** und ergänzt mit `geom_smooth()` eine lineare Regressionsgerade.
 
-```{r, echo = TRUE, eval=FALSE}
-vif(XXXX)
-```
+Speichert die erweiterte Grafik als `p_regression` und gebt sie aus.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-vif(model_2)
-```
+**Erklärt in einem Satz:** Wofür steht die Gerade, und weshalb liegen nicht alle Punkte darauf?
+
+::: {.callout-tip collapse="true" title="Tipp A2.3: Nur einen Layer ergänzen"}
+Eine bestehende ggplot-Grafik kann mit `+` erweitert werden. Für die Gerade benötigt ihr `geom_smooth(method = "lm", se = FALSE)`. Mit `se = FALSE` blendet ihr lediglich das Konfidenzband aus, **nicht** die statistische Unsicherheit des Modells.
 :::
-::::
 
-**Wie interpretiert man VIF-Werte?**
+::: {.callout-note collapse="true" title="Musterlösung A2.3"}
+```{r}
+p_regression <- p_scatter +
+  geom_smooth(method = "lm", formula = y ~ x,
+              se = FALSE, color = "#C83367", linewidth = 1)
 
-Der VIF sollte nicht zu hoch sein. Häufig verwendete Daumenregeln sind:
-
--   VIF nahe 1: unproblematisch
-
--   VIF \> 5: mögliche Multikollinearität prüfen
-
--   VIF \> 10: deutlicher Hinweis auf problematische Multikollinearität
-
-### 6.3 Interpretiere das multiple Modell
-
-Beantworte anhand des Outputs:
-
-1.  Welche Variable wird vorhergesagt?
-
-2.  Welche Prädiktoren sind im Modell enthalten?
-
-3.  Welche Prädiktoren sind statistisch signifikant?
-
-4.  Wie viel Varianz erklärt das Model insgesamt?
-
-5.  Wie unterscheidet sich R² im Vergleich zu `model_1`?
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=FALSE}
-In der multiplen Regression wird mean_d1_all durch die Prädiktoren mean_d_all und mean_rl_all vorhergesagt.
-
-Beide Prädiktoren sind statistisch signifikant (p < .001), d.h. sie tragen jeweils unabhängig zur Vorhersage bei.
-
-mean_d_all hat einen positiven Effekt (b = 0.31): Höhere Gesamtbearbeitungszeit geht mit längerer Zeit bis zur ersten Fensteröffnung einher.
-
-mean_rl_all hat einen negativen Effekt (b = -1.21): Höheres Offloading geht mit kürzerer Zeit bis zur ersten Fensteröffnung einher.
-
-Das Modell erklärt etwa 77% der Varianz (R² = 0.78) und damit mehr als das einfache Modell.
-
-👉 Insgesamt zeigt sich: Beide Prädiktoren liefern zusätzliche, unabhängige Informationen zur Vorhersage von mean_d1_all.
+p_regression
 ```
+
+**Interpretation:** Die Gerade zeigt die vom linearen Modell vorhergesagte Schnabellänge für eine bestimmte Flossenlänge. Die vertikalen Unterschiede zu den beobachteten Punkten heissen **Residuen**.
+
+Es können nicht alle Punkte auf der Geraden liegen, da die beiden Variablen nicht perfekt miteinander korrelieren. Die Gerade wird so geschätzt, dass die quadrierten Abstände zwischen den Punkten und der Gerade minimiert werden. Die Gerade ist also die Variante, bei der die quadrierten Abstände kleinstmöglich sind.
 :::
-::::
 
-### 6.4 Berechne Konfidenzintervalle der Koeffizienten
-
-Berechne nun die 95%-Konfidenzintervalle der Regressionskoeffizienten.
-
-```{r, echo = TRUE, eval=FALSE}
-confint(XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-confint(model_2)
-```
-:::
-::::
-
-**Wie interpretiert man Konfidenzintervalle?**
-
-Ein 95%-Konfidenzintervall beschreibt einen Bereich plausibler Werte für den wahren Regressionskoeffizienten. Wenn das 95%-KI die 0 nicht enthält, passt das zu einem zweiseitig signifikanten Test auf dem 5%.Niveau.
-
-## Aufgabe 7: Modellvergleich mit `anova()`
-
-Bei der hierarchischen Regression vergleichen wir ein einfacheres Modell mit einem komplexeren Modell. Dadurch prüfen wir, ob zusätzliche Prädiktoren die Vorhersage verbessern.
-
-Vergleiche `model_1` und `model_2` mit `anova().`
-
-**Beantworte:**
-
--   Wird durch den zusätzlichen Prädiktor signifikant mehr Varianz erklärt?
-
-```{r, echo = TRUE, eval=FALSE}
-anova(XXXX, XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-anova(model_1, model_2)
-```
-
-Der Modellvergleich ist **statistisch signifikant** (*p* \< .001).
-
-Das bedeutet: Das komplexere Modell (mit `mean_rl_all`) erklärt **signifikant mehr Varianz** als das einfachere Modell.
-
-👉 Der zusätzliche Prädiktor `mean_rl_all` verbessert die Vorhersage von `mean_d1_all` deutlich.
-:::
-::::
-
-## Freiwillige Zusatzaufgabe: Einfache logistische Regression
-
-Diese Aufgabe ist freiwillig und geht über die Inhalte der Einheit hinaus. Sie eignet sich, wenn du bereits sicher mit linearer Regression bist.
-
-**Fragestellung:**
-
-Kann das Offloading-Verhalten (`mean_rl_all)` die Strategiewahl vorhersagen?
-
-👉 Da `glm(..., family = binomial)` eine binäre abhängige Variable benötigt, entfernen wir Strategie 3 und kodieren die verbleibenden Strategien in 0 und 1 um.
-
-```{r, echo = TRUE, eval=FALSE}
-# Vorbereiten Daten
-log_reg <- dat_full |>
-  filter(XXXX != XXXX) |>
-  mutate(
-    strategy_bin = if_else(XXXX == XXXX, 0, 1)
-  )
-
-# Berechnung Modell
-model_log <- glm(
-  XXXX ~ XXXX,
-  data = XXXX,
-  family = XXXX
-)
-
-summary(model_log)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-# Vorbereiten Daten
-log_reg <- dat_full |>
-  filter(strategies != 3) |>
-  mutate(
-    strategy_bin = if_else(strategies == 1, 0, 1)
-  )
-
-# Berechnung Modell
-model_log <- glm(
-  strategy_bin ~ mean_rl_all,
-  data = log_reg,
-  family = binomial
-)
-
-summary(model_log)
-```
-:::
-::::
-
-# Disclaimer!
-
-Die bisherigen Aufgaben waren rein für Übungszwecke. Für die Reproduktion des Grinschgl et al. Papers in eurem Abschlussprojekt sind keine Korrelationen und Regressionen notwendig
+**✅ Checkpoint A2:** Ihr habt `model_1`, könnt Steigung und *R²* erklären und seht die Regressionsgerade im gerenderten Dokument.
 
 ------------------------------------------------------------------------
 
-## *t*-Tests
+# A3: Mehrere Prädiktoren gleichzeitig berücksichtigen
 
-Während Korrelation und Regression Zusammenhänge untersuchen, prüfen t-Tests **Unterschiede in Mittelwerten.**
+### 🧭 A3.1: Die Schnabeltiefe ergänzen
 
-::: {.callout-note collapse="true"}
-### **Tabelle: Funktionen für *t*-Tests und verwandte Analysen in R**
+**Forschungsfrage:** *Liefert die Schnabeltiefe zusätzlich zur Flossenlänge Informationen zur Vorhersage der Schnabellänge?*
 
-| Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
-| **t.test** | Allgemeine Funktion für verschiedene t-Tests: Ein-Stichproben-t-Test, t-Test für unabhängige Stichproben und t-Test für abhängige Stichproben. |
-| **t.test(av, mu = x)** | Ein-Stichproben-t-Test. **av** = abhängige Variable. **x** = Vergleichswert der Population. |
-| **t.test(av \~ uv)** | Welch-t-Test für **unabhängige Stichproben**. **av** = abhängige Variable, **uv** = Gruppenvariable. |
-| **t.test(av \~ uv, var.equal = TRUE)** | Klassischer t-Test für unabhängige Stichproben (Varianzgleichheit voraussgesetzt). |
-| **t.test(av1, av2, paired = TRUE)** | t-Test für **abhängige Stichproben** (z. B. Prä–Post). **av1** und **av2** = gemessene Variablen. |
-| **leveneTest(av, uv)** \* | Levene-Test auf Varianzhomogenität für unabhängige Gruppen. Aus dem `car`-Paket. |
-| **effsize::cohen.d()** \* | Berechnet die standardisierte Effektgröße **Cohen’s d** + Konfidenzintervall. Aus dem `effsize`-Paket. |
+Erweitert das bestehende Regressionsmodell um die Schnabeltiefe, speichert es als `model_2` und zeigt den Output an.
 
-\* Funktionen aus zusätzlichen Paketen.
+::: {.callout-tip collapse="true" title="Tipp A3.1: Multiple Regression"}
+In einer multiplen Regression stehen mehrere Prädiktoren **rechts** von `~`, durch `+` getrennt. Der zweite Prädiktor ersetzt den ersten nicht.
 :::
 
--   Paket `„effsize“` installieren und laden.
-
-```{r, echo = FALSE}
-library(effsize)
-```
-
-## Aufgabe 8: t-Test für unabhängige Stichproben
-
-**Fragestellung:** Unterscheiden sich die `pre4`-Ratings zwischen den Gruppen `above` und `below`?
-
-### 8.1 Daten vorbereiten
-
-Wir betrachten nur die zwei Gruppen `above` und `below`.
-
+::: {.callout-note collapse="true" title="Musterlösung A3.1"}
 ```{r}
-dat_full_below_above <- dat_full |>
-  filter(group_all %in% c("above", "below")) |>
-  mutate(group_all = factor(group_all))
+model_2 <- lm(bill_length_mm ~ flipper_length_mm + bill_depth_mm,
+              data = penguins_training)
+summary(model_2)
 ```
-
-### 8.2 Varianzhomogenität prüfen (Levene-Test)
-
-Bevor wir den t-Test durchführen, prüfen wir, ob die Varianzen der Gruppen gleich sind.
-
-```{r, echo=TRUE, eval=FALSE}
-leveneTest(XXXX ~ XXXX, data = XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-leveneTest(pre4 ~ group_all, data = dat_full_below_above)
-```
-
-Der Levene Test prüft die Homogenität der Varianzen zwischen den Gruppen. Ein nicht-signifikanter p-Wert (p \> 0.05) deutet darauf hin, dass die Varianzen in den beiden Gruppen als gleich angenommen werden können. Der vorliegende Test ist nicht signifikant (p = 0.09 \> 0.05), was darauf hinweist, dass die Varianzen in den Gruppen `„above“` und `„below“` als homogen betrachtet werden können.
 :::
-::::
 
-### 8.3 t-Test berechnen
+### 🧭 A3.2: Was verändert sich durch den zweiten Prädiktor?
 
-Berechne nun den entsprechenden t-Test mit `t.test()`. Du kannst auch die Hilfefunktion zu Rate ziehen. Versuche dann den Output zu verstehen bzw. das Ergebnis zu interpretieren.
+Vergleicht `summary(model_1)` und `summary(model_2)` und formuliert zwei bis drei eigene Sätze:
 
-**Tipp:** Wenn die Varianzhomogenität gegeben ist (d.h. der Levene-Test nicht signifikant ist), muss man `var.equal = TRUE` angeben, ansonsten wird ein `Welch t-Test` (bei Varianzungleichheit) berechnet.
+-   Wie verändert sich die Steigung der **Flossenlänge**?
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
+-   Was bedeutet die Steigung der **Schnabeltiefe**, *wenn die Flossenlänge konstant gehalten wird?*
 
-t.test(pre4 ~ group_all, data = dat_full_below_above, var.equal = TRUE)
+-   Wie verändert sich die erklärte Varianz (*R²*)?
 
-```
-
-Der students t-Test vergleicht die Mittelwerte der `pre4` Ratings zwischen den Gruppen `„above“` und `„below“`. Der p-Wert weisst auf einen statistisch signifikanten Unterschied der beiden Mittelwerte hin (p \< 0.05). Das 95%-Konfidenzintervall für den Mittelwertunterschied liegt zwischen 2.03 und 3.36. Das dieser Bereich **nicht** die 0 beinhaltet spricht ebenfalls für die Signifikanz der Mittelwertsunterschiede. Unter Einbezug der beiden Gruppenmittelwerte (`mean in group above` = 5.97 und `mean in group below` 3.27) deutet das Ergebnis darauf hin, dass die `„above“` Gruppe signifikant höhere `pre4` Ratings aufweist als die `„below“` Gruppe.
+::: {.callout-tip collapse="true" title="Tipp A3.2: Bedingte Koeffizienten"}
+Der Koeffizient eines Prädiktors im multiplen Modell beschreibt eine Änderung der vorhergesagten Zielvariable, **wenn die übrigen Prädiktoren gleich bleiben**. Vergleicht `Estimate` und `Multiple R-squared` in den beiden Outputs.
 :::
-::::
 
-### 8.4 Effektstärke berechnen
+::: {.callout-note collapse="true" title="Musterlösung A3.2"}
+Die Flossenlängen-Steigung steigt von etwa **0.255** auf **0.306**. Bei gleicher Schnabeltiefe sind 1 mm mehr Flossenlänge mit ca. **0.306 mm** mehr vorhergesagter Schnabellänge verbunden.
 
-Zusätzlich zur Signifikanz berechnen wir die Effektstärke (Cohen's d).
+Bei gleicher Flossenlänge sind 1 mm mehr Schnabeltiefe mit etwa **0.621 mm** mehr vorhergesagter Schnabellänge verbunden.
 
-```{r, echo=TRUE, eval=FALSE}
-effsize::cohen.d(XXXX ~ XXXX, data = XXXX)
-```
+Das *R²* steigt von **.431** auf **.464**. Durch die beiden Prädiktoren gemeinsam werden ca. 64.4% der Varianz in der Schnabellänge erklärt.
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval = TRUE}
-effsize::cohen.d(pre4 ~ group_all, data = dat_full_below_above)
-```
-
-Cohen's d beträgt 1.55, was auf einen großen Effekt hinweist.
+Diese Koeffizienten beschreiben **bedingte statistische Zusammenhänge**, keine gesicherten kausalen Effekte.
 :::
-::::
 
-👉 Und schon haben wir einen der Post-Hoc t-Tests für die 2x3 ANOVA aus Grinschgl et al. (2020) berechnet (notwendig für das Abschlussprojekt)
+**✅ Checkpoint A3:** Ihr könnt den Unterschied zwischen einer einfachen Steigung und einem **bedingten Koeffizienten** in einer multiplen Regression erklären.
 
 ------------------------------------------------------------------------
 
-## Aufgabe 9: *t*-Tests für abhängige Stichproben
+# A4: Verschachtelte Modelle hierarchisch vergleichen
 
-**Fragestellung:** Verändert sich das Rating innerhalb der `control`-Gruppe von `pre1` zu `pre4`?
+### 🧭 A4.1: Ein drittes Modell schätzen
 
-### 9.1 Daten filtern
+**Neue Frage:** *Verbessert die Körpermasse unser Modell zusätzlich zu Flossenlänge und Schnabeltiefe?*
 
+Erstellt `model_3` mit den beiden bisherigen Prädiktoren und zusätzlich noch der Körpermasse der Pinguine. Zeigt `summary(model_3)` an.
+
+::: {.callout-tip collapse="true" title="Tipp A4.1: Verschachtelung"}
+Ein verschachteltes Modell enthält alle Prädiktoren des vorherigen Modells und mindestens einen weiteren. Ergänzt in der bisherigen `lm()`-Formel einen weiteren `+`-Term.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A4.1"}
 ```{r}
-dat_full_control <- dat_full |>
-  filter(group_all == "control")
+model_3 <- lm(bill_length_mm ~ flipper_length_mm +
+                bill_depth_mm + body_mass_g,
+              data = penguins_training)
+summary(model_3)
 ```
 
-### 9.2 Gepaarten t-Test berechnen
-
-Hier vergleichen wir zwei Messzeitpunkte derselben Personen.
-
-```{r, echo=TRUE, eval=FALSE}
-t.test(XXXX$XXXX, XXXXX$XXXX, paired = XXXX)
-```
-
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, echo = TRUE, eval=TRUE}
-t.test(dat_full_control$pre1, dat_full_control$pre4, paired = TRUE)
-```
-
-Der t-Test für abhängige Stichproben (paired = TRUE) vergleicht die Mittelwerte von `pre1` und `pre4` innerhalb der `„control“` Gruppe. Der p-Wert weisst auf einen signifikanten Unterschied zwischen den Mittelwerten dieser beiden Messzeitpunkte hin (p \< 0.05). Das 95%-Konfidenzintervall für den Mittelwertunterschied liegt zwischen 0.39 und 1.06, umschliesst damit nicht die 0, und zeigt dadurch ebenfalls einen signifikanten Mittelwertsunterschied zwsichen den beiden Messzeitpunkten an. Die Angabe `mean_difference` zeigt an, wie stark der Mittelwert von `pre1` auf `pre4`angestiegen ist (mean difference = 0.73).
+Das dritte Modell hat *R²* ≈ **.465**. Der zusätzliche Koeffizient der Körpermasse ist in diesem Modell nicht signifikant (*p* ≈ **.435**).
 :::
-::::
 
-### 9.3 Gerichteten t-Test berechnen
+### 🧭 A4.2: Bringt jeder weitere Prädiktor einen Mehrwert?
 
-Wenn wir eine gerichtete Hypothese haben (z.B. `pre4 > pre1`), verwenden wir `alternative = "greater"`.
+Vergleicht die drei Modelle **in ihrer Reihenfolge** mithilfe von `anova()` und beantwortet:
 
-⚠️ Wichtig: Die Reihenfolge der Variablen bestimmt die Richtung!
+1.  Verbessert die **Schnabeltiefe** Modell 1 statistisch signifikant?
 
-```{r, echo=TRUE, eval=FALSE}
-t.test(dat_full_control$XXXX, dat_full_control$XXXX, paired = XXXX, alternative = "XXXX")
-```
+2.  Verbessert die **Körpermasse** Modell 2 statistisch signifikant?
 
-:::: {.content-visible when-meta="show_solutions"}
-::: {.callout-note collapse="true" title="Lösung"}
-```{r, eval=TRUE}
+3.  Weshalb genügt es nicht, nur auf ein minimal höheres *R²* zu schauen?
 
-t.test(dat_full$pre1, dat_full$pre4, paired = TRUE, alternative = "greater")
-
-```
-
-Während der ungerichtete t-test prüft, ob die Mittelwerte von `pre1` und `pre4` ungleich sind, prüft der gerichtete t-test (alternative = "greater") spezifischer, ob der Mittelwert von `pre4` signifikant größer ist als der Mittelwert von `pre1`. Dies ist auch am Ergebnis "alternative hypothesis: true mean difference is greather than 0" erkennen. Der Unterschied im `mean_difference` ist allerdings gleich geblieben, ebenso das Resultat der Signifikanzprüfung.
+::: {.callout-tip collapse="true" title="Tipp A4.2: Modelle vergleichen"}
+`anova(model_1, model_2, model_3)` liefert bei diesen **verschachtelten linearen Modellen** sequenzielle F-Tests. Achtet auf die Zeilen zu Modell 2 und Modell 3 und die Spalte `Pr(>F)`. Die Modelle müssen auf denselben 342 Beobachtungen beruhen.
 :::
-::::
 
-# Am Ende deiner Übungen - vergiss nicht dein Skript abzuspeichern! 😉
+::: {.callout-note collapse="true" title="Musterlösung A4.2"}
+```{r}
+anova(model_1, model_2, model_3)
+```
+
+| Vergleich    | Zusätzlicher Prädiktor | Ergebnis                             |
+|:-----------------|:--------------------|:--------------------------------|
+| Modell 1 → 2 | Schnabeltiefe          | *F*(1, 339) ≈ **21.03**, *p* \< .001 |
+| Modell 2 → 3 | Körpermasse            | *F*(1, 338) ≈ **0.61**, *p* ≈ .435   |
+
+**Fazit:** Die Schnabeltiefe verbessert das erste Modell signifikant. Die Körpermasse liefert anschliessend **keinen statistisch signifikanten zusätzlichen Beitrag**.
+
+Das gewöhnliche *R²* kann durch zusätzliche Prädiktoren nicht sinken; eine kleine Zunahme allein begründet deshalb noch keine sinnvolle Modellverbesserung.
+
+Der Modellvergleich bewertet die **Anpassung an die vorliegenden Daten**, nicht automatisch die Vorhersagegüte für neue Pinguine.
+:::
+
+**✅ Checkpoint A4:** Ihr könnt erklären, weshalb Modell 2 gegenüber Modell 1 statistisch gestützt ist, Modell 3 gegenüber Modell 2 aber keine signifikante Verbesserung zeigt.
+
+------------------------------------------------------------------------
+
+# A5: Das Modell überprüfen und reproduzierbar abschliessen
+
+### 🧭 A5.1: Was zeigen die Residuen?
+
+Verwendet `model_2` für zwei Diagnostikplots:
+
+-   **Residuen vs. vorhergesagte Werte** (`which = 1`): Hinweise auf Krümmung oder ungleichmässige Streuung?
+
+-   **Normal-Q-Q-Plot** (`which = 2`): Grössere Abweichungen der Residuen von der Normalverteilung?
+
+Erstellt die beiden Plots und beschreibt jeweils eine Beobachtung.
+
+::: {.callout-tip collapse="true" title="Tipp A5.1: Standardplots aus lm"}
+Mit `plot(modellname, which = 1)` und `plot(modellname, which = 2)` erstellt R die beiden aus EH11 bekannten Diagnostikplots. Bei Bedarf könnt ihr sie auf zwei separaten Code-Chunks ausgeben.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung A5.1"}
+```{r}
+plot(model_2, which = 1)
+plot(model_2, which = 2)
+```
+
+**Residuen vs. vorhergesagte Werte:** Die Residuen streuen überwiegend um die Nulllinie. Die leicht gekrümmte Glättungslinie könnte auf geringe Abweichungen von der Linearität hinweisen. Ein ausgeprägtes Trichtermuster ist nicht erkennbar, allerdings fallen einzelne Beobachtungen mit grossen Residuen auf.
+
+**Normal-Q-Q-Plot:** Die Residuen folgen grösstenteils der theoretischen Normalverteilung. An den Rändern, insbesondere im oberen Bereich, zeigen sich jedoch Abweichungen und einzelne auffällige Beobachtungen.
+
+**Fazit:** Die Modellannahmen erscheinen insgesamt näherungsweise erfüllt, allerdings bestehen Hinweise auf einzelne Ausreisser und mögliche kleinere Modellabweichungen. Diese sollten bei einer vertieften Diagnostik genauer untersucht werden.
+:::
+
+### 🧭 A5.2: Alles von Anfang bis Ende überprüfen
+
+1.  Speichert `regression_training.qmd` und **rendert das gesamte Dokument**.
+2.  Kontrolliert, dass **alle Analysen und Grafiken** ohne Fehlermeldung erzeugt werden.
+3.  Prüft, ob eure **Interpretationen als lesbarer Text** zwischen den Ergebnissen stehen.
+
+**✅ Abschluss-Checkpoint**
+
+-   [ ] Ich habe dieselben **342 Beobachtungen** für die Pflichtmodelle verwendet.
+-   [ ] Mein Dokument enthält ein **Streudiagramm und die Regressionsgerade**.
+-   [ ] Ich kann **r, Steigung, p-Wert und R²** korrekt einordnen.
+-   [ ] Ich kann die Koeffizienten im **multiplen Modell** unter Berücksichtigung der anderen Prädiktoren interpretieren.
+-   [ ] Ich habe die **hierarchischen Modellvergleiche** durchgeführt und interpretiert.
+-   [ ] Ich habe die **Diagnostikplots** betrachtet und mein Dokument vollständig gerendert.
+
+------------------------------------------------------------------------
+
+# ⭐ Freiwillige Vertiefungen
+
+Diese Aufgaben gehen über den Kern von EH11 hinaus. Ihr könnt sie nach dem Hands-on oder bei Interesse später bearbeiten.
+
+## V1: Regression mit einem kategorialen Prädiktor
+
+**Forschungsfrage:** *Unterscheidet sich die Schnabellänge zwischen den drei Pinguinarten?*
+
+### 🧭 V1.1: Boxplot erstellen
+
+Zuerst wollen wir den Zusammenhang grafisch darstellen. Erstellt einen **Boxplot** der Variable `bill_length_mm` getrennt nach `species`.
+
+Wandelt `species` bei Bedarf in einen Faktor um.
+
+::: {.callout-tip collapse="true" title="Tipp V1.1: Faktor und Referenzkategorie"}
+Mit `factor(species, levels = c("Adelie", "Chinstrap", "Gentoo"))` legt ihr Adelie als erste Faktorstufe und damit bei der üblichen Treatment-Kodierung als Referenz fest. Die einzelnen Art-Koeffizienten sind dann **Mittelwertsunterschiede zur Referenzart**.
+:::
+
+::: {.callout-note collapse="true" title="Musterlösung V1.1"}
+```{r}
+# Faktor explizit definieren
+penguins_training <- penguins_training |>
+  mutate(species = factor(species,
+                          levels = c("Adelie", "Chinstrap", "Gentoo")))
+
+# Boxplot erstellen
+ggplot(penguins_training, aes(x = species, y = bill_length_mm)) +
+  geom_boxplot(fill = "lightblue", color = "grey30") +
+  labs(x = "Pinguinart", y = "Schnabellänge (mm)") +
+  theme_minimal()
+```
+:::
+
+### 🧭 V1.2: Modell schätzen und interpretieren
+
+Nun wollen wir die Regression mit dem kategorialen Prädiktor schätzen. Dabei könnt ihr genau so vorgehen, wie ihr das für numerische Prädiktoren gelernt habt.
+
+Interpretiert anschliessend den **Intercept** und die Koeffizienten relativ zur **Referenzart**.
+
+::: {.callout-note collapse="true" title="Musterlösung V1.2"}
+```{r}
+# Modell schätzen
+model_species <- lm(bill_length_mm ~ species, data = penguins_training)
+
+# Output ausgeben lassen
+summary(model_species)
+```
+
+**Interpretation:** In dieser Regression wird untersucht, ob sich die mittlere Schnabellänge zwischen den drei Pinguinarten unterscheidet.
+
+Gemäss unserer Faktordefinition bilden die Adelie-Pinguine die Referenzgruppe. Ihre durchschnittliche Schnabellänge beträgt ungefähr **38.79 mm**. Dieser Wert entspricht dem Intercept des Regressionsmodells.
+
+Die anderen Koeffizienten zeigen, um wie viele Millimeter sich die durchschnittliche Schnabellänge der jeweiligen Art von jener der Adelie-Pinguine unterscheidet:
+
+-   **Chinstrap:** Ihre Schnäbel sind im Durchschnitt etwa **10.04 mm länger** als diejenigen der Adelie-Pinguine (ca. 48.83 mm).
+
+-   **Gentoo:** Ihre Schnäbel sind im Durchschnitt etwa **8.71 mm länger** als diejenigen der Adelie-Pinguine (ca. 47.50 mm).
+
+**Fazit:** Auch kategoriale Variablen wie die Pinguinart können als Prädiktoren in einer linearen Regression verwendet werden. Die Regressionskoeffizienten beschreiben hier **Mittelwertsunterschiede gegenüber der Referenzgruppe**.
+:::
+
+## V2: Logistische Regression - Können wir die Pinguinart vorhersagen?
+
+Bisher haben wir mit linearen Regressionen numerische Variablen vorhergesagt, beispielsweise die Schnabellänge. Aber was machen wir, wenn unsere Zielvariable nur zwei mögliche Ausprägungen hat?
+
+**Forschungsfrage:** *Lässt sich anhand der Flossenlänge vorhersagen, ob ein Pinguin zur Art Gentoo gehört?*
+
+Dafür verwenden wir eine logistische Regression. Sie eignet sich für binäre Zielvariablen und ermöglicht uns, Wahrscheinlichkeiten zwischen 0 und 1 vorherzusagen.
+
+### 🧭 V2.1: Eine binäre Zielvariable erstellen
+
+Unsere Variable `species` enthält drei Pinguinarten. Wir möchten aber nur zwischen zwei Möglichkeiten unterscheiden:
+
+-   **1:** Der Pinguin gehört zur Art Gentoo.
+
+-   **0:** Der Pinguin gehört zu einer anderen Art (Adelie oder Chinstrap).
+
+Erstellt mit `mutate()` eine neue Variable namens `is_gentoo` im Datensatz `penguins_training`.
+
+**Kontrolle:** Überprüft mit `table()`, wie viele Pinguine den Wert 0 bzw. 1 erhalten haben.
+
+::: {.callout-note collapse="true" title="Musterlösung V2.1"}
+```{r}
+penguins_training <- penguins_training |>
+  mutate(is_gentoo = if_else(species == "Gentoo", 1L, 0L))
+
+# Prüfen der Verteilung
+table(penguins_training$is_gentoo)
+```
+
+Insgesamt sind von von den 342 Pinguinen 123 Gentoo-Pinguine. Die restlichen 219 Pinguine gehören den beiden anderen Arten an.
+:::
+
+### 🧭 V2.2: Eine logistische Regression berechnen
+
+Erstellt ein Modell mit folgenden Variablen:
+
+**Zielvariable:** `is_gentoo`
+
+**Prädiktor:** `flipper_length_mm`
+
+Verwendet dafür `glm()` anstelle von `lm()`. Mit dem Argument `family = binomial()` legt ihr fest, dass ihr eine logistische Regression berechnen möchtet.
+
+Speichert das Modell als `model_logistic` und betrachtet die Ergebnisse mit `summary()`.
+
+**Überlegt:** Die der Koeffizient der Flossenlänge positiv oder negativ? Was bedeutet das für die Wahrscheinlichkeit, dass ein Pinguin zur Art Gentoo gehört?
+
+::: {.callout-note collapse="true" title="Musterlösung V2.2"}
+```{r}
+model_logistic <- glm(is_gentoo ~ flipper_length_mm,
+                   data = penguins_training, family = binomial())
+
+
+summary(model_logistic)
+```
+
+Die Flossenlänge ist ein **positiver und statistisch signifikanter Prädiktor** dafür, ob ein Pinguin zur Art Gentoo gehört (*b*= 0.622, *p* \< .001).
+
+Das bedeutet: **Je länger die Flossen eines Pinguins sind, desto höher ist die vorhergesagte Wahrscheinlichkeit, dass er ein Gentoo-Pinguin ist.**
+
+Wichtig ist, dass die Regressionskoeffizienten bei einer logistischen Regression auf der **Log-Odds-Skala** angegeben werden. Der Wert 0.622 entspricht daher nicht einer Erhöhung der Wahrscheinlichkeit um 62.2 Prozentpunkte. Stattdessen steigen die Odds pro zusätzlichem Millimeter Flossenlänge um den Faktor (e\^{0.622}\\approx1.86).
+:::
+
+### 🧭 V2.3: Die vorhergesagte Wahrscheinlichkeit visualisieren
+
+Stellt eure Ergebnisse nun grafisch dar.
+
+Erstellt mit `ggplot2` ein Diagramm, in dem:
+
+-   die Flossenlänge auf der x-Achse steht
+
+-   die Gentoo-Zuegehörigkeit (0 oder 1) auf der y-Achse dargestellt wird
+
+-   eine logistische Regressionskurve die vorhergesagte Wahrscheinlichkeit zeigt
+
+Ihr kennt bereits `geom_point()` und `geom_smooth()` aus der Vorlesung. Für eine logistische Regression benötigt `geom_smooth()` lediglich andere Einstellungen als bei einer linearen Regression.
+
+**Achtet darauf:** Die vorhergesagten Wahrscheinlichkeiten sollten zwischen 0 und 1 liegen. Die Kurve ist deshalb typischerweise S-förmig und keine Gerade.
+
+::: {.callout-note collapse="true" title="Musterlösung V2.3"}
+```{r}
+ggplot(
+  penguins_training,
+  aes(x = flipper_length_mm, y = is_gentoo)
+) +
+  geom_jitter(
+    width = 0,
+    height = 0.03,
+    alpha = 0.3,
+    color = "grey50",
+    size = 2
+  ) +
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = binomial()),
+    formula = y ~ x,
+    se = FALSE,
+    color = "steelblue",
+    linewidth = 1.2
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 1, by = 0.25),
+    labels = scales::label_percent()
+  ) +
+  coord_cartesian(ylim = c(-0.05, 1.05)) +
+  labs(
+    x = "Flossenlänge (mm)",
+    y = "Gentoo-Zugehörigkeit / Wahrscheinlichkeit"
+  ) +
+  theme_minimal(base_size = 16)
+
+```
+
+Mit zunehmender Flossenlänge steigt die **vorhergesagte Wahrscheinlichkeit, dass ein Pinguin zur Art Gentoo gehört**, deutlich an. Bei Flossenlängen unter etwa 200 mm liegt sie nahe 0 %, ab ungefähr 215 mm nahe 100 %. Der Übergang erfolgt besonders stark zwischen etwa 203 und 211 mm.
+
+Die **S-förmige Kurve** ist typisch für eine logistische Regression: Anders als bei der linearen Regression bleiben die vorhergesagten Wahrscheinlichkeiten zwischen 0 % und 100 %.
+:::
+
+## V3: Können Gruppen einen Gesamtzusammenhang verändern?
+
+Bisher haben wir Zusammenhänge zwischen verschiedenen Körpermerkmalen untersucht. Dabei haben wir die Pinguine meistens gemeinsam betrachtet. Unser Datensatz enthält allerdings drei Arten, die sich hinsichtlich ihrer Körpermerkmale unterscheiden können.
+
+**Forschungsfrage:** *Wie hängen Flossenlänge und Schnabeltiefe zusammen? Zeigt sich derselbe Zusammenhang, wenn wir die Pinguinarten getrennt betrachten?*
+
+### 🧭 V3.1: Den Gesamtzusammenhang untersuchen
+
+Untersucht zunächst den Zusammenhang zwischen Flossenlänge und Schnabeltiefe über alle Pinguine hinweg.
+
+1.  Erstellt ein Streudiagramm mit `flipper_Length_mm` auf der x-Achse und `bill_length_mm` auf der y-Achse.
+
+2.  Ergänzt eine lineare Regressionsgerade mit `geom_smooth()`.
+
+3.  Berechnet die Pearson-Korrelation zwischen den beiden Variablen.
+
+**Überlegt:** Ist der Zusammenhang positiv oder negativ? Stimmen die Richtung der Regressionsgeraden und das Vorzeichen des Korrelationskoeffizienten überein?
+
+::: {.callout-note collapse="true" title="Musterlösung V3.1"}
+```{r}
+# Gesamtzusammenhang
+ggplot(
+  penguins_training,
+  aes(x = flipper_length_mm, y = bill_depth_mm)
+) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Flossenlänge (mm)",
+    y = "Schnabeltiefe (mm)"
+  ) +
+  theme_minimal()
+
+cor(
+  penguins_training$flipper_length_mm,
+  penguins_training$bill_depth_mm
+)
+
+```
+
+**Interpretation:** Die Korrelation dieser beiden Variablen ist in der Gesamtpopulation der Pinguine negativ (- 0.58). Das können wir auch daran sehen, dass die Regressionsgerade nach unten verläuft.
+:::
+
+### 🧭 V3.2: Die Pinguinarten berücksichtigen
+
+Nun möchten wir herausfinden, ob die Pinguinart eine Rolle für den beobachteten Zusammenhang spielt.
+
+1.  Erstellt eine zweite Version eures Streudiagramms.
+
+2.  Färbt die Punkte mithilfe von `aes(color = species)` nach Pinguinart ein.
+
+3.  Ergänzt für jede Art eine eigene lineare Regressionsgerade.
+
+**Vergleicht die beiden Grafiken:** Welche Unterschiede fallen euch auf? Verlaufen die drei Regressionsgeraden in dieselbe Richtung wie die gemeinsame Gerade aus V3.1?
+
+::: {.callout-note collapse="true" title="Musterlösung V3.2"}
+```{r}
+ggplot(
+  penguins_training,
+  aes(
+    x = flipper_length_mm,
+    y = bill_depth_mm,
+    color = species
+  )
+) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Flossenlänge (mm)",
+    y = "Schnabeltiefe (mm)",
+    color = "Pinguinart"
+  ) +
+  theme_minimal()
+
+```
+
+**Interpretation:** Betrachten wir alle Pinguine gemeinsam, zeigt sich ein negativer Zusammenhang zwischen Flossenlänge und Schnabeltiefe: Pinguine mit längeren Flossen haben insgesamt tendenziell eine geringere Schnabeltiefe.
+
+Sobald wir die Pinguinarten getrennt betrachten, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten verlaufen die Regressionsgeraden nach oben. Pinguine mit längeren Flossen haben innerhalb derselben Art also tendenziell auch tiefere Schnäbel.
+:::
+
+### 🧭 V3.3: Die Korrelationen getrennt berechnen
+
+Überprüft eure Beobachtungen nun anhand der Korrelationskoeffizienten.
+
+1.  Gruppiert `penguins_training` nach der Pinguinart.
+
+2.  Berechnet innerhalb von `summarise()` mit `cor()` die Pearson-Korrelation zwischen Flossenlänge und Schnabeltiefe.
+
+3.  Vergleicht die drei Korrelationskoeffizienten mit dem Gesamtzusammenhang aus V3.1.
+
+**Kontrolle:** Ihr solltet eine Tabelle mit drei Zeilen erhalten - eine pro Pinguinart.
+
+::: {.callout-note collapse="true" title="Musterlösung V3.3"}
+```{r}
+penguins_training |>
+  group_by(species) |>
+  summarise(
+    r = cor(flipper_length_mm, bill_depth_mm),
+    .groups = "drop"
+  )
+```
+
+Innerhalb **aller drei Pinguinarten besteht ein positiver Zusammenhang** zwischen Flossenlänge und Schnabeltiefe. Dieser ist bei Adelie am schwächsten (*r* ≈ .308), bei Chinstrap stärker (*r* ≈ .580) und bei Gentoo am stärksten (*r* ≈ .707).
+
+Im Gegensatz dazu ist der Zusammenhang über alle Pinguine hinweg negativ (*r* ≈ −.584). **Die Gruppenunterschiede zwischen den Pinguinarten kehren somit die Richtung des Gesamtzusammenhangs um.** Dies veranschaulicht das sogenannte *Simpson-Paradoxon*.
+:::
+
+### 🧭 V3.4: Das Ergebnis erklären
+
+Beantwortet anschliessend in eigenen Worten:
+
+-   Welche Richtung hat der Zusammenhang, wenn wir alle Pinguine gemeinsam betrachten?
+
+-   Welche Richtung hat er innerhalb der einzelnen Pinguinarten?
+
+-   Wie könnten die Unterschiede zwischen den Pinguinarten diese Beobachtungen erklären?
+
+::: {.callout-note collapse="true" title="Musterlösung V3.4"}
+Betrachten wir alle Pinguine gemeinsam, besteht ein **negativer Zusammenhang** zwischen Flossenlänge und Schnabeltiefe (*r* ≈ −.584). Pinguine mit längeren Flossen haben insgesamt tendenziell eine geringere Schnabeltiefe.
+
+Untersuchen wir die Pinguinarten getrennt, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten ist der Zusammenhang **positiv** (Adelie: *r* ≈ .308; Chinstrap: *r* ≈ .580; Gentoo: *r* ≈ .707). Innerhalb derselben Art besitzen Pinguine mit längeren Flossen also tendenziell auch tiefere Schnäbel.
+
+**Wie lässt sich dieser Unterschied erklären?** Die drei Pinguinarten unterscheiden sich in ihren typischen Körpermerkmalen. Diese Unterschiede zwischen den Arten beeinflussen den Gesamtzusammenhang so stark, dass sich dessen Richtung gegenüber den Zusammenhängen innerhalb der Arten umkehrt.
+
+Dieses Phänomen wird als **Simpson-Paradoxon** bezeichnet.
+
+**Fazit:** Bei der Interpretation statistischer Zusammenhänge müssen wir berücksichtigen, ob verschiedene Gruppen im Datensatz vorhanden sind. Ein Gesamtzusammenhang kann die tatsächlichen Zusammenhänge innerhalb dieser Gruppen verdecken.
+:::
+
+------------------------------------------------------------------------
+
+## ✅ Was nehmt ihr aus Hands-on 6A mit?
+
+Ihr habt mit demselben Datensatz **Zusammenhänge visualisiert, eine Korrelation berechnet, lineare Regressionsmodelle schrittweise erweitert, Modellvergleiche durchgeführt und erste Modellannahmen geprüft**. Entscheidend ist nicht nur der korrekte R-Code, sondern dass ihr die Ergebnisse **in eigenen Worten erklären** könnt.
+
+**Ausblick:** In EH12 kehren wir zu unserem Forschungsprojekt zurück. Dort untersuchen wir **Gruppenunterschiede** mit t-Tests und One-Way ANOVAs und ergänzen die verpflichtenden Analysen in `code/analysis.qmd`.
