@@ -197,7 +197,7 @@ Sowohl die statistische Signifikanz als auch die Effekgrösse gehören zu einer 
 <br>
 
 | Frage | Worauf achten wir? |
-|------------------------------------|------------------------------------|
+|----|----|
 | Was möchten wir wissen? | Zusammenhang, Vorhersage oder Unterschied? |
 | Welche Variablen haben wir? | Numerisch oder kategorial? Welche ist die AV? |
 | Wie wurden die Daten erhoben? | Unabhängige Gruppen oder wiederholte Messungen? |
@@ -252,7 +252,7 @@ Diese Entscheidungen sollten nicht erst beim Blick auf die Ergebnisse getroffen 
 
 ::: {style="font-size:0.85em;"}
 | Forschungsfrage | Verfahren | Im Seminar |
-|----------------------------|----------------------|----------------------|
+|----|----|----|
 | Hängen zwei numerische Variablen zusammen? | Korrelation | EH11 (Training) |
 | Lässt sich eine numerische Variable vorhersagen? | Lineare Regression | EH11 (Training) |
 | Unterschieden sich zwei Gruppen bzw. Messungen? | t-Test | EH12 |
@@ -599,153 +599,275 @@ Der Intercept beträgt ungefähr 362 Gramm. Er beschreibt die vorhergesagte Kör
 
 <br>
 
-Ab hier müssen die Folien noch überarbeitet werden. Wird am Montag (23.11.26) gemacht!
-
-------------------------------------------------------------------------
-
-## Multiple lineare Regression
+![](../../images/EH11_Varianz.png){fig-align="center" width="90%"}
 
 <br>
 
-Eine abhängige Variable (AV) wird durch mehrere Prädiktoren (UVs) vorhergesagt.
-
-<br>
-
-```{r, eval=FALSE}
-model_2 <- lm(mean_rl_all ~ cvstm_propcorrect + vp_propcorrect,
-              data = dat_full)
-
-summary(model_2)
-```
-
-➡️ Jeder Prädiktor wird geprüft, während die anderen Prädiktoren im Modell kontrolliert werden.
-
-Dadurch können wir untersuchen, ob ein Prädiktor zusätzlich zur Vorhersage beiträgt.
-
-------------------------------------------------------------------------
-
-## Regression: Output verstehen
-
-<br>
-
-![](../../images/EH_11/Regressionsoutput.png){fig-align="center"}
+Unser Modell erklärt ungefähr 35% der beobachteten Varianz der Körpermasse.
 
 ::: notes
-Hier eine **sehr kurze, punktuelle Zusammenfassung**:
+Neben dem Regressionskoeffizienten interessiert uns, wie gut unser Modell die Daten insgesamt beschreibt.
 
--   **Intercept (7.63)**: Ausgangswert von *mean_rl_all*, wenn cvstm_propcorrect = 0.
+Dafür verwenden wir u.a. das Bestimmtheitsmass R-Quadrat. Es beträgt in unserem Beispiel ungefähr 0.354. Das bedeutet, dass die Schnabellänge im linearen Modell ungefähr 35% der beobachteten Varianz der Körpermasse erklärt.
 
--   **Steigung (-3.30)**: Hoeherer cvstm_propcorrect sagt niedrigeren mean_rl_all voraus (negativer Zusammenhang
+Bei einer einfachen linearen Regression mit Intercept entspricht R-Quadrat dem quadrierten Pearson-Korrelationskoeffizienten. Das ist eine wichtige Verbindung zwischen Korrelation und Regression.
 
--   **p = .0037**: Zusammenhang ist **signifikant**.
-
--   **Residuen**: Durchschnittliche Abweichung vom Modell ca. 1.10.
-
--   **R² = 0.052**: Modell erklaert **5% der Varianz** → kleiner Effekt.
-
--   **F-Test p = .0037**: Das Gesamtmodell ist signifikant.
-
-**Kurz:** Höhere cvstm_propcorrect-Werte gehen mit niedrigeren mean_rl_all-Werten einher, aber das Modell erklaert nur wenig Varianz.
+Allerdings bedeutet R-Quadrat nicht, dass wir die Körpermasse eines einzelnen Pinguins mit einer Genauigkeit von 35% vorhersagen können. Es beschreibt die Modellanpassung an die beobachteten Daten.
 :::
 
 ------------------------------------------------------------------------
 
-## Voraussetzungen der linearen Regression
+## Was verändert sich bei einer multiplen Regression?
+
+**Wir berücksichtigen mehrere Prädiktoren gleichzeitig**
 
 <br>
 
-Damit wir eine lineare Regression sinnvoll interpretieren können:
-
--   linearer Zusammenhang zwischen Prädiktor(en) und abhängiger Variable
-
--   normalverteilte Residuen (siehe Hands On 5)
-
--   Homoskedastizität
-
--   keine starken Ausreisser
-
--   bei multipler Regression: keine starke Multikollinearität
+*Verbessert die Flossenlänge die Vorhersage der Körpermasse zusätzlich zur Schnabellänge?*
 
 <br>
 
-👉 Die Voraussetzungen prüfen wir über Diagnostikplots und Kennwerte.
+::::: columns
+::: {.column width="51%"}
+```{r, echo=TRUE, eval=TRUE}
+model_2 <- lm(
+  body_mass_g ~ bill_length_mm + flipper_length_mm,
+  data = penguins_training
+)
+```
+:::
 
-------------------------------------------------------------------------
-
-### **Nützliche Funktionen für Regressionen und verwandte Analysen in R**
-
-| Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
-| `lm(y ~ x)` | Einfache lineare Regression mit einer abhängigen Variablen *y* und einem Prädiktor *x*. |
-| `lm(y ~ x1 + x2)` | Multiple Regression mit einer abhängigen Variablen *y* und zwei Prädiktoren *x1* und *x2*. |
-| `summary()` | Gibt die Ergebnisse der Regressionsanalyse für ein Regressionsmodell aus. |
-| `confint()` | Konfidenzintervalle für die Regressionskoeffizienten. |
-
-------------------------------------------------------------------------
-
-| Funktion | Beschreibung |
-|------------------------------------|------------------------------------|
-| `fitted()` | Vorhergesagte Werte des Regressionsmodells. |
-| `resid()` | Residuen des Regressionsmodells. |
-| `predict()` | Vorhergesagte Werte für neue Werte der Prädiktorvariablen. |
-| `anova(model1, model2)` | Vergleicht die Determinationskoeffizienten zweier Regressionsmodelle mit einem F-Test. |
-| `vif()` \* | Variance Inflation Factors (VIF) für jeden Prädiktor; aus dem **car**-Paket. |
-
-\* aus zusätzlichen Paketen
-
-------------------------------------------------------------------------
-
-## Hierarchische Regression
+::: {.column width="49%"}
+![](../../images/EH11_Formel_multiple.png){fig-align="center" width="100%"}
+:::
+:::::
 
 <br>
 
-Bei der hierarchischen Regression vergleichen wir mehrere Modelle.
+Jeder Koeffizient beschreibt den Zusammenhang mit der AV unter Berücksichtigung der anderen Prädiktoren.
+
+::: notes
+Bisher haben wir versucht, die Körpermasse anhand der Schnabellänge vorherzusagen.
+
+Wir könnten aber vermuten, dass auch die Flossenlänge hilfreich ist. Deshalb ergänzen wir unser Modell um einen zweiten Prädiktor.
+
+Das ist die Grundidee der multiplen Regression: Wir untersuchen mehrere Prädiktoren gleichzeitig. Die Interpretation der Koeffizienten verändert sich dadurch. Ein Koeffizient beschreibt nun den Zusammenhang zwischen einem Prädiktor und der Körpermasse, während der andere Prädiktor statistisch konstant gehalten wird.
+
+Wir betrachten also nicht mehr nur den isolierten Zusammenhang zweier Variablen.
+:::
+
+------------------------------------------------------------------------
+
+## Was zeigt die multiple Regression (I)?
+
+**Zusätzliche Prädiktoren können sowohl die Modellgüte als auch die Interpretation verändern**
+
+<br>
+
+::::: columns
+::: {.column width="55%"}
+**Einfache lineare Regression**
+
+![](../../images/EH11_Interpretation_Regression.png){fig-align="left" width="95%"}
+:::
+
+::: {.column width="45%"}
+**Multiple lineare Regression**
+
+![](../../images/EH11_Interpretation_multiple.png){fig-align="left" width="95%"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Was zeigt die multiple Regression (II)?
+
+**Zusätzliche Prädiktoren können sowohl die Modellgüte als auch die Interpretation verändern**
+
+<br>
+
+![<br>](../../images/EH11_einfach_multipel.png){fig-align="left" width="95%"}
+
+Der Schnabellängen-Koeffizient wird wesentlich kleiner, sobald wir die Flossenlänge berücksichtigen.
+
+::: notes
+Die Ergebnisse sind interessant.
+
+In unserem ersten Modell zeigte die Schnabellänge einen deutlichen positiven Zusammenhang mit der Körpermasse.
+
+Sobald wir zusätzlich die Flossenlänge berücksichtigen, wird der geschätzte Koeffizient der Schnabellänge viel kleiner und ist nicht mehr statistisch signifikant.
+
+Die Flossenlänge besutzt dagegen einen deutlichen positiven Koeffizienten.
+
+Das bedeutet nicht, dass unsere erste Korrelation falsch war. Die beiden Modelle beantworten unterschiedliche Fragen: einmal den Zusammenhang ohne weitere Prädiktoren, einmal den Zusammenhang bei statistischer Berücksichtigung der Flossenlänge.
+
+Zugleich steigt die erklärte Varianz von rund 35 auf 76%.
+:::
+
+------------------------------------------------------------------------
+
+## Was ist eine hierarchische Regression?
+
+**Wir erweitern ein Modell schrittweise und prüfen, ob zusätzliche Prädiktoren die Modellgüte verbessern**
+
+<br>
+
+::::: columns
+::: {.column width="51%"}
+**Hierarchische Modellabfolge**
+
+![](../../images/EH11_hierarchisch.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="49%"}
+<br><br>
 
 ```{r, echo=TRUE, eval=FALSE}
-model_1 <- lm(y ~ x1,
-              data = data)
-
-model_2 <- lm(y ~ x1 + x2,
-              data = data)
-
-model_3 <- lm(y ~ x1 + x2 + x3,
-              data = data)
+model_3 <- lm(
+  body_mass_g ~ bill_length_mm +
+    flipper_length_mm + bill_depth_mm,
+  data = penguins_training
+)
 
 anova(model_1, model_2, model_3)
 ```
-
-Fragestellung:
-
-➡️ Erklärt das komplexere Modell zusätzliche Varianz?
-
-👉 Wir prüfen also, ob neue Prädiktoren die Vorhersage verbessern.
+:::
+:::::
 
 <br>
 
-Siehe hier: [**Lineare Regression mit R (einfach, multiple, hierarchisch)**](https://www.youtube.com/watch?v=JzcIKIW6mfc)
+Die Modelle müssen verschachtelt sein und auf denselben Beobachtungen beruhen.
+
+::: notes
+Wir haben nun zwei Regressionsmodelle kennengelernt. Aber wie können wir beurteilen, ob ein zusätzlich aufgenommener Prädiktor tatsächlich einen statistisch nachweisbaren Mehrwert liefert?
+
+Bei einer hierarchischen Regression legen wir die Reihenfolge fest, in der wir zusätzliche Prädiktoren aufnehmen.
+
+Wir beginnen mit der Schnabellänge, ergänzen die Flossenlänge und nehmen im dritten Modell zusätzlich die Schnabeltiefe auf.
+
+Mit anova() können wir diese verschachtelten linearen Modelle vergleichen.
+
+Wichtig ist, dass jedes neue Modell die Prädiktoren des vorherigen Modells enthält und alle Modelle auf denselben Beobachtungen beruhen.
+:::
 
 ------------------------------------------------------------------------
 
-## Hands On - Block 6!
+## Welches Modell verbessert unsere Vorhersage?
 
--   Visualisierungen mit `ggplot2`
+**Der Modellvergleich zeigt, ob zusätzliche Prädiktoren statistisch nachweisbar zur Eklärung beitragen**
 
--   Korrelationen
+<br>
 
--   Regressionen
+::::: columns
+::: {.column width="50%"}
+![](../../images/EH11_anova.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="50%"}
+![](../../images/EH11_anova_2.png){fig-align="center" width="100%"}
+:::
+:::::
+
+**Interpretation:** Die Flossenlänge verbessert das Modell deutlich. Die zusätzliche Schnabeltiefe liefert in diesem Vergleich dagegen keine statistisch signifikante Verbesserung.
+
+<br>
+
+Mehr Prädiktoren bedeuten nicht automatisch ein sinnvoll besseres Modell!
+
+::: notes
+Vergleichen wir unsere drei Modelle.
+
+Das erste Modell erklärt ungefähr 36% der Varianz. Mit der Flossenlänge steigt dieser Anteil auf ungefähr 76%. Diese Verbesserung ist auch im F-Test statistisch signifikant.
+
+Wenn wir zusätzlich die Schnabeltiefe aufnehmen, steigt R-Quadrat nur noch geringfügig auf ungefähr 76.1%. Der Modellvergleich liefert hier keinen statistisch signifikanten zusätzlichen Beitrag.
+
+Eine wichtige Besonderheit ist, dass das R-Quadrat bei einer Erweiterung eines linearen Modells nicht kleiner werden kann. Deshalb reicht es nicht, einfach die R-Quadrat-Werte zu vergleichen.
+
+Wir sollten auch berücksichtigen, wie gross die Verbesserung ist und ob die statistisch gestützt wird.
+:::
 
 ------------------------------------------------------------------------
 
-## Heute haben wir:
+## Voraussetzungen der lineare Regression
 
--   Aufbau von `ggplot()` repetiert
+**Damit wir das Modell sinnvoll interpretieren können, müssen wir seine Annahmen berücksichtigen**
 
--   Korrelationen und Regressionen in R kennengelernt
+<br>
 
-**Reminder: R Übung bis Freitag 08.05., Peer Feedback über ILIAS bis 13.05.**
+| Voraussetzung | Worauf achten wir? |
+|----|----|
+| Linearität | Die erwartete AV hängt linear von den Prädiktoren ab. |
+| Unabhängigkeit | Die Beobachtungen bzw. Fehler sind unabhängig. |
+| Homoskedastizität | Die Streuung der Residuen bleibt ungefähr konsistent. |
+| Normalität der Residuen | Für klassische p-Werte und KI sind entsprechende Verteilungsannahmen relevant. |
+| Keine problematischen Ausreisser oder Multikollinearität | Einzelne Beobachtungen oder stark zusammenhängende Prädiktoren sollen die Schätzungen nicht unangemessen beeinflussen. |
+
+::: notes
+Wie bei der Korrelation gibt es auch bei der linearen Regression wichtige Voraussetzungen.
+
+-   Wir nehmen bspw. an, dass das Modell die Beziehungen zwischen Prädiktoren und AV in geeigneter Weise beschreibt.
+
+-   Ausserdem benötigen wir unabhängige Beobachtungen bzw. Fehler und sollten prüfen, ob die Streuung der Residuen über den vorhergesagten Wertebereich ungefähr konstant bleibt.
+
+-   Für die klassischen Signifikanztests und KI spielen zudem die Verteilungsannahmen der Fehler eine Rolle.
+
+-   Bei multiplen Regressionen kommt hinzu, dass stark miteinander zusammenhängende Prädiktoren die Schätzung einzelner Koeffizienten erschweren können.
+:::
 
 ------------------------------------------------------------------------
 
-## Peer Feedback:
+## Überprüfung der Voraussetzungen in R (I)
 
---siehe Datei im Ordner Abgaben—
+**Diagnostikplots helfen uns, mögliche Probleme im Modell zu erkennen**
+
+<br>
+
+::::: columns
+::: {.column width="51%"}
+**Residuen vs. vorhergesagte Werte**
+
+```{r, echo=TRUE}
+plot(model_2, which = 1)
+```
+
+Hinweise auf Nichtlinearität oder ungleichmässige Streuung?
+:::
+
+::: {.column width="49%"}
+**Normal-Q-Q-Plot**
+
+```{r, echo=TRUE}
+plot(model_2, which = 2)
+```
+
+Deutliche Abweichungen von der Normalverteilung?
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Überprüfung der Voraussetzungen in R (II)
+
+**Diagnostikplots helfen uns, mögliche Probleme im Modell zu erkennen**
+
+<br>
+
+**Weitere wichtige Kontrollen**
+
+-   Einflussreiche Beobachtungen: `plot(model_2, which = 4)` und `which = 5`
+
+-   Multikollinearität: `car::vif(model_2)`
+
+-   Unabhängigkeit: anhand des Studiendesigns beurteilen
+
+------------------------------------------------------------------------
+
+## Nun: Hands-on 6A
+
+<br>
+
+![](../../images/EH11_Trainingslabor.png){fig-align="center" width="65%"}
+
+<br>
+
+**Jetzt seid ihr dran:** Öffnet Hands-on 6A auf der Seminarwebseite und ladet die Quarto-Arbeitsvorlage von ILIAS (Ordner Woche 11) herunter.
