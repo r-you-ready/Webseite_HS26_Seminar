@@ -12,14 +12,9 @@ draft: false
 
 ```{r, echo = FALSE, results = 'hide', message= FALSE, warning=FALSE}
 library(tidyverse)
-library(here)
-library(car)
-
-dat_full <- read_csv("data/raw/dat_full.csv")
-dat_long <- read_csv(here::here("scripts/02_excercises/data/processed/data_long.csv"))
 ```
 
-Bei Bedarf findest du hier nochmals die Slides zu Einheit 1:
+Bei Bedarf findest du hier nochmals die Slides zu Einheit 11:
 
 ::: {=html}
 <iframe src="../01_slides/EH_11.html" width="100%" height="500" style="border:0; display:block; margin: 0 0 2rem 0;">
@@ -330,7 +325,7 @@ Die Flossenlängen-Steigung steigt von etwa **0.255** auf **0.306**. Bei gleiche
 
 Bei gleicher Flossenlänge sind 1 mm mehr Schnabeltiefe mit etwa **0.621 mm** mehr vorhergesagter Schnabellänge verbunden.
 
-Das *R²* steigt von **.431** auf **.464**. Durch die beiden Prädiktoren gemeinsam werden ca. 64.4% der Varianz in der Schnabellänge erklärt.
+Das *R²* steigt von **.431** auf **.464**. Durch die beiden Prädiktoren gemeinsam werden ca. 46.4% der Varianz in der Schnabellänge erklärt.
 
 Diese Koeffizienten beschreiben **bedingte statistische Zusammenhänge**, keine gesicherten kausalen Effekte.
 :::
@@ -631,7 +626,7 @@ Bisher haben wir Zusammenhänge zwischen verschiedenen Körpermerkmalen untersuc
 
 Untersucht zunächst den Zusammenhang zwischen Flossenlänge und Schnabeltiefe über alle Pinguine hinweg.
 
-1.  Erstellt ein Streudiagramm mit `flipper_Length_mm` auf der x-Achse und `bill_length_mm` auf der y-Achse.
+1.  Erstellt ein Streudiagramm mit `flipper_length_mm` auf der x-Achse und `bill_depth_mm` auf der y-Achse.
 
 2.  Ergänzt eine lineare Regressionsgerade mit `geom_smooth()`.
 
