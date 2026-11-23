@@ -1,6 +1,6 @@
 ---
 title: "Hands-on Block 6: Statistische Zusammenhänge und Unterschiede untersuchen (Einheiten 11 & 12)"
-subtitle: "Von Korrelationen und Regressionen zu Mittelwertsvergleichen und ANOVAs"
+subtitle: "Von Korrelationen und Regressionen zu Mittelwertvergleichen und ANOVAs"
 editor: visual
 format:
   html:
@@ -36,7 +36,7 @@ In EH10 habt ihr die Daten unserer Replikationsstudie beschrieben und visualisie
 
 Heute trainieren wir andere statistische Verfahren: Korrelation und lineare Regression.
 
-Wir verwenden dafür erneut den bekannten Penguins-Datensatz. Die Methoden sind dieselben wir in EH11, aber die Forschungsfrage und die Variablenrollen sind anders als in der Vorlesung. So könnt ihr zeigen, dass ihr das Vorgehen selbstständig übertragen könnt.
+Wir verwenden dafür erneut den bekannten Penguins-Datensatz. Die Methoden sind dieselben wie in EH11, aber die Forschungsfrage und die Variablenrollen sind anders als in der Vorlesung. So könnt ihr zeigen, dass ihr das Vorgehen selbstständig übertragen könnt.
 
 ::: callout-important
 **Eigenständiges Trainingslabor – nicht Teil eurer Grinschgl-Replikation**
@@ -65,7 +65,7 @@ Ihr könnt einen Zusammenhang mit **Streudiagramm und Korrelation** untersuchen,
 | **A4**  | Verschachtelte Regressionsmodelle vergleichen        | ca. 10 Min. |
 | **A5**  | Modelldiagnostik und reproduzierbarer Abschluss      |  ca. 9 Min. |
 
-**So arbeitet ihr:** Versucht die Aufgaben zuerst selbstständig und verwendet bei Bedarf den aufklappbaren **Tipp**. Anschliessend könnt ihr eure Lösung mit der eingeklappten **Musterlösung** vergleichen. Schreibt eure Interpretationen als **normalen Quarto-Text ausserhalb von R-Code-Chunks**. Die freiwilligen Vertiefungen gehören **nicht** zur Richtzeit.
+**So arbeitet ihr:** Versucht die Aufgaben zuerst selbstständig und verwendet bei Bedarf die aufklappbaren **Tipps**. Anschliessend könnt ihr eure Lösung mit der eingeklappten **Musterlösung** vergleichen. Schreibt eure Interpretationen als **normalen Quarto-Text ausserhalb von R-Code-Chunks**. Die freiwilligen Vertiefungen gehören **nicht** zur Richtzeit.
 
 ### 📂 Arbeitsvorlage und Arbeitsort
 
@@ -83,7 +83,7 @@ Ihr könnt einen Zusammenhang mit **Streudiagramm und Korrelation** untersuchen,
 
 2.  Prüft die **Dimensionen, Variablennamen** und **Datentypen**.
 
-3.  Findet die Variablen für **Schnabellänge, Schnabelteife, Flossenlänge** und **Körpermasse**.
+3.  Findet die Variablen für **Schnabellänge, Schnabeltiefe, Flossenlänge** und **Körpermasse**.
 
 ::: {.callout-tip collapse="true" title="Tipp A0.1: Paketdaten und Kontrolle"}
 Den Datensatz könnt ihr direkt über `palmerpenguins::penguins` ansprechen. Mit `<-` speichert ihr ihn unter einem eigenen Objektnamen. Für die Kontrolle kennt ihr bereits `dim()`, `names()` und `glimpse()`. `read_csv()` ist hier **nicht** nötig.
@@ -148,7 +148,7 @@ Bei einem Vergleich verschachtelter Modelle darf die Veränderung nicht darauf z
 
 ### 🧭 A1.1: Was zeigt uns ein Streudiagramm?
 
-**Forschungsfrage:** *Hängen Flossenläge und Schnabellänge zusammen?*
+**Forschungsfrage:** *Hängen Flossenlänge und Schnabellänge zusammen?*
 
 Erstellt mit `ggplot2` ein Streudiagramm und speichert es unter `p_scatter`.
 
@@ -232,7 +232,7 @@ Links von `~` steht jeweils die abhängige Variable, rechts der Prädiktor (oder
 
 ### 🧭 A2.2: Die Regressionskoeffizienten verstehen
 
-Beantowrtet in eigenen Worten:
+Beantwortet in eigenen Worten:
 
 1.  Was bedeutet die **Steigung** der Flossenlänge (inklusive Masseinheit)?
 
@@ -251,7 +251,7 @@ Der geschätzte Koeffizient beschreibt, um wie viele **mm** sich die vorhergesag
 
 Das Modell erklärt ungefähr **43.1%** der beobachteten Varianz der Schnabellänge. Die restliche Varianz ist nicht allein durch die Flossenlänge beschreibbar.
 
-Der Intercept beträgt etwa **−7.26 mm**; da 0 mm Flossenlänge weit ausserhalb der beobachteten Werte liegt, ist diese Extrapolation biologisch nicht sinnvoll. Auch kann ein Pinguin kein Negativgewicht haben. Durch eine Zentrierung des Prädiktors wäre der Intercept inhaltlich sinnvoller interpretierbar (Schnabellänge bei durchschnittlicher Flossenlänge).
+Der Intercept beträgt etwa **−7.26 mm**; da 0 mm Flossenlänge weit ausserhalb der beobachteten Werte liegt, ist diese Extrapolation biologisch nicht sinnvoll. Eine negative vorhergesagte Schnabellänge ist biologisch ebenfalls nicht sinnvoll.
 
 **Wichtig:** Ein statistischer Zusammenhang belegt für sich genommen keine Ursache-Wirkungs-Beziehung.
 :::
@@ -378,7 +378,7 @@ anova(model_1, model_2, model_3)
 
 | Vergleich    | Zusätzlicher Prädiktor | Ergebnis                             |
 |:-----------------|:--------------------|:--------------------------------|
-| Modell 1 → 2 | Schnabeltiefe          | *F*(1, 339) ≈ **21.03**, *p* \< .001 |
+| Modell 1 → 2 | Schnabeltiefe          | *F*(1, 339) ≈ **21.00**, *p* \< .001 |
 | Modell 2 → 3 | Körpermasse            | *F*(1, 338) ≈ **0.61**, *p* ≈ .435   |
 
 **Fazit:** Die Schnabeltiefe verbessert das erste Modell signifikant. Die Körpermasse liefert anschliessend **keinen statistisch signifikanten zusätzlichen Beitrag**.
@@ -515,7 +515,7 @@ Unsere Variable `species` enthält drei Pinguinarten. Wir möchten aber nur zwis
 
 -   **0:** Der Pinguin gehört zu einer anderen Art (Adelie oder Chinstrap).
 
-Erstellt mit `mutate()` eine neue Variable namens `is_gentoo` im Datensatz `penguins_training`.
+Erstellt mit `mutate()` eine neue numerische Variable namens `is_gentoo` im Datensatz `penguins_training`.
 
 **Kontrolle:** Überprüft mit `table()`, wie viele Pinguine den Wert 0 bzw. 1 erhalten haben.
 
@@ -528,7 +528,7 @@ penguins_training <- penguins_training |>
 table(penguins_training$is_gentoo)
 ```
 
-Insgesamt sind von von den 342 Pinguinen 123 Gentoo-Pinguine. Die restlichen 219 Pinguine gehören den beiden anderen Arten an.
+Insgesamt sind von den 342 Pinguinen 123 Gentoo-Pinguine. Die restlichen 219 Pinguine gehören den beiden anderen Arten an.
 :::
 
 ### 🧭 V2.2: Eine logistische Regression berechnen
@@ -543,7 +543,7 @@ Verwendet dafür `glm()` anstelle von `lm()`. Mit dem Argument `family = binomia
 
 Speichert das Modell als `model_logistic` und betrachtet die Ergebnisse mit `summary()`.
 
-**Überlegt:** Die der Koeffizient der Flossenlänge positiv oder negativ? Was bedeutet das für die Wahrscheinlichkeit, dass ein Pinguin zur Art Gentoo gehört?
+**Überlegt:** Ist der Koeffizient der Flossenlänge positiv oder negativ? Was bedeutet das für die Wahrscheinlichkeit, dass ein Pinguin zur Art Gentoo gehört?
 
 ::: {.callout-note collapse="true" title="Musterlösung V2.2"}
 ```{r}
@@ -558,7 +558,7 @@ Die Flossenlänge ist ein **positiver und statistisch signifikanter Prädiktor**
 
 Das bedeutet: **Je länger die Flossen eines Pinguins sind, desto höher ist die vorhergesagte Wahrscheinlichkeit, dass er ein Gentoo-Pinguin ist.**
 
-Wichtig ist, dass die Regressionskoeffizienten bei einer logistischen Regression auf der **Log-Odds-Skala** angegeben werden. Der Wert 0.622 entspricht daher nicht einer Erhöhung der Wahrscheinlichkeit um 62.2 Prozentpunkte. Stattdessen steigen die Odds pro zusätzlichem Millimeter Flossenlänge um den Faktor (e\^{0.622}\\approx1.86).
+Wichtig ist, dass die Regressionskoeffizienten bei einer logistischen Regression auf der **Log-Odds-Skala** angegeben werden. Der Wert 0.622 entspricht daher nicht einer Erhöhung der Wahrscheinlichkeit um 62.2 Prozentpunkte. Stattdessen steigen die Odds pro zusätzlichem Millimeter Flossenlänge um den Faktor $e^{0.622} \approx 1.86$.
 :::
 
 ### 🧭 V2.3: Die vorhergesagte Wahrscheinlichkeit visualisieren
@@ -569,7 +569,7 @@ Erstellt mit `ggplot2` ein Diagramm, in dem:
 
 -   die Flossenlänge auf der x-Achse steht
 
--   die Gentoo-Zuegehörigkeit (0 oder 1) auf der y-Achse dargestellt wird
+-   die Gentoo-Zugehörigkeit (0 oder 1) auf der y-Achse dargestellt wird
 
 -   eine logistische Regressionskurve die vorhergesagte Wahrscheinlichkeit zeigt
 
@@ -656,7 +656,7 @@ cor(
 
 ```
 
-**Interpretation:** Die Korrelation dieser beiden Variablen ist in der Gesamtpopulation der Pinguine negativ (- 0.58). Das können wir auch daran sehen, dass die Regressionsgerade nach unten verläuft.
+**Interpretation:** Über alle untersuchten Pinguine hinweg zeigt sich ein negativer Zusammenhang zwischen Flossenlänge und Schnabeltiefe (*r* ≈ -.584). Entsprechend verläuft auch die gemeinsame Regressionsgerade nach unten.
 :::
 
 ### 🧭 V3.2: Die Pinguinarten berücksichtigen
@@ -694,7 +694,7 @@ ggplot(
 
 **Interpretation:** Betrachten wir alle Pinguine gemeinsam, zeigt sich ein negativer Zusammenhang zwischen Flossenlänge und Schnabeltiefe: Pinguine mit längeren Flossen haben insgesamt tendenziell eine geringere Schnabeltiefe.
 
-Sobald wir die Pinguinarten getrennt betrachten, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten verlaufen die Regressionsgeraden nach oben. Pinguine mit längeren Flossen haben innerhalb derselben Art also tendenziell auch tiefere Schnäbel.
+Sobald wir die Pinguinarten getrennt betrachten, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten verlaufen die Regressionsgeraden nach oben. Pinguine mit längeren Flossen haben innerhalb derselben Art also tendenziell auch eine grössere Schnabeltiefe.
 :::
 
 ### 🧭 V3.3: Die Korrelationen getrennt berechnen
@@ -737,7 +737,7 @@ Beantwortet anschliessend in eigenen Worten:
 ::: {.callout-note collapse="true" title="Musterlösung V3.4"}
 Betrachten wir alle Pinguine gemeinsam, besteht ein **negativer Zusammenhang** zwischen Flossenlänge und Schnabeltiefe (*r* ≈ −.584). Pinguine mit längeren Flossen haben insgesamt tendenziell eine geringere Schnabeltiefe.
 
-Untersuchen wir die Pinguinarten getrennt, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten ist der Zusammenhang **positiv** (Adelie: *r* ≈ .308; Chinstrap: *r* ≈ .580; Gentoo: *r* ≈ .707). Innerhalb derselben Art besitzen Pinguine mit längeren Flossen also tendenziell auch tiefere Schnäbel.
+Untersuchen wir die Pinguinarten getrennt, zeigt sich jedoch das Gegenteil: Innerhalb aller drei Arten ist der Zusammenhang **positiv** (Adelie: *r* ≈ .308; Chinstrap: *r* ≈ .580; Gentoo: *r* ≈ .707). Innerhalb derselben Art besitzen Pinguine mit längeren Flossen also tendenziell auch eine grössere Schnabeltiefe.
 
 **Wie lässt sich dieser Unterschied erklären?** Die drei Pinguinarten unterscheiden sich in ihren typischen Körpermerkmalen. Diese Unterschiede zwischen den Arten beeinflussen den Gesamtzusammenhang so stark, dass sich dessen Richtung gegenüber den Zusammenhängen innerhalb der Arten umkehrt.
 
