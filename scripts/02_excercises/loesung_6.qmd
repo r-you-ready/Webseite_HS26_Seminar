@@ -57,7 +57,7 @@ Ihr könnt einen Zusammenhang mit **Streudiagramm und Korrelation** untersuchen,
 ### ⏱️ Euer Weg durch die 60 Minuten
 
 | Aufgabe | Tätigkeit                                            |   Richtzeit |
-|:-----------------------|:-----------------------|-----------------------:|
+|:--------|:-----------------------------------------------------|------------:|
 | **A0**  | Penguins-Daten aus einem R-Paket laden und prüfen    |  ca. 5 Min. |
 | **A1**  | Zusammenhang visualisieren und Korrelation berechnen | ca. 10 Min. |
 | **A2**  | Einfache Regression schätzen und grafisch darstellen | ca. 14 Min. |
@@ -377,7 +377,7 @@ anova(model_1, model_2, model_3)
 ```
 
 | Vergleich    | Zusätzlicher Prädiktor | Ergebnis                             |
-|:-----------------|:--------------------|:--------------------------------|
+|:-------------|:-----------------------|:-------------------------------------|
 | Modell 1 → 2 | Schnabeltiefe          | *F*(1, 339) ≈ **21.00**, *p* \< .001 |
 | Modell 2 → 3 | Körpermasse            | *F*(1, 338) ≈ **0.61**, *p* ≈ .435   |
 
