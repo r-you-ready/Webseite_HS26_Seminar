@@ -62,7 +62,7 @@ website:
           - href: scripts/02_excercises/loesung_5.qmd
             text: "Hands-on 5 (Woche 9 - 10)"
           - href: scripts/02_excercises/loesung_6.qmd
-            text: "Hands-on 6 (Woche 11 - 11)"
+            text: "Hands-on 6 (Woche 11 - 12)"
       - href: hausuebungen.qmd
         text: "Hausübungen"
         contents:
