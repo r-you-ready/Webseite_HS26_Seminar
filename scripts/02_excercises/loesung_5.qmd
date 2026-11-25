@@ -5,7 +5,10 @@ filters:
 show_solutions: false
 format:
   html:
-    code-tools: false
+    code-tools:
+       source: downloads/loesung_5_solution.qmd
+       toggle: false
+       caption: "Download der Lösungsdatei"
 draft: false
 ---
 
@@ -83,7 +86,7 @@ Heute ergänzen wir diese beiden Schritte im bestehenden `processing.qmd`. In EH
 Nach Teil 1 könnt ihr einen Mittelwert über mehrere Items **pro Person** berechnen, `pivot_longer()` auf die beiden benötigten Ratingvariablen anwenden, die entstandenen Datensätze kontrollieren und beide Ergebnisse reproduzierbar speichern.
 
 | Aufgabe | Was macht ihr?                                         |   Richtzeit |
-|:--------|:-------------------------------------------------------|------------:|
+|:-------------|:--------------------------------------------|-------------:|
 | **A0**  | Bisheriges Processing öffnen und Arbeitsstelle finden  |  ca. 2 Min. |
 | **A1**  | `mmq_mean` berechnen                                   |  ca. 5 Min. |
 | **A2**  | `dat_long` erzeugen                                    |  ca. 5 Min. |
@@ -225,7 +228,7 @@ dat_long <- dat_full |>
 Überprüft anhand geeigneter R-Befehle die vier Kontrollfragen:
 
 | Kontrollfrage | Erwartetes Ergebnis für unsere Originaldaten |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | Wie gross ist `dat_full`? | **159 Zeilen × 37 Spalten** |
 | Wie gross ist `dat_long`? | **318 Zeilen × 37 Spalten** |
 | Wie viele verschiedene Personen enthält `dat_long`? | **159** |
@@ -309,7 +312,7 @@ Falls die gespeicherte `dat_full.csv` noch 36 Variablen hat, steht das Speichern
 Euer `processing.qmd` erzeugt jetzt **reproduzierbar zwei aufbereitete Dateien** aus den ursprünglichen sieben Rohdatensätzen:
 
 | Datei | Inhalt | Verwendung in den nächsten Einheiten |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | `data/processed/dat_full.csv` | 159 Personen × 37 Variablen, neu mit `mmq_mean` | Gruppenvergleiche und weitere Analysen |
 | `data/processed/dat_long.csv` | 318 Messzeilen × 37 Variablen, neu mit `timepoint` und `rating` | Mixed ANOVA mit `pre1` und `pre4` |
 
@@ -519,7 +522,7 @@ all(c("timepoint", "rating") %in% names(dat_long))
 Erinnert euch an **EH6 (Faktoren und Faktorstufen)** und an die Übersicht der geplanten One-Way und Mixed ANOVAs in **EH10.**
 
 | Variable | `dat_full` (One-Way ANOVAs) | `dat_long` (Mixed ANOVA) |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | `group` | **Faktor**: Feedbackgruppe | **Faktor**: Between-Subjects-Faktor |
 | `timepoint` | Nicht vorhanden | **Faktor**: Within-Subjects-Faktor |
 | `code` | Personen-ID; Umwandlung optional | Personen-ID; als Faktor sinnvoll |
@@ -885,7 +888,7 @@ ggsave(
 Speichert eure Datei. Startet anschliessend die R-Session neu und rendert **das gesamte `analysis.qmd`** von oben bis unten. Prüft, ob alle Objekte im Skript **selbst** erzeugt werden und keine Objekte aus einer alten R-Session vorausgesetzt werden.
 
 | Prüfung | Erledigt? |
-|:---|:--:|
+|:-----------------------------------|:----------------------------------:|
 | Beide Datensätze werden aus `data/processed/` eingelesen. | ☐ |
 | Die benötigten Faktoren sind einmal zentral festgelegt und kontrolliert. | ☐ |
 | `table1_descriptives` enthält **3 Zeilen × 11 Spalten**. | ☐ |
